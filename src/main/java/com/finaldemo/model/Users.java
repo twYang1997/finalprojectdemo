@@ -1,4 +1,4 @@
-package com.finaldemo.users;
+package com.finaldemo.model;
 
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -20,16 +20,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name="users")
+@Table(name="Users")
 public class Users {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer userId;
 	
-	private String account;
+	private String email;
 	
 	private String password;
+	
+	private String nickName;
 	
 	private Integer category;
 	
@@ -37,7 +39,7 @@ public class Users {
 	
 	private String phone;
 	
-	private byte[] image;
+	private String photoPath;
 	
 	@JsonFormat(pattern = "yyyy/MM/dd", timezone = "Asia/Taipei") // JSON
 	@DateTimeFormat(pattern = "yyyy/MM/dd") // SpringMVC
@@ -46,33 +48,31 @@ public class Users {
 	
 	private Integer gender;
 	
-	private String introduction;
+	private String selfIntroduction;
 	
-	private Integer income;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userId",cascade = CascadeType.ALL)
+	private Set<Pets> pets = new LinkedHashSet<Pets>(); 
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ownerId")
-	private Set<Pet> pets = new LinkedHashSet<Pet>(); 
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "posterId", cascade = CascadeType.ALL)
-	private Set<Post> posts = new LinkedHashSet<Post>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userId", cascade = CascadeType.ALL)
+	private Set<Posts> posts = new LinkedHashSet<Posts>();
 	
 	public Users() {
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
-	public String getAccount() {
-		return account;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setAccount(String account) {
-		this.account = account;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -81,6 +81,14 @@ public class Users {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public Integer getCategory() {
@@ -107,12 +115,12 @@ public class Users {
 		this.phone = phone;
 	}
 
-	public byte[] getImage() {
-		return image;
+	public String getPhotoPath() {
+		return photoPath;
 	}
 
-	public void setImage(byte[] image) {
-		this.image = image;
+	public void setPhotoPath(String photoPath) {
+		this.photoPath = photoPath;
 	}
 
 	public Date getBirthday() {
@@ -131,37 +139,31 @@ public class Users {
 		this.gender = gender;
 	}
 
-	public String getIntroduction() {
-		return introduction;
+	public String getSelfIntroduction() {
+		return selfIntroduction;
 	}
 
-	public void setIntroduction(String introduction) {
-		this.introduction = introduction;
+	public void setSelfIntroduction(String selfIntroduction) {
+		this.selfIntroduction = selfIntroduction;
 	}
 
-	public Integer getIncome() {
-		return income;
-	}
-
-	public void setIncome(Integer income) {
-		this.income = income;
-	}
-
-	public Set<Pet> getPets() {
+	public Set<Pets> getPets() {
 		return pets;
 	}
 
-	public void setPets(Set<Pet> pets) {
+	public void setPets(Set<Pets> pets) {
 		this.pets = pets;
 	}
 
-	public Set<Post> getPosts() {
+	public Set<Posts> getPosts() {
 		return posts;
 	}
 
-	public void setPosts(Set<Post> posts) {
+	public void setPosts(Set<Posts> posts) {
 		this.posts = posts;
 	}
+	
+	
 	
 	
 }
