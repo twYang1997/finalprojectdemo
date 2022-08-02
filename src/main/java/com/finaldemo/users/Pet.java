@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name="pet")
 public class Pet {
-	
+	// test
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
