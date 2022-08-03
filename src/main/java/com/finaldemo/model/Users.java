@@ -50,11 +50,26 @@ public class Users {
 	
 	private String selfIntroduction;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userId",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
 	private Set<Pets> pets = new LinkedHashSet<Pets>(); 
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userId", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Posts> posts = new LinkedHashSet<Posts>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+	private Set<Comments> Comments = new LinkedHashSet<Comments>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+	private Set<Notification> Notification = new LinkedHashSet<Notification>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fans",cascade = CascadeType.ALL)
+	private Set<Follow> fans = new LinkedHashSet<Follow>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "follow",cascade = CascadeType.ALL)
+	private Set<Follow> follows = new LinkedHashSet<Follow>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+	private Set<Donate> Donate = new LinkedHashSet<Donate>();
 	
 	public Users() {
 	}
@@ -162,8 +177,45 @@ public class Users {
 	public void setPosts(Set<Posts> posts) {
 		this.posts = posts;
 	}
-	
-	
-	
+
+	public Set<Comments> getComments() {
+		return Comments;
+	}
+
+	public void setComments(Set<Comments> comments) {
+		Comments = comments;
+	}
+
+	public Set<Notification> getNotification() {
+		return Notification;
+	}
+
+	public void setNotification(Set<Notification> notification) {
+		Notification = notification;
+	}
+
+	public Set<Follow> getFans() {
+		return fans;
+	}
+
+	public void setFans(Set<Follow> fans) {
+		this.fans = fans;
+	}
+
+	public Set<Follow> getFollows() {
+		return follows;
+	}
+
+	public void setFollows(Set<Follow> follows) {
+		this.follows = follows;
+	}
+
+	public Set<Donate> getDonate() {
+		return Donate;
+	}
+
+	public void setDonate(Set<Donate> donate) {
+		Donate = donate;
+	}
 	
 }

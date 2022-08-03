@@ -2,7 +2,6 @@ package com.finaldemo.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -43,7 +42,7 @@ public class Pets {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_user_id")
-	private Users userId;
+	private Users user;
 	
 	public Pets() {
 	}
@@ -104,12 +103,12 @@ public class Pets {
 		this.petDescription = petDescription;
 	}
 
-	public Users getUserId() {
-		return userId;
+	public Users getUser() {
+		return user;
 	}
 
-	public void setUserId(Users userId) {
-		this.userId = userId;
+	public void setUser(Users user) {
+		this.user = user;
 	}
 	
 	

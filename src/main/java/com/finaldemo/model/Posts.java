@@ -1,7 +1,10 @@
 package com.finaldemo.model;
 
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -34,8 +38,17 @@ public class Posts {
 	private Integer isReport;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "fk_post_id")
-	private Users userId;
+	@JoinColumn(name = "fk_user_id")
+	private Users user;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post",cascade = CascadeType.ALL)
+	private Set<Comments> Comments = new LinkedHashSet<Comments>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post",cascade = CascadeType.ALL)
+	private Set<PostImg> PostImg = new LinkedHashSet<PostImg>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post",cascade = CascadeType.ALL)
+	private Set<Notification> Notification = new LinkedHashSet<Notification>();
 	
 	public Posts() {
 	}
@@ -104,13 +117,36 @@ public class Posts {
 		this.isReport = isReport;
 	}
 
-	public Users getUserId() {
-		return userId;
+	public Users getUser() {
+		return user;
 	}
 
-	public void setUserId(Users userId) {
-		this.userId = userId;
+	public void setUser(Users user) {
+		this.user = user;
 	}
-	
+
+	public Set<Comments> getComments() {
+		return Comments;
+	}
+
+	public void setComments(Set<Comments> comments) {
+		Comments = comments;
+	}
+
+	public Set<PostImg> getPostImg() {
+		return PostImg;
+	}
+
+	public void setPostImg(Set<PostImg> postImg) {
+		PostImg = postImg;
+	}
+
+	public Set<Notification> getNotification() {
+		return Notification;
+	}
+
+	public void setNotification(Set<Notification> notification) {
+		Notification = notification;
+	}
 	
 }
