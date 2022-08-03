@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>Insert title here</title>
 </head>
 <body>
-normal
+charity
 </body>
 </html>
