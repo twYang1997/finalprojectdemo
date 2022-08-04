@@ -5,6 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.finaldemo.model.Users;
@@ -20,6 +23,28 @@ public class UsersListController {
 		Page<Users> page = Service.findByPage(pageNumber);
 
 		model.addAttribute("page", page);
+		return "Brian/memberManagement";
+	}
+	
+	@GetMapping("/updateNUser/{email}")
+	public String editMessagePage(@PathVariable Integer email, Model model) {
+		Users msg = Service.findByEmail(email);
+
+		model.addAttribute("Users", msg);
+
+		return "Brian/memberManagement";
+	}
+	
+	@PostMapping("/postUser")
+	public String postMessage(@ModelAttribute Users msg, Model model) {
+		Service.insertUsers(msg);
+
+		Users newMsg = new Users();
+		Users latestMsg = Service.lastestUsers();
+
+		model.addAttribute("workMessages", newMsg);
+		model.addAttribute("latestMsg", latestMsg);
+
 		return "Brian/memberManagement";
 	}
 
