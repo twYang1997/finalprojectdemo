@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
@@ -12,9 +13,30 @@
 <body>
 	<img src="${contextRoot}/${user.photoPath}" width="200"
 		id="preview_progressbarTW_img">
-	<input type="file" name="testfile" id="testfile">
+	<input type="file" name="testfile" id="testfile" style="display:none;">
+	
+	<h1>hello! ${user.nickName}</h1>
+	<table>
+		<tr>
+			<td>follow</td>
+			<td>fans</td>
+		</tr>
+		<tr>
+			<td>${fn:length(user.follows)}</td>
+			<td>${fn:length(user.fans)}</td>
+		</tr>
+	</table>
+	<ul>
+		<li><a href="petmanager.controller">寵物管理</a></li>
+		<li><a href="postmanager.controller"></a></li>
+		<li><a href=""></a></li>
+		<li><a href=""></a></li>
+	</ul>
 	<script>
 	$(document).ready(function () {
+		$('#preview_progressbarTW_img').click(function(){
+			$('#testfile').click();
+		});
 		var file = document.getElementById("testfile");
 		file.onchange = function() {
 			console.log(file.files[0]);
