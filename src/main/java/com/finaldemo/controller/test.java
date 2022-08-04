@@ -33,7 +33,7 @@ public class test {
 //		p1.setUserId(u1);
 //		p2.setUserId(u1);
 //		pDao.delete(pDao.findById(2).get());
-		uDao.deleteById(1);
+//		uDao.deleteById(1);
 //		uDao.save(u1);
 //		System.out.println(u1.getNickName());
 		return "test";
