@@ -5,6 +5,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+<jsp:include page="layout/navbar.jsp" />
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -12,11 +14,7 @@
 </head>
 <body>
 	<div>
-		<form:form class="form" method="post" modelAttribute="test"
-			action="${contextRoot}/test">
-
-			<button type="button">button</button>
-		</form:form>
+	<h3>捐錢LA</h3>
 	</div>
 </body>
 </html>
