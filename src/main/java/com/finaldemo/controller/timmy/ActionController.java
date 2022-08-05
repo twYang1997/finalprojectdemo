@@ -91,7 +91,7 @@ public class ActionController {
 		return "redirect:accountsetting.controller";
 	}
 
-	@PostMapping("uploadImgAjax")
+	@PostMapping("user/uploadImgAjax")
 	@ResponseBody
 	public String uploadImagAjax(@RequestBody ImageDto dto, @RequestParam(name = "id") Integer id) {
 		String extension = dto.getImg64().replaceAll("data:" + dto.getType().trim() + ";base64,", "");

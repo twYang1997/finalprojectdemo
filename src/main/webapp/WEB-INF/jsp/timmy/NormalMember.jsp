@@ -22,15 +22,14 @@
 			<td>fans</td>
 		</tr>
 		<tr>
-			<td>${fn:length(user.follows)}</td>
-			<td>${fn:length(user.fans)}</td>
+			<td><a href="/user/followersManager.controller?id=${user.userId}">${fn:length(user.follows)}</a></td>
+			<td><a href="/user/fansManager.controller?id=${user.userId}">${fn:length(user.fans)}</a></td>
 		</tr>
 	</table>
 	<ul>
-		<li><a href="petmanager.controller">寵物管理</a></li>
-		<li><a href="postmanager.controller"></a></li>
-		<li><a href=""></a></li>
-		<li><a href=""></a></li>
+		<li><a href="/user/postManager.controller?id=${user.userId}" id="poM">貼文管理</a></li>
+		<li><a href="/user/memberDetail.controller?id=${user.userId}" id="mD">個人資料</a></li>
+		<li><a href="/user/petManager.controller?id=${user.userId}" id="peM">寵物管理</a></li>
 	</ul>
 	<script>
 	$(document).ready(function () {
@@ -56,7 +55,7 @@
 					}	
 					var datas = JSON.stringify(datao);
 					$.ajax({
-						url: "<c:url value='/uploadImgAjax' />?id=${user.userId}",
+						url: "<c:url value='/user/uploadImgAjax' />?id=${user.userId}",
 						contentType: 'application/json',
 						dataType: 'text',
 						method: 'post',
