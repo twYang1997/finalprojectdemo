@@ -37,14 +37,11 @@ public class UsersListController {
 	}
 	
 	@PostMapping("/postUser")
-	public String postMessage(@ModelAttribute Users msg, Model model) {
+//	@RequestMapping("/postUser")
+	public String postUser(@ModelAttribute Users msg, Model model) {
 		Service.insertUsers(msg);
 
-		Users newMsg = new Users();
-		
-		model.addAttribute("users", newMsg);
-
-		return "Brian/memberManagement";
+		return "redirect:/memberManagement";
 	}
 
 }

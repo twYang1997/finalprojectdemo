@@ -44,23 +44,24 @@
 																	<form:form class="form" method="post"
 																		modelAttribute="users"
 																		action="${contextRoot}/postUser">
+																		<form:input path="userId" type="hidden" value="${users.userId}"/>
 																			<!--email-->
 																			<div class="form-row"
 																				style="text-align: left;">
 																				<div class="form-group col-md-6">
 																					<label for="group">Email</label>
-																					<input path="email"  type="email"
+																					<form:input path="email"  type="email"
 																						class="form-control"
-																						id="inputEmail4">
+																						id="inputEmail4"/>
 																				</div>
 																				<!--密碼-->
 																				<div class="form-group col-md-6"
 																					style="text-align: left;">
 																					<label
 																						for="inputPassword4">Password</label>
-																					<input path="password" type="text"
+																					<form:input path="password" type="text"
 																						class="form-control"
-																						id="inputPassword4">
+																						id="inputPassword4"/>
 																				</div>
 																			</div>
 																			<!--暱稱-->
@@ -68,55 +69,55 @@
 																				style="text-align: left;">
 																				<label for="inputAddress">Nick
 																					name</label>
-																				<input path="nickName" type="text" class="form-control"
-																					id="inputAddress">
+																				<form:input path="nickName" type="text" class="form-control"
+																					id="inputAddress"/>
 																			</div>
 																			<!--電話-->
 																			<div class="form-group"
 																				style="text-align: left;">
 																				<label for="inputAddress">phone</label>
-																				<input path="phone" type="text" class="form-control"
-																					id="inputAddress">
+																				<form:input path="phone" type="text" class="form-control"
+																					id="inputAddress"/>
 																			</div>
 																			<!--地址-->
 																			<div class="form-group"
 																				style="text-align: left;">
 																				<label
 																					for="inputAddress">Address</label>
-																				<input path="address" type="text" class="form-control"
-																					id="inputAddress">
+																				<form:input path="address" type="text" class="form-control"
+																					id="inputAddress"/>
 																			</div>
 																			<!--生日-->
 																			<div class="form-group"
 																				style="text-align: left;">
 																				<label
 																					for="inputAddress">Birthday之後換</label>
-																				<input path="birthday" type="text" class="form-control"
-																					id="inputAddress">
+																				<form:input path="birthday" type="text" class="form-control"
+																					id="inputAddress"/>
 																			</div>
 																			<!--圖-->
 																			<div class="form-group"
 																				style="text-align: left;">
 																				<label
 																					for="inputAddress">photoPath之後換</label>
-																				<input path="photoPath" type="text" class="form-control"
-																					id="inputAddress">
+																				<form:input path="photoPath" type="text" class="form-control"
+																					id="inputAddress"/>
 																			</div>
 																			<!--性別-->
 																			<div class="form-group"
 																				style="text-align: left;">
 																				<label
 																					for="inputAddress">gender之後換</label>
-																				<input path="gender" type="text" class="form-control"
-																					id="inputAddress">
+																				<form:input path="gender" type="text" class="form-control"
+																					id="inputAddress"/>
 																			</div>
 																			<!--權限-->
 																			<div class="form-group"
 																				style="text-align: left;">
 																				<label
 																					for="inputAddress">category之後換</label>
-																				<input path="category" type="text" class="form-control"
-																					id="inputAddress">
+																				<form:input path="category" type="text" class="form-control"
+																					id="inputAddress"/>
 																			</div>
 
 																			<!--自介-->
@@ -124,16 +125,16 @@
 																				style="text-align: left;">
 																				<label
 																					for="exampleFormControlTextarea1">selfIntroduction</label>
-																				<textarea path="selfIntroduction" class="form-control"
+																				<form:textarea path="selfIntroduction" class="form-control"
 																					id="exampleFormControlTextarea1"
-																					rows="3"></textarea>
+																					rows="3"/>
 																			</div>
 																		<!-- 按鈕 -->
 																		<div class="modal-footer">
 																			<button type="button" class="btn btn-danger"
 																				data-dismiss="modal">Close</button>
 																			<button type="submit" class="btn btn-primary"
-																				 data-dismiss="modal">Submit</button>
+																				 >Submit</button>
 																		</div>
 																	</form:form>
 																</div>
