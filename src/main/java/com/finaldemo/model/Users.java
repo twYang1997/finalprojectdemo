@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -50,25 +49,25 @@ public class Users {
 	
 	private String selfIntroduction;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petUser")
 	private Set<Pets> pets = new LinkedHashSet<Pets>(); 
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "postUser")
 	private Set<Posts> posts = new LinkedHashSet<Posts>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Comments> Comments = new LinkedHashSet<Comments>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Notification> Notification = new LinkedHashSet<Notification>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fans",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fans")
 	private Set<Follow> fans = new LinkedHashSet<Follow>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "follow",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "follow")
 	private Set<Follow> follows = new LinkedHashSet<Follow>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Donate> Donate = new LinkedHashSet<Donate>();
 	
 	public Users() {

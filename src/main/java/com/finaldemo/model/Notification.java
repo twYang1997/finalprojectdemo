@@ -2,6 +2,7 @@ package com.finaldemo.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,12 +31,12 @@ public class Notification {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date notificationTime;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="fk_user_id")
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="fk_user_id", referencedColumnName = "userId")
 	private Users user;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="fk_post_id")
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Posts.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="fk_post_id", referencedColumnName = "postId")
 	private Posts post;
 	
 	public Notification() {

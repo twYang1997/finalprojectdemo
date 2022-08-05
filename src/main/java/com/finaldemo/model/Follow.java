@@ -1,5 +1,6 @@
 package com.finaldemo.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,12 +18,12 @@ public class Follow {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="fk_user_fans_id")
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="fk_user_fans_id", referencedColumnName = "userId")
 	private Users fans;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="fk_user_follow_id")
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="fk_user_follow_id", referencedColumnName = "userId")
 	private Users follow;
 	
 	public Follow() {

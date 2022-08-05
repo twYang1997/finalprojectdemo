@@ -1,5 +1,6 @@
 package com.finaldemo.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,8 +20,8 @@ public class PostImg {
 	
 	private String postImgPath;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="fk_post_id")
+	@ManyToOne(fetch = FetchType.EAGER ,cascade = CascadeType.ALL, targetEntity = Posts.class)
+	@JoinColumn(name="fk_post_id", referencedColumnName = "postId")
 	private Posts post;
 	
 	public PostImg() {
