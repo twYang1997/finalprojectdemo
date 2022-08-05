@@ -21,7 +21,8 @@ public class UsersListController {
 	@GetMapping("/memberManagement")
 	public String memberManagement(@RequestParam(name = "p", defaultValue = "1")Integer pageNumber, Model model ){
 		Page<Users> page = Service.findByPage(pageNumber);
-
+		Users newMsg = new Users();
+		model.addAttribute("users", newMsg);
 		model.addAttribute("page", page);
 		return "Brian/memberManagement";
 	}
@@ -40,10 +41,8 @@ public class UsersListController {
 		Service.insertUsers(msg);
 
 		Users newMsg = new Users();
-		Users latestMsg = Service.lastestUsers();
-
-		model.addAttribute("workMessages", newMsg);
-		model.addAttribute("latestMsg", latestMsg);
+		
+		model.addAttribute("users", newMsg);
 
 		return "Brian/memberManagement";
 	}
