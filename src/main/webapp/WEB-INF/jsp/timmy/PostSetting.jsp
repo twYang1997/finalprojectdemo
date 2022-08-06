@@ -15,8 +15,8 @@ table, th, td {
 </style>
 </head>
 <body>
-	hello! ${user2.nickName}
-	<c:forEach var="post" items="${user2.posts}">
+	hello! ${user.nickName}
+	<c:forEach var="post" items="${user.posts}">
 		<table border="">
 			<tr>
 				<td>${user.nickName}</td>

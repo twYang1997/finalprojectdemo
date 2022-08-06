@@ -38,4 +38,8 @@ public class TimmyService {
 	public Posts insertNewPost(Posts post) {
 		return pDao.save(post);
 	}
+
+	public void deletePostById(Integer id) {
+		pDao.deleteById(id);
+	}
 }

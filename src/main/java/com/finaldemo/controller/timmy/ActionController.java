@@ -33,16 +33,6 @@ public class ActionController {
 	@Autowired
 	private TimmyService service;
 	
-	/*
-	 * 要在controller使用user的session要採用的動作
-	 * */
-	private Users rebuildUserSession(HttpSession session) {
-		Users u1 = (Users)session.getAttribute("user");
-		Users u2 = service.getUserById(u1.getUserId());
-		session.setAttribute("user2", u2);
-		return u2;
-	}
-	
 	@PostMapping("NewUserPage")
 	@ResponseBody
 	public Users newUserTest() {
@@ -62,7 +52,7 @@ public class ActionController {
 	@PostMapping("NewPostPage")
 	@ResponseBody
 	public Posts newPostTest() {
-		Users u1 = service.getUserById(1);
+		Users u1 = service.getUserById(2);
 		Set<Posts> ps = u1.getPosts();
 		Posts p1 = new Posts();
 		p1.setPostText("第一次PO文");
@@ -76,6 +66,10 @@ public class ActionController {
 		return p1;
 	}
 	
+	@GetMapping("DeleteTestPage")
+	public void deletePostsTest() {
+		service.deletePostById(5);
+	}
 //	@GetMapping("getPosts/{id}")
 //	@ResponseBody
 //	public List<Posts> getPostTest(@PathVariable Integer id){
@@ -110,7 +104,7 @@ public class ActionController {
 
 	@GetMapping("accountsetting.controller")
 	public String testgivingSession(HttpSession session) {
-		Users u1 = service.getUserById(1);
+		Users u1 = service.getUserById(2);
 		session.setAttribute("user", u1);
 		if (u1.getCategory() == 1)
 			return "timmy/NormalMember";
@@ -146,7 +140,7 @@ public class ActionController {
 	
 	@GetMapping("user/postManager.controller")
 	public String action1(HttpSession session, Model m) {
-		Users u1 = rebuildUserSession(session);
+		Users u1 = (Users)session.getAttribute("user");
 		System.out.println("name: " + u1.getNickName());
 		Iterator<Posts> it = u1.getPosts().iterator();
 		while(it.hasNext()) {
@@ -157,5 +151,10 @@ public class ActionController {
 		return "timmy/PostSetting";
 	}
 	
+	@GetMapping("user/normalmemberdetail.controller")
+	public String action2(HttpSession session, Model m) {
+		m.addAttribute("newUser", new Users());
+		return "timmy/UserSetting";
+	}
 	
 }
