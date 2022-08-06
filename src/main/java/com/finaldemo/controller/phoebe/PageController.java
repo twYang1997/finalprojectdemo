@@ -13,7 +13,6 @@ public class PageController {
 
 	@GetMapping("/phoebe/")
 	public String welcomeIndex(HttpSession session) {
-		System.out.println(session.getAttribute("Users"));
 		return "phoebe/index";
 	}
 
