@@ -1,12 +1,11 @@
 package com.finaldemo.controller.timmy;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -97,6 +96,7 @@ public class ActionController {
 		c.set(1997, 10, 14);
 		Users u1 = service.getUserById(1);
 		u1.setNickName("jenny");
+		u1.setPassword("1234");
 		u1.setAddress("台南市永康區大橋兩百街100號");
 		u1.setBirthday(c.getTime());
 		u1.setCategory(1);
@@ -110,7 +110,7 @@ public class ActionController {
 
 	@GetMapping("accountsetting.controller")
 	public String testgivingSession(HttpSession session) {
-		Users u1 = service.getUserById(2);
+		Users u1 = service.getUserById(1);
 		session.setAttribute("user", u1);
 		if (u1.getCategory() == 1)
 			return "timmy/NormalMember";
@@ -120,33 +120,23 @@ public class ActionController {
 			return null;
 	}
 
-	@PostMapping("uploadImg.controller")
-	public String uploadImg(@RequestParam Integer photoId, @RequestParam MultipartFile newPhoto) {
-		try {
-			newPhoto.transferTo(new File("C:\\_SpringBoot\\workspace\\finaldemo\\src\\main\\webapp\\img\\userimg\\"
-					+ photoId.toString() + ".jpg"));
-			Users user1 = service.getUserById(photoId);
-			user1.setPhotoPath("/img/userimg/" + photoId.toString() + ".jpg");
-			service.insertNewUser(user1);
-		} catch (Exception e) {
-		}
-		return "redirect:accountsetting.controller";
-	}
-
 	@PostMapping("user/uploadImgAjax")
 	@ResponseBody
-	public String uploadImagAjax(@RequestBody ImageDto dto, @RequestParam(name = "id") Integer id) {
+	public String uploadImagAjax(@RequestBody ImageDto dto) throws FileNotFoundException {
 		String extension = dto.getImg64().replaceAll("data:" + dto.getType().trim() + ";base64,", "");
 		String type = dto.getType().replaceAll("image/", "");
+		Integer id = dto.getId();
 		byte[] content = Base64.decodeBase64(extension);
 		try {
 			FileUtils.writeByteArrayToFile(
-					new File("C:\\_SpringBoot\\workspace\\finaldemo\\src\\main\\webapp\\img\\userimg\\",
+					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\userimg\\",
 							id.toString() + "." + type),
 					content);
+			System.out.println("upload file to folder success");
 			Users user = service.getUserById(id);
 			user.setPhotoPath("/img/userimg/" + id.toString() + "." + type);
 			service.insertNewUser(user);
+			System.out.println("upload filepath to db success");
 			return "success";
 		} catch (IOException e) {
 			e.printStackTrace();

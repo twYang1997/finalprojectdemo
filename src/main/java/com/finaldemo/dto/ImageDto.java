@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ImageDto {
 	
+	@JsonProperty("id")
+	private Integer id;
+	
 	@JsonProperty("img64")
 	private String img64;
 	
@@ -27,6 +30,14 @@ public class ImageDto {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }
