@@ -92,7 +92,7 @@
 																				style="text-align: left;">
 																				<label
 																					for="inputAddress">Birthday之後換</label>
-																				<form:input path="birthday" type="text" class="form-control"
+																				<form:input path="birthday" type="date" class="form-control"
 																					id="inputAddress"/>
 																			</div>
 																			<!--圖-->
@@ -104,12 +104,15 @@
 																					id="inputAddress"/>
 																			</div>
 																			<!--性別-->
-																			<div class="form-group"
-																				style="text-align: left;">
-																				<label
-																					for="inputAddress">gender之後換</label>
-																				<form:input path="gender" type="text" class="form-control"
-																					id="inputAddress"/>
+																			<div class="form-check form-check-inline"
+																				style="text-align: right;">
+																				<form:radiobutton path="gender" class="form-check-input"  id="inlineRadio1" value="0" />
+																				<label class="form-check-label" for="inlineRadio1">男</label>
+																			</div>
+																			<div class="form-check form-check-inline"
+																				style="text-align: right;">
+																				 <form:radiobutton path="gender" class="form-check-input"  id="inlineRadio2" value="1"/>
+																				 <label class="form-check-label" for="inlineRadio2">女</label>
 																			</div>
 																			<!--權限-->
 																			<div class="form-group"
