@@ -60,7 +60,7 @@
 										<div>
 											<form:radiobutton path="Category" value="2"
 												required="required" />
-											Ordinary member <br>
+											member <br>
 											<form:radiobutton path="Category" value="3" />
 											charity
 										</div>

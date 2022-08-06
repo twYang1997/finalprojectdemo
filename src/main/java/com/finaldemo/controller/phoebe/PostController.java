@@ -27,26 +27,26 @@ public class PostController {
 	public String addPost(@RequestParam String postText, @RequestParam MultipartFile[] postImg,
 			@RequestParam MultipartFile postVideo, @RequestParam Integer whoCanSeeIt, HttpSession session)
 			throws IllegalStateException, IOException {
-		Posts newPost = new Posts();
-		newPost.setIsReport(0);
-		newPost.setPostLike(0);
-		newPost.setPostText(postText);
-		newPost.setPostTime(new Date());
-		newPost.setPostVideoSrc(postVideo.getOriginalFilename());
-		newPost.setWhoCanSeeIt(whoCanSeeIt);
-		Users author = new Users();
-//		author.setNickName(session.getAttribute("Users").getClass());
-//		newPost.setPostUser();
-
-		postService.addPost(newPost);
+		Posts p = new Posts();
+		p.setIsReport(0);
+		p.setPostLike(0);
+		p.setPostText(postText);
+		p.setPostTime(new Date());
+		p.setPostVideoSrc(postVideo.getOriginalFilename());
+		p.setWhoCanSeeIt(whoCanSeeIt);
+		p.setPostUser((Users) session.getAttribute("Users"));
+		Posts newPost = postService.addPost(p);
 
 		// 存圖片
 		PostImg newPostImg = new PostImg();
 		for (MultipartFile img : postImg) {
+			//存資料夾
 			String fileName = img.getOriginalFilename();
 			String postImgPath = "C:/Git/Project/finalprojectdemo/src/main/webapp/img/postImg/" + fileName;
 			img.transferTo(new File(postImgPath));
 			newPostImg.setPostImgPath(postImgPath);
+			//存PostImg資料表
+			
 		}
 
 		// 存影片
