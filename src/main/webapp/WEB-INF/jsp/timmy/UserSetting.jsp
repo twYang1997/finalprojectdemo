@@ -12,12 +12,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form class="form" method="post" modelAttribute="newUser" action="${contextRoot}/updateUser.controller">
-		<form:input path="nickName"></form:input>
-		<form:input path="address"></form:input>
-		<form:input path="email"></form:input>
-		<form:input path="selfIntroduction"></form:input>
-		<form:input path="phone"></form:input>
-	</form:form>
+	hello here is usersetting
+<%-- 	<form:form class="form" method="post" modelAttribute="newUser" action="${contextRoot}/updateUser.controller"> --%>
+<%-- 		<form:input path="nickName"></form:input> --%>
+<%-- 		<form:input path="address"></form:input> --%>
+<%-- 		<form:input path="email"></form:input> --%>
+<%-- 		<form:input path="selfIntroduction"></form:input> --%>
+<%-- 		<form:input path="phone"></form:input> --%>
+<%-- 	</form:form> --%>
 </body>
 </html>

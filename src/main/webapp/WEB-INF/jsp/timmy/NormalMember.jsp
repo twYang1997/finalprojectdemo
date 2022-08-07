@@ -5,86 +5,124 @@
 <c:set var="contextRoot" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <title></title>
 <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
-<%-- <script src="${contextRoot}/js/timmy_js/uploadimg.js"></script> --%>
+<script src="${contextRoot}/js/timmy_js/uploadimg.js"></script>
 </head>
+<style>
+#preview_progressbarTW_img {
+	width: 300px;
+	height: 200px;
+	display: block;
+	margin: 20px auto 20px auto;
+	border-radius: 40%;
+	display: block;
+	display: block
+}
+
+table {
+	text-align: center;
+	font-size: 200%;
+}
+td {
+	width: 50%;
+}
+#ulnav {
+	padding: 0;
+	list-style: none;
+	margin-bottom:50px;
+	display: flex;
+	justify-content: center;
+}
+
+#ulnav li {
+	margin: auto;
+}
+
+#navSetting {
+	margin: auto 30%;
+}
+</style>
+
 <body>
-<jsp:include page="layout/navbar.jsp" />
-	<img src="${contextRoot}/${user.photoPath}" width="200"
-		id="preview_progressbarTW_img">
-	<input type="file" name="testfile" id="testfile" style="display: none;">
-	<h1>hello! ${user.nickName}</h1>
-	<table>
-		<tr>
-			<td>follow</td>
-			<td>fans</td>
-			<td>posts</td>
-		</tr>
-		<tr>
-			<td><a
-				href="/user/followersManager.controller?id=${user.userId}">${fn:length(user.follows)}</a>
-			</td>
-			<td><a href="/user/fansManager.controller?id=${user.userId}">${fn:length(user.fans)}</a></td>
-			<td>${fn:length(user.posts)}</td>
-		</tr>
-	</table>
-<%-- 	<c:forEach var="one" items="${user.posts}"> --%>
-<%-- 		<div>${one.text}</div> --%>
-<%-- 	</c:forEach> --%>
-	<ul>
-		<li><a href="${contextRoot}/user/postManager.controller"
-			class="a_post">貼文管理</a></li>
-		<li><a href="${contextRoot}/user/memberDetail.controller"
-			class="a_post">個人資料</a></li>
-		<li><a href="${contextRoot}/user/petManager.controller"
-			class="a_post">寵物管理</a></li>
-	</ul>
+	<jsp:include page="layout/navbar.jsp" />
+	<div class="container">
+		<img src="${contextRoot}/${user.photoPath}"
+			id="preview_progressbarTW_img"> <input type="file"
+			name="testfile" id="testfile" style="display: none;">
+		<table class="table">
+			<thead>
+				<tr>
+					<td colspan="2">Hello! ${user.nickName}</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Follow</td>
+					<td>Fans</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td><a
+						href="/timmy/followersManager.controller?id=${user.userId}">${fn:length(user.follows)}</a>
+					</td>
+					<td><a href="/timmy/fansManager.controller?id=${user.userId}">${fn:length(user.fans)}</a>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+		<span id="id" style="display: none;">${user.userId}</span>
+
+		<ul id="ulnav">
+			<li><button id="postManager" class="btn btn-outline-secondary btn-lg">貼文管理</button></li>
+			<li><button id="settingManager" class="btn btn-outline-secondary btn-lg">個人資料</button></li>
+			<li><button id="petManager" class="btn btn-outline-secondary btn-lg">寵物管理</button></li>
+		</ul>
+		<div id="navSetting">
+			<div id="postManagerDiv" style="">
+				<jsp:include page="PostSetting.jsp" />
+			</div>
+			<div id="settingManagerDiv" style="display: none">
+				<jsp:include page="UserSetting.jsp" />
+			</div>
+			<div id="petManagerDiv" style="display: none">
+				<jsp:include page="PetSetting.jsp" />
+			</div>
+		</div>
+	</div>
 </body>
 <script>
-$(document).ready(function () {
-	$('#preview_progressbarTW_img').click(function(){
-		$('#testfile').click();
-	});
-	var file = document.getElementById("testfile");
-	file.onchange = function() {
-		console.log(file.files[0]);
-		readURL(this);
-		console.log(this.files[0].type);
-	};
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				document.getElementById("preview_progressbarTW_img")
-						.setAttribute("src", e.target.result);
-				console.log(typeof e.target.result);
-				var datao = {
-					"img64": e.target.result,
-					"type": file.files[0].type,
-					"id": "${user.userId}"
-				}	
-				var datas = JSON.stringify(datao);
-				$.ajax({
-					url: '${contextRoot}/user/uploadImgAjax',
-					contentType: 'application/json',
-					dataType: 'text',
-					method: 'post',
-					data: datas,
-					success: function (result){
-						console.log(result);
-					},
-					error: function (error){
-						console.log(error);
-					}	
-				});
+	$(document).ready(function() {
+		var pmd = $("#postManagerDiv")[0];
+		var smd = $("#settingManagerDiv")[0];
+		var emd = $("#petManagerDiv")[0];
+		$("#postManager").click(function() {
+			if (pmd.getAttribute("style") == "display: none") {
+				pmd.setAttribute("style", "");
+				smd.setAttribute("style", "display: none");
+				emd.setAttribute("style", "display: none");
 			}
-		}
-		reader.readAsDataURL(input.files[0]);
-	}
-});
+		});
+		$("#settingManager").click(function() {
+			if (smd.getAttribute("style") == "display: none") {
+				smd.setAttribute("style", "");
+				pmd.setAttribute("style", "display: none");
+				emd.setAttribute("style", "display: none");
+			}
+		});
+		$("#petManager").click(function() {
+			if (emd.getAttribute("style") == "display: none") {
+				emd.setAttribute("style", "");
+				smd.setAttribute("style", "display: none");
+				pmd.setAttribute("style", "display: none");
+			}
+		});
+
+	})
 </script>
 
 </html>

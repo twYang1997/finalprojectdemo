@@ -8,16 +8,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-}
 </style>
 </head>
 <body>
-	hello! ${user.nickName}
 	<c:forEach var="post" items="${user.posts}">
-		<table border="">
+		<table class="table">
 			<tr>
 				<td>${user.nickName}</td>
 			</tr>

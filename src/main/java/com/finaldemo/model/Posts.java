@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Posts {
 	
 	private Integer isReport;
 	
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_user_id", referencedColumnName = "userId")
 	private Users postUser;
 	
