@@ -1,9 +1,17 @@
 package com.finaldemo.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
+import com.finaldemo.model.PostImg;
+import com.finaldemo.model.PostImgRepository;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.PostsRepository;
 import com.finaldemo.model.Users;
@@ -12,26 +20,42 @@ import com.finaldemo.model.UsersRepository;
 @Service
 @Transactional
 public class PhoebeService {
-	
-	//UsersService
+
+	// UsersService
 	@Autowired
 	private UsersRepository UsersRepository;
-	
-	@Autowired
-	private PostsRepository PostsRepository;
-	
+
+	// UserService
 	public void signUp(Users user) {
 		user.setPhotoPath("DefaultUserImage.png");
 		UsersRepository.save(user);
 	}
-	
+
 	public Users checkLogin(String email, String password) {
 		return UsersRepository.selectUserByNameAndPwd(email, password);
 	}
-	
-	//PostService
+
+	// PostService
+	@Autowired
+	private PostsRepository PostsRepository;
+	@Autowired
+	private PostImgRepository PostImgRepository;
+
+	public ArrayList<Posts> getPostsByUserId(Integer userId, Integer postId) {
+		List<Posts> posts = PostsRepository.findPostsByUserId(userId);
+		return null;
+
+	}
+
+//	public Optional<PostImg> getPostImgsByPostId(Integer postId) {
+//		return PostImgRepository.findById(postId);
+//	}
+
 	public Posts addPost(Posts newPost) {
 		return PostsRepository.save(newPost);
-		
+	}
+
+	public PostImg addPostImg(PostImg newImg) {
+		return PostImgRepository.save(newImg);
 	}
 }
