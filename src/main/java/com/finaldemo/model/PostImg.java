@@ -20,7 +20,7 @@ public class PostImg {
 	
 	private String postImgPath;
 	
-	@ManyToOne(fetch = FetchType.EAGER ,cascade = CascadeType.ALL, targetEntity = Posts.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Posts.class)
 	@JoinColumn(name="fk_post_id", referencedColumnName = "postId")
 	private Posts post;
 	

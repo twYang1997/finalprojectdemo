@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.finaldemo.model.Users;
 
 @Controller
-public class PageController {
+public class PhoebeController {
 
 	@GetMapping("/phoebe/")
 	public String welcomeIndex(HttpSession session) {
