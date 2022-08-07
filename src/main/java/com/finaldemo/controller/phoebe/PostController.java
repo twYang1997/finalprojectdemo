@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Optional;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,20 +29,15 @@ public class PostController {
 
 	// 顯示登入者主頁貼文
 	@GetMapping("/getMainPagePosts.controller")
-	public PostImg getMainPagePosts(HttpSession session, Model model){
-		ArrayList<Posts> postdDisplayOnMainPage = new ArrayList<Posts>();
-		//取得登入者發的posts
-		Integer userId = ((Users)session.getAttribute("Users")).getUserId();
-//		service.getPostsByUserId(userId);
-//		
-//		Optional<PostImg> optional = service.getPostImgsByPostId();
-//		if (optional.isPresent()) {
-//			model.addAttribute("postImg", optional.get());
-//		} else {
-//			return optional.get();
+	public String getMainPagePosts(HttpSession session, Model model) {
+		// 取得登入者發的posts
+		Integer userId = ((Users) session.getAttribute("Users")).getUserId();
+		List<Posts> postsToShow = service.getPostsByUserId(userId);
+//		for (Posts p : postsToShow) {
+//			List<PostImg> postImgs = service.getPostImgsByPostId(p.getPostId());
 //		}
-//		return optional.get();
-		return null;
+		model.addAttribute("postsToShow", postsToShow);
+		return "phoebe/index";
 	}
 
 	// 新增post
@@ -64,14 +59,18 @@ public class PostController {
 		PostImg newPostImg = new PostImg();
 		for (MultipartFile img : postImg) {
 			// 存資料夾
-			String fileName = img.getOriginalFilename();
-			String postImgPath = "C:/Git/Project/finalprojectdemo/src/main/webapp/img/postImg/" + fileName;
-			img.transferTo(new File(postImgPath));
-			newPostImg.setPostImgPath(postImgPath);
-			// 存PostImg資料表
-			newPostImg.setPost(newPost);
-			newPostImg.setPostImgPath(postImgPath);
-			service.addPostImg(newPostImg);
+			if (!(img.isEmpty())) {
+				String fileName = img.getOriginalFilename();
+				String postImgPath = "C:/Git/Project/finalprojectdemo/src/main/webapp/img/postImg/" + fileName;
+				img.transferTo(new File(postImgPath));
+				newPostImg.setPostImgPath(postImgPath);
+				// 存PostImg資料表
+				newPostImg.setPost(newPost);
+				newPostImg.setPostImgPath(postImgPath);
+				service.addPostImg(newPostImg);
+			} else {
+				break;
+			}
 		}
 
 		// 存影片

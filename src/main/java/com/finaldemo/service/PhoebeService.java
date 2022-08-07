@@ -41,21 +41,19 @@ public class PhoebeService {
 	@Autowired
 	private PostImgRepository PostImgRepository;
 
-	public ArrayList<Posts> getPostsByUserId(Integer userId, Integer postId) {
-		List<Posts> posts = PostsRepository.findPostsByUserId(userId);
-		return null;
-
+	public List<Posts> getPostsByUserId(Integer userId) {
+		return PostsRepository.findPostsByUserId(userId);
 	}
 
-//	public Optional<PostImg> getPostImgsByPostId(Integer postId) {
-//		return PostImgRepository.findById(postId);
-//	}
+	public List<PostImg> getPostImgsByPostId(Integer postId) {
+		return PostImgRepository.findPostImgsByPostId(postId);
+	}
 
 	public Posts addPost(Posts newPost) {
 		return PostsRepository.save(newPost);
 	}
 
-	public PostImg addPostImg(PostImg newImg) {
-		return PostImgRepository.save(newImg);
+	public void addPostImg(PostImg newImg) {
+		PostImgRepository.addPostImgs(newImg.getPost().getPostId(), newImg.getPostImgPath());
 	}
 }

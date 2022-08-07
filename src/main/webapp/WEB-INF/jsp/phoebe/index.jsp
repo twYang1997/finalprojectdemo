@@ -37,7 +37,7 @@
 
 				<div class="panel-content panel-activity">
 
-					<!-- 					新增post -->
+					<!-- 新增post -->
 					<c:if test="${!empty Users}">
 						<form action="${contextRoot}/addPost.controller"
 							class="panel-activity__status" method="post"
@@ -78,115 +78,28 @@
 						</form>
 					</c:if>
 
-<%-- 					<c:forEach items="${allPosts}" var="p" varStatus="loop"> --%>
+					<!-- 重複的結構 -->
+					<c:forEach items="${postsToShow}" var="p" varStatus="loop">
 						<ul class="panel-activity__list">
 							<li><i class="activity__list__icon fa fa-question-circle-o"></i>
 								<div class="activity__list__header">
 									<img src="https://bootdey.com/img/Content/avatar/avatar2.png"
-										alt="" /> <a href="#">John Doe</a> Posted the question: <a
-										href="#">How can I change my annual reports for the better
-										effect?</a>
+										alt="" /> <a href="#">${p.getNickName()}</a>
 								</div>
 								<div class="activity__list__body entry-content">
 									<p>
-										<strong>Lorem ipsum dolor sit amet</strong>, consectetur
-										adipisicing elit. Voluptatibus ab a nostrum repudiandae
-										dolorem ut quaerat veniam asperiores, rerum voluptatem magni
-										dolores corporis! <em>Molestiae commodi nesciunt a,
-											repudiandae repellendus ea.</em>
+										${p.getPostText()}
 									</p>
 								</div>
 								<div class="activity__list__footer">
 									<a href="#"> <i class="fa fa-thumbs-up"></i>123
 									</a> <a href="#"> <i class="fa fa-comments"></i>23
-									</a> <span> <i class="fa fa-clock"></i>2 hours ago
+									</a> <span> <i class="fa fa-clock"></i>${p.getPostTime()}
 									</span>
 								</div></li>
-							<li>
-<%-- 					</c:forEach> --%>
-					<!-- 						<i class="activity__list__icon fa fa-question-circle-o"></i> -->
-					<!-- 							<div class="activity__list__header"> -->
-					<!-- 								<img src="https://bootdey.com/img/Content/avatar/avatar1.png" -->
-					<!-- 									alt="" /> <a href="#">John Doe</a> Posted the question: <a -->
-					<!-- 									href="#">How can I change my annual reports for the better -->
-					<!-- 									effect?</a> -->
-					<!-- 							</div> -->
-					<!-- 							<div class="activity__list__body entry-content"> -->
-					<!-- 								<blockquote> -->
-					<!-- 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing -->
-					<!-- 										elit. Voluptatibus ab a nostrum repudiandae dolorem ut quaerat -->
-					<!-- 										veniam asperiores, rerum voluptatem magni dolores corporis! -->
-					<!-- 										Molestiae commodi nesciunt a, repudiandae repellendus ea.</p> -->
-					<!-- 								</blockquote> -->
-					<!-- 							</div> -->
-					<!-- 							<div class="activity__list__footer"> -->
-					<!-- 								<a href="#"> <i class="fa fa-thumbs-up"></i>123 -->
-					<!-- 								</a> <a href="#"> <i class="fa fa-comments"></i>23 -->
-					<!-- 								</a> <span> <i class="fa fa-clock"></i>2 hours ago -->
-					<!-- 								</span> -->
-					<!-- 							</div></li> -->
-					<!-- 						<li><i class="activity__list__icon fa fa-image"></i> -->
-					<!-- 							<div class="activity__list__header"> -->
-					<!-- 								<img src="https://bootdey.com/img/Content/avatar/avatar1.png" -->
-					<!-- 									alt="" /> <a href="#">John Doe</a> Uploaded 4 Image: <a -->
-					<!-- 									href="#">Office Working Time</a> -->
-					<!-- 							</div> -->
-					<!-- 							<div class="activity__list__body entry-content"> -->
-					<!-- 								<ul class="gallery"> -->
-					<!-- 									<li><img -->
-					<!-- 										src="https://bootdey.com/img/Content/avatar/avatar1.png" -->
-					<!-- 										alt="" /></li> -->
-					<!-- 									<li><img -->
-					<!-- 										src="https://bootdey.com/img/Content/avatar/avatar2.png" -->
-					<!-- 										alt="" /></li> -->
-					<!-- 									<li><img -->
-					<!-- 										src="https://bootdey.com/img/Content/avatar/avatar3.png" -->
-					<!-- 										alt="" /></li> -->
-					<!-- 									<li><img -->
-					<!-- 										src="https://bootdey.com/img/Content/avatar/avatar4.png" -->
-					<!-- 										alt="" /></li> -->
-					<!-- 								</ul> -->
-					<!-- 							</div> -->
-					<!-- 							<div class="activity__list__footer"> -->
-					<!-- 								<a href="#"> <i class="fa fa-thumbs-up"></i>123 -->
-					<!-- 								</a> <a href="#"> <i class="fa fa-comments"></i>23 -->
-					<!-- 								</a> <span> <i class="fa fa-clock"></i>2 hours ago -->
-					<!-- 								</span> -->
-					<!-- 							</div></li> -->
-					<!-- 						<li><i class="activity__list__icon fa fa-question-circle-o"></i> -->
-					<!-- 							<div class="activity__list__header"> -->
-					<!-- 								<img src="https://bootdey.com/img/Content/avatar/avatar2.png" -->
-					<!-- 									alt="" /> <a href="#">John Doe</a> Posted the question: <a -->
-					<!-- 									href="#">How can I change my annual reports for the better -->
-					<!-- 									effect?</a> -->
-					<!-- 							</div> -->
-					<!-- 							<div class="activity__list__body entry-content"> -->
-					<!-- 								<blockquote> -->
-					<!-- 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing -->
-					<!-- 										elit. Voluptatibus ab a nostrum repudiandae dolorem ut quaerat -->
-					<!-- 										veniam asperiores, rerum voluptatem magni dolores corporis! -->
-					<!-- 										Molestiae commodi nesciunt a, repudiandae repellendus ea.</p> -->
-					<!-- 								</blockquote> -->
-					<!-- 							</div> -->
-					<!-- 							<div class="activity__list__footer"> -->
-					<!-- 								<a href="#"> <i class="fa fa-thumbs-up"></i>123 -->
-					<!-- 								</a> <a href="#"> <i class="fa fa-comments"></i>23 -->
-					<!-- 								</a> <span> <i class="fa fa-clock"></i>2 hours ago -->
-					<!-- 								</span> -->
-					<!-- 							</div></li> -->
-					<!-- 						<li><i class="activity__list__icon fa fa-lightbulb-o"></i> -->
-					<!-- 							<div class="activity__list__header"> -->
-					<!-- 								<img src="https://bootdey.com/img/Content/avatar/avatar1.png" -->
-					<!-- 									alt="" /> <a href="#">John Doe</a> bookmarked a page: <a -->
-					<!-- 									href="#">Awesome Idea</a> -->
-					<!-- 							</div> -->
-					<!-- 							<div class="activity__list__footer"> -->
-					<!-- 								<a href="#"> <i class="fa fa-thumbs-up"></i>123 -->
-					<!-- 								</a> <a href="#"> <i class="fa fa-comments"></i>23 -->
-					<!-- 								</a> <span> <i class="fa fa-clock"></i>2 hours ago -->
-					<!-- 								</span> -->
-					<!-- 							</div></li> -->
-										</ul>
+						</ul>
+					</c:forEach>
+					<!--重複的結構 -->
 				</div>
 			</div>
 		</div>

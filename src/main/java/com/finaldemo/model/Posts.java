@@ -148,4 +148,8 @@ public class Posts {
 		Notification = notification;
 	}
 	
+//	public String getNickName() {
+//		return this.getNickName();
+//	}
+	
 }
