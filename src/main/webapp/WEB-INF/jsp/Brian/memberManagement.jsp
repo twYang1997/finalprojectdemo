@@ -44,19 +44,102 @@
 																	<form:form class="form" method="post"
 																		modelAttribute="users"
 																		action="${contextRoot}/postUser">
+																		<form:input path="userId" type="hidden" value="${users.userId}"/>
+																			<!--email-->
+																			<div class="form-row"
+																				style="text-align: left;">
+																				<div class="form-group col-md-6">
+																					<label for="group">Email</label>
+																					<form:input path="email"  type="email"
+																						class="form-control"
+																						id="inputEmail4"/>
+																				</div>
+																				<!--密碼-->
+																				<div class="form-group col-md-6"
+																					style="text-align: left;">
+																					<label
+																						for="inputPassword4">Password</label>
+																					<form:input path="password" type="text"
+																						class="form-control"
+																						id="inputPassword4"/>
+																				</div>
+																			</div>
+																			<!--暱稱-->
+																			<div class="form-group"
+																				style="text-align: left;">
+																				<label for="inputAddress">Nick
+																					name</label>
+																				<form:input path="nickName" type="text" class="form-control"
+																					id="inputAddress"/>
+																			</div>
+																			<!--電話-->
+																			<div class="form-group"
+																				style="text-align: left;">
+																				<label for="inputAddress">phone</label>
+																				<form:input path="phone" type="text" class="form-control"
+																					id="inputAddress"/>
+																			</div>
+																			<!--地址-->
+																			<div class="form-group"
+																				style="text-align: left;">
+																				<label
+																					for="inputAddress">Address</label>
+																				<form:input path="address" type="text" class="form-control"
+																					id="inputAddress"/>
+																			</div>
+																			<!--生日-->
+																			<div class="form-group"
+																				style="text-align: left;">
+																				<label
+																					for="inputAddress">Birthday之後換</label>
+																				<form:input path="birthday" type="date" class="form-control"
+																					id="inputAddress"/>
+																			</div>
+																			<!--圖-->
+																			<div class="form-group"
+																				style="text-align: left;">
+																				<label
+																					for="inputAddress">photoPath之後換</label>
+																				<form:input path="photoPath" type="text" class="form-control"
+																					id="inputAddress"/>
+																			</div>
+																			<!--性別-->
+																			<div class="form-check form-check-inline"
+																				style="text-align: right;">
+																				<form:radiobutton path="gender" class="form-check-input"  id="inlineRadio1" value="0" />
+																				<label class="form-check-label" for="inlineRadio1">男</label>
+																			</div>
+																			<div class="form-check form-check-inline"
+																				style="text-align: right;">
+																				 <form:radiobutton path="gender" class="form-check-input"  id="inlineRadio2" value="1"/>
+																				 <label class="form-check-label" for="inlineRadio2">女</label>
+																			</div>
+																			<!--權限-->
+																			<div class="form-group"
+																				style="text-align: left;">
+																				<label
+																					for="inputAddress">category之後換</label>
+																				<form:input path="category" type="text" class="form-control"
+																					id="inputAddress"/>
+																			</div>
 
-																		<form:textarea path="text"
-																			class="form-control" />
-																		<br />
-
-																		<button type="submit"
-																			class="btn btn-primary">Submit</button>
+																			<!--自介-->
+																			<div class="form-group"
+																				style="text-align: left;">
+																				<label
+																					for="exampleFormControlTextarea1">selfIntroduction</label>
+																				<form:textarea path="selfIntroduction" class="form-control"
+																					id="exampleFormControlTextarea1"
+																					rows="3"/>
+																			</div>
+																		<!-- 按鈕 -->
+																		<div class="modal-footer">
+																			<button type="button" class="btn btn-danger"
+																				data-dismiss="modal">Close</button>
+																			<button type="submit" class="btn btn-primary"
+																				 >Submit</button>
+																		</div>
 																	</form:form>
-																</div>
-																<!-- 按鈕 -->
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-danger"
-																		data-dismiss="modal">Close</button>
 																</div>
 															</div>
 														</div>

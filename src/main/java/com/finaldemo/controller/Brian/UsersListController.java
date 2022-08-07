@@ -1,12 +1,18 @@
 package com.finaldemo.controller.Brian;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,34 +24,36 @@ public class UsersListController {
 	@Autowired
 	private BrainService Service; // 連接Service 調用insertMessage
 	
-	@GetMapping("/memberManagement")
-	public String memberManagement(@RequestParam(name = "p", defaultValue = "1")Integer pageNumber, Model model ){
-		Page<Users> page = Service.findByPage(pageNumber);
+	
 
+	@GetMapping("/memberManagement")
+	public String memberManagement(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
+		Page<Users> page = Service.findByPage(pageNumber);
+		Users newMsg = new Users();
+		model.addAttribute("users", newMsg);
 		model.addAttribute("page", page);
 		return "Brian/memberManagement";
 	}
-	
-	@GetMapping("/updateNUser/{email}")
-	public String editMessagePage(@PathVariable Integer email, Model model) {
-		Users msg = Service.findByEmail(email);
-
-		model.addAttribute("Users", msg);
-
-		return "Brian/memberManagement";
+	@InitBinder
+    public void InitBinder(WebDataBinder binder) {
+        //前端传入的时间格式必须是"yyyy-MM-dd"效果!
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        CustomDateEditor dateEditor = new CustomDateEditor(df, true);
+        binder.registerCustomEditor(Date.class, dateEditor);
 	}
-	
+
 	@PostMapping("/postUser")
-	public String postMessage(@ModelAttribute Users msg, Model model) {
+	public String postUser(@ModelAttribute Users msg,
+			//@RequestParam("departureDate") String departureDate,
+			Model model)  {
+//throws ParseException
+//		DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+//		Date date = fmt.parse(departureDate);
+//		msg.setBirthday(date);
 		Service.insertUsers(msg);
 
-		Users newMsg = new Users();
-		Users latestMsg = Service.lastestUsers();
-
-		model.addAttribute("workMessages", newMsg);
-		model.addAttribute("latestMsg", latestMsg);
-
-		return "Brian/memberManagement";
+		return "redirect:/memberManagement";
 	}
 
+	
 }

@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -37,17 +36,17 @@ public class Posts {
 	
 	private Integer isReport;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "fk_user_id")
-	private Users user;
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class)
+	@JoinColumn(name = "fk_user_id", referencedColumnName = "userId")
+	private Users postUser;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
 	private Set<Comments> Comments = new LinkedHashSet<Comments>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
 	private Set<PostImg> PostImg = new LinkedHashSet<PostImg>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
 	private Set<Notification> Notification = new LinkedHashSet<Notification>();
 	
 	public Posts() {
@@ -117,12 +116,12 @@ public class Posts {
 		this.isReport = isReport;
 	}
 
-	public Users getUser() {
-		return user;
+	public Users getPostUser() {
+		return postUser;
 	}
 
-	public void setUser(Users user) {
-		this.user = user;
+	public void setPostUser(Users postUser) {
+		this.postUser = postUser;
 	}
 
 	public Set<Comments> getComments() {
@@ -148,5 +147,9 @@ public class Posts {
 	public void setNotification(Set<Notification> notification) {
 		Notification = notification;
 	}
+	
+//	public String getNickName() {
+//		return this.getNickName();
+//	}
 	
 }

@@ -23,11 +23,7 @@ public class BrainService {
 	public void insertUsers(Users msg) {
 		uDao.save(msg);
 	}
-	
-	public Users lastestUsers() {
-		return uDao.findFirstByOrderByEmailDesc();
-	}
-	
+		
 	public Users findByEmail(Integer email) {
 		Optional<Users> optional = uDao.findById(email);
 

@@ -4,8 +4,11 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+<<<<<<< HEAD
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+=======
+>>>>>>> 1dd7fff4bf61e6d7b9815cf31d56b5e6251b565f
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -53,25 +56,25 @@ public class Users {
 	
 	private String selfIntroduction;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petUser")
 	private Set<Pets> pets = new LinkedHashSet<Pets>(); 
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "postUser")
 	private Set<Posts> posts = new LinkedHashSet<Posts>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Comments> Comments = new LinkedHashSet<Comments>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Notification> Notification = new LinkedHashSet<Notification>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fans",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fans")
 	private Set<Follow> fans = new LinkedHashSet<Follow>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "follow",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "follow")
 	private Set<Follow> follows = new LinkedHashSet<Follow>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Donate> Donate = new LinkedHashSet<Donate>();
 
 	@Lob // 跟 Hibernate 說明是 Large Object 的檔案
@@ -225,6 +228,7 @@ public class Users {
 		Donate = donate;
 	}
 
+<<<<<<< HEAD
 	public byte[] getPhotoFile() {
 		return photoFile;
 	}
@@ -240,5 +244,49 @@ public class Users {
 	
 	
 
+=======
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Users [userId=");
+		builder.append(userId);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", password=");
+		builder.append(password);
+		builder.append(", nickName=");
+		builder.append(nickName);
+		builder.append(", category=");
+		builder.append(category);
+		builder.append(", address=");
+		builder.append(address);
+		builder.append(", phone=");
+		builder.append(phone);
+		builder.append(", photoPath=");
+		builder.append(photoPath);
+		builder.append(", birthday=");
+		builder.append(birthday);
+		builder.append(", gender=");
+		builder.append(gender);
+		builder.append(", selfIntroduction=");
+		builder.append(selfIntroduction);
+		builder.append(", pets=");
+		builder.append(pets);
+		builder.append(", posts=");
+		builder.append(posts);
+		builder.append(", Comments=");
+		builder.append(Comments);
+		builder.append(", Notification=");
+		builder.append(Notification);
+		builder.append(", fans=");
+		builder.append(fans);
+		builder.append(", follows=");
+		builder.append(follows);
+		builder.append(", Donate=");
+		builder.append(Donate);
+		builder.append("]");
+		return builder.toString();
+	}
+>>>>>>> 1dd7fff4bf61e6d7b9815cf31d56b5e6251b565f
 	
 }
