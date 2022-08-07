@@ -17,6 +17,15 @@
 
 			<button type="button">button</button>
 		</form:form>
+		</br>
+		<form:form class="form" method="post" modelAttribute="member"
+			action="${contextRoot}/findById">
+			<div>
+				會員ID： <input type="text" name="id">
+				<button type="button">show member</button>
+			</div>
+			
+		</form:form>
 	</div>
 </body>
 </html>
