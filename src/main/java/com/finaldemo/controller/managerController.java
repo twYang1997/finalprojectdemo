@@ -8,33 +8,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.model.Users;
-import com.finaldemo.service.jampService;
+import com.finaldemo.service.zzzService;
 
 
 
 public class managerController  {
 	
 	@Autowired
-	private jampService gService;
+	private zzzService gService;
 	
 	@PostMapping("/fileupload")
-	public String uploadNewPhoto(@RequestParam("photoName") String photoName, 
-			                     @RequestParam("file") MultipartFile file ) {
+	public String uploadNewPhoto(@RequestParam("nickName") String photoName, 
+		    @RequestParam("file") MultipartFile file ) {
 		
 		String nameAfterTrim = photoName.trim();
 		
 		try {
 			Users newPhoto = new Users();
 			newPhoto.setNickName(nameAfterTrim);
-			newPhoto.setPhotoPath(file.getBytes());
+			newPhoto.setPhotoFile(file.getBytes());
 			
 			gService.insertPhoto(newPhoto);
 			
-			return "goodphoto/uploadSuccessPage";
-		} catch (IOException e) {
+			return "upload/zzzuploadSuccessPage";
+	} catch (IOException e) {
 			e.printStackTrace();
 			return "index";
-		}
+	}
 	}
 
 	

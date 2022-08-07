@@ -5,14 +5,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.finaldemo.model.Users;
-import com.finaldemo.model.UsersRepositoryDao;
+import com.finaldemo.model.UsersRepository;
 
 @Service
 @Transactional
 public class TimmyService {
 	
 	@Autowired
-	private UsersRepositoryDao uDao;
+	private UsersRepository uDao;
 	
 	public Users getUserById(Integer id) {
 		return uDao.findById(id).get();

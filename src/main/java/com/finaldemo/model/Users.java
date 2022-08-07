@@ -33,6 +33,7 @@ public class Users {
 	
 	private String password;
 	
+	@Column(name = "nickName")
 	private String nickName;
 	
 	private Integer category;
@@ -41,7 +42,6 @@ public class Users {
 	
 	private String phone;
 	
-	@Lob 
 	private String photoPath;
 	
 	@JsonFormat(pattern = "yyyy/MM/dd", timezone = "Asia/Taipei") // JSON
@@ -73,6 +73,10 @@ public class Users {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
 	private Set<Donate> Donate = new LinkedHashSet<Donate>();
+
+	@Lob // 跟 Hibernate 說明是 Large Object 的檔案
+	@Column(name = "photoFile")
+	private byte[] photoFile;
 	
 	public Users() {
 	}
@@ -137,7 +141,7 @@ public class Users {
 		return photoPath;
 	}
 
-	public void setPhotoPath(String photoPath) {
+	public void setPhotoPath1(String photoPath) {
 		this.photoPath = photoPath;
 	}
 
@@ -221,9 +225,20 @@ public class Users {
 		Donate = donate;
 	}
 
-	public void setPhotoPath(byte[] bytes) {
-		// TODO Auto-generated method stub
-		
+	public byte[] getPhotoFile() {
+		return photoFile;
 	}
+
+	public void setPhotoFile(byte[] photoFile) {
+		this.photoFile = photoFile;
+	}
+
+	public void setPhotoPath(String photoPath) {
+		this.photoPath = photoPath;
+	}
+
+	
+	
+
 	
 }

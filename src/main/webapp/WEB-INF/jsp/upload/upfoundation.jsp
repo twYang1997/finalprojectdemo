@@ -15,7 +15,7 @@
 
 <form action="fileupload" method="post" enctype="multipart/form-data">
 
-name : <input id="photoName" name="photoName">
+name : <input id="nickName" name="nickName">
 
 <br />
 

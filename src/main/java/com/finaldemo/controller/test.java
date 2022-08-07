@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.finaldemo.model.Pets;
 import com.finaldemo.model.PetsRepository;
 import com.finaldemo.model.Users;
-import com.finaldemo.model.UsersRepositoryDao;
+import com.finaldemo.model.UsersRepository;
 
 @Controller
 public class test {
 	@Autowired
-	private UsersRepositoryDao uDao;
+	private UsersRepository uDao;
 	
 	@Autowired
 	private PetsRepository pDao;
@@ -28,11 +28,8 @@ public class test {
 //		Pets p1 = new Pets();//新增
 //		p1.setPetName("wifi");//新增
 //		
-//		u1.getPets().add(p1);//新增
-//		p1.setUser(u1);//新增
-//		uDao.save(u1);//新增
-//		System.out.println(u1.getNickName());//新增
-////		uDao.deleteById(1); //新增
 		return "test";
 	}
+	
+	
 }
