@@ -216,5 +216,48 @@ public class Users {
 	public void setDonate(Set<Donate> donate) {
 		Donate = donate;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Users [userId=");
+		builder.append(userId);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", password=");
+		builder.append(password);
+		builder.append(", nickName=");
+		builder.append(nickName);
+		builder.append(", category=");
+		builder.append(category);
+		builder.append(", address=");
+		builder.append(address);
+		builder.append(", phone=");
+		builder.append(phone);
+		builder.append(", photoPath=");
+		builder.append(photoPath);
+		builder.append(", birthday=");
+		builder.append(birthday);
+		builder.append(", gender=");
+		builder.append(gender);
+		builder.append(", selfIntroduction=");
+		builder.append(selfIntroduction);
+		builder.append(", pets=");
+		builder.append(pets);
+		builder.append(", posts=");
+		builder.append(posts);
+		builder.append(", Comments=");
+		builder.append(Comments);
+		builder.append(", Notification=");
+		builder.append(Notification);
+		builder.append(", fans=");
+		builder.append(fans);
+		builder.append(", follows=");
+		builder.append(follows);
+		builder.append(", Donate=");
+		builder.append(Donate);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 }

@@ -22,34 +22,34 @@
 					<div class="card-header">修改會員資料</div>
 					<div class="card-body">
 
-<%-- 						<form:form class="form" method="post" modelAttribute="oneMember" --%>
-<%-- 							action="${contextRoot}/editMember"> --%>
+						<form:form class="form" method="post" modelAttribute="oneMember"
+							action="${contextRoot}/editMember">
 
-<%-- 							<form:input type="hidden" path="id" /> --%>
-<!-- 							<br /> -->
-<%-- 							<form:input type="date" path="birthday" /> --%>
-<!-- 							<br /> -->
-<%-- 							<form:input type="text" path="category" /> --%>
-<!-- 							<br /> -->
-<%-- 							<form:input type="text" path="email" /> --%>
-<!-- 							<br /> -->
-<%-- 							<form:input type="text" path="gender" /> --%>
-<!-- 							<br /> -->
-<%-- 							<form:input type="text" path="nickName" /> --%>
-<!-- 							<br /> -->
-<%-- 							<form:input type="text" path="password" /> --%>
-<!-- 							<br /> -->
-<%-- 							<form:input type="text" path="phone" /> --%>
-<!-- 							<br /> -->
-<%-- 							<form:input type="text" path="photoPath" /> --%>
-<!-- 							<br /> -->
-<%-- 							<form:input type="text" path="address" /> --%>
-<!-- 							<br /> -->
-<%-- 							<form:input type="text" path="selfIntroduction" /> --%>
-<!-- 							<br /> -->
+							<form:input type="hidden" path="userId" />
+							<br />
+							<form:input type="text" path="address" />
+							<br />
+							<form:input type="date" path="birthday" />
+							<br />
+							<form:input type="text" path="category" />
+							<br />
+							<form:input type="text" path="email" />
+							<br />
+							<form:input type="text" path="gender" />
+							<br />
+							<form:input type="text" path="nickName" />
+							<br />
+							<form:input type="text" path="password" />
+							<br />
+							<form:input type="text" path="phone" />
+							<br />
+							<form:input type="text" path="photoPath" />
+							<br />
+							<form:input type="text" path="selfIntroduction" />
+							<br />
 
-<!-- 														<button type="submit" class="btn btn-primary">Submit</button> -->
-<%-- 						</form:form> --%>
+							<!-- 							<button type="submit" class="btn btn-primary">Submit</button> -->
+						</form:form>
 					</div>
 				</div>
 			</div>

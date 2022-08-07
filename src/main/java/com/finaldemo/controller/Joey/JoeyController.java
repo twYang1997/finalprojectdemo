@@ -20,13 +20,12 @@ public class JoeyController {
 
 	@GetMapping("/findById")
 	public String findAnUserById(@RequestParam(name = "id") Integer id, Model model) {
-
-		Users oneMember = JoeyService.findById(id);
-		model.addAttribute("oneMember", oneMember);
 		System.out.println("Controller ID:" + id);
+		Users oneMember = service.findById(id);
 		System.out.println("Controller oneMember:" + oneMember);
+		model.addAttribute("oneMember", oneMember);
 
-		return "/joey/editMember";
+		return "redirect:/joey/editMember";
 
 	}
 

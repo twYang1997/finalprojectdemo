@@ -9,12 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface UsersRepository extends JpaRepository<Users, Integer> {
+
 	
 	//Users
 	@Query(value = "select * from Users where email = :email and password = :password", nativeQuery = true) 
 	public Users selectUserByNameAndPwd(@Param("email") String email, @Param("password") String password);
 	
 	//Posts
+	
+
 
 
 }

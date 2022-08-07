@@ -13,27 +13,28 @@ import com.finaldemo.model.UsersRepository;
 @Service
 @Transactional
 public class JoeyService {
-	
+
 	@Autowired
 	private static UsersRepository uDao;
-	
-	public static Users findById(Integer id) {
-		Optional<Users> optional = uDao.findById(id);
 
-		if(optional.isPresent()) {
+	public Users findById(Integer id) {
+		Optional<Users> optional = uDao.findById(id);
+		
+		System.out.println("Service ID:" + id);
+		if (optional.isPresent()) {
 			return optional.get();
 		}
-		
+
 		return null;
-		
-	}public void editUser(Users user) {
+
+	}
+
+	public void editUser(Users user) {
 		uDao.save(user);
 	}
+
 	public void deleteUser(Integer id) {
 		uDao.deleteById(id);
 	}
-
-
-	
 
 }
