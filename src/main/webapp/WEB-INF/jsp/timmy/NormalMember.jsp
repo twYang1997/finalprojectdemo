@@ -12,6 +12,7 @@
 <%-- <script src="${contextRoot}/js/timmy_js/uploadimg.js"></script> --%>
 </head>
 <body>
+<jsp:include page="layout/navbar.jsp" />
 	<img src="${contextRoot}/${user.photoPath}" width="200"
 		id="preview_progressbarTW_img">
 	<input type="file" name="testfile" id="testfile" style="display: none;">
