@@ -18,14 +18,13 @@
 			<button type="button">button</button>
 		</form:form>
 		</br>
-		<form:form class="form" method="post" modelAttribute="member"
+		<form class="form" method="GET" enctype="multipart/form-data"
 			action="${contextRoot}/findById">
 			<div>
 				會員ID： <input type="text" name="id">
-				<button type="button">show member</button>
+				<button>show member</button>
 			</div>
-			
-		</form:form>
+		</form>
 	</div>
 </body>
 </html>

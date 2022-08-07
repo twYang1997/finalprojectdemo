@@ -26,12 +26,10 @@ public class JoeyService {
 		
 		return null;
 		
-	}public static void editUser(Users user) {
-		//不知道為何要static，之後可能要改
+	}public void editUser(Users user) {
 		uDao.save(user);
 	}
-	public static void deleteUser(Integer id) {
-		//不知道為何要static，之後可能要改
+	public void deleteUser(Integer id) {
 		uDao.deleteById(id);
 	}
 

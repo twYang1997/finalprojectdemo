@@ -7,39 +7,42 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finaldemo.model.Users;
 import com.finaldemo.service.JoeyService;
 
 @Controller
 public class JoeyController {
-	
+
 	@Autowired
 	private JoeyService service;
-	
-	@PostMapping("/findById")
-	public String findAnUserById(@RequestParam Integer id , Model model) {
+
+	@GetMapping("/findById")
+	public String findAnUserById(@RequestParam(name = "id") Integer id, Model model) {
+
 		Users oneMember = JoeyService.findById(id);
-		
 		model.addAttribute("oneMember", oneMember);
-		
-		return "Joey/editMember";
-		
+		System.out.println("Controller ID:" + id);
+		System.out.println("Controller oneMember:" + oneMember);
+
+		return "/joey/editMember";
+
 	}
-	
+
 	@PostMapping("/editMember")
 	public String editAnUser(@ModelAttribute Users user) {
-		
-		JoeyService.editUser(user);
-		
-		return "redirect:/Joey/showMember";
+
+		service.editUser(user);
+
+		return "redirect:/joey/editMember";
 	}
-	
-	@PostMapping
+
+	@PostMapping("/deleteMember")
 	public String deleteUser(@RequestParam Integer id) {
-		JoeyService.deleteUser(id);
-		
-		return "redirect:/Joey/showMember";
+		service.deleteUser(id);
+
+		return "redirect:/joey/showMember";
 	}
 
 }
