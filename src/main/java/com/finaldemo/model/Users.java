@@ -4,11 +4,14 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -30,6 +33,7 @@ public class Users {
 	
 	private String password;
 	
+	@Column(name = "nickName")
 	private String nickName;
 	
 	private Integer category;
@@ -69,6 +73,10 @@ public class Users {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Donate> Donate = new LinkedHashSet<Donate>();
+
+	@Lob // 跟 Hibernate 說明是 Large Object 的檔案
+	@Column(name = "photoFile")
+	private byte[] photoFile;
 	
 	public Users() {
 	}
@@ -133,7 +141,7 @@ public class Users {
 		return photoPath;
 	}
 
-	public void setPhotoPath(String photoPath) {
+	public void setPhotoPath1(String photoPath) {
 		this.photoPath = photoPath;
 	}
 
@@ -215,6 +223,18 @@ public class Users {
 
 	public void setDonate(Set<Donate> donate) {
 		Donate = donate;
+	}
+
+	public byte[] getPhotoFile() {
+		return photoFile;
+	}
+
+	public void setPhotoFile(byte[] photoFile) {
+		this.photoFile = photoFile;
+	}
+
+	public void setPhotoPath(String photoPath) {
+		this.photoPath = photoPath;
 	}
 
 	@Override

@@ -15,7 +15,7 @@ import com.finaldemo.model.UsersRepository;
 public class JoeyService {
 
 	@Autowired
-	private static UsersRepository uDao;
+	private UsersRepository uDao;
 
 	public Users findById(Integer id) {
 		Optional<Users> optional = uDao.findById(id);
