@@ -51,7 +51,7 @@ public class ActionController {
 	@PostMapping("/timmy/NewPostPage")
 	@ResponseBody
 	public Posts newPostTest() {
-		Users u1 = service.getUserById(2);
+		Users u1 = service.getUserById(3);
 		Set<Posts> ps = u1.getPosts();
 		Posts p1 = new Posts();
 		p1.setPostText("第一次PO文");
@@ -87,7 +87,7 @@ public class ActionController {
 	public Users updateUserTest() {
 		Calendar c = Calendar.getInstance();
 		c.set(1997, 10, 14);
-		Users u1 = service.getUserById(2);
+		Users u1 = service.getUserById(3);
 		u1.setNickName("jenny");
 		u1.setPassword("1234");
 		u1.setAddress("台南市永康區大橋兩百街100號");
@@ -103,7 +103,7 @@ public class ActionController {
 
 	@GetMapping("/timmy/accountsetting.controller")
 	public String testgivingSession(HttpSession session, Model m) {
-		Users u1 = service.getUserById(2);
+		Users u1 = service.getUserById(3);
 		session.setAttribute("user", u1);
 		if (u1.getCategory() == 1) {
 //			Users u1 = (Users)session.getAttribute("user");
@@ -151,14 +151,6 @@ public class ActionController {
 		Users u1 = service.getUserById(user.getUserId());
 		if (data.getHeader().equals("nickName"))
 			u1.setNickName(data.getValue());
-		if (data.getHeader().equals("email")) {
-			if(service.checkEmail(data.getValue())) {
-				u1.setEmail(data.getValue());
-				service.insertNewUser(u1);
-				return "";
-			} else 
-				return "Email has been used";
-		}
 		if (data.getHeader().equals("phone"))
 			u1.setPhone(data.getValue());
 		if (data.getHeader().equals("address"))
@@ -167,6 +159,22 @@ public class ActionController {
 			u1.setSelfIntroduction(data.getValue());
 		service.insertNewUser(u1);
 		return data.getValue();
+	}
+	
+	@PostMapping("/timmy/updateEmailAjax")
+	@ResponseBody
+	public String updateEmailAjax(@RequestBody UserDataDto dto, HttpSession session){
+		String email = dto.getValue() + "@" + dto.getHeader();
+		System.out.println("email: " + email);
+		if(service.checkEmail(email)) {
+			Users user = (Users)session.getAttribute("user");
+			Users u1 = service.getUserById(user.getUserId());
+			u1.setEmail(email);
+			service.insertNewUser(u1);
+			return email;
+		} else {
+			return "email has been used";
+		}
 	}
 //	@GetMapping("/timmy/postManager.controller")
 //	public String action1(HttpSession session, Model m) {
