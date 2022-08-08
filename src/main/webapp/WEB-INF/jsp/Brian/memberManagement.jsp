@@ -19,7 +19,7 @@
 <body>
 	<div class="container">
 		<h1>會員頁面</h1>
-		<c:forEach var="users" items="${page.content}">
+		<c:forEach var="users" items="${page.content}" varStatus="vs">
 			<div class="row justify-content-center">
 				<div class="col-8">
 					<div class="card">
@@ -28,9 +28,9 @@
 								<div class="text-right">
 									<!-- 修改按鈕 -->
 									<a class="rounded-pill btn btn-primary " role="button"
-										data-toggle="modal" data-target=".ok">修改</a>
+										data-toggle="modal" data-target="#myModal${vs.index}" id="viewDetailButton${vs.index}">修改</a>
 									<!-- 框體調整 -->
-									<div class="modal ok">
+									<div class="modal" id="myModal${vs.index}">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<!-- 彈出標題 -->
@@ -53,7 +53,7 @@
 															<div class="form-group col-md-6">
 																<label for="group">Email</label>
 																<form:input path="email" type="email"
-																	class="form-control" value="${users.email}" />
+																	class="form-control"  value="${users.email}" />
 															</div>
 															<!--密碼-->
 															<div class="form-group col-md-6"
