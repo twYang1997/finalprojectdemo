@@ -51,4 +51,8 @@ public class TimmyService {
 		}
 		return true;
 	}
+	
+	public Users checkLogin(String email, String password) {
+		return uDao.selectUserByNameAndPwd(email, password);
+	}
 }

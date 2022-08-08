@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finaldemo.dto.ImageDto;
@@ -69,6 +72,28 @@ public class ActionController {
 	public void deletePostsTest() {
 		service.deletePostById(5);
 	}
+	
+	@PostMapping("/timmy/checkLogin.controller")
+	public String checkLoginProcess(@RequestParam String email, @RequestParam String password, Model m, HttpSession session) {
+		Map<String,String> errors = new HashMap<String,String>();
+		m.addAttribute("errors", errors);
+		if (email == null || email.length()==0) {
+			errors.put("email", "Email is required");
+		}
+		if (password == null || password.length()==0) {
+			errors.put("pwd", "Password is required");
+		}
+		if(errors!=null && !errors.isEmpty()) {
+			return "redirect:timmy/login";
+		}
+		Users u = service.checkLogin(email, password);
+		if (u != null) {
+			session.setAttribute("user", u);
+			return "timmy/NormalMember";
+		}
+		errors.put("failed", "login failed");
+		return "redirect:/timmy/";
+	}
 //	@GetMapping("getPosts/{id}")
 //	@ResponseBody
 //	public List<Posts> getPostTest(@PathVariable Integer id){
@@ -81,6 +106,11 @@ public class ActionController {
 //		 Users u1 = service.getUserById(id);
 //		return u1;
 //	}
+	@GetMapping("/timmy/")
+	public String loginPage() {
+		return "timmy/login";
+	}
+	
 	
 	@PostMapping("/timmy/updateUserPage")
 	@ResponseBody
@@ -103,7 +133,7 @@ public class ActionController {
 
 	@GetMapping("/timmy/accountsetting.controller")
 	public String testgivingSession(HttpSession session, Model m) {
-		Users u1 = service.getUserById(3);
+		Users u1 = (Users)m.getAttribute("user");
 		session.setAttribute("user", u1);
 		if (u1.getCategory() == 1) {
 //			Users u1 = (Users)session.getAttribute("user");
