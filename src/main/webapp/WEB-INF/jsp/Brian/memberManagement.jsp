@@ -50,45 +50,45 @@
 															<div class="form-group col-md-6">
 																<label for="group">Email</label>
 																<form:input path="email" type="email"
-																	class="form-control" id="inputEmail4" />
+																	class="form-control" id="inputEmail4" value="${users.email}"/>
 															</div>
 															<!--密碼-->
 															<div class="form-group col-md-6"
 																style="text-align: left;">
 																<label for="inputPassword4">Password</label>
 																<form:input path="password" type="text"
-																	class="form-control" id="inputPassword4" />
+																	class="form-control" id="inputPassword4" value="${users.password}"/>
 															</div>
 														</div>
 														<!--暱稱-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">Nick name</label>
 															<form:input path="nickName" type="text"
-																class="form-control" id="inputAddress" />
+																class="form-control" id="inputAddress" value="${users.nickName}"/>
 														</div>
 														<!--電話-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">phone</label>
 															<form:input path="phone" type="text" class="form-control"
-																id="inputAddress" />
+																id="inputAddress" value="${users.phone}"/>
 														</div>
 														<!--地址-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">Address</label>
 															<form:input path="address" type="text"
-																class="form-control" id="inputAddress" />
+																class="form-control" id="inputAddress" value="${users.address}"/>
 														</div>
 														<!--生日-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">Birthday</label>
 															<form:input path="birthday" type="date"
-																class="form-control" id="inputAddress" />
+																class="form-control" id="inputAddress" value="${users.birthday}"/>
 														</div>
 														<!--圖-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">photoPath之後換</label>
 															<form:input path="photoPath" type="text"
-																class="form-control" id="inputAddress" />
+																class="form-control" id="inputAddress" value="${users.photoPath}"/>
 														</div>
 														<!--性別-->
 														<div class="form-group" style="text-align: left;">
@@ -113,7 +113,7 @@
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">category之後換</label>
 															<form:input path="category" type="text"
-																class="form-control" id="inputAddress" />
+																class="form-control" id="inputAddress" value="${users.category}"/>
 														</div>
 
 														<!--自介-->
@@ -121,7 +121,7 @@
 															<label for="exampleFormControlTextarea1">selfIntroduction</label>
 															<form:textarea path="selfIntroduction"
 																class="form-control" id="exampleFormControlTextarea1"
-																rows="3" />
+																rows="3" value="${users.selfIntroduction}"/>
 														</div>
 														<!-- 按鈕 -->
 														<div class="modal-footer">
