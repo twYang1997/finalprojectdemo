@@ -94,7 +94,7 @@
 									<!-- post圖片 -->
 									<c:forEach items="${p.getPostImg()}" var="pImg" varStatus="loop">
 										<ul class="gallery">
-											<li><img src="${contextRoot}/img/phoebeImg/${pImg.getPostImgPath()}">
+											<li><img src="${contextRoot}/img/postImg/${pImg.getPostImgPath()}">
 												</li>
 										</ul>
 									</c:forEach>
