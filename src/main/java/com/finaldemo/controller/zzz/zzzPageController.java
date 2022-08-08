@@ -40,6 +40,13 @@ public class zzzPageController {
 	public String welcomeIndex() {
 		return "zzzupload/order";
 	}
+	
+	@GetMapping("/zzzupload/cart")
+	public String listphoto() {
+		
+		return "zzzupload/cart";
+	}
+	
 //	
 	
 //	
@@ -48,11 +55,6 @@ public class zzzPageController {
 //	@GetMapping("/upfoundation")               //基金會上傳  跳轉頁面用
 //	public String upfoundation() {      
 //		return "upload/upfoundation";
-//	}
-//	@GetMapping("/listphoto")
-//	public String listphoto() {
-//		
-//		return "upload/listphoto";
 //	}
 	
 

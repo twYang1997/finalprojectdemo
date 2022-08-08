@@ -30,6 +30,9 @@
       <li class="nav-item">
         <a class="nav-link" href="${contextRoot}/zzzupload/order">訂單查詢</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="${contextRoot}/zzzupload/cart">購買頁面</a>
+      </li>
       
       
      

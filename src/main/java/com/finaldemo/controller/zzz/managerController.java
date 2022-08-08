@@ -22,22 +22,22 @@ public class managerController  {
 	public String uploadNewPhoto(@RequestParam("nickName") String photoName, 
 		    @RequestParam("file") MultipartFile file ) {
 		
-		String nameAfterTrim = photoName.trim();
-		
-		try {
-			Users newPhoto = new Users();
-			newPhoto.setNickName(nameAfterTrim);
-			newPhoto.setPhotoFile(file.getBytes());
-			
-			gService.insertPhoto(newPhoto);
-			
-			return "zzzupload/zzzuploadSuccessPage";
-	} catch (IOException e) {
-			e.printStackTrace();
-			return "index";
+//		String nameAfterTrim = photoName.trim();
+//		
+//		try {
+//			Users newPhoto = new Users();
+//			newPhoto.setNickName(nameAfterTrim);
+//			
+//			
+//			gService.insertPhoto(newPhoto);
+//			
+//			return "zzzupload/zzzuploadSuccessPage";
+//	} catch (IOException e) {
+//			e.printStackTrace();
+			return "zzzupload/fundraiser";
 	}
 	}
 
 	
 
-}
+//}

@@ -72,6 +72,10 @@ public class Users {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Donate> Donate = new LinkedHashSet<Donate>();
 
+<<<<<<< HEAD
+	
+=======
+>>>>>>> 8a5354fd58c961bfbb4871abb992164b79bd5858
 	public Users() {
 	}
 
@@ -219,6 +223,10 @@ public class Users {
 		Donate = donate;
 	}
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8a5354fd58c961bfbb4871abb992164b79bd5858
 	public void setPhotoPath(String photoPath) {
 		this.photoPath = photoPath;
 	}
