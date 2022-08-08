@@ -14,18 +14,19 @@
 </head>
 <style>
 #preview_progressbarTW_img {
-	width: 300px;
-	height: 200px;
+	width: 200px;
+	height: 150px;
 	display: block;
 	margin: 20px auto 20px auto;
 	border-radius: 40%;
 	display: block;
-	display: block
+	display: block;
 }
 
 table {
 	text-align: center;
 	font-size: 200%;
+	border: ;
 }
 td {
 	width: 50%;
@@ -45,6 +46,12 @@ td {
 #navSetting {
 	margin: auto 30%;
 }
+.iconImg{
+	width:15%;
+}
+ul li button{
+	border:0;
+}
 </style>
 
 <body>
@@ -53,10 +60,10 @@ td {
 		<img src="${contextRoot}/${user.photoPath}"
 			id="preview_progressbarTW_img"> <input type="file"
 			name="testfile" id="testfile" style="display: none;">
-		<table class="table">
+		<table class="table table-borderless">
 			<thead>
 				<tr>
-					<td colspan="2">Hello! ${user.nickName}</td>
+					<td id="hello" colspan="2">Hello! ${user.nickName}</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -78,9 +85,9 @@ td {
 		<span id="id" style="display: none;">${user.userId}</span>
 
 		<ul id="ulnav">
-			<li><button id="postManager" class="btn btn-outline-secondary btn-lg">貼文管理</button></li>
-			<li><button id="settingManager" class="btn btn-outline-secondary btn-lg">個人資料</button></li>
-			<li><button id="petManager" class="btn btn-outline-secondary btn-lg">寵物管理</button></li>
+			<li><button id="postManager"><img src="${contextRoot}/img/userimg/social-media.png" class="iconImg"></button></li>
+			<li><button id="settingManager"><img src="${contextRoot}/img/userimg/user.png" class="iconImg"></button></li>
+			<li><button id="petManager"><img src="${contextRoot}/img/userimg/pet.png" class="iconImg"></button></li>
 		</ul>
 		<div id="navSetting">
 			<div id="postManagerDiv" style="">
@@ -97,6 +104,7 @@ td {
 </body>
 <script>
 	$(document).ready(function() {
+		var contextRoot = "/demo";
 		var pmd = $("#postManagerDiv")[0];
 		var smd = $("#settingManagerDiv")[0];
 		var emd = $("#petManagerDiv")[0];
