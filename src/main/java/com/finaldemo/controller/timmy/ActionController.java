@@ -33,7 +33,7 @@ public class ActionController {
 	@Autowired
 	private TimmyService service;
 	
-	@PostMapping("NewUserPage")
+	@PostMapping("/timmy/NewUserPage")
 	@ResponseBody
 	public Users newUserTest() {
 		Calendar c = Calendar.getInstance();
@@ -49,7 +49,7 @@ public class ActionController {
 		return service.insertNewUser(u1);
 	}
 	
-	@PostMapping("NewPostPage")
+	@PostMapping("/timmy/NewPostPage")
 	@ResponseBody
 	public Posts newPostTest() {
 		Users u1 = service.getUserById(2);
@@ -66,7 +66,7 @@ public class ActionController {
 		return p1;
 	}
 	
-	@GetMapping("DeleteTestPage")
+	@GetMapping("/timmy/DeleteTestPage")
 	public void deletePostsTest() {
 		service.deletePostById(5);
 	}
@@ -83,7 +83,7 @@ public class ActionController {
 //		return u1;
 //	}
 	
-	@PostMapping("updateUserPage")
+	@PostMapping("/timmy/updateUserPage")
 	@ResponseBody
 	public Users updateUserTest() {
 		Calendar c = Calendar.getInstance();
@@ -102,19 +102,22 @@ public class ActionController {
 		return service.insertNewUser(u1);
 	}
 
-	@GetMapping("accountsetting.controller")
-	public String testgivingSession(HttpSession session) {
-		Users u1 = service.getUserById(2);
+	@GetMapping("/timmy/accountsetting.controller")
+	public String testgivingSession(HttpSession session, Model m) {
+		Users u1 = service.getUserById(1);
 		session.setAttribute("user", u1);
-		if (u1.getCategory() == 1)
+		if (u1.getCategory() == 1) {
+//			Users u1 = (Users)session.getAttribute("user");
+//			session.setAttribute("posts", u1.getPosts());
 			return "timmy/NormalMember";
+		}
 		else if (u1.getCategory() == 2)
 			return "timmy/CharityMember";
 		else
 			return null;
 	}
 
-	@PostMapping("user/uploadImgAjax")
+	@PostMapping("/timmy/uploadImgAjax")
 	@ResponseBody
 	public String uploadImagAjax(@RequestBody ImageDto dto) throws FileNotFoundException {
 		String extension = dto.getImg64().replaceAll("data:" + dto.getType().trim() + ";base64,", "");
@@ -138,20 +141,21 @@ public class ActionController {
 		}
 	}
 	
-	@GetMapping("user/postManager.controller")
+	@GetMapping("/timmy/postManager.controller")
 	public String action1(HttpSession session, Model m) {
 		Users u1 = (Users)session.getAttribute("user");
-		System.out.println("name: " + u1.getNickName());
-		Iterator<Posts> it = u1.getPosts().iterator();
-		while(it.hasNext()) {
-			System.out.println("text: " + it.next().getPostText());
-		}
-		System.out.println();
+		session.setAttribute("user", service.getUserById(u1.getUserId()));
+//		System.out.println("name: " + u1.getNickName());
+//		Iterator<Posts> it = u1.getPosts().iterator();
+//		while(it.hasNext()) {
+//			System.out.println("text: " + it.next().getPostText());
+//		}
+//		System.out.println();
 		m.addAttribute("posts", u1.getPosts());
 		return "timmy/PostSetting";
 	}
 	
-	@GetMapping("user/normalmemberdetail.controller")
+	@GetMapping("/timmy/normalmemberdetail.controller")
 	public String action2(HttpSession session, Model m) {
 		m.addAttribute("newUser", new Users());
 		return "timmy/UserSetting";

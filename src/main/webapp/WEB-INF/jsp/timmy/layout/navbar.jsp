@@ -54,13 +54,13 @@
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
 
-			<c:if test="${empty Users}">
+			<c:if test="${empty user}">
 				<form:form method="GET" action="${contextRoot}/phoebe/login">
 					<button type="submit" class="btn btn-light">Login</button>
 				</form:form>
 			</c:if>
 
-			<c:if test="${!empty Users}">
+			<c:if test="${!empty user}">
 				<form:form method="GET" action="${contextRoot}/phoebe/logout">
 					<button type="submit" class="btn btn-light">Logout</button>
 				</form:form>
@@ -70,8 +70,8 @@
 				<button type="submit" class="btn btn-info">Sign Up</button>
 			</form:form>
 
-			<c:if test="${!empty Users}">
-				&emsp;Hi, ${Users.getNickName()}
+			<c:if test="${!empty user}">
+				&emsp;Hi, ${user.getNickName()}
 			</c:if>
 
 		</div>

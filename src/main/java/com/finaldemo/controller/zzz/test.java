@@ -12,7 +12,7 @@ import com.finaldemo.model.PetsRepository;
 import com.finaldemo.model.Users;
 import com.finaldemo.model.UsersRepository;
 
-@Controller
+//@Controller
 public class test {
 	@Autowired
 	private UsersRepository uDao;

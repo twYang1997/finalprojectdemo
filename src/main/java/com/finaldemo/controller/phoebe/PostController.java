@@ -33,9 +33,10 @@ public class PostController {
 		// 取得登入者發的posts
 		Integer userId = ((Users) session.getAttribute("Users")).getUserId();
 		List<Posts> postsToShow = service.getPostsByUserId(userId);
-//		for (Posts p : postsToShow) {
+		for (Posts p : postsToShow) {
+//			p.setPostUser((Users) session.getAttribute("Users"));
 //			List<PostImg> postImgs = service.getPostImgsByPostId(p.getPostId());
-//		}
+		}
 		model.addAttribute("postsToShow", postsToShow);
 		return "phoebe/index";
 	}
@@ -61,7 +62,7 @@ public class PostController {
 			// 存資料夾
 			if (!(img.isEmpty())) {
 				String fileName = img.getOriginalFilename();
-				String postImgPath = "C:/Git/Project/finalprojectdemo/src/main/webapp/img/postImg/" + fileName;
+				String postImgPath = fileName;
 				img.transferTo(new File(postImgPath));
 				newPostImg.setPostImgPath(postImgPath);
 				// 存PostImg資料表

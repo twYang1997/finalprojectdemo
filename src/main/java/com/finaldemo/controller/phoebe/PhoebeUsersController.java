@@ -17,7 +17,7 @@ import com.finaldemo.model.Users;
 import com.finaldemo.service.PhoebeService;
 
 @Controller
-public class UsersController {
+public class PhoebeUsersController {
 
 	@Autowired
 	private PhoebeService UsersService;

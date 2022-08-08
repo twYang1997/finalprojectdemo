@@ -4,11 +4,8 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-<<<<<<< HEAD
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-=======
->>>>>>> 1dd7fff4bf61e6d7b9815cf31d56b5e6251b565f
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -228,7 +225,6 @@ public class Users {
 		Donate = donate;
 	}
 
-<<<<<<< HEAD
 	public byte[] getPhotoFile() {
 		return photoFile;
 	}
@@ -241,10 +237,6 @@ public class Users {
 		this.photoPath = photoPath;
 	}
 
-	
-	
-
-=======
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -287,6 +279,5 @@ public class Users {
 		builder.append("]");
 		return builder.toString();
 	}
->>>>>>> 1dd7fff4bf61e6d7b9815cf31d56b5e6251b565f
 	
 }
