@@ -36,9 +36,21 @@ public class BrainService {
 	}
 	
 	public Page<Users> findByPage(Integer pageNumber) {
-		Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "nickName");
+		Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "email");
 		Page<Users> page = uDao.findAll(pgb);
 		return page;
 	}
+	
+//	public Users BrianfindById(Integer id) {
+//		Optional<Users> optional = uDao.findById(id);
+//		
+//		System.out.println("Service ID:" + id);
+//		if (optional.isPresent()) {
+//			return optional.get();
+//		}
+//
+//		return null;
+//
+//	}
 	
 }

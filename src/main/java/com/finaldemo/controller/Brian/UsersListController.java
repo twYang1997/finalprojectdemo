@@ -23,8 +23,6 @@ import com.finaldemo.service.BrainService;
 public class UsersListController {
 	@Autowired
 	private BrainService Service; // 連接Service 調用insertMessage
-	
-	
 
 	@GetMapping("/memberManagement")
 	public String memberManagement(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
@@ -34,6 +32,7 @@ public class UsersListController {
 		model.addAttribute("page", page);
 		return "Brian/memberManagement";
 	}
+	
 	@InitBinder
     public void InitBinder(WebDataBinder binder) {
         //前端传入的时间格式必须是"yyyy-MM-dd"效果!
@@ -43,17 +42,20 @@ public class UsersListController {
 	}
 
 	@PostMapping("/postUser")
-	public String postUser(@ModelAttribute Users msg,
-			//@RequestParam("departureDate") String departureDate,
-			Model model)  {
-//throws ParseException
-//		DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
-//		Date date = fmt.parse(departureDate);
-//		msg.setBirthday(date);
+	public String postUser(@ModelAttribute Users msg, Model model)  {
+			
 		Service.insertUsers(msg);
 
 		return "redirect:/memberManagement";
 	}
-
 	
+//	@GetMapping("/BrianfindById")
+//	public String findAnUserById(@RequestParam(name = "id") Integer id, Model model) {
+//		Users brianOneMember = Service.BrianfindById(id);
+//		model.addAttribute("brianOneMember", brianOneMember);
+//
+//		return "redirect:/postUser";
+//
+//	}
+
 }
