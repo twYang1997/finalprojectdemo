@@ -74,9 +74,6 @@ public class Users {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Donate> Donate = new LinkedHashSet<Donate>();
 
-	@Lob // 跟 Hibernate 說明是 Large Object 的檔案
-	@Column(name = "photoFile")
-	private byte[] photoFile;
 	
 	public Users() {
 	}
@@ -225,13 +222,6 @@ public class Users {
 		Donate = donate;
 	}
 
-	public byte[] getPhotoFile() {
-		return photoFile;
-	}
-
-	public void setPhotoFile(byte[] photoFile) {
-		this.photoFile = photoFile;
-	}
 
 	public void setPhotoPath(String photoPath) {
 		this.photoPath = photoPath;
