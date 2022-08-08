@@ -27,16 +27,19 @@
 							<div>${users.email}
 								<div class="text-right">
 									<!-- 修改按鈕 -->
-									<a class="rounded-pill btn btn-primary " role="button" data-toggle="modal"
-										data-target="#myModal">修改</a>
+									<a class="rounded-pill btn btn-primary " role="button"
+										data-toggle="modal" data-target=".ok">修改</a>
 									<!-- 框體調整 -->
-									<div class="modal" id="myModal">
+									<div class="modal ok">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<!-- 彈出標題 -->
 												<div class="modal-header">
 													<h4 class="modal-title">修改資料</h4>
-													<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
 												</div>
 												<!-- 彈出內容 -->
 												<div class="modal-body">
@@ -50,62 +53,59 @@
 															<div class="form-group col-md-6">
 																<label for="group">Email</label>
 																<form:input path="email" type="email"
-																	class="form-control" id="inputEmail4" value="${users.email}"/>
+																	class="form-control" value="${users.email}" />
 															</div>
 															<!--密碼-->
 															<div class="form-group col-md-6"
 																style="text-align: left;">
 																<label for="inputPassword4">Password</label>
 																<form:input path="password" type="text"
-																	class="form-control" id="inputPassword4" value="${users.password}"/>
+																	class="form-control" value="${users.password}" />
 															</div>
 														</div>
 														<!--暱稱-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">Nick name</label>
 															<form:input path="nickName" type="text"
-																class="form-control" id="inputAddress" value="${users.nickName}"/>
+																class="form-control" value="${users.nickName}" />
 														</div>
 														<!--電話-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">phone</label>
 															<form:input path="phone" type="text" class="form-control"
-																id="inputAddress" value="${users.phone}"/>
+																value="${users.phone}" />
 														</div>
 														<!--地址-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">Address</label>
 															<form:input path="address" type="text"
-																class="form-control" id="inputAddress" value="${users.address}"/>
+																class="form-control" value="${users.address}" />
 														</div>
 														<!--生日-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">Birthday</label>
 															<form:input path="birthday" type="date"
-																class="form-control" id="inputAddress" value="${users.birthday}"/>
+																value="${users.birthday}" class="form-control" />
 														</div>
 														<!--圖-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">photoPath之後換</label>
 															<form:input path="photoPath" type="text"
-																class="form-control" id="inputAddress" value="${users.photoPath}"/>
+																class="form-control" value="${users.photoPath}" />
 														</div>
 														<!--性別-->
 														<div class="form-group" style="text-align: left;">
-																<label for="inputAddress">gender</label>
-																<br>
-															<!--選項男-->	
-															<div class="form-check form-check-inline"
-																>
+															<label for="inputAddress">gender</label> <br>
+															<!--選項男-->
+															<div class="form-check form-check-inline">
 																<form:radiobutton path="gender" class="form-check-input"
-																	id="inlineRadio1" value="0" />
+																	value="0" />
 																<label class="form-check-label" for="inlineRadio1">男</label>
 															</div>
 															<!--選項女-->
-															<div class="form-check form-check-inline"
-																>
+															<div class="form-check form-check-inline">
 																<form:radiobutton path="gender" class="form-check-input"
-																	id="inlineRadio2" value="1" />
+																	value="1" />
 																<label class="form-check-label" for="inlineRadio2">女</label>
 															</div>
 														</div>
@@ -113,15 +113,15 @@
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">category之後換</label>
 															<form:input path="category" type="text"
-																class="form-control" id="inputAddress" value="${users.category}"/>
+																class="form-control" value="${users.category}" />
 														</div>
 
 														<!--自介-->
 														<div class="form-group" style="text-align: left;">
 															<label for="exampleFormControlTextarea1">selfIntroduction</label>
 															<form:textarea path="selfIntroduction"
-																class="form-control" id="exampleFormControlTextarea1"
-																rows="3" value="${users.selfIntroduction}"/>
+																class="form-control" rows="3"
+																value="${users.selfIntroduction}" />
 														</div>
 														<!-- 按鈕 -->
 														<div class="modal-footer">
@@ -134,10 +134,10 @@
 											</div>
 										</div>
 									</div>
-									<a class="rounded-pill btn btn-danger " onclick="return confirm('確認刪除?')"
+									<a class="rounded-pill btn btn-danger "
+										onclick="return confirm('確認刪除?')"
 										href="${contextRoot}/message/deleteMessage/${workMessage.id}"
-										role="button">刪除</a> 
-									<a class="rounded-pill btn btn-info "
+										role="button">刪除</a> <a class="rounded-pill btn btn-info "
 										href="${contextRoot}/message/editMessage/${workMessage.id}"
 										role="button">貼文記錄</a>
 								</div>
@@ -158,7 +158,7 @@
 						</c:when>
 						<c:otherwise>
 							${pageNumber}				
-						</c:otherwise>				
+						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 			</div>
