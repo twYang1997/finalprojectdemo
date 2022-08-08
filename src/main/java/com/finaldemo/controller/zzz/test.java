@@ -20,7 +20,7 @@ public class test {
 	@Autowired
 	private PetsRepository pDao;
 	
-	@GetMapping("/test")
+	@GetMapping("/zzztest")
 	public String action() {
 //		Users u1 = new Users();  //新增
 //		u1.setNickName("tony");//新增
@@ -28,7 +28,7 @@ public class test {
 //		Pets p1 = new Pets();//新增
 //		p1.setPetName("wifi");//新增
 //		
-		return "test";
+		return "zzztest";
 	}
 	
 	

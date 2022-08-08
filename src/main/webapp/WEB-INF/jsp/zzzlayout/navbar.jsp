@@ -15,29 +15,26 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="${contextRoot}/test">募捐</a>
+  <a class="navbar-brand" href="${contextRoot}/zzztest">募捐</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="${contextRoot}/about">目捐</a>
+        <a class="nav-link" href="${contextRoot}/about">目捐首頁</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="${contextRoot}/message/add">新增留言</a>
+        <a class="nav-link" href="${contextRoot}/message/add">關於</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="${contextRoot}/message/viewMessages">查看捐款資訊</a>
+        <a class="nav-link" href="${contextRoot}/message/viewMessages">基金會</a>
       </li>
       
       
      
       <li class="nav-item">
-        <a class="nav-link" href="${contextRoot}/upfoundation">基金會上傳</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="${contextRoot}/listphoto">列出所有基金會</a>
+        <a class="nav-link" href="${contextRoot}/upfoundation">訂單查詢</a>
       </li>
       
       
