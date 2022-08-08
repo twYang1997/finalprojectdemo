@@ -4,14 +4,12 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -74,7 +72,10 @@ public class Users {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Donate> Donate = new LinkedHashSet<Donate>();
 
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 8a5354fd58c961bfbb4871abb992164b79bd5858
 	public Users() {
 	}
 
@@ -222,7 +223,10 @@ public class Users {
 		Donate = donate;
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8a5354fd58c961bfbb4871abb992164b79bd5858
 	public void setPhotoPath(String photoPath) {
 		this.photoPath = photoPath;
 	}

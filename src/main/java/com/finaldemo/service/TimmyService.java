@@ -1,7 +1,6 @@
 package com.finaldemo.service;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +40,15 @@ public class TimmyService {
 
 	public void deletePostById(Integer id) {
 		pDao.deleteById(id);
+	}
+
+	public boolean checkEmail(String email) {
+		List<Users> userList = uDao.findAll();
+		for (Users user:userList) {
+			if (user.getEmail().equals(email)) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

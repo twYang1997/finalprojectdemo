@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -16,13 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.dto.ImageDto;
+import com.finaldemo.dto.UserDataDto;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.TimmyService;
@@ -88,7 +87,7 @@ public class ActionController {
 	public Users updateUserTest() {
 		Calendar c = Calendar.getInstance();
 		c.set(1997, 10, 14);
-		Users u1 = service.getUserById(1);
+		Users u1 = service.getUserById(2);
 		u1.setNickName("jenny");
 		u1.setPassword("1234");
 		u1.setAddress("台南市永康區大橋兩百街100號");
@@ -104,11 +103,12 @@ public class ActionController {
 
 	@GetMapping("/timmy/accountsetting.controller")
 	public String testgivingSession(HttpSession session, Model m) {
-		Users u1 = service.getUserById(1);
+		Users u1 = service.getUserById(2);
 		session.setAttribute("user", u1);
 		if (u1.getCategory() == 1) {
 //			Users u1 = (Users)session.getAttribute("user");
 //			session.setAttribute("posts", u1.getPosts());
+			m.addAttribute("newUser", new Users());
 			return "timmy/NormalMember";
 		}
 		else if (u1.getCategory() == 2)
@@ -141,24 +141,60 @@ public class ActionController {
 		}
 	}
 	
-	@GetMapping("/timmy/postManager.controller")
-	public String action1(HttpSession session, Model m) {
-		Users u1 = (Users)session.getAttribute("user");
-		session.setAttribute("user", service.getUserById(u1.getUserId()));
+	@PostMapping("/timmy/updateDataAjax")
+	@ResponseBody
+	public String updateDataAjax(@RequestBody UserDataDto data, HttpSession session) {
+		Users user = (Users)session.getAttribute("user");
+		System.out.println("userid: " + user.getUserId());
+		System.out.println("value: " + data.getValue());
+		System.out.println("header: " + data.getHeader());
+		Users u1 = service.getUserById(user.getUserId());
+		if (data.getHeader().equals("nickName"))
+			u1.setNickName(data.getValue());
+		if (data.getHeader().equals("email")) {
+			if(service.checkEmail(data.getValue())) {
+				u1.setEmail(data.getValue());
+				service.insertNewUser(u1);
+				return "";
+			} else 
+				return "Email has been used";
+		}
+		if (data.getHeader().equals("phone"))
+			u1.setPhone(data.getValue());
+		if (data.getHeader().equals("address"))
+			u1.setAddress(data.getValue());
+		if (data.getHeader().equals("selfIntroduction"))
+			u1.setSelfIntroduction(data.getValue());
+		service.insertNewUser(u1);
+		return data.getValue();
+	}
+//	@GetMapping("/timmy/postManager.controller")
+//	public String action1(HttpSession session, Model m) {
+//		Users u1 = (Users)session.getAttribute("user");
+//		session.setAttribute("user", service.getUserById(u1.getUserId()));
 //		System.out.println("name: " + u1.getNickName());
 //		Iterator<Posts> it = u1.getPosts().iterator();
 //		while(it.hasNext()) {
 //			System.out.println("text: " + it.next().getPostText());
 //		}
 //		System.out.println();
-		m.addAttribute("posts", u1.getPosts());
-		return "timmy/PostSetting";
-	}
+//		m.addAttribute("posts", u1.getPosts());
+//		return "timmy/PostSetting";
+//	}
 	
 	@GetMapping("/timmy/normalmemberdetail.controller")
 	public String action2(HttpSession session, Model m) {
 		m.addAttribute("newUser", new Users());
 		return "timmy/UserSetting";
+	}
+	
+	@PostMapping("/timmy/updateUser.controller")
+	public String action(HttpSession session, @ModelAttribute Users user) {
+		Users oldUser = (Users)session.getAttribute("user");
+		System.out.println(oldUser.getUserId());
+		user.setUserId(oldUser.getUserId());
+		service.insertNewUser(user);
+		return "redirect:/timmy/accountsetting.controller";
 	}
 	
 }
