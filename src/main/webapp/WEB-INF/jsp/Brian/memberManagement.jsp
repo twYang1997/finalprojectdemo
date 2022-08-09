@@ -3,8 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <jsp:include page="../brianlayout/navbar.jsp" />
 
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
@@ -16,6 +15,7 @@
 <title>會員頁面施工中</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
+	
 </script>
 </head>
 
@@ -118,6 +118,7 @@
 															<label for="inputAddress">category之後換</label>
 															<form:input path="category" type="text"
 																class="form-control" value="${users.category}" />
+
 														</div>
 
 														<!--自介-->
@@ -125,7 +126,6 @@
 															<label for="exampleFormControlTextarea1">selfIntroduction</label>
 															<form:textarea id="Textarea" path="selfIntroduction"
 																class="form-control aa" rows="3" />
-
 														</div>
 
 														<!-- 按鈕 -->
@@ -171,6 +171,19 @@
 	</div>
 </body>
 <script>
-			document.querySelectorAll('.aa')[0].value ="${users.selfIntroduction}";
-									</script>
+	var num = "${fn:length(page.content)}";
+	var Datas = "${page.content}";
+	console.log(Datas);
+	for (var i = 0; i < num; i++) {
+		var a = Datas.substring(Datas.indexOf("selfIntroduction") + 17, Datas.indexOf(", pets"));
+		var b = Datas.substring(Datas.indexOf("selfIntroduction"), Datas.indexOf(", pets"));
+		console.log("a: " + a);
+		console.log("b: " + b);
+		var data = document.querySelectorAll('.aa')[i];
+		document.querySelectorAll('.aa')[i].value = a;
+		Datas = Datas.replace(b + ", pets", "");
+		console.log("after Datas: " + Datas);
+		console.log("---------------------------------")
+	}
+</script>
 </html>

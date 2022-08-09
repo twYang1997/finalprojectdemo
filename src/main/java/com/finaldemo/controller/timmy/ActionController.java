@@ -48,6 +48,24 @@ public class ActionController {
 		u1.setEmail("timmy860930@gmail.com");
 		u1.setGender(1);
 		u1.setPhone("0970322377");
+		u1.setSelfIntroduction("我好你好");
+		return service.insertNewUser(u1);
+	}
+	
+	@PostMapping("/timmy/NewUserPage2")
+	@ResponseBody
+	public Users newUserTest2() {
+		Calendar c = Calendar.getInstance();
+		c.set(1997, 10, 14);
+		Users u1 = new Users();
+		u1.setNickName("timmy");
+		u1.setAddress("火星");
+		u1.setBirthday(c.getTime());
+		u1.setCategory(1);
+		u1.setEmail("8787878@gmail.com");
+		u1.setGender(1);
+		u1.setPhone("0970322377");
+		u1.setSelfIntroduction("87喔");
 		return service.insertNewUser(u1);
 	}
 	
