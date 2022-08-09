@@ -38,8 +38,12 @@ public class TimmyService {
 		return pDao.save(post);
 	}
 
-	public void deletePostById(Integer id) {
-		pDao.deleteById(id);
+	public void deleteAllPost() {
+		pDao.deleteAll();
+	}
+	
+	public void deleteAllUser() {
+		uDao.deleteAll();
 	}
 
 	public boolean checkEmail(String email) {
@@ -50,5 +54,9 @@ public class TimmyService {
 			}
 		}
 		return true;
+	}
+	
+	public Users checkLogin(String email, String password) {
+		return uDao.selectUserByNameAndPwd(email, password);
 	}
 }

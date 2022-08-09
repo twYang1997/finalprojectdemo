@@ -56,4 +56,12 @@ public class PhoebeService {
 	public void addPostImg(PostImg newImg) {
 		PostImgRepository.addPostImgs(newImg.getPost().getPostId(), newImg.getPostImgPath());
 	}
+
+	public void editPost(Posts newPost) {
+		PostsRepository.save(newPost);
+	}
+
+	public void deleteExtraImgs(Integer postId) {
+		PostImgRepository.deleteImgByPostId(postId);
+	}
 }

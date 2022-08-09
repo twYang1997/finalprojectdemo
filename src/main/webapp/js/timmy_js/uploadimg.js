@@ -26,8 +26,7 @@ $(document)
 							"id": document.getElementById("id").innerHTML
 						}
 						var datas = JSON.stringify(datao);
-						$
-							.ajax({
+						$.ajax({
 								url: contextRoot + '/timmy/uploadImgAjax',
 								contentType: 'application/json',
 								dataType: 'text',

@@ -3,8 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <jsp:include page="../brianlayout/navbar.jsp" />
 
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
@@ -14,6 +13,10 @@
 <head>
 <meta charset="UTF-8">
 <title>會員頁面施工中</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+	
+</script>
 </head>
 
 <body>
@@ -28,7 +31,8 @@
 								<div class="text-right">
 									<!-- 修改按鈕 -->
 									<a class="rounded-pill btn btn-primary " role="button"
-										data-toggle="modal" data-target="#myModal${vs.index}" id="viewDetailButton${vs.index}">修改</a>
+										data-toggle="modal" data-target="#myModal${vs.index}"
+										id="viewDetailButton${vs.index}">修改</a>
 									<!-- 框體調整 -->
 									<div class="modal" id="myModal${vs.index}">
 										<div class="modal-dialog">
@@ -36,10 +40,10 @@
 												<!-- 彈出標題 -->
 												<div class="modal-header">
 													<h4 class="modal-title">修改資料</h4>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
 												</div>
 												<!-- 彈出內容 -->
 												<div class="modal-body">
@@ -53,7 +57,7 @@
 															<div class="form-group col-md-6">
 																<label for="group">Email</label>
 																<form:input path="email" type="email"
-																	class="form-control"  value="${users.email}" />
+																	class="form-control" value="${users.email}" />
 															</div>
 															<!--密碼-->
 															<div class="form-group col-md-6"
@@ -114,15 +118,16 @@
 															<label for="inputAddress">category之後換</label>
 															<form:input path="category" type="text"
 																class="form-control" value="${users.category}" />
+
 														</div>
 
 														<!--自介-->
 														<div class="form-group" style="text-align: left;">
 															<label for="exampleFormControlTextarea1">selfIntroduction</label>
-															<form:textarea path="selfIntroduction"
-																class="form-control" rows="3"
-																value="${users.selfIntroduction}" />
+															<form:textarea id="Textarea" path="selfIntroduction"
+																class="form-control aa" rows="3" />
 														</div>
+
 														<!-- 按鈕 -->
 														<div class="modal-footer">
 															<button type="button" class="btn btn-danger"
@@ -165,5 +170,20 @@
 		</div>
 	</div>
 </body>
-
+<script>
+	var num = "${fn:length(page.content)}";
+	var Datas = "${page.content}";
+	console.log(Datas);
+	for (var i = 0; i < num; i++) {
+		var a = Datas.substring(Datas.indexOf("selfIntroduction") + 17, Datas.indexOf(", pets"));
+		var b = Datas.substring(Datas.indexOf("selfIntroduction"), Datas.indexOf(", pets"));
+		console.log("a: " + a);
+		console.log("b: " + b);
+		var data = document.querySelectorAll('.aa')[i];
+		document.querySelectorAll('.aa')[i].value = a;
+		Datas = Datas.replace(b + ", pets", "");
+		console.log("after Datas: " + Datas);
+		console.log("---------------------------------")
+	}
+</script>
 </html>

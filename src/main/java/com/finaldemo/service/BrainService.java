@@ -41,12 +41,12 @@ public class BrainService {
 		return page;
 	}
 	
-//	public Users BrianfindById(Integer id) {
-//		Optional<Users> optional = uDao.findById(id);
+//	public Users findBySelfIntroduction(String selfIntroduction) {
+//		List<Users> newselfIntroduction = uDao.findAll();
 //		
-//		System.out.println("Service ID:" + id);
-//		if (optional.isPresent()) {
-//			return optional.get();
+//		System.out.println("Service ID:" + selfIntroduction);
+//		if (newselfIntroduction!=null) {
+//			return newselfIntroduction.get();
 //		}
 //
 //		return null;

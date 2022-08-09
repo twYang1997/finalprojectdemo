@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +32,6 @@ public class Users {
 	
 	private String password;
 	
-	@Column(name = "nickName")
 	private String nickName;
 	
 	private Integer category;
@@ -51,13 +51,13 @@ public class Users {
 	
 	private String selfIntroduction;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petUser")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petUser",cascade = CascadeType.ALL)
 	private Set<Pets> pets = new LinkedHashSet<Pets>(); 
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "postUser")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "postUser",cascade = CascadeType.ALL)
 	private Set<Posts> posts = new LinkedHashSet<Posts>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
 	private Set<Comments> Comments = new LinkedHashSet<Comments>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -72,7 +72,10 @@ public class Users {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Donate> Donate = new LinkedHashSet<Donate>();
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 69af6140e2a2e6af47cab77131df19902f77d4c3
 	public Users() {
 	}
 
@@ -220,7 +223,10 @@ public class Users {
 		Donate = donate;
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 69af6140e2a2e6af47cab77131df19902f77d4c3
 	public void setPhotoPath(String photoPath) {
 		this.photoPath = photoPath;
 	}

@@ -41,13 +41,13 @@ public class Posts {
 	@JoinColumn(name = "fk_user_id", referencedColumnName = "userId")
 	private Users postUser;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post",cascade = CascadeType.ALL)
 	private Set<Comments> Comments = new LinkedHashSet<Comments>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post",cascade = CascadeType.ALL)
 	private Set<PostImg> PostImg = new LinkedHashSet<PostImg>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post",cascade = CascadeType.ALL)
 	private Set<Notification> Notification = new LinkedHashSet<Notification>();
 	
 	public Posts() {

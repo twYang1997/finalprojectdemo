@@ -33,10 +33,6 @@ public class PostController {
 		// 取得登入者發的posts
 		Integer userId = ((Users) session.getAttribute("Users")).getUserId();
 		List<Posts> postsToShow = service.getPostsByUserId(userId);
-		for (Posts p : postsToShow) {
-//			p.setPostUser((Users) session.getAttribute("Users"));
-//			List<PostImg> postImgs = service.getPostImgsByPostId(p.getPostId());
-		}
 		model.addAttribute("postsToShow", postsToShow);
 		return "phoebe/index";
 	}
@@ -79,6 +75,41 @@ public class PostController {
 //		String postVideoPath = "/finalprojectdemo/src/main/webapp/video" + fileName;
 //		postVideo.transferTo(new File(postVideoPath));
 //		System.out.println("已上傳：" + fileName);
+
+		return "redirect:/phoebe/";
+	}
+
+	// 修改post
+	@PostMapping("/editPost.controller")
+	public String editPost(@RequestParam Integer postId, @RequestParam String postText, @RequestParam MultipartFile[] postImg,
+			@RequestParam MultipartFile postVideo, @RequestParam Integer whoCanSeeIt, HttpSession session) throws IllegalStateException, IOException {
+		Posts p = new Posts();
+		p.setPostId(postId);
+		p.setPostText(postText);
+		p.setPostTime(new Date());
+		p.setPostVideoSrc(postVideo.getOriginalFilename());
+		p.setWhoCanSeeIt(whoCanSeeIt);
+		p.setPostUser((Users) session.getAttribute("Users"));
+		service.editPost(p);
+		service.deleteExtraImgs(postId);
+
+		// 存圖片
+		PostImg newPostImg = new PostImg();
+		for (MultipartFile img : postImg) {
+			// 存資料夾
+			if (!(img.isEmpty())) {
+				String fileName = img.getOriginalFilename();
+				String postImgPath = fileName;
+				img.transferTo(new File(postImgPath));
+				newPostImg.setPostImgPath(postImgPath);
+				// 存PostImg資料表
+				newPostImg.setPost(p);
+				newPostImg.setPostImgPath(postImgPath);
+				service.addPostImg(newPostImg);
+			} else {
+				break;
+			}
+		}
 
 		return "redirect:/phoebe/";
 	}
