@@ -5,7 +5,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -72,10 +71,6 @@ public class Users {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Donate> Donate = new LinkedHashSet<Donate>();
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 69af6140e2a2e6af47cab77131df19902f77d4c3
 	public Users() {
 	}
 
@@ -223,10 +218,6 @@ public class Users {
 		Donate = donate;
 	}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 69af6140e2a2e6af47cab77131df19902f77d4c3
 	public void setPhotoPath(String photoPath) {
 		this.photoPath = photoPath;
 	}
