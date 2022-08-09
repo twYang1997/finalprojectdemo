@@ -124,10 +124,12 @@
 														<!--自介-->
 														<div class="form-group" style="text-align: left;">
 															<label for="exampleFormControlTextarea1">selfIntroduction</label>
-															<form:textarea id="Textarea" path="selfIntroduction"
+															<form:textarea id="myTextarea${vs.index}" path="selfIntroduction"
 																class="form-control aa" rows="3" />
 														</div>
-
+														<script type="text/javascript">
+															$("#myTextarea${vs.index}").val("${users.selfIntroduction}");
+														</script>
 														<!-- 按鈕 -->
 														<div class="modal-footer">
 															<button type="button" class="btn btn-danger"
@@ -170,20 +172,20 @@
 		</div>
 	</div>
 </body>
-<script>
-	var num = "${fn:length(page.content)}";
-	var Datas = "${page.content}";
-	console.log(Datas);
-	for (var i = 0; i < num; i++) {
-		var a = Datas.substring(Datas.indexOf("selfIntroduction") + 17, Datas.indexOf(", pets"));
-		var b = Datas.substring(Datas.indexOf("selfIntroduction"), Datas.indexOf(", pets"));
-		console.log("a: " + a);
-		console.log("b: " + b);
-		var data = document.querySelectorAll('.aa')[i];
-		document.querySelectorAll('.aa')[i].value = a;
-		Datas = Datas.replace(b + ", pets", "");
-		console.log("after Datas: " + Datas);
-		console.log("---------------------------------")
-	}
-</script>
+<!-- <script> 
+// 	var num = "${fn:length(page.content)}";
+// 	var Datas = "${page.content}";
+// 	console.log(Datas);
+// 	for (var i = 0; i < num; i++) {
+// 		var a = Datas.substring(Datas.indexOf("selfIntroduction") + 17, Datas.indexOf(", pets"));
+// 		var b = Datas.substring(Datas.indexOf("selfIntroduction"), Datas.indexOf(", pets"));
+// 		console.log("a: " + a);
+// 		console.log("b: " + b);
+// 		var data = document.querySelectorAll('.aa')[i];
+// 		document.querySelectorAll('.aa')[i].value = a;
+// 		Datas = Datas.replace(b + ", pets", "");
+// 		console.log("after Datas: " + Datas);
+// 		console.log("---------------------------------")
+// 	}
+ </script> -->
 </html>
