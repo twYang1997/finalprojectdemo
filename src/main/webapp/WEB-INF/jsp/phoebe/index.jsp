@@ -22,8 +22,8 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js">
-	
 	</script>
+
 </head>
 <body>
 
@@ -36,7 +36,6 @@
 				</div>
 
 				<div class="panel-content panel-activity">
-
 					<!-- 新增post -->
 					<c:if test="${!empty Users}">
 						<form action="${contextRoot}/addPost.controller"
@@ -67,10 +66,10 @@
 										name="postVideo" id="file" accept="video/*" /> <i
 										class="fa fa-video-camera"></i>
 									</label>
-									<!-- 									<button type="button" class="btn-link" title="Post an Video" -->
-									<!-- 										data-toggle="tooltip" data-original-title="Post an Video"> -->
-									<!-- 										<i class="fa fa-video-camera"></i> -->
-									<!-- 									</button> -->
+									<!-- <button type="button" class="btn-link" title="Post an Video" -->
+									<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
+									<!-- <i class="fa fa-video-camera"></i> -->
+									<!-- </button> -->
 								</div>
 								<button type="submit" class="btn btn-sm btn-rounded btn-info">
 									Post</button>
@@ -79,7 +78,7 @@
 					</c:if>
 
 					<!-- 重複的結構 -->
-					<c:forEach items="${postsToShow}" var="p" varStatus="loop">
+					<c:forEach items="${postsToShow}" var="p" varStatus="vs">
 						<ul class="panel-activity__list">
 							<li><i class="activity__list__icon fa fa-question-circle-o"></i>
 								<div class="activity__list__header">

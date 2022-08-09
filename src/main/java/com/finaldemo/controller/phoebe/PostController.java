@@ -33,10 +33,6 @@ public class PostController {
 		// 取得登入者發的posts
 		Integer userId = ((Users) session.getAttribute("Users")).getUserId();
 		List<Posts> postsToShow = service.getPostsByUserId(userId);
-		for (Posts p : postsToShow) {
-//			p.setPostUser((Users) session.getAttribute("Users"));
-//			List<PostImg> postImgs = service.getPostImgsByPostId(p.getPostId());
-		}
 		model.addAttribute("postsToShow", postsToShow);
 		return "phoebe/index";
 	}
@@ -95,6 +91,7 @@ public class PostController {
 		p.setWhoCanSeeIt(whoCanSeeIt);
 		p.setPostUser((Users) session.getAttribute("Users"));
 		service.editPost(p);
+		service.deleteExtraImgs(postId);
 
 		// 存圖片
 		PostImg newPostImg = new PostImg();
