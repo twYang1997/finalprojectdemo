@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -56,6 +57,26 @@ public class JoeyController {
 		service.editUser(user);
 		
 		return "/test";
+	}
+	
+	@PostMapping("/fileuploadjoey")
+	public String uploadNewPhoto(@RequestParam("photoName") String photoName,
+			@RequestParam("file") MultipartFile file) {
+
+//		String nameAfterTrim = photoName.trim();
+		
+		try {
+			byte[] bytes = file.getBytes();
+			FileUtils.writeByteArrayToFile(
+					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\userimg\\",
+							photoName+ "joey.jpg"),
+					bytes);
+
+			return "redirect:/joey/findById";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "joey/joeytest";
+		}
 	}
 
 

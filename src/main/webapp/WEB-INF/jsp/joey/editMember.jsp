@@ -19,11 +19,11 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="card-header">編輯公開資訊</div>
-						<img src="${contextRoot}/img/joeyimg/${userId}.jpg">
+						<img src="${contextRoot}/img/joeyimg/${userId}joey.jpg">
 						
-						<form action="fileupload" method="post"
+						<form action="${contextRoot}/fileuploadjoey" method="post"
 							enctype="multipart/form-data">
-							<input type="hidden" id="${userId}" name="photoName"> <br />
+							<input type="hidden" id="${userId}" name="photoName" value="${userId}"> <br />
 							<input type="file" name="file"> <br /> <input
 								type="submit" value="送出" />
 						</form>
