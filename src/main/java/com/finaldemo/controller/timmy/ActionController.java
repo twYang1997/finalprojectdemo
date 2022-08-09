@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -166,7 +167,7 @@ public class ActionController {
 //			Users u1 = (Users)session.getAttribute("user");
 //			session.setAttribute("posts", u1.getPosts());
 //			m.addAttribute("newUser", new Users());
-		session.setAttribute("user", service.getUserById(11));
+		session.setAttribute("user", service.getUserById(1));
 		return "timmy/NormalMember";
 //		}
 //		else if (u1.getCategory() == 2)
@@ -216,11 +217,10 @@ public class ActionController {
 		if (data.getHeader().equals("selfIntroduction"))
 			u1.setSelfIntroduction(data.getValue());
 		if (data.getHeader().equals("birthday")) {
-			DateFormat df = DateFormat.getDateInstance();
-			Calendar calendar = Calendar.getInstance();
-			String fomateDate = data.getValue().replaceAll("-", "/");
 			try {
-				Date date = df.parse(fomateDate);
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				Calendar calendar = Calendar.getInstance();
+				Date date = dateFormat.parse(data.getValue());
 				calendar.setTime(date);
 				u1.setBirthday(calendar.getTime());
 			} catch (ParseException e) {

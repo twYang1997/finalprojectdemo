@@ -44,7 +44,7 @@ td {
 }
 
 #navSetting {
-	margin: auto 30%;
+	margin: auto 20%;
 }
 .iconImg{
 	width:15%;

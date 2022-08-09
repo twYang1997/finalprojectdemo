@@ -15,6 +15,14 @@
 	#emailerror {
 		color: red;
 	}
+	.col-sm-2{
+		padding: 0;
+		text-align: center;
+	}
+	.icon{
+		background-color: white;
+		border:1px solid #ced4da;
+	}
 </style>
 <body>
 	<label class="form-label">Email:</label>
@@ -31,19 +39,19 @@
 				<input type="text" class="form-control" name="below" id="inlineFormInputGroup">
 			</div>
 			<div class="col-sm-2">
-				<button class="btn btn-outline-secondary" id="enter">
-					<img src="${contextRoot}/img/userimg/enter.png" class="udateicon" width="18">
+				<button class="btn btn-outline-secondary icon" id="enter">
+					<img src="${contextRoot}/img/userimg/enter.png" class="udateicon" width="18"> 
 				</button>
 			</div>
 		</div>
 		<%-- </form> --%>
 			<div class="row" id="show">
-				<div class="col-sm-10" style="padding-right:0">
+				<div class="col-sm-11" style="padding-right:1">
 					<input id="showEmail" class="form-control" name="email" value="${user.email }" disabled="disabled">
 				</div>
-				<div class="col-sm-2">
-					<button id="pencil" class="btn btn-outline-secondary">
-						<img src="${contextRoot}/img/userimg/pencil.png" class="udateicon" width="13">
+				<div class="col-sm-1"  style="padding-left:0">
+					<button id="pencil" class="btn btn-outline-secondary icon">
+						<img src="${contextRoot}/img/userimg/pencil.png" class="udateicon" width="18">
 					</button>
 				</div>
 			</div>
