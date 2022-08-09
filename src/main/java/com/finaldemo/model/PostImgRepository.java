@@ -20,4 +20,5 @@ public interface PostImgRepository extends JpaRepository<PostImg, Integer> {
 	
 	@Query(value = "select * from PostImg where fk_post_id = :fk_post_id", nativeQuery = true)
 	public List<PostImg> findPostImgsByPostId(@Param("fk_post_id") Integer postId);
+	
 }

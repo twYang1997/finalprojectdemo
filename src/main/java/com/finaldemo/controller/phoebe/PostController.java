@@ -82,4 +82,38 @@ public class PostController {
 
 		return "redirect:/phoebe/";
 	}
+
+	// 修改post
+	@PostMapping("/editPost.controller")
+	public String editPost(@RequestParam Integer postId, @RequestParam String postText, @RequestParam MultipartFile[] postImg,
+			@RequestParam MultipartFile postVideo, @RequestParam Integer whoCanSeeIt, HttpSession session) throws IllegalStateException, IOException {
+		Posts p = new Posts();
+		p.setPostId(postId);
+		p.setPostText(postText);
+		p.setPostTime(new Date());
+		p.setPostVideoSrc(postVideo.getOriginalFilename());
+		p.setWhoCanSeeIt(whoCanSeeIt);
+		p.setPostUser((Users) session.getAttribute("Users"));
+		service.editPost(p);
+
+		// 存圖片
+		PostImg newPostImg = new PostImg();
+		for (MultipartFile img : postImg) {
+			// 存資料夾
+			if (!(img.isEmpty())) {
+				String fileName = img.getOriginalFilename();
+				String postImgPath = fileName;
+				img.transferTo(new File(postImgPath));
+				newPostImg.setPostImgPath(postImgPath);
+				// 存PostImg資料表
+				newPostImg.setPost(p);
+				newPostImg.setPostImgPath(postImgPath);
+				service.addPostImg(newPostImg);
+			} else {
+				break;
+			}
+		}
+
+		return "redirect:/phoebe/";
+	}
 }

@@ -33,7 +33,7 @@
 			<div class="panel">
 				<div class="panel-heading">
 					<h3 class="panel-title">Activity Feed</h3>
-				</div>
+				</div> 
 
 				<div class="panel-content panel-activity">
 
@@ -93,17 +93,21 @@
 
 									<!-- post圖片 -->
 									<c:forEach items="${p.getPostImg()}" var="pImg" varStatus="loop">
-										<ul class="gallery">
+								               		<ul class="gallery">
 											<li><img src="${contextRoot}/img/postImg/${pImg.getPostImgPath()}">
 												</li>
 										</ul>
 									</c:forEach>
-
+ 
 								</div>
 								<div class="activity__list__footer">
 									<a href="#"> <i class="fa fa-thumbs-up"></i>123
-									</a> <a href="#"> <i class="fa fa-comments"></i>23
-									</a> <span> <i class="fa fa-clock"></i>${p.getPostTime()}
+									</a> <a href="#"> <i class="fa fa-comments"></i>23</a>
+									<c:if test="${p.postUser.getUserId() == Users.getUserId()}">
+									 <a href="#"> <i class="fa fa-pencil"></i>Edit</a>
+									 <a href="#"> <i class="fa fa-trash"></i>Delete</a>
+									</c:if>
+									 <span> <i class="fa fa-clock"></i>${p.getPostTime()}
 									</span>
 								</div></li>
 						</ul>
