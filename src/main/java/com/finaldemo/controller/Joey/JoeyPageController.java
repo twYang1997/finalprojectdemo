@@ -35,5 +35,10 @@ public class JoeyPageController {
 	public String addMember() {
 		return "joey/addMember";
 	}
+	
+	@GetMapping("/joey/findById")
+	public String testMember() {
+		return "joey/joeytest";
+	}
 
 }
