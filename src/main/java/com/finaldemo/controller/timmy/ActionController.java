@@ -54,7 +54,7 @@ public class ActionController {
 	@PostMapping("/timmy/NewPostPage")
 	@ResponseBody
 	public Posts newPostTest() {
-		Users u1 = service.getUserById(3);
+		Users u1 = service.getUserById(6);
 		Set<Posts> ps = u1.getPosts();
 		Posts p1 = new Posts();
 		p1.setPostText("第一次PO文");
@@ -63,14 +63,20 @@ public class ActionController {
 		p1.setWhoCanSeeIt(1);
 		p1.setPostUser(u1);
 		ps.add(p1);
+		u1.setPosts(ps);
 		service.insertNewUser(u1);
-		service.insertNewPost(p1);
+//		service.insertNewPost(p1);
 		return p1;
 	}
 	
 	@GetMapping("/timmy/DeleteTestPage")
 	public void deletePostsTest() {
-		service.deletePostById(5);
+		service.deleteAllPost();
+	}
+	
+	@GetMapping("/timmy/DeleteTestPage2")
+	public void deleteUsersTest() {
+		service.deleteAllUser();
 	}
 	
 	@PostMapping("/timmy/checkLogin.controller")
@@ -117,7 +123,7 @@ public class ActionController {
 	public Users updateUserTest() {
 		Calendar c = Calendar.getInstance();
 		c.set(1997, 10, 14);
-		Users u1 = service.getUserById(3);
+		Users u1 = service.getUserById(1);
 		u1.setNickName("jenny");
 		u1.setPassword("1234");
 		u1.setAddress("台南市永康區大橋兩百街100號");
@@ -133,18 +139,19 @@ public class ActionController {
 
 	@GetMapping("/timmy/accountsetting.controller")
 	public String testgivingSession(HttpSession session, Model m) {
-		Users u1 = (Users)m.getAttribute("user");
-		session.setAttribute("user", u1);
-		if (u1.getCategory() == 1) {
+//		Users u1 = (Users)m.getAttribute("user");
+//		session.setAttribute("user", u1);
+//		if (u1.getCategory() == 1) {
 //			Users u1 = (Users)session.getAttribute("user");
 //			session.setAttribute("posts", u1.getPosts());
-			m.addAttribute("newUser", new Users());
-			return "timmy/NormalMember";
-		}
-		else if (u1.getCategory() == 2)
-			return "timmy/CharityMember";
-		else
-			return null;
+//			m.addAttribute("newUser", new Users());
+		session.setAttribute("user", service.getUserById(2));
+		return "timmy/NormalMember";
+//		}
+//		else if (u1.getCategory() == 2)
+//			return "timmy/CharityMember";
+//		else
+//			return null;
 	}
 
 	@PostMapping("/timmy/uploadImgAjax")
@@ -206,6 +213,31 @@ public class ActionController {
 			return "email has been used";
 		}
 	}
+//	@PostMapping("/timmy/checkEmail.controller")
+//	public String updateEmail(@RequestParam("font") String font, @RequestParam("below") String below, Model m, HttpSession session) {
+//		Map<String,String> errors = new HashMap<String,String>();
+//		m.addAttribute("errors", errors);
+//		String email = font + "@" + below;
+//		if (font.contains("@") || below.contains("@")) {
+//			errors.put("error", "wrong format");
+//			return "timmy/NormalMember";
+//		}
+//		if (font == null || font.length()==0 || below == null || below.length()==0) {
+//			errors.put("error", "column is empty");
+//			return "timmy/NormalMember";
+//		}
+//		Users user = (Users)session.getAttribute("user");
+//		if (user.getEmail().equals(email)) {
+//			return "timmy/NormalMember";
+//		}
+//		if (service.checkEmail(email) && errors.isEmpty()) {
+//			user.setEmail(email);
+//			service.insertNewUser(user);
+//		} else {
+//			errors.put("error", "email has been used");
+//		}
+//		return "timmy/NormalMember";
+//	}
 //	@GetMapping("/timmy/postManager.controller")
 //	public String action1(HttpSession session, Model m) {
 //		Users u1 = (Users)session.getAttribute("user");
