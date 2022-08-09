@@ -10,7 +10,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="${contextRoot}/js/timmy_js/updatedata.js"></script>
-<script src="${contextRoot}/js/timmy_js/checkemail.js"></script>
 </head>
 <style>
 	#emailerror {
@@ -53,9 +52,8 @@
 					name="nickName" value="${user.nickName }">
 			</div>
 			<div>
-				<label class="form-label">Birthday:</label> <input class="form-control userSetting"
-					name="nickName" value="">
-					<fmt:formatDate pattern='yyyy/MM/dd' value='${user.birthday}' />
+				<label class="form-label">Birthday:</label><input id="showDate" type="date" class="form-control userSetting" name="birthday">
+				<div id="hideDate" hidden="true"><fmt:formatDate pattern='yyyy-MM-dd' value='${user.birthday}'/></div>
 			</div>
 			<div>
 				<label class="form-label">Phone:</label> <input class="form-control userSetting"
@@ -73,8 +71,9 @@
 </body>
 <script>
 $(document).ready(function () {
-
-
+	var hideDate = $("#hideDate").html();
+	var showDate = $("#showDate");
+	$("#showDate")[0].value = hideDate;
 });
 </script>
 <script>
