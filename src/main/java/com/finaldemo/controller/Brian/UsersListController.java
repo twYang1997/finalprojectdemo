@@ -24,38 +24,30 @@ public class UsersListController {
 	@Autowired
 	private BrainService Service; // 連接Service 調用insertMessage
 
+	@InitBinder
+	public void InitBinder(WebDataBinder binder) {
+		// 前端传入的时间格式必须是"yyyy-MM-dd"效果!
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		CustomDateEditor dateEditor = new CustomDateEditor(df, true);
+		binder.registerCustomEditor(Date.class, dateEditor);
+	}
+
 	@GetMapping("/memberManagement")
 	public String memberManagement(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
 		Page<Users> page = Service.findByPage(pageNumber);
 		Users newMsg = new Users();
+		
 		model.addAttribute("users", newMsg);
 		model.addAttribute("page", page);
 		return "Brian/memberManagement";
 	}
-	
-	@InitBinder
-    public void InitBinder(WebDataBinder binder) {
-        //前端传入的时间格式必须是"yyyy-MM-dd"效果!
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        CustomDateEditor dateEditor = new CustomDateEditor(df, true);
-        binder.registerCustomEditor(Date.class, dateEditor);
-	}
 
 	@PostMapping("/postUser")
-	public String postUser(@ModelAttribute Users msg, Model model)  {
-			
+	public String postUser(@ModelAttribute Users msg, Model model) {
+
 		Service.insertUsers(msg);
 
 		return "redirect:/memberManagement";
 	}
-	
-//	@GetMapping("/BrianfindById")
-//	public String findAnUserById(@RequestParam(name = "id") Integer id, Model model) {
-//		Users brianOneMember = Service.BrianfindById(id);
-//		model.addAttribute("brianOneMember", brianOneMember);
-//
-//		return "redirect:/postUser";
-//
-//	}
 
 }
