@@ -40,7 +40,7 @@
 				</c:if>
 <!-- 				嘉鴻 -->
 				<li class="nav-item"><a class="nav-link"
-					href="">Donate <span class="sr-only">(current)</span>
+					href="${contextRoot}/zzzupload/fundraiser">Donate <span class="sr-only">(current)</span>
 				</a></li>
 <!-- 				亭孝 -->
 				<c:if test="${user.category == 3}">
