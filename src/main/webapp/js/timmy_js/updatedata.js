@@ -19,8 +19,11 @@ $(document).ready(function() {
 					if (hea == "nickName") {
 						var head = document.getElementById("hello");
 						head.innerHTML = "Hello! " + result;
-						var puN = document.getElementById("postUserName");
-						puN.innerHTML = result;
+						var puN = document.querySelectorAll(".postUserName");
+						if (puN != null){
+								for (var i=0; i<puN.length;i++)
+								puN[i].innerHTML = result;
+						}
 					}
 					if (hea == "email") {
 						var err = document.getElementById("emailerror");
@@ -34,4 +37,3 @@ $(document).ready(function() {
 		})
 
 	});
-	////

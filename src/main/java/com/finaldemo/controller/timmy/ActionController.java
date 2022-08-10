@@ -76,7 +76,7 @@ public class ActionController {
 	@PostMapping("/timmy/NewPostPage")
 	@ResponseBody
 	public Posts newPostTest() {
-		Users u1 = service.getUserById(11);
+		Users u1 = service.getUserById(10);
 		Set<Posts> ps = u1.getPosts();
 		Posts p1 = new Posts();
 		p1.setPostText("第一次PO文");
@@ -217,6 +217,8 @@ public class ActionController {
 			}
 		}
 		service.insertNewUser(u1);
+		session.setAttribute("user", u1);
+		session.setAttribute("Users", u1);
 		return data.getValue();
 	}
 	
@@ -230,6 +232,8 @@ public class ActionController {
 			Users u1 = service.getUserById(user.getUserId());
 			u1.setEmail(email);
 			service.insertNewUser(u1);
+			session.setAttribute("user", u1);
+			session.setAttribute("Users", u1);
 			return email;
 		} else {
 			return "email has been used";
