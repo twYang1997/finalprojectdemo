@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<jsp:include page="../brianlayout/navbar.jsp" />
+<jsp:include page="../timmy/layout/navbar.jsp" />
 
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -88,47 +88,61 @@
 														<!--生日-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">Birthday</label>
-															<form:input path="birthday" type="date"
-																value="${users.birthday}" class="form-control" />
+															<form:input id="myDate${vs.index}" path="birthday" type="date"
+																class="form-control"/>
+														<!--取得生日-->
+															<div id="hideDate${vs.index}" hidden="true">
+																<fmt:formatDate pattern='yyyy-MM-dd' value='${users.birthday}'/>
+															</div>
 														</div>
+														<script type="text/javascript">
+															$("#myDate${vs.index}").val($("#hideDate${vs.index}").html().trim());
+														</script>
 														<!--圖-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">photoPath之後換</label>
-															<form:input path="photoPath" type="text"
+															<form:input path="photoPath" type="file"
 																class="form-control" value="${users.photoPath}" />
 														</div>
 														<!--性別-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">gender</label> <br>
 															<!--選項男-->
-															<div class="form-check form-check-inline">
-																<form:radiobutton path="gender" class="form-check-input"
-																	value="0" />
-																<label class="form-check-label" for="inlineRadio1">男</label>
-															</div>
+															<form:radiobutton id="myRadiobutton1${vs.index}"
+																path ="gender" value ="1" label ="Male"/>
 															<!--選項女-->
-															<div class="form-check form-check-inline">
-																<form:radiobutton path="gender" class="form-check-input"
-																	value="1" />
-																<label class="form-check-label" for="inlineRadio2">女</label>
-															</div>
+                  											<form:radiobutton id="myRadiobutton0${vs.index}"
+                  												path ="gender" value ="0" label ="Female"/>
 														</div>
+														<script type="text/javascript">
+														if("${users.gender}" == 1){
+															$("#myRadiobutton1${vs.index}").attr("checked", true);
+														}else if("${users.gender}" == 0){
+															$("#myRadiobutton0${vs.index}").attr("checked", true);
+														}
+														</script>
 														<!--權限-->
-														<div class="form-group" style="text-align: left;">
-															<label for="inputAddress">category之後換</label>
-															<form:input path="category" type="text"
-																class="form-control" value="${users.category}" />
-
+														<div class="dropdown" style="text-align: left;">
+														<!--下拉式選單-->
+															<label for="inputAddress">category</label><br>
+											               		<form:select id="myOption${vs.index}" path="category">
+											               		<!--選單內容-->
+											                        <form:option  value="1" label="一般會員"/>  
+											                        <form:option  value="2" label="基金會"/>  
+											                    </form:select>
 														</div>
-
+														<script type="text/javascript">
+															$("#myOption${vs.index}").val("${users.category}");
+														</script>
+														<br>
 														<!--自介-->
 														<div class="form-group" style="text-align: left;">
 															<label for="exampleFormControlTextarea1">selfIntroduction</label>
-															<form:textarea id="myTextarea${vs.index}" path="selfIntroduction"
-																class="form-control aa" rows="3" />
+															<form:textarea id="myTextarea${vs.index}"
+																path="selfIntroduction" class="form-control aa" rows="3" />
 														</div>
 														<script type="text/javascript">
-															$("#myTextarea${vs.index}").val("${users.selfIntroduction}");
+															$("#myTextarea${vs.index}")	.val("${users.selfIntroduction}");
 														</script>
 														<!-- 按鈕 -->
 														<div class="modal-footer">
