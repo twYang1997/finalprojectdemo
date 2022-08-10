@@ -68,7 +68,7 @@
 			</form>
 
 			<c:if test="${empty user}">
-				<form:form method="GET" action="${contextRoot}/timmy/login">
+				<form:form method="GET" action="${contextRoot}/timmy/">
 					<button type="submit" class="btn btn-light">Login</button>
 				</form:form>
 			</c:if>
