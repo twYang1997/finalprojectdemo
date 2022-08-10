@@ -49,7 +49,8 @@ public class PostController_P {
 			@RequestParam MultipartFile postVideo, @RequestParam Integer whoCanSeeIt, HttpSession session)
 			throws IllegalStateException, IOException {
 		Posts p = new Posts();
-		Users author = (Users)session.getAttribute("user");
+		Users u = (Users)session.getAttribute("user");
+		Users author = TimmyService.getUserById(u.getUserId());
 		Set<Posts> posts = author.getPosts();
 		p.setIsReport(0);
 		p.setPostLike(0);
@@ -57,6 +58,7 @@ public class PostController_P {
 		p.setPostTime(new Date());
 		p.setPostVideoSrc(postVideo.getOriginalFilename());
 		p.setWhoCanSeeIt(whoCanSeeIt);
+		p.setPostUser(author);
 		posts.add(p);
 		author.setPosts(posts);
 		TimmyService.insertNewUser(author);
