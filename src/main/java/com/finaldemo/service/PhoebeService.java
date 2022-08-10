@@ -64,4 +64,10 @@ public class PhoebeService {
 	public void deleteExtraImgs(Integer postId) {
 		PostImgRepository.deleteImgByPostId(postId);
 	}
+
+	public void movePostToTrash(Integer whoCanSeeIt, Integer postId) {
+		PostsRepository.changeWhoCanSeeItById(whoCanSeeIt, postId);
+	}
+	
+	
 }

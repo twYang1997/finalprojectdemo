@@ -25,4 +25,5 @@ public interface PostImgRepository extends JpaRepository<PostImg, Integer> {
 	@Modifying
 	@Query(value = "delete from PostImg where fk_post_id = :postId", nativeQuery = true)
 	public void deleteImgByPostId(@Param("postId") Integer postId);
+	
 }
