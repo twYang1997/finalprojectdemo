@@ -38,7 +38,6 @@ public class JoeyController {
 	
 	@GetMapping("/findById")
 	public String findAnUserById(@RequestParam(name = "id") Integer id, Model model) {
-		System.out.println("controller id:"+id);
 		
 		
 		Users oneMember = service.findById(id);
@@ -56,23 +55,30 @@ public class JoeyController {
 	public String editAnUser(@ModelAttribute Users user, Model model) {
 		service.editUser(user);
 		
-		return "/test";
+		return "joey/joeytest";
 	}
 	
 	@PostMapping("/fileuploadjoey")
-	public String uploadNewPhoto(@RequestParam("photoName") String photoName,
+	public String uploadNewPhoto(@RequestParam("userId") String userId,
 			@RequestParam("file") MultipartFile file) {
-
-//		String nameAfterTrim = photoName.trim();
+		
+		String contentType = file.getContentType();
+		String photoType = "."+contentType.substring(6);
+		System.out.println(photoType);
+		Users oneMember = service.findById(Integer.parseInt(userId));
+		oneMember.setUserId(Integer.parseInt(userId));
+		oneMember.setPhotoPath("/img/joeyimg/"+userId+photoType);
+		service.editUser(oneMember);
+		System.out.println(photoType);
 		
 		try {
 			byte[] bytes = file.getBytes();
 			FileUtils.writeByteArrayToFile(
-					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\userimg\\",
-							photoName+ "joey.jpg"),
+					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\",
+							userId+ photoType),
 					bytes);
 
-			return "redirect:/joey/findById";
+			return "joey/joeytest";
 		} catch (IOException e) {
 			e.printStackTrace();
 			return "joey/joeytest";

@@ -30,15 +30,12 @@ public class JoeyPageController {
 	public String uploadPage2() {
 		return "joey/goodphoto/uploadPageTest";
 	}
-	
-	@GetMapping("/addMember")
-	public String addMember() {
-		return "joey/addMember";
-	}
+
 	
 	@GetMapping("/joey/findById")
-	public String testMember() {
+	public String findMember() {
 		return "joey/joeytest";
 	}
+	
 
 }

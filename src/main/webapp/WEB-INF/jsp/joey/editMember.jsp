@@ -18,22 +18,25 @@
 			<div class="col-8">
 				<div class="card">
 					<div class="card-body">
-						<div class="card-header">編輯公開資訊</div>
-						<img src="${contextRoot}/img/joeyimg/${userId}joey.jpg">
+
 						
 						<form action="${contextRoot}/fileuploadjoey" method="post"
 							enctype="multipart/form-data">
-							<input type="hidden" id="${userId}" name="photoName" value="${userId}"> <br />
-							<input type="file" name="file"> <br /> <input
-								type="submit" value="送出" />
+							<img src="${contextRoot}${oneMember.photoPath}">
+							<input type="hidden" id="${userId}" name="userId"
+								value="${userId}"> <br /> <input type="file"
+								name="file"> <br /> <input type="submit" value="Submit" />
 						</form>
-						
+						<br /> <br />
+						<div class="card-header" >編輯公開資訊</div>
 						<form:form class="form" method="post" modelAttribute="oneMember"
 							action="${contextRoot}/editMember">
 							<form:input type="hidden" path="userId" />
-							<br />
-							圖片：
-							<form:input type="text" path="photoPath" />
+
+							<form:input type="hidden" path="photoPath" />
+							
+							暱稱：
+							<form:input type="text" path="nickName" />
 							<br />
 							簡介：
 							<form:input type="text" path="selfIntroduction" />
