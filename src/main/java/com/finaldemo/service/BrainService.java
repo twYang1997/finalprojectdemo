@@ -41,6 +41,9 @@ public class BrainService {
 		return page;
 	}
 	
+	public Users findById(Integer id) {
+		return uDao.findById(id).get();
+	}
 //	public Users findBySelfIntroduction(String selfIntroduction) {
 //		List<Users> newselfIntroduction = uDao.findAll();
 //		
