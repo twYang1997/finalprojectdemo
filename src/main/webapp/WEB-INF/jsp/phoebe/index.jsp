@@ -190,9 +190,10 @@
 									<div class="modal-footer">
 										<button type="button" class="btn btn-light"
 											data-dismiss="modal">Cancel</button>
-										<a class="btn btn-info"
-											href="${contextRoot}/movePostToTrash.controller"
-											role="button">Move</a>
+										<form method="Post" action="${contextRoot}/movePostToTrash.controller?postId=${p.getPostId()}">
+											<button type="submit"
+													class="btn btn-info">Move</button>
+										</form>
 									</div>
 								</div>
 							</div>

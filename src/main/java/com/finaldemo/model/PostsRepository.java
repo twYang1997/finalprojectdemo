@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface PostsRepository extends JpaRepository<Posts, Integer> {
 	
-	@Query(value="Select * from Posts where fk_user_id = :id", nativeQuery = true)
+	@Query(value="Select * from Posts where fk_user_id = :id and whoCanSeeIt != 0 and whoCanSeeIt != 4", nativeQuery = true)
 	public List<Posts> findPostsByUserId(@Param("id") Integer userId);
 
 	@Transactional

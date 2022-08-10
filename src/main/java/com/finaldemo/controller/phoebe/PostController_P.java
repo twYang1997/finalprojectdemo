@@ -118,7 +118,8 @@ public class PostController_P {
 	
 	//post移到垃圾桶
 	@PostMapping("/movePostToTrash.controller")
-	public void movePostToTrash(@RequestParam Integer postId) {
+	public String movePostToTrash(@RequestParam Integer postId) {
 		service.movePostToTrash(0, postId);
+		return "redirect:/getMainPagePosts.controller";
 	}
 }
