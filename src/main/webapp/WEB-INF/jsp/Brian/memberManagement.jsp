@@ -17,6 +17,17 @@
 <script>
 	
 </script>
+<style>
+img {
+	width: 200px;
+	height: 150px;
+	display: block;
+	margin: 20px auto 20px auto;
+	border-radius: 40%;
+	display: block;
+	display: block;
+}
+</style>
 </head>
 
 <body>
@@ -100,9 +111,58 @@
 														</script>
 														<!--圖-->
 														<div class="form-group" style="text-align: left;">
-															<label for="inputAddress">photoPath之後換</label>
-															<form:input path="photoPath" type="file"
-																class="form-control" value="${users.photoPath}" />
+															<label for="inputAddress">photoPath</label>
+															<img src="${contextRoot}/${users.photoPath}" id="showImg${vs.index}">
+															<input id="inputFile${vs.index}" type="file" class="form-control" value="${users.photoPath}" />
+															<script>
+																$(document).ready(function(){
+																	var contextRoot = "/demo";
+																	var file = document.getElementById("inputFile${vs.index}");
+																	var datas;
+																	file.onchange = function(){
+																		console.log("files:" + file.files[0]);
+																		readURL(this);
+																		console.log("type:" + this.files[0].type);
+																		console.log("datao:" + datao);
+																	};
+																	function readURL(input){
+																		if (input.files && input.files[0]){
+																			var reader = new FileReader();
+																			reader.onload = function(e){
+																				document.getElementById("showImg${vs.index}").setAttribute("src", e.target.result);
+																				console.log(typeof e.target.result);
+																			var datao = {
+																					"img64": e.target.result,
+																					"type": file.files[0].type,
+																					"id": "${users.userId}"
+																			};
+																			datas = JSON.stringify(datao);
+																			console.log("datas:" + datas);
+																			}
+																			
+																		}
+																		reader.readAsDataURL(input.files[0]);
+																	}
+																	function submit(){
+																		console.log("datas:" + datas);
+																		$.ajax({
+																			url: contextRoot + "/imgUploadAjax",
+																			contentType: 'application/json',
+																			method: 'post',
+																			data: datas,
+																			success: function(result){
+																				console.log(result);
+																			},
+																			error: function(result){
+																				console.log(result);
+																			}
+																		})
+																	}
+																	$(".test").click(function(){
+																		submit();
+																	})
+																});
+															</script>
 														</div>
 														<!--性別-->
 														<div class="form-group" style="text-align: left;">
@@ -186,20 +246,5 @@
 		</div>
 	</div>
 </body>
-<!-- <script> 
-// 	var num = "${fn:length(page.content)}";
-// 	var Datas = "${page.content}";
-// 	console.log(Datas);
-// 	for (var i = 0; i < num; i++) {
-// 		var a = Datas.substring(Datas.indexOf("selfIntroduction") + 17, Datas.indexOf(", pets"));
-// 		var b = Datas.substring(Datas.indexOf("selfIntroduction"), Datas.indexOf(", pets"));
-// 		console.log("a: " + a);
-// 		console.log("b: " + b);
-// 		var data = document.querySelectorAll('.aa')[i];
-// 		document.querySelectorAll('.aa')[i].value = a;
-// 		Datas = Datas.replace(b + ", pets", "");
-// 		console.log("after Datas: " + Datas);
-// 		console.log("---------------------------------")
-// 	}
- </script> -->
+
 </html>
