@@ -117,6 +117,7 @@ public class ActionController {
 		Users u = service.checkLogin(email, password);
 		if (u != null) {
 			session.setAttribute("user", u);
+			session.setAttribute("Users", u);
 			return "timmy/NormalMember";
 		}
 		errors.put("failed", "login failed");
@@ -161,19 +162,7 @@ public class ActionController {
 
 	@GetMapping("/timmy/accountsetting.controller")
 	public String testgivingSession(HttpSession session, Model m) {
-//		Users u1 = (Users)m.getAttribute("user");
-//		session.setAttribute("user", u1);
-//		if (u1.getCategory() == 1) {
-//			Users u1 = (Users)session.getAttribute("user");
-//			session.setAttribute("posts", u1.getPosts());
-//			m.addAttribute("newUser", new Users());
-		session.setAttribute("user", service.getUserById(1));
 		return "timmy/NormalMember";
-//		}
-//		else if (u1.getCategory() == 2)
-//			return "timmy/CharityMember";
-//		else
-//			return null;
 	}
 
 	@PostMapping("/timmy/uploadImgAjax")

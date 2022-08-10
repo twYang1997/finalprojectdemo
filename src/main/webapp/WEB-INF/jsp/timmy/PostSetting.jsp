@@ -27,19 +27,6 @@
 </style>
 </head>
 <body>
-	<%-- 	<c:forEach var="post" items="${user.posts}"> --%>
-	<!-- 		<table class="table"> -->
-	<!-- 			<tr> -->
-	<%-- 				<td id="postUserName">${user.nickName}</td> --%>
-	<!-- 			</tr> -->
-	<!-- 			<tr> -->
-	<%-- 				<td>${post.postVideoSrc}</td> --%>
-	<!-- 			</tr> -->
-	<!-- 			<tr> -->
-	<%-- 				<td>${post.postText}</td> --%>
-	<!-- 			</tr> -->
-	<!-- 		</table> -->
-	<%-- 	</c:forEach> --%>
 	<div class="col-lg-12">
 		<div class="panel">
 			<br/>
