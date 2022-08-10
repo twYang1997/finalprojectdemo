@@ -36,6 +36,7 @@
 				</div>
 
 				<div class="panel-content panel-activity">
+
 					<!-- 新增post -->
 					<c:if test="${!empty Users}">
 						<form action="${contextRoot}/addPost.controller"
@@ -63,7 +64,7 @@
 										class="fa fa-image"></i>
 									</label> &emsp; <label> <input
 										style="position: absolute; opacity: 0;" type="file"
-										name="postVideo" id="file" accept="video/*" /> <i
+										name="postVideo" id="file" accept="video/*" /><i
 										class="fa fa-video-camera"></i>
 									</label>
 									<!-- <button type="button" class="btn-link" title="Post an Video" -->
@@ -110,7 +111,9 @@
 											data-target="#myModal${vs.index}"
 											id="viewDetailButton${vs.index}"> <i class="fa fa-pencil"></i>Edit
 										</a>
-										<a href="#"> <i class="fa fa-trash"></i>Delete
+										<a href="#" role="button" data-toggle="modal"
+											data-target="#myModal${vs.index}deleteCheck"
+											id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>Delete
 										</a>
 									</c:if>
 									<span> <i class="fa fa-clock"></i>${p.getPostTime()}
@@ -119,7 +122,7 @@
 						</ul>
 						<!-- 彈出修改框 -->
 						<div class="modal fade" id="myModal${vs.index}" role="dialog">
-							<div class="modal-dialog">
+							<div class="modal-dialog modal-dialog-centered">
 								<div class="modal-content">
 									<!-- head -->
 									<div class="modal-header">
@@ -162,6 +165,34 @@
 												<button type="submit"
 													class="btn btn-sm btn-rounded btn-info">Save</button>
 											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 彈出刪除確認 -->
+						<div class="modal fade" id="myModal${vs.index}deleteCheck"
+							tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLongTitle">Move
+											to your trash?</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">Items in your trash will be
+										automatically deleted after 30 days.</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-light"
+											data-dismiss="modal">Cancel</button>
+										<form method="Post" action="${contextRoot}/movePostToTrash.controller?postId=${p.getPostId()}">
+											<button type="submit"
+													class="btn btn-info">Move</button>
 										</form>
 									</div>
 								</div>
