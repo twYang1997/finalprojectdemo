@@ -43,7 +43,7 @@ public class UsersController_P {
 		}
 		Users u = UsersService.checkLogin(email, password);
 		if (u != null) {
-			session.setAttribute("Users", u);
+			session.setAttribute("user", u);
 			return "redirect:/getMainPagePosts.controller";
 		}
 		errors.put("failed", "login failed");
