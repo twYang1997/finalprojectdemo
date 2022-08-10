@@ -45,7 +45,7 @@
 <!-- 				亭孝 -->
 				<c:if test="${user.category == 3}">
 					<li class="nav-item"><a class="nav-link"
-					href="">Manager <span class="sr-only">(current)</span>
+					href="${contextRoot}/memberManagement">Manager <span class="sr-only">(current)</span>
 				</a></li>
 				</c:if>
 				
