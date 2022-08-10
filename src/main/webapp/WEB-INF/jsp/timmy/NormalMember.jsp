@@ -55,7 +55,7 @@ ul li button{
 </style>
 
 <body>
-	<jsp:include page="../timmy/layout/navbar.jsp" />
+	<jsp:include page="layout/navbar.jsp" />
 	<div class="container">
 		<img src="${contextRoot}/${user.photoPath}"
 			id="preview_progressbarTW_img"> <input type="file"
@@ -74,11 +74,11 @@ ul li button{
 			</tbody>
 			<tfoot>
 				<tr>
-					<td><a
-						href="/timmy/followersManager.controller?id=${user.userId}">${fn:length(user.follows)}</a>
-					</td>
-					<td><a href="/timmy/fansManager.controller?id=${user.userId}">${fn:length(user.fans)}</a>
-					</td>
+<!-- 					<td><a -->
+<%-- 						href="/timmy/followersManager.controller?id=${user.userId}">${fn:length(user.follows)}</a> --%>
+<!-- 					</td> -->
+<%-- 					<td><a href="/timmy/fansManager.controller?id=${user.userId}">${fn:length(user.fans)}</a> --%>
+<!-- 					</td> -->
 				</tr>
 			</tfoot>
 		</table>

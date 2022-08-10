@@ -27,7 +27,6 @@
 <body>
 	<label class="form-label">Email:</label>
 	<span id="emailerror"></span>
-	<%-- <form method="post" action="${contextRoot}/timmy/checkEmail.controller"> --%>
 		<div class="row" id="write" style="display:none">
 			<div class="col-sm-5" style="padding-right:0">
 				<input type="text" class="form-control" name="font" id="num">
@@ -69,7 +68,14 @@
 			</div>
 			<div>
 				<label class="form-label">Address:</label> <input class="form-control userSetting"
-					name="address" value="${user.address }">
+					name="address" value="${user.address }" id="address">
+			</div>
+			<div>
+<!-- 				<select id="town" onchange="setPosition()"></select> -->
+<!--             	<select id="position" onchange="setPositionNumber()"></select> -->
+<!--             	<input id="positionNumber" type="text" placeholder="輸入地區號碼" style="display:none"> -->
+<!--             	<input id="completeAddress" type="text" placeholder="輸入地址" onchange="setAddress()"> -->
+<!--             	<input type="text" name="address" id="address" style="display:none"> -->
 			</div>
 			<div>
 				<label class="form-label">Introduction:</label>
@@ -77,6 +83,7 @@
 					name="selfIntroduction">${user.selfIntroduction }</textarea>
 			</div>
 </body>
+<%-- <script src="${contextRoot}/js/timmy_js/addmhw.js"></script> --%>
 <script>
 $(document).ready(function () {
 	var hideDate = $("#hideDate").html();

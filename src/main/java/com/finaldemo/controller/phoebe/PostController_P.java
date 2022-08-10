@@ -31,7 +31,7 @@ public class PostController_P {
 	@GetMapping("/getMainPagePosts.controller")
 	public String getMainPagePosts(HttpSession session, Model model) {
 		// 取得登入者發的posts
-		Integer userId = ((Users) session.getAttribute("Users")).getUserId();
+		Integer userId = ((Users) session.getAttribute("user")).getUserId();
 		List<Posts> postsToShow = service.getPostsByUserId(userId);
 		model.addAttribute("postsToShow", postsToShow);
 		Users u = new Users();
@@ -72,19 +72,19 @@ public class PostController_P {
 			}
 		}
 
-		// 存影片
-//		String fileName = postVideo.getOriginalFilename();
-//		String postVideoPath = "/finalprojectdemo/src/main/webapp/video" + fileName;
-//		postVideo.transferTo(new File(postVideoPath));
-//		System.out.println("已上傳：" + fileName);
-
+		// 影片存資料夾
+			if (!(postVideo.isEmpty())) {
+				String fileName = postVideo.getOriginalFilename();
+				postVideo.transferTo(new File(fileName));
+			}
 		return "redirect:/getMainPagePosts.controller";
 	}
 
 	// 修改post
 	@PostMapping("/editPost.controller")
-	public String editPost(@RequestParam Integer postId, @RequestParam String postText, @RequestParam MultipartFile[] postImg,
-			@RequestParam MultipartFile postVideo, @RequestParam Integer whoCanSeeIt, HttpSession session) throws IllegalStateException, IOException {
+	public String editPost(@RequestParam Integer postId, @RequestParam String postText,
+			@RequestParam MultipartFile[] postImg, @RequestParam MultipartFile postVideo,
+			@RequestParam Integer whoCanSeeIt, HttpSession session) throws IllegalStateException, IOException {
 		Posts p = new Posts();
 		p.setPostId(postId);
 		p.setPostText(postText);
@@ -115,8 +115,8 @@ public class PostController_P {
 
 		return "redirect:/getMainPagePosts.controller";
 	}
-	
-	//post移到垃圾桶
+
+	// post移到垃圾桶
 	@PostMapping("/movePostToTrash.controller")
 	public String movePostToTrash(@RequestParam Integer postId) {
 		service.movePostToTrash(0, postId);
