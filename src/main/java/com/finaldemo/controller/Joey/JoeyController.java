@@ -1,9 +1,12 @@
 package com.finaldemo.controller.Joey;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.model.Users;
 import com.finaldemo.service.JoeyService;
@@ -34,10 +38,17 @@ public class JoeyController {
 	
 	@GetMapping("/findById")
 	public String findAnUserById(@RequestParam(name = "id") Integer id, Model model) {
+		System.out.println("controller id:"+id);
+		
+		
 		Users oneMember = service.findById(id);
+		
 		model.addAttribute("oneMember", oneMember);
+		model.addAttribute("userId", id);
+		
 
-		return "/joey/editMember";
+
+		return "joey/editMember";
 
 	}
 
@@ -47,6 +58,27 @@ public class JoeyController {
 		
 		return "/test";
 	}
+	
+	@PostMapping("/fileuploadjoey")
+	public String uploadNewPhoto(@RequestParam("photoName") String photoName,
+			@RequestParam("file") MultipartFile file) {
+
+//		String nameAfterTrim = photoName.trim();
+		
+		try {
+			byte[] bytes = file.getBytes();
+			FileUtils.writeByteArrayToFile(
+					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\userimg\\",
+							photoName+ "joey.jpg"),
+					bytes);
+
+			return "redirect:/joey/findById";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "joey/joeytest";
+		}
+	}
+
 
 	@PostMapping("/deleteMember")
 	public String deleteUser(@RequestParam Integer id) {

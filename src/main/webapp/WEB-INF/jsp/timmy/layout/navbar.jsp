@@ -25,17 +25,30 @@
 			<ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll"
 				style="max-height: 100px;">
 				<li class="nav-item active"><a class="nav-link"
-					href="">Home <span class="sr-only">(current)</span>
+					href="${contextRoot}/phoebe/">Home <span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="">User <span class="sr-only">(current)</span>
-				</a></li>
+				<c:if test="${user.category == 1}">
+					<li class="nav-item"><a class="nav-link"
+						href="${contextRoot}/timmy/accountsetting.controller">User <span class="sr-only">(current)</span>
+					</a></li>
+				</c:if>
+<!-- 				小郭 -->
+				<c:if test="${user.category == 2}">
+					<li class="nav-item"><a class="nav-link"
+						href="">User <span class="sr-only">(current)</span>
+					</a></li>
+				</c:if>
+<!-- 				嘉鴻 -->
 				<li class="nav-item"><a class="nav-link"
 					href="">Donate <span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link"
+<!-- 				亭孝 -->
+				<c:if test="${user.category == 3}">
+					<li class="nav-item"><a class="nav-link"
 					href="">Manager <span class="sr-only">(current)</span>
 				</a></li>
+				</c:if>
+				
 <!-- 				<li class="nav-item"><a class="nav-link" href="#">Link</a></li> -->
 <!-- 				<li class="nav-item dropdown"><a -->
 <!-- 					class="nav-link dropdown-toggle" href="#" role="button" -->
@@ -55,7 +68,7 @@
 			</form>
 
 			<c:if test="${empty user}">
-				<form:form method="GET" action="${contextRoot}/phoebe/login">
+				<form:form method="GET" action="${contextRoot}/timmy/login">
 					<button type="submit" class="btn btn-light">Login</button>
 				</form:form>
 			</c:if>

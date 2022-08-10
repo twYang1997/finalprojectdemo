@@ -3,6 +3,9 @@ package com.finaldemo.controller.timmy;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,6 +45,7 @@ public class ActionController {
 		c.set(1997, 10, 14);
 		Users u1 = new Users();
 		u1.setNickName("jenny");
+		u1.setPassword("1234");
 		u1.setAddress("台南市永康區大橋兩百街100號");
 		u1.setBirthday(c.getTime());
 		u1.setCategory(1);
@@ -72,7 +76,7 @@ public class ActionController {
 	@PostMapping("/timmy/NewPostPage")
 	@ResponseBody
 	public Posts newPostTest() {
-		Users u1 = service.getUserById(6);
+		Users u1 = service.getUserById(11);
 		Set<Posts> ps = u1.getPosts();
 		Posts p1 = new Posts();
 		p1.setPostText("第一次PO文");
@@ -113,6 +117,7 @@ public class ActionController {
 		Users u = service.checkLogin(email, password);
 		if (u != null) {
 			session.setAttribute("user", u);
+			session.setAttribute("Users", u);
 			return "timmy/NormalMember";
 		}
 		errors.put("failed", "login failed");
@@ -157,19 +162,7 @@ public class ActionController {
 
 	@GetMapping("/timmy/accountsetting.controller")
 	public String testgivingSession(HttpSession session, Model m) {
-//		Users u1 = (Users)m.getAttribute("user");
-//		session.setAttribute("user", u1);
-//		if (u1.getCategory() == 1) {
-//			Users u1 = (Users)session.getAttribute("user");
-//			session.setAttribute("posts", u1.getPosts());
-//			m.addAttribute("newUser", new Users());
-		session.setAttribute("user", service.getUserById(2));
 		return "timmy/NormalMember";
-//		}
-//		else if (u1.getCategory() == 2)
-//			return "timmy/CharityMember";
-//		else
-//			return null;
 	}
 
 	@PostMapping("/timmy/uploadImgAjax")
@@ -212,6 +205,17 @@ public class ActionController {
 			u1.setAddress(data.getValue());
 		if (data.getHeader().equals("selfIntroduction"))
 			u1.setSelfIntroduction(data.getValue());
+		if (data.getHeader().equals("birthday")) {
+			try {
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				Calendar calendar = Calendar.getInstance();
+				Date date = dateFormat.parse(data.getValue());
+				calendar.setTime(date);
+				u1.setBirthday(calendar.getTime());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 		service.insertNewUser(u1);
 		return data.getValue();
 	}

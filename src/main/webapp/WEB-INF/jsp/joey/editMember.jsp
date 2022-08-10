@@ -13,43 +13,50 @@
 </head>
 <body>
 	<div class="container">
-	
+
 		<div class="row justify-content-center">
 			<div class="col-8">
 				<div class="card">
 					<div class="card-body">
 						<div class="card-header">編輯公開資訊</div>
+						<img src="${contextRoot}/img/joeyimg/${userId}joey.jpg">
+						
+						<form action="${contextRoot}/fileuploadjoey" method="post"
+							enctype="multipart/form-data">
+							<input type="hidden" id="${userId}" name="photoName" value="${userId}"> <br />
+							<input type="file" name="file"> <br /> <input
+								type="submit" value="送出" />
+						</form>
+						
 						<form:form class="form" method="post" modelAttribute="oneMember"
 							action="${contextRoot}/editMember">
-							
 							<form:input type="hidden" path="userId" />
 							<br />
 							圖片：
-							<img src="${contextRoot}/joey/img/1.jpg">
 							<form:input type="text" path="photoPath" />
 							<br />
 							簡介：
 							<form:input type="text" path="selfIntroduction" />
-<!-- 							<br /> -->
-<!-- 							電話： -->
+							<!-- 							<br /> -->
+							<!-- 							電話： -->
 							<form:input type="hidden" path="phone" />
-<!-- 							<br /> -->
-<!-- 							地址： -->
+							<!-- 							<br /> -->
+							<!-- 							地址： -->
 							<form:input type="hidden" path="address" />
-<!-- 							<br /> -->
-<!-- 							生日： -->
+							<!-- 							<br /> -->
+							<!-- 							生日： -->
 							<form:input type="hidden" path="birthday" />
-<!-- 							<br /> -->
-<!-- 							分類： -->
+							<!-- 							<br /> -->
+							<!-- 							分類： -->
 							<form:input type="hidden" path="category" />
-<!-- 							<br /> -->
-<!-- 							信箱： -->
+							<!-- 							<br /> -->
+							<!-- 							信箱： -->
 							<form:input type="hidden" path="email" />
-<!-- 							<br /> -->
-<!-- 							性別： -->
+							<!-- 							<br /> -->
+							<!-- 							性別： -->
 							<form:input type="hidden" path="gender" />
-<!-- 							<br /> -->
-<!-- 							密碼： -->
+							<!-- 							<br /> -->
+							<!-- 							密碼： -->
 							<form:input type="hidden" path="password" />
 							<br />
 							<button type="submit" class="btn btn-primary">Submit</button>
@@ -58,8 +65,7 @@
 				</div>
 			</div>
 		</div>
-		<br />
-		<br />
+		<br /> <br />
 		<div class="row justify-content-center">
 			<div class="col-8">
 				<div class="card">
@@ -69,13 +75,13 @@
 							action="${contextRoot}/editMember">
 
 							<form:input type="hidden" path="userId" />
-<!-- 							<br /> -->
-<!-- 							圖片： -->
+							<!-- 							<br /> -->
+							<!-- 							圖片： -->
 							<form:input type="hidden" path="photoPath" />
-<!-- 							<br /> -->
-<!-- 							簡介： -->
+							<!-- 							<br /> -->
+							<!-- 							簡介： -->
 							<form:input type="hidden" path="selfIntroduction" />
-<!-- 							<br /> -->
+							<!-- 							<br /> -->
 							電話：
 							<form:input type="text" path="phone" />
 							<br />
@@ -103,8 +109,8 @@
 				</div>
 			</div>
 		</div>
-		
-		
+
+
 	</div>
 
 </body>

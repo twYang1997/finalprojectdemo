@@ -19,8 +19,7 @@ public class JoeyService {
 
 	public Users findById(Integer id) {
 		Optional<Users> optional = uDao.findById(id);
-		
-		System.out.println("Service ID:" + id);
+	
 		if (optional.isPresent()) {
 			return optional.get();
 		}

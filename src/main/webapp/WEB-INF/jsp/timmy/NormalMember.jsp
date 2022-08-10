@@ -44,7 +44,7 @@ td {
 }
 
 #navSetting {
-	margin: auto 30%;
+	margin: auto 20%;
 }
 .iconImg{
 	width:15%;
@@ -55,7 +55,7 @@ ul li button{
 </style>
 
 <body>
-	<jsp:include page="layout/navbar.jsp" />
+	<jsp:include page="../timmy/layout/navbar.jsp" />
 	<div class="container">
 		<img src="${contextRoot}/${user.photoPath}"
 			id="preview_progressbarTW_img"> <input type="file"
