@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,12 +21,15 @@ import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.PhoebeService;
+import com.finaldemo.service.TimmyService;
 
 @Controller
 public class PostController_P {
 
 	@Autowired
 	private PhoebeService service;
+	@Autowired
+	private TimmyService TimmyService;
 
 	// 顯示登入者主頁貼文
 	@GetMapping("/getMainPagePosts.controller")
@@ -45,13 +49,20 @@ public class PostController_P {
 			@RequestParam MultipartFile postVideo, @RequestParam Integer whoCanSeeIt, HttpSession session)
 			throws IllegalStateException, IOException {
 		Posts p = new Posts();
+		Users u = (Users)session.getAttribute("user");
+		Users author = TimmyService.getUserById(u.getUserId());
+		Set<Posts> posts = author.getPosts();
 		p.setIsReport(0);
 		p.setPostLike(0);
 		p.setPostText(postText);
 		p.setPostTime(new Date());
 		p.setPostVideoSrc(postVideo.getOriginalFilename());
 		p.setWhoCanSeeIt(whoCanSeeIt);
-		p.setPostUser((Users) session.getAttribute("Users"));
+		p.setPostUser(author);
+		posts.add(p);
+		author.setPosts(posts);
+		TimmyService.insertNewUser(author);
+//		p.setPostUser((Users) session.getAttribute("user"));
 		Posts newPost = service.addPost(p);
 
 		// 存圖片

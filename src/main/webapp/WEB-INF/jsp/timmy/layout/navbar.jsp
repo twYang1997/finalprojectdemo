@@ -25,7 +25,7 @@
 			<ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll"
 				style="max-height: 100px;">
 				<li class="nav-item active"><a class="nav-link"
-					href="${contextRoot}/phoebe/">Home <span class="sr-only">(current)</span>
+					href="${contextRoot}/getMainPagePosts.controller"">Home <span class="sr-only">(current)</span>
 				</a></li>
 				<c:if test="${user.category == 1}">
 					<li class="nav-item"><a class="nav-link"
@@ -68,7 +68,9 @@
 			</form>
 
 			<c:if test="${empty user}">
+
 				<form:form method="GET" action="${contextRoot}/timmy/">
+
 					<button type="submit" class="btn btn-light">Login</button>
 				</form:form>
 			</c:if>
