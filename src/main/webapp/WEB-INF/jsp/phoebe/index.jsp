@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<jsp:include page="layout/navbar.jsp" />
+<jsp:include page="../timmy/layout/navbar.jsp" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,13 +38,13 @@
 				<div class="panel-content panel-activity">
 
 					<!-- 新增post -->
-					<c:if test="${!empty Users}">
+					<c:if test="${!empty user}">
 						<form action="${contextRoot}/addPost.controller"
 							class="panel-activity__status" method="post"
 							enctype="multipart/form-data">
 							<img src="${contextRoot}/img/phoebeImg/DefaultUserImage.png"
 								style="width: 40px; height: 40px; border-radius: 50%;">
-							${Users.getNickName()} <select name="whoCanSeeIt">
+							${user.getNickName()} <select name="whoCanSeeIt">
 								<option value="1">Public</option>
 								<option value="2">Follower</option>
 								<option value="3">Only me</option>
@@ -106,7 +106,7 @@
 									<a href="#"> <i class="fa fa-thumbs-up"></i>123
 									</a> <a href="#"> <i class="fa fa-comments"></i>23
 									</a>
-									<c:if test="${p.postUser.getUserId() == Users.getUserId()}">
+									<c:if test="${p.postUser.getUserId() == user.getUserId()}">
 										<a href="#" role="button" data-toggle="modal"
 											data-target="#myModal${vs.index}"
 											id="viewDetailButton${vs.index}"> <i class="fa fa-pencil"></i>Edit
@@ -137,7 +137,7 @@
 											enctype="multipart/form-data">
 											<img src="${contextRoot}/img/phoebeImg/DefaultUserImage.png"
 												style="width: 40px; height: 40px; border-radius: 50%;">
-											${Users.getNickName()} <select name="whoCanSeeIt">
+											${user.getNickName()} <select name="whoCanSeeIt">
 												<option value="1">Public</option>
 												<option value="2">Follower</option>
 												<option value="3">Only me</option>
