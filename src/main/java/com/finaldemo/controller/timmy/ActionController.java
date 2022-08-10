@@ -37,7 +37,7 @@ public class ActionController {
 
 	@Autowired
 	private TimmyService service;
-	
+
 	@PostMapping("/timmy/NewUserPage")
 	@ResponseBody
 	public Users newUserTest() {
@@ -55,7 +55,7 @@ public class ActionController {
 		u1.setSelfIntroduction("我好你好");
 		return service.insertNewUser(u1);
 	}
-	
+
 	@PostMapping("/timmy/NewUserPage2")
 	@ResponseBody
 	public Users newUserTest2() {
@@ -72,7 +72,7 @@ public class ActionController {
 		u1.setSelfIntroduction("87喔");
 		return service.insertNewUser(u1);
 	}
-	
+
 	@PostMapping("/timmy/NewPostPage")
 	@ResponseBody
 	public Posts newPostTest() {
@@ -90,39 +90,40 @@ public class ActionController {
 //		service.insertNewPost(p1);
 		return p1;
 	}
-	
+
 	@GetMapping("/timmy/DeleteTestPage")
 	public void deletePostsTest() {
 		service.deleteAllPost();
 	}
-	
+
 	@GetMapping("/timmy/DeleteTestPage2")
 	public void deleteUsersTest() {
 		service.deleteAllUser();
 	}
-	
+
 	@PostMapping("/timmy/checkLogin.controller")
-	public String checkLoginProcess(@RequestParam String email, @RequestParam String password, Model m, HttpSession session) {
-		Map<String,String> errors = new HashMap<String,String>();
+	public String checkLoginProcess(@RequestParam String email, @RequestParam String password, Model m,
+			HttpSession session) {
+		Map<String, String> errors = new HashMap<String, String>();
 		m.addAttribute("errors", errors);
-		if (email == null || email.length()==0) {
+		if (email == null || email.length() == 0) {
 			errors.put("email", "Email is required");
 		}
-		if (password == null || password.length()==0) {
+		if (password == null || password.length() == 0) {
 			errors.put("pwd", "Password is required");
 		}
-		if(errors!=null && !errors.isEmpty()) {
-			return "redirect:timmy/login";
+		if (errors != null && !errors.isEmpty()) {
+			return "redirect:/timmy/";
 		}
 		Users u = service.checkLogin(email, password);
 		if (u != null) {
 			session.setAttribute("user", u);
-			session.setAttribute("Users", u);
-			return "timmy/NormalMember";
+			return "redirect:/phoebe/";
 		}
 		errors.put("failed", "login failed");
 		return "redirect:/timmy/";
 	}
+
 //	@GetMapping("getPosts/{id}")
 //	@ResponseBody
 //	public List<Posts> getPostTest(@PathVariable Integer id){
@@ -139,8 +140,7 @@ public class ActionController {
 	public String loginPage() {
 		return "timmy/login";
 	}
-	
-	
+
 	@PostMapping("/timmy/updateUserPage")
 	@ResponseBody
 	public Users updateUserTest() {
@@ -161,8 +161,17 @@ public class ActionController {
 	}
 
 	@GetMapping("/timmy/accountsetting.controller")
-	public String testgivingSession(HttpSession session, Model m) {
+	public String testgivingSession(HttpSession session) {
+		Users userBefore = (Users) session.getAttribute("user");
+		Users userAfter = service.getUserById(userBefore.getUserId());
+		session.setAttribute("user", userAfter);
 		return "timmy/NormalMember";
+	}
+
+	@GetMapping("/timmy/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/phoebe/";
 	}
 
 	@PostMapping("/timmy/uploadImgAjax")
@@ -188,17 +197,19 @@ public class ActionController {
 			return "failed";
 		}
 	}
-	
+
 	@PostMapping("/timmy/updateDataAjax")
 	@ResponseBody
 	public String updateDataAjax(@RequestBody UserDataDto data, HttpSession session) {
-		Users user = (Users)session.getAttribute("user");
+		Users user = (Users) session.getAttribute("user");
+		System.out.println("nickname_before: " + user.getNickName());
 		System.out.println("userid: " + user.getUserId());
 		System.out.println("value: " + data.getValue());
 		System.out.println("header: " + data.getHeader());
 		Users u1 = service.getUserById(user.getUserId());
-		if (data.getHeader().equals("nickName"))
+		if (data.getHeader().equals("nickName")) {
 			u1.setNickName(data.getValue());
+		}
 		if (data.getHeader().equals("phone"))
 			u1.setPhone(data.getValue());
 		if (data.getHeader().equals("address"))
@@ -217,27 +228,36 @@ public class ActionController {
 			}
 		}
 		service.insertNewUser(u1);
-		session.setAttribute("user", u1);
-		session.setAttribute("Users", u1);
+//		session.setAttribute("user", u1);
 		return data.getValue();
 	}
-	
+
 	@PostMapping("/timmy/updateEmailAjax")
 	@ResponseBody
-	public String updateEmailAjax(@RequestBody UserDataDto dto, HttpSession session){
+	public String updateEmailAjax(@RequestBody UserDataDto dto, HttpSession session) {
 		String email = dto.getValue() + "@" + dto.getHeader();
 		System.out.println("email: " + email);
-		if(service.checkEmail(email)) {
-			Users user = (Users)session.getAttribute("user");
+		if (service.checkEmail(email)) {
+			Users user = (Users) session.getAttribute("user");
 			Users u1 = service.getUserById(user.getUserId());
 			u1.setEmail(email);
 			service.insertNewUser(u1);
-			session.setAttribute("user", u1);
-			session.setAttribute("Users", u1);
+//			session.setAttribute("user", u1);
 			return email;
 		} else {
 			return "email has been used";
 		}
+	}
+
+	@PostMapping("/timmy/checkPasswordAjax")
+	@ResponseBody
+	public String updatePassword(@RequestBody UserDataDto dto, HttpSession session) {
+		String password = dto.getValue();
+		Users user = (Users) session.getAttribute("user");
+		if (password.equals(user.getPassword()))
+			return "correctpassword";
+		else
+			return "wrongpassword";
 	}
 //	@PostMapping("/timmy/checkEmail.controller")
 //	public String updateEmail(@RequestParam("font") String font, @RequestParam("below") String below, Model m, HttpSession session) {
@@ -277,20 +297,20 @@ public class ActionController {
 //		m.addAttribute("posts", u1.getPosts());
 //		return "timmy/PostSetting";
 //	}
-	
+
 	@GetMapping("/timmy/normalmemberdetail.controller")
 	public String action2(HttpSession session, Model m) {
 		m.addAttribute("newUser", new Users());
 		return "timmy/UserSetting";
 	}
-	
+
 	@PostMapping("/timmy/updateUser.controller")
 	public String action(HttpSession session, @ModelAttribute Users user) {
-		Users oldUser = (Users)session.getAttribute("user");
+		Users oldUser = (Users) session.getAttribute("user");
 		System.out.println(oldUser.getUserId());
 		user.setUserId(oldUser.getUserId());
 		service.insertNewUser(user);
 		return "redirect:/timmy/accountsetting.controller";
 	}
-	
+
 }

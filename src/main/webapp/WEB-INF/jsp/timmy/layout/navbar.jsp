@@ -74,14 +74,14 @@
 			</c:if>
 
 			<c:if test="${!empty user}">
-				<form:form method="GET" action="${contextRoot}/phoebe/logout">
+				<form method="GET" action="${contextRoot}/timmy/logout">
 					<button type="submit" class="btn btn-light">Logout</button>
-				</form:form>
+				</form>
 			</c:if>
 
-			<form:form method="GET" action="${contextRoot}/phoebe/signUp">
+			<form method="GET" action="${contextRoot}/phoebe/signUp">
 				<button type="submit" class="btn btn-info">Sign Up</button>
-			</form:form>
+			</form>
 
 			<c:if test="${!empty user}">
 				&emsp;Hi, ${user.getNickName()}

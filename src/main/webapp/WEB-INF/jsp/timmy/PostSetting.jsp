@@ -30,7 +30,7 @@
 		<c:forEach var="post" items="${user.posts}">
 			<table class="table">
 				<tr>
-					<td id="postUserName">${user.nickName}</td>
+					<td class="postUserName">${user.nickName}</td>
 				</tr>
 				<tr>
 					<td>${post.postVideoSrc}</td>

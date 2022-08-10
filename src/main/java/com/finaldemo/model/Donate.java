@@ -30,6 +30,8 @@ public class Donate {
 	
 	private String donorEmail;
 	
+	private String donorPhone;
+	
 	private Integer payment;
 	
 	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "Asia/Taipei") // JSON
@@ -90,6 +92,14 @@ public class Donate {
 
 	public void setUser(Users user) {
 		this.user = user;
+	}
+
+	public String getDonorPhone() {
+		return donorPhone;
+	}
+
+	public void setDonorPhone(String donorPhone) {
+		this.donorPhone = donorPhone;
 	}
 	
 	
