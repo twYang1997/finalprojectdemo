@@ -72,22 +72,11 @@ public class PostController_P {
 			}
 		}
 
-		// 存影片
-//		PostImg newVideoImg = new PostImg();
-//			// 存資料夾
-//			if (!(img.isEmpty())) {
-//				String fileName = img.getOriginalFilename();
-//				String postImgPath = fileName;
-//				img.transferTo(new File(postImgPath));
-//				newPostImg.setPostImgPath(postImgPath);
-//				// 存PostImg資料表
-//				newPostImg.setPost(newPost);
-//				newPostImg.setPostImgPath(postImgPath);
-//				service.addPostImg(newPostImg);
-//			} else {
-//				break;
-//			}
-//
+		// 影片存資料夾
+			if (!(postVideo.isEmpty())) {
+				String fileName = postVideo.getOriginalFilename();
+				postVideo.transferTo(new File(fileName));
+			}
 		return "redirect:/getMainPagePosts.controller";
 	}
 
