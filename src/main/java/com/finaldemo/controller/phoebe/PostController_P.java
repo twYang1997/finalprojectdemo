@@ -22,7 +22,7 @@ import com.finaldemo.model.Users;
 import com.finaldemo.service.PhoebeService;
 
 @Controller
-public class PostController {
+public class PostController_P {
 
 	@Autowired
 	private PhoebeService service;
@@ -34,6 +34,8 @@ public class PostController {
 		Integer userId = ((Users) session.getAttribute("Users")).getUserId();
 		List<Posts> postsToShow = service.getPostsByUserId(userId);
 		model.addAttribute("postsToShow", postsToShow);
+		Users u = new Users();
+		model.addAttribute("u", u);
 		return "phoebe/index";
 	}
 
@@ -76,7 +78,7 @@ public class PostController {
 //		postVideo.transferTo(new File(postVideoPath));
 //		System.out.println("已上傳：" + fileName);
 
-		return "redirect:/phoebe/";
+		return "redirect:/getMainPagePosts.controller";
 	}
 
 	// 修改post
@@ -111,6 +113,13 @@ public class PostController {
 			}
 		}
 
-		return "redirect:/phoebe/";
+		return "redirect:/getMainPagePosts.controller";
+	}
+	
+	//post移到垃圾桶
+	@PostMapping("/movePostToTrash.controller")
+	public String movePostToTrash(@RequestParam Integer postId) {
+		service.movePostToTrash(0, postId);
+		return "redirect:/getMainPagePosts.controller";
 	}
 }
