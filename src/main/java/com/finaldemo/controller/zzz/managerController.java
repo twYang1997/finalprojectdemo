@@ -1,13 +1,17 @@
 package com.finaldemo.controller.zzz;
 
 import java.io.IOException;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finaldemo.model.Donate;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.zzzService;
 
@@ -18,26 +22,36 @@ public class managerController  {
 	@Autowired
 	private zzzService gService;
 	
-	@PostMapping("/fileupload")
-	public String uploadNewPhoto(@RequestParam("nickName") String photoName, 
-		    @RequestParam("file") MultipartFile file ) {
+	@PostMapping("/cartupload")
+	public String uploadCart(@RequestParam("name") String cartname,
+			@RequestParam("email") String cartgmail,@RequestParam("payment") Integer cartpayment)
+		      {
+		String nameAfterTrim = cartname.trim();
 		
-//		String nameAfterTrim = photoName.trim();
+		Donate newCart = new Donate();
+		newCart.setDonorName(nameAfterTrim);
+		newCart.setDonorEmail(cartgmail);
+		newCart.setPayment(cartpayment);
+		newCart.setDonateDate(new Date());
+
+		
+		
+		gService.insertcart(newCart);
+		
+		return "zzzupload/cart";
+	}
+//	@PostMapping("/cartupload")
+//	public String postMessage(@ModelAttribute Donate msg,Model model) {
+//		System.out.println(msg);
+//		gService.insertcart(msg);
 //		
-//		try {
-//			Users newPhoto = new Users();
-//			newPhoto.setNickName(nameAfterTrim);
-//			
-//			
-//			gService.insertPhoto(newPhoto);
-//			
-//			return "zzzupload/zzzuploadSuccessPage";
-//	} catch (IOException e) {
-//			e.printStackTrace();
-			return "zzzupload/fundraiser";
-	}
-	}
+//		Donate newMsg = new Donate();
+//		Donate latestMsg = gService.lastestMessage();
+//		
+//		model.addAttribute("workMessages", newMsg);
+//		model.addAttribute("latestMsg", latestMsg);
+//		
+//		return "zzzupload/cart";
+//	}
 
-	
-
-//}
+}

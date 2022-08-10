@@ -37,26 +37,22 @@
 
 	</div>
 
-	<div>
-		&nbsp&nbsp <input type="text" name="name" placeholder="請輸入帳號">
+	<div class="container">
+	<form action="${contextRoot}/cartupload" method="post" enctype="multipart/form-data">
+		&nbsp&nbsp <input id="name" type="text" name="name" placeholder="請輸入姓名" required />
 		<pre></pre>
-	</div>
 
-	<div>
-		&nbsp&nbsp <input type="tel" name="tel" placeholder="請輸入電話">
+		&nbsp&nbsp <input type="email" name="email" placeholder="請輸入信箱" required />
 		<pre></pre>
-	</div>
-	<div>
-		&nbsp&nbsp <input type="email" name="email" placeholder="輸入電子信箱">
-		<pre></pre>
-	</div>
-	<div>
-		&nbsp&nbsp <select>
+	
+	
+	   	&nbsp&nbsp <select   name="payment" >
 			<option>請選擇付款方式</option>
-			<option>Line</option>
-			<option>visacard</option>
-		</select>
-	</div>
-
+			<option value= 1>Line pay</option>
+			<option value= 2>visacard</option>
+		</select>    
+		<input type="submit" value="送出" />
+		</form>
+</div>
 </body>
 </html>
