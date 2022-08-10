@@ -17,7 +17,7 @@ import com.finaldemo.model.Users;
 import com.finaldemo.service.PhoebeService;
 
 @Controller
-public class PhoebeUsersController {
+public class UsersController_P {
 
 	@Autowired
 	private PhoebeService UsersService;
@@ -44,7 +44,7 @@ public class PhoebeUsersController {
 		Users u = UsersService.checkLogin(email, password);
 		if (u != null) {
 			session.setAttribute("Users", u);
-			return "redirect:/phoebe/";
+			return "redirect:/getMainPagePosts.controller";
 		}
 		errors.put("failed", "login failed");
 		return "redirect:/phoebe/";
