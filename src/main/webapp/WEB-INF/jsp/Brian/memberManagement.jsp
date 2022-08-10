@@ -113,7 +113,7 @@ img {
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">photoPath</label>
 															<img src="${contextRoot}/${users.photoPath}" id="showImg${vs.index}">
-															<input id="inputFile${vs.index}" type="file" class="form-control" value="${users.photoPath}" />
+															<input id="inputFile${vs.index}" type="file" class="form-control aa" value="${users.photoPath}"/>
 															<script>
 																$(document).ready(function(){
 																	var contextRoot = "/demo";
