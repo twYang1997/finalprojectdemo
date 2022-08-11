@@ -36,9 +36,7 @@
 				<li class="nav-item"><a class="nav-link"
 					href="${contextRoot}/zzzupload/cart">購買頁面<span class="sr-only">(current)</span></a>
 				</li>
-				<li class="nav-item"><a class="nav-link"
-					href="${contextRoot}/timmy/accountsetting.controller">論壇 <span
-						class="sr-only">(current)</span></a></li>
+				
 
 
 
