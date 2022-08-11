@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,8 @@ public class PostController_P {
 	// 新增post
 	@PostMapping("/addPost.controller")
 	public String addPost(@RequestParam String postText, @RequestParam MultipartFile[] postImg,
-			@RequestParam MultipartFile postVideo, @RequestParam Integer whoCanSeeIt, HttpSession session)
-			throws IllegalStateException, IOException {
+			@RequestParam MultipartFile postVideo, @RequestParam Integer whoCanSeeIt, HttpSession session,
+			HttpServletRequest request) throws IllegalStateException, IOException {
 		Posts p = new Posts();
 		Users u = (Users) session.getAttribute("user");
 		Users author = TimmyService.getUserById(u.getUserId());
@@ -72,17 +73,8 @@ public class PostController_P {
 			// 存資料夾
 			if (!(img.isEmpty())) {
 				String fileName = img.getOriginalFilename();
-				
-				String saveFileDir = "C:/Git/Project/finalprojectdemo/src/main/webapp/img";
-				File saveFilePath = new File(saveFileDir,fileName);
-				
-//				byte[] b = img.getBytes();
-				
-				img.transferTo(saveFilePath);
-				
-//				String fileName = img.getOriginalFilename();
-//				String postImgPath = fileName;
-//				img.transferTo(new File(postImgPath));
+				String postImgPath = "C:/Git/Project/finalprojectdemo/src/main/webapp/img/postimg/" + fileName;
+				img.transferTo(new File(postImgPath));
 				// 存PostImg資料表
 				newPostImg.setPost(newPost);
 				newPostImg.setPostImgPath(fileName);

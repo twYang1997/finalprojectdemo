@@ -96,7 +96,7 @@
 										varStatus="loop">
 										<ul class="gallery">
 											<li><img
-												src="${contextRoot}/img/postImg/${pImg.getPostImgPath()}">
+												src="${contextRoot}/img/postimg/${pImg.getPostImgPath()}">
 											</li>
 										</ul>
 									</c:forEach>
