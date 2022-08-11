@@ -14,9 +14,8 @@
 <meta charset="UTF-8">
 <title>會員頁面施工中</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
-	
-</script>
+<%-- <script src="${contextRoot}/js/Brian_js/brianuploadimg.js"></script> --%>
+
 <style>
 img {
 	width: 200px;
@@ -31,38 +30,93 @@ img {
 </head>
 
 <body>
-	<div class="container">
-		<h1>會員頁面</h1>
-		<c:forEach var="users" items="${page.content}" varStatus="vs">
-			<div class="row justify-content-center">
-				<div class="col-8">
-					<div class="card">
-						<div class="card-body">
-							<div>${users.email}
-								<div class="text-right">
-									<!-- 修改按鈕 -->
-									<a class="rounded-pill btn btn-primary " role="button"
-										data-toggle="modal" data-target="#myModal${vs.index}"
-										id="viewDetailButton${vs.index}">修改</a>
-									<!-- 框體調整 -->
-									<div class="modal" id="myModal${vs.index}">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<!-- 彈出標題 -->
-												<div class="modal-header">
-													<h4 class="modal-title">修改資料</h4>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<!-- 彈出內容 -->
-												<div class="modal-body">
+<div class="container">
+ <h1>會員頁面</h1>
+  <c:forEach var="users" items="${page.content}" varStatus="vs">
+  	<div class="row justify-content-center">
+		<div class="col-8">		
+			<div class="card">		
+				<div class="card-body">		
+					<div>${users.email}		
+						<div class="text-right">		
+							<!-- 修改按鈕 -->
+							<a class="rounded-pill btn btn-primary " role="button"		
+								data-toggle="modal" data-target="#myModal${vs.index}"		
+								id="viewDetailButton${vs.index}">修改</a>		
+								<!-- 框體調整 -->			
+								<div class="modal" id="myModal${vs.index}">	
+									<div class="modal-dialog">	
+										<div class="modal-content">	
+										<!-- 彈出標題 -->		
+										<div class="modal-header">		
+											<h4 class="modal-title">修改資料</h4>		
+												<button type="button" class="close" data-dismiss="modal"	
+													aria-label="Close">	
+													<span aria-hidden="true">&times;</span>	
+												</button>	
+										</div>		
+										<!-- 彈出內容 -->		
+										<div class="modal-body">		
+											<!--頭像上傳-->	
+											<form>	
+												<div class="container">	
+													<img src="${contextRoot}/${users.photoPath}"
+														id="preview_progressbarTW_img${vs.index}"> <input type="file"
+														name="testfile${vs.index}" id="testfile${vs.index}" style="display: none;">
+												</div>	
+													<script>
+														$(document).ready(function() {
+															var contextRoot = "/demo";
+															$("#preview_progressbarTW_img${vs.index}").click(function() {	
+															    $("#testfile${vs.index}").click();		
+															});	
+															var file = document.getElementById("testfile${vs.index}");
+																file.onchange = function() {
+																	console.log(file.files[0]);
+																	readURL(this);
+																	console.log(this.files[0].type);
+																};
+															function readURL(input) {
+																if (input.files && input.files[0]) {
+																	var reader = new FileReader();
+																	reader.onload = function(e) {
+																		document.getElementById(
+																			"preview_progressbarTW_img${vs.index}")
+																				.setAttribute("src",
+																					e.target.result);
+																		console.log(typeof e.target.result);
+																			var datao = {
+																				"img64": e.target.result,
+																				"type": file.files[0].type,
+																				"id": "${users.userId}"
+																			}
+																			var datas = JSON.stringify(datao);
+																			$.ajax({
+																				url: contextRoot + '/Brian/uploadImgAjax',
+																				contentType: 'application/json',
+																				dataType: 'text',
+																				method: 'post',
+																				data: datas,
+																				success: function(result) {
+																					console.log(result);
+																				},error: function(error) {
+																					console.log(error);
+																				}
+																			});
+																		}
+																	}
+																 reader.readAsDataURL(input.files[0]);
+																}
+															});
+														</script>
+													</form>
 													<!-- 修改表單 -->
 													<form:form class="form" method="post"
 														modelAttribute="users" action="${contextRoot}/postUser">
 														<form:input path="userId" type="hidden"
 															value="${users.userId}" />
+														<form:input path="photoPath" type="hidden"
+															value="${users.photoPath}" />
 														<!--email-->
 														<div class="form-row" style="text-align: left;">
 															<div class="form-group col-md-6">
@@ -109,64 +163,8 @@ img {
 														<script type="text/javascript">
 															$("#myDate${vs.index}").val($("#hideDate${vs.index}").html().trim());
 														</script>
-														<!--圖-->
 														<div class="form-group" style="text-align: left;">
-															<label for="inputAddress">photoPath</label>
-															<img src="${contextRoot}/${users.photoPath}" id="showImg${vs.index}">
-															<input id="inputFile${vs.index}" type="file" class="form-control aa" value="${users.photoPath}"/>
-															<script>
-																$(document).ready(function(){
-																	var contextRoot = "/demo";
-																	var file = document.getElementById("inputFile${vs.index}");
-																	var datas;
-																	file.onchange = function(){
-																		console.log("files:" + file.files[0]);
-																		readURL(this);
-																		console.log("type:" + this.files[0].type);
-																		console.log("datao:" + datao);
-																	};
-																	function readURL(input){
-																		if (input.files && input.files[0]){
-																			var reader = new FileReader();
-																			reader.onload = function(e){
-																				document.getElementById("showImg${vs.index}").setAttribute("src", e.target.result);
-																				console.log(typeof e.target.result);
-																			var datao = {
-																					"img64": e.target.result,
-																					"type": file.files[0].type,
-																					"id": "${users.userId}"
-																			};
-																			datas = JSON.stringify(datao);
-																			console.log("datas:" + datas);
-																			}
-																			
-																		}
-																		reader.readAsDataURL(input.files[0]);
-																	}
-																	function submit(){
-																		console.log("datas:" + datas);
-																		$.ajax({
-																			url: contextRoot + "/imgUploadAjax",
-																			contentType: 'application/json',
-																			method: 'post',
-																			data: datas,
-																			success: function(result){
-																				console.log(result);
-																			},
-																			error: function(result){
-																				console.log(result);
-																			}
-																		})
-																	}
-																	$(".test").click(function(){
-																		submit();
-																	})
-																});
-															</script>
-														</div>
-														<!--性別-->
-														<div class="form-group" style="text-align: left;">
-															<label for="inputAddress">gender</label> <br>
+															<label for="inputAddress">gender</label><br>
 															<!--選項男-->
 															<form:radiobutton id="myRadiobutton1${vs.index}"
 																path ="gender" value ="1" label ="Male"/>
