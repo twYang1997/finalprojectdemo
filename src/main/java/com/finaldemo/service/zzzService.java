@@ -1,5 +1,6 @@
 package com.finaldemo.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -20,6 +21,7 @@ public class zzzService {
 	@Autowired
 	private zzzDonateRepository gDao;
 	
+	@Autowired
 	private UsersRepository wDao;
 
 	// 新增一筆
@@ -31,22 +33,14 @@ public class zzzService {
 		return gDao.findFirstByOrderByDonateDateDesc();
 	}
 
-	// 列出全部
-//	public List<Users> getAllPhoto() {
-//		return gDao.findAll();
+//	 列出全部
+//	 public List<Users> getAllPhoto() {
+//		return wDao.findAll();
 //	}
+	
+	
 
-	// 透過 id 找到 1 筆
-//	public Users getPhotoById(Integer id) {
-//		Optional<Users> optional = gDao.findById(id);
-//
-//		if (optional.isPresent()) {
-//			return optional.get();
-//		}
-//
-//		return null;
-//	}
-
+//	 透過 id 找到 1 筆
 	public Users getPhotoById(Integer id) {
 		Optional<Users> optional = wDao.findById(id);
 
@@ -56,7 +50,16 @@ public class zzzService {
 
 		return null;
 	}
+	public Users zzzfindById(Integer id) {
+		Optional<Users> optional = wDao.findById(id);
+	
+		if (optional.isPresent()) {
+			return optional.get();
+		}
 
+		return null;
+
+	}
 	
 	
 }

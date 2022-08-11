@@ -2,6 +2,7 @@ package com.finaldemo.controller.zzz;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -46,34 +47,28 @@ public class managerController  {
 		
 		return "zzzupload/cart";
 	}
-//	@PostMapping("/cartupload")
-//	public String postMessage(@ModelAttribute Donate msg,Model model) {
-//		System.out.println(msg);
-//		gService.insertcart(msg);
-//		
-//		Donate newMsg = new Donate();
-//		Donate latestMsg = gService.lastestMessage();
-//		
-//		model.addAttribute("workMessages", newMsg);
-//		model.addAttribute("latestMsg", latestMsg);
-//		
-//		return "zzzupload/cart";
-//	}
 
-//	@GetMapping("/downloadImage/{id}")
-//	public ResponseEntity<byte[]> downloadImage(@PathVariable Integer id){
-//		Users photo1 = gService.getPhotoById(id);
-//		圖片
-//		String photoFile = photo1.getPhotoPath();
-//		
-//		HttpHeaders header = new HttpHeaders();
-//		header.setContentType(MediaType.IMAGE_JPEG);
-//		
-//		                          // 要回傳的物件本體, header, HttpStatus 回應
-//		return new ResponseEntity<byte[]>(photoFile,header,HttpStatus.OK);
-//	}
 	
 	
+	@GetMapping("/zzzfindById")    //圖片
+	public String zzzfindAnUserById(@RequestParam(name = "id") Integer id, Model zzzmodel) {
+		
+		
+		Users oneMember = gService.zzzfindById(id);
+		
+		zzzmodel.addAttribute("oneMember", oneMember);
+		zzzmodel.addAttribute("userId", id);
+		
+
+
+		return "zzzupload/fundraiser";
+
+	}
+	
+	
+	
+	
+
 	
 	
 }
