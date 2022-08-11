@@ -251,7 +251,7 @@ public class ActionController {
 
 	@PostMapping("/timmy/checkPasswordAjax")
 	@ResponseBody
-	public String updatePassword(@RequestBody UserDataDto dto, HttpSession session) {
+	public String checkPassword(@RequestBody UserDataDto dto, HttpSession session) {
 		String password = dto.getValue();
 		Users user = (Users) session.getAttribute("user");
 		if (password.equals(user.getPassword()))
@@ -259,6 +259,36 @@ public class ActionController {
 		else
 			return "wrongpassword";
 	}
+	@PostMapping("/timmy/updatePasswordAjax")
+	@ResponseBody
+	public String updatePassword(@RequestBody UserDataDto dto, HttpSession session) {
+		if (dto.getValue() != null) {
+			String password = dto.getValue();
+			Users user = (Users) session.getAttribute("user");
+			Users u1 = service.getUserById(user.getUserId());
+			u1.setPassword(password);
+			service.insertNewUser(u1);
+			return "success";
+		} 
+		return "failed";
+	}
+	
+	@GetMapping("/timmy/updateAddressAjax/")
+	@ResponseBody
+	public String updateAddress(@RequestParam(name = "address") String address, HttpSession session) {
+		if (address != null) {
+			Users user = (Users) session.getAttribute("user");
+			Users u1 = service.getUserById(user.getUserId());
+			u1.setAddress(address);
+			service.insertNewUser(u1);
+			return address;
+		}
+		return "failed";
+	}
+	
+	
+	
+	
 //	@PostMapping("/timmy/checkEmail.controller")
 //	public String updateEmail(@RequestParam("font") String font, @RequestParam("below") String below, Model m, HttpSession session) {
 //		Map<String,String> errors = new HashMap<String,String>();

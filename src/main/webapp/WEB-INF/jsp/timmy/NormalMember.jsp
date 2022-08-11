@@ -52,6 +52,9 @@ td {
 ul li button{
 	border:0;
 }
+.container{
+	margin-bottom: 5%;
+}
 </style>
 
 <body>

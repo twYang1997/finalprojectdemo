@@ -48,6 +48,10 @@ public class PhoebeService {
 	public List<PostImg> getPostImgsByPostId(Integer postId) {
 		return PostImgRepository.findPostImgsByPostId(postId);
 	}
+	
+	public Posts getPostByPostId(Integer postId) {
+		return PostsRepository.findPostByPostId(postId);
+	}
 
 	public Posts addPost(Posts newPost) {
 		return PostsRepository.save(newPost);
