@@ -19,14 +19,11 @@
 	display: block;
 	margin: 20px auto 20px auto;
 	border-radius: 40%;
-	display: block;
-	display: block;
 }
 
 table {
 	text-align: center;
 	font-size: 200%;
-	border: ;
 }
 td {
 	width: 50%;
