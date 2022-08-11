@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finaldemo.model.Donate;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.JoeyService;
 
@@ -30,22 +32,23 @@ public class JoeyController {
 
 	@InitBinder
 	public void InitBinder(WebDataBinder binder) {
-	    //前端传入的时间格式必须是"yyyy-MM-dd"效果!
-	    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	    CustomDateEditor dateEditor = new CustomDateEditor(df, true);
-	    binder.registerCustomEditor(Date.class, dateEditor);
+		// 前端传入的时间格式必须是"yyyy-MM-dd"效果!
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		CustomDateEditor dateEditor = new CustomDateEditor(df, true);
+		binder.registerCustomEditor(Date.class, dateEditor);
 	}
-	
+
 	@GetMapping("/findById")
 	public String findAnUserById(@RequestParam(name = "id") Integer id, Model model) {
-		
-		
+
 		Users oneMember = service.findById(id);
+		Set<Donate> donation = oneMember.getDonate();
 		
+		System.out.println("dotation:" + donation);
 		model.addAttribute("oneMember", oneMember);
+		model.addAttribute("dotation", donation);
 		model.addAttribute("userId", id);
 		
-
 
 		return "joey/editMember";
 
@@ -54,29 +57,24 @@ public class JoeyController {
 	@PostMapping("/editMember")
 	public String editAnUser(@ModelAttribute Users user, Model model) {
 		service.editUser(user);
-		
+
 		return "joey/joeytest";
 	}
-	
+
 	@PostMapping("/fileuploadjoey")
-	public String uploadNewPhoto(@RequestParam("userId") String userId,
-			@RequestParam("file") MultipartFile file) {
-		
+	public String uploadNewPhoto(@RequestParam("userId") String userId, @RequestParam("file") MultipartFile file) {
+		String photoPath = "/img/joeyimg/";
 		String contentType = file.getContentType();
-		String photoType = "."+contentType.substring(6);
-		System.out.println(photoType);
+		String photoType = "." + contentType.substring(6);
 		Users oneMember = service.findById(Integer.parseInt(userId));
 		oneMember.setUserId(Integer.parseInt(userId));
-		oneMember.setPhotoPath("/img/joeyimg/"+userId+photoType);
+		oneMember.setPhotoPath(photoPath + userId + photoType);
 		service.editUser(oneMember);
-		System.out.println(photoType);
-		
+
 		try {
 			byte[] bytes = file.getBytes();
-			FileUtils.writeByteArrayToFile(
-					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\",
-							userId+ photoType),
-					bytes);
+			FileUtils.writeByteArrayToFile(new File(
+					System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\", userId + photoType), bytes);
 
 			return "joey/joeytest";
 		} catch (IOException e) {
@@ -84,7 +82,6 @@ public class JoeyController {
 			return "joey/joeytest";
 		}
 	}
-
 
 	@PostMapping("/deleteMember")
 	public String deleteUser(@RequestParam Integer id) {
