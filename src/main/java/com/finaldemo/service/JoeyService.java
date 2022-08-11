@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.finaldemo.model.Donate;
 import com.finaldemo.model.Users;
 import com.finaldemo.model.UsersRepository;
 
@@ -34,6 +35,12 @@ public class JoeyService {
 
 	public void deleteUser(Integer id) {
 		uDao.deleteById(id);
+	}
+
+	public Donate findDonationsById(Integer id) {
+		
+		return null;
+		
 	}
 
 }

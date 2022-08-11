@@ -19,16 +19,16 @@
 				<div class="card">
 					<div class="card-body">
 
-						
+
 						<form action="${contextRoot}/fileuploadjoey" method="post"
 							enctype="multipart/form-data">
-							<img src="${contextRoot}${oneMember.photoPath}">
-							<input type="hidden" id="${userId}" name="userId"
-								value="${userId}"> <br /> <input type="file"
-								name="file"> <br /> <input type="submit" value="Submit" />
+							<img src="${contextRoot}${oneMember.photoPath}"> <input
+								type="hidden" id="${userId}" name="userId" value="${userId}">
+							<br /> <input type="file" name="file"> <br /> <input
+								type="submit" value="Submit" />
 						</form>
 						<br /> <br />
-						<div class="card-header" >編輯公開資訊</div>
+						<div class="card-header">編輯公開資訊</div>
 						<form:form class="form" method="post" modelAttribute="oneMember"
 							action="${contextRoot}/editMember">
 							<form:input type="hidden" path="userId" />
@@ -112,9 +112,27 @@
 				</div>
 			</div>
 		</div>
+		<br />
+		捐款資訊：
+		<c:forEach var="donation" items="${oneMember.donate}">
+		<br />
+		編號：　${donation.donateId}
+		<br />
+		日期：　${donation.donateDate}
+		<br />
+		信箱：　${donation.donorEmail}
+		<br />
+		金主：　${donation.donorName}
+		<br />
+		金流：　${donation.payment}
+		<br />
+		電話：　${donation.donorPhone}
+		<br />
+		</c:forEach>
+		
 
 
-	</div>
 
+	
 </body>
 </html>
