@@ -55,10 +55,25 @@ function setPositionNumber() {
 function setAddress() {
     var tow = document.getElementById("town").options[document.getElementById("town").selectedIndex].text;
     var pos = document.getElementById("position").options[document.getElementById("position").selectedIndex].text;
-    var posN = document.getElementById("positionNumber").value;
     var com = document.getElementById("completeAddress").value;
     var add = document.getElementById("address");
-    add.setAttribute("value", tow + posN + pos + com);
+    var newAddress = tow + pos + com;
+    add.setAttribute("value", newAddress);
+    var xhr = new XMLHttpRequest();
+    if (xhr != null) {
+	     xhr.onreadystatechange = function(){
+		if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					console.log("Ajax success")
+					console.log(xhr.responseText)
+				}
+			}	
+		};
+		 xhr.open("GET", "/timmy/updateAddressAjax/?address=" + newAddress, true);
+		 xhr.send();
+	 }
+
 }
+
 setTown();
 setPosition();
