@@ -36,7 +36,7 @@
 				<c:forEach items="${user.pets }" var="p">
 					<div class="col">
 						<div class="card">
-							<img src="${contextRoot}/${p.petPhotoPath}" class="card-img-top">
+							<img src="${contextRoot}${p.petPhotoPath}" class="card-img-top">
 							<div class="card-body text-center fs-4">${p.petName }</div>
 							<div class="card-footer text-end">
 								<button class="btn btn-primary add">edit</button>
