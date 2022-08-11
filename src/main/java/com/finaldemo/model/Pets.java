@@ -47,6 +47,17 @@ public class Pets {
 	
 	public Pets() {
 	}
+	
+	public Pets(String petName, Integer petType, Date petBirthday,
+			Integer petGender, String petDescription, Users petUser) {
+		super();
+		this.petName = petName;
+		this.petType = petType;
+		this.petBirthday = petBirthday;
+		this.petGender = petGender;
+		this.petDescription = petDescription;
+		this.petUser = petUser;
+	}
 
 	public Integer getPetId() {
 		return petId;
