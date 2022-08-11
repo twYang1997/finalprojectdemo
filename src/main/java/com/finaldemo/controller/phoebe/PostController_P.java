@@ -1,6 +1,7 @@
 package com.finaldemo.controller.phoebe;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,9 +50,9 @@ public class PostController_P {
 			@RequestParam MultipartFile postVideo, @RequestParam Integer whoCanSeeIt, HttpSession session)
 			throws IllegalStateException, IOException {
 		Posts p = new Posts();
-		Users u = (Users)session.getAttribute("user");
+		Users u = (Users) session.getAttribute("user");
 		Users author = TimmyService.getUserById(u.getUserId());
-		Set<Posts> posts = author.getPosts();
+//		Set<Posts> posts = author.getPosts();
 		p.setIsReport(0);
 		p.setPostLike(0);
 		p.setPostText(postText);
@@ -59,9 +60,9 @@ public class PostController_P {
 		p.setPostVideoSrc(postVideo.getOriginalFilename());
 		p.setWhoCanSeeIt(whoCanSeeIt);
 		p.setPostUser(author);
-		posts.add(p);
-		author.setPosts(posts);
-		TimmyService.insertNewUser(author);
+//		posts.add(p);
+//		author.setPosts(posts);
+//		TimmyService.insertNewUser(author);
 //		p.setPostUser((Users) session.getAttribute("user"));
 		Posts newPost = service.addPost(p);
 
@@ -71,12 +72,20 @@ public class PostController_P {
 			// 存資料夾
 			if (!(img.isEmpty())) {
 				String fileName = img.getOriginalFilename();
-				String postImgPath = fileName;
-				img.transferTo(new File(postImgPath));
-				newPostImg.setPostImgPath(postImgPath);
+				
+				String saveFileDir = "C:/Git/Project/finalprojectdemo/src/main/webapp/img";
+				File saveFilePath = new File(saveFileDir,fileName);
+				
+//				byte[] b = img.getBytes();
+				
+				img.transferTo(saveFilePath);
+				
+//				String fileName = img.getOriginalFilename();
+//				String postImgPath = fileName;
+//				img.transferTo(new File(postImgPath));
 				// 存PostImg資料表
 				newPostImg.setPost(newPost);
-				newPostImg.setPostImgPath(postImgPath);
+				newPostImg.setPostImgPath(fileName);
 				service.addPostImg(newPostImg);
 			} else {
 				break;
@@ -84,10 +93,10 @@ public class PostController_P {
 		}
 
 		// 影片存資料夾
-			if (!(postVideo.isEmpty())) {
-				String fileName = postVideo.getOriginalFilename();
-				postVideo.transferTo(new File(fileName));
-			}
+		if (!(postVideo.isEmpty())) {
+			String fileName = postVideo.getOriginalFilename();
+			postVideo.transferTo(new File(fileName));
+		}
 		return "redirect:/getMainPagePosts.controller";
 	}
 
@@ -96,13 +105,14 @@ public class PostController_P {
 	public String editPost(@RequestParam Integer postId, @RequestParam String postText,
 			@RequestParam MultipartFile[] postImg, @RequestParam MultipartFile postVideo,
 			@RequestParam Integer whoCanSeeIt, HttpSession session) throws IllegalStateException, IOException {
-		Posts p = new Posts();
-		p.setPostId(postId);
+		Posts p = service.getPostByPostId(postId);
+//		Users u = (Users) session.getAttribute("user");
+//		Users author = TimmyService.getUserById(u.getUserId());
 		p.setPostText(postText);
 		p.setPostTime(new Date());
 		p.setPostVideoSrc(postVideo.getOriginalFilename());
 		p.setWhoCanSeeIt(whoCanSeeIt);
-		p.setPostUser((Users) session.getAttribute("Users"));
+//		p.setPostUser(author);
 		service.editPost(p);
 		service.deleteExtraImgs(postId);
 

@@ -57,16 +57,16 @@
 
 							<div class="actions">
 								<div class="btn-group">
-									<label> <input style="position: absolute; opacity: 0;"
+									<a href="#"> <input style="position: absolute; opacity: 0;"
 										type="file" name="postImg" id="file" multiple
 										onchange="readAsDataURL()"
 										accept="image/gif,image/jpeg,image/x-png" /> <i
 										class="fa fa-image"></i>
-									</label> &emsp; <label> <input
+									</a> &emsp; <a href="#"> <input
 										style="position: absolute; opacity: 0;" type="file"
 										name="postVideo" id="file" accept="video/*" /><i
 										class="fa fa-video-camera"></i>
-									</label>
+									</a>
 									<!-- <button type="button" class="btn-link" title="Post an Video" -->
 									<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
 									<!-- <i class="fa fa-video-camera"></i> -->
@@ -190,9 +190,9 @@
 									<div class="modal-footer">
 										<button type="button" class="btn btn-light"
 											data-dismiss="modal">Cancel</button>
-										<form method="Post" action="${contextRoot}/movePostToTrash.controller?postId=${p.getPostId()}">
-											<button type="submit"
-													class="btn btn-info">Move</button>
+										<form method="Post"
+											action="${contextRoot}/movePostToTrash.controller?postId=${p.getPostId()}">
+											<button type="submit" class="btn btn-info">Move</button>
 										</form>
 									</div>
 								</div>
