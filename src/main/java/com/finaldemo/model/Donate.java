@@ -34,6 +34,8 @@ public class Donate {
 	
 	private Integer payment;
 	
+	private Integer money;
+	
 	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "Asia/Taipei") // JSON
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss") // SpringMVC
 	@Temporal(TemporalType.TIMESTAMP)
@@ -100,6 +102,14 @@ public class Donate {
 
 	public void setDonorPhone(String donorPhone) {
 		this.donorPhone = donorPhone;
+	}
+
+	public Integer getMoney() {
+		return money;
+	}
+
+	public void setMoney(Integer money) {
+		this.money = money;
 	}
 	
 	

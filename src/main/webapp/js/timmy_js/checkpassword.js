@@ -47,19 +47,19 @@ $(document).ready(function() {
 	console.log($("#checkpwd"));
 	$("#newpwd").on("change", function(e) {
 		console.log("aaa");
-		var newPwd = e.target.value;
-		console.log(newPwd);
+		console.log(e.target.value);
 		if (e.target.value != null) {
+			var newPwd = e.target.value;
 			$("#checkpwd").on("change", function(e) {
 				document.getElementById("newpwderror").innerHTML = "";
 				console.log("bbb");
-				var checkPwd = e.target.value;
-				console.log(checkPwd);
-				if (newPwd != checkPwd){
+				console.log(e.target.value);
+				if (newPwd != e.target.value){
 					document.getElementById("checkpwdicon").setAttribute("style", "display: none");
 					document.getElementById("newpwderror").innerHTML = "error";
-					e.target.value = "";
-				} else if (newPwd == checkPwd){
+//					e.target.value = "";
+				} else if (newPwd == e.target.value){
+					var checkPwd = e.target.value;
 					document.getElementById("checkpwdicon").setAttribute("style", "display: ");
 					$("#edit").on("click", function(){
 						$.ajax({
@@ -73,7 +73,11 @@ $(document).ready(function() {
 							}),
 							success: function(result){
 								console.log("AjaxPwdsuccess: " + result);
-								window.location.reload();
+								$("#closeit").click();
+								document.getElementById("password").setAttribute("value", checkPwd);
+//								newPwd = "";
+//								checkPwd = "";
+//								window.location.reload();
 							},
 							error: function(error){
 								console.log(error)

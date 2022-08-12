@@ -39,10 +39,10 @@ public class PetSettingController {
 	}
 
 	@PostMapping("/pet/insertNewPet.controller")
-	public String insertNewPet(@RequestParam("petName") String petName,
+	public String insertNewPet(@RequestParam(name ="petName", defaultValue = "none") String petName,
 			@RequestParam(name = "petBirthday", defaultValue = "2010-01-01") Date petBirthday,
-			@RequestParam("petDescription") String petDescription, @RequestParam(name = "file") MultipartFile file,
-			@RequestParam("petType") Integer petType, @RequestParam("petGender") Integer petGender, HttpSession session,
+			@RequestParam(name = "petDescription", defaultValue = "") String petDescription, @RequestParam(name = "file") MultipartFile file,
+			@RequestParam(name = "petType", defaultValue = "0") Integer petType, @RequestParam(name = "petGender", defaultValue = "0") Integer petGender, HttpSession session,
 			Model model) {
 		Users user = (Users) session.getAttribute("user");
 		String type = file.getContentType().replaceAll("image/", "");
@@ -50,6 +50,8 @@ public class PetSettingController {
 		Pets pet = new Pets(petName, petType, petBirthday, petGender, petDescription, user);
 		if (!type.contains("application")) {
 			pet.setPetPhotoPath("/img/petimg/" + user.getUserId() + "-" + (petSet.size() + 1) + "." + type);
+		} else {
+			pet.setPetPhotoPath("/img/petimg/" + user.getUserId() + "-" + (petSet.size() + 1));
 		}
 		petSet.add(pet);
 		service.insertNewUser(user);
