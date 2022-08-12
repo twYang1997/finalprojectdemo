@@ -30,93 +30,95 @@ img {
 </head>
 
 <body>
-<div class="container">
- <h1>會員頁面</h1>
-  <c:forEach var="users" items="${page.content}" varStatus="vs">
-  	<div class="row justify-content-center">
-		<div class="col-8">		
-			<div class="card">		
-				<div class="card-body">		
-					<div>${users.email}		
-						<div class="text-right">		
-							<!-- 修改按鈕 -->
-							<a class="rounded-pill btn btn-primary " role="button"		
-								data-toggle="modal" data-target="#myModal${vs.index}"		
-								id="viewDetailButton${vs.index}">修改</a>		
-								<!-- 框體調整 -->			
-								<div class="modal" id="myModal${vs.index}">	
-									<div class="modal-dialog">	
-										<div class="modal-content">	
-										<!-- 彈出標題 -->		
-										<div class="modal-header">		
-											<h4 class="modal-title">修改資料</h4>		
-												<button type="button" class="close" data-dismiss="modal"	
-													aria-label="Close">	
-													<span aria-hidden="true">&times;</span>	
-												</button>	
-										</div>		
-										<!-- 彈出內容 -->		
-										<div class="modal-body">		
-											<!--頭像上傳-->	
-											<form>	
-												<div class="container">	
-													<img src="${contextRoot}/${users.photoPath}"
-														id="preview_progressbarTW_img${vs.index}"> <input type="file"
-														name="testfile${vs.index}" id="testfile${vs.index}" style="display: none;">
-												</div>	
+	<div class="container">
+		<h1>會員頁面</h1>
+		<c:forEach var="users" items="${page.content}" varStatus="vs">
+			<div class="row justify-content-center">
+				<div class="col-8">
+					<div class="card">
+						<div class="card-body">
+							<div>${users.email}
+								<div class="text-right">
+									<!-- 修改按鈕 -->
+									<a class="rounded-pill btn btn-primary " role="button"
+										data-toggle="modal" data-target="#myModal${vs.index}"
+										id="viewDetailButton${vs.index}">修改</a>
+									<!-- 框體調整 -->
+									<div class="modal" id="myModal${vs.index}">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<!-- 彈出標題 -->
+												<div class="modal-header">
+													<h4 class="modal-title">修改資料</h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<!-- 彈出內容 -->
+												<div class="modal-body">
+												
+												
+													<!-- 修改表單 -->
+													<form:form class="form" method="post"
+														modelAttribute="users" action="${contextRoot}/postUser" enctype="multipart/form-data">
+														<form:input path="userId" type="hidden"
+															value="${users.userId}" />
+														<!--頭像上傳-->
+														<div class="container">
+														<img src="${contextRoot}${users.photoPath}"id="preview_progressbarTW_img${vs.index}"> 
+														<input type="file"name="testfile" id="testfile${vs.index}"  style="display:none ;">
+													</div>
 													<script>
-														$(document).ready(function() {
-															var contextRoot = "/demo";
-															$("#preview_progressbarTW_img${vs.index}").click(function() {	
-															    $("#testfile${vs.index}").click();		
-															});	
-															var file = document.getElementById("testfile${vs.index}");
+														$(document)
+														.ready(
+															function() {
+																var contextRoot = "/demo";
+																$("#preview_progressbarTW_img${vs.index}").click(function() {
+																	$("#testfile${vs.index}").click();
+																});
+																var file = document.getElementById("testfile${vs.index}");
 																file.onchange = function() {
 																	console.log(file.files[0]);
 																	readURL(this);
 																	console.log(this.files[0].type);
+																	
 																};
-															function readURL(input) {
-																if (input.files && input.files[0]) {
-																	var reader = new FileReader();
-																	reader.onload = function(e) {
-																		document.getElementById(
-																			"preview_progressbarTW_img${vs.index}")
+																function readURL(input) {
+																	if (input.files && input.files[0]) {
+																		var reader = new FileReader();
+																		reader.onload = function(e) {
+																			document.getElementById(
+																				"preview_progressbarTW_img${vs.index}")
 																				.setAttribute("src",
 																					e.target.result);
-																		console.log(typeof e.target.result);
-																			var datao = {
-																				"img64": e.target.result,
-																				"type": file.files[0].type,
-																				"id": "${users.userId}"
-																			}
-																			var datas = JSON.stringify(datao);
-																			$.ajax({
-																				url: contextRoot + '/Brian/uploadImgAjax',
-																				contentType: 'application/json',
-																				dataType: 'text',
-																				method: 'post',
-																				data: datas,
-																				success: function(result) {
-																					console.log(result);
-																				},error: function(error) {
-																					console.log(error);
-																				}
-																			});
+// 																			console.log(e.target.result);
+// 																			console.log(typeof e.target.result);
+// 																			var datao = {
+// 																				"img64": e.target.result,
+// 																				"type": file.files[0].type,
+// 																				"id": "${users.userId}"
+// 																			}
+// 																			var datas = JSON.stringify(datao);
+// 																			$.ajax({
+// 																					url: contextRoot + '/Brian/uploadImgAjax',
+// 																					contentType: 'application/json',
+// 																					dataType: 'text',
+// 																					method: 'post',
+// 																					data: datas,
+// 																					success: function(result) {
+// 																						console.log(result);
+// 																					},
+// 																					error: function(error) {
+// 																						console.log(error);
+// 																					}
+// 																				});
 																		}
 																	}
-																 reader.readAsDataURL(input.files[0]);
+																	reader.readAsDataURL(input.files[0]);
 																}
 															});
 														</script>
-													</form>
-													<!-- 修改表單 -->
-													<form:form class="form" method="post"
-														modelAttribute="users" action="${contextRoot}/postUser">
-														<form:input path="userId" type="hidden"
-															value="${users.userId}" />
-														<form:input path="photoPath" type="hidden"
-															value="${users.photoPath}" />
 														<!--email-->
 														<div class="form-row" style="text-align: left;">
 															<div class="form-group col-md-6">

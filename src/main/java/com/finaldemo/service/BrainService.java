@@ -23,8 +23,11 @@ public class BrainService {
 	public void insertUsers(Users msg) {
 		uDao.save(msg);
 	}
+	public Users insertNewUser(Users user) {
+		return uDao.save(user);
+	}
 	
-	public Users getUserById(Integer id) {
+	public Users BraingetUserById(Integer id) {
 		return uDao.findById(id).get();
 	}
 		

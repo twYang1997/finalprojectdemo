@@ -74,6 +74,7 @@ public class Users {
 	public Users() {
 	}
 
+
 	public Integer getUserId() {
 		return userId;
 	}
