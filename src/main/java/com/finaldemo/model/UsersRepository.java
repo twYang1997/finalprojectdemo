@@ -1,5 +1,7 @@
 package com.finaldemo.model;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,4 +15,6 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	@Query(value = "select * from Users where email = :email and password = :password", nativeQuery = true) 
 	public Users selectUserByNameAndPwd(@Param("email") String email, @Param("password") String password);
 	
+	@Query(value = "select * from Users where nickName like %:search%", nativeQuery = true) 
+	public List<Users> searchPeopleByNickName(@Param("search") String search);
 }

@@ -48,7 +48,7 @@ public class PhoebeService {
 	public List<PostImg> getPostImgsByPostId(Integer postId) {
 		return PostImgRepository.findPostImgsByPostId(postId);
 	}
-	
+
 	public Posts getPostByPostId(Integer postId) {
 		return PostsRepository.findPostByPostId(postId);
 	}
@@ -72,6 +72,8 @@ public class PhoebeService {
 	public void movePostToTrash(Integer whoCanSeeIt, Integer postId) {
 		PostsRepository.changeWhoCanSeeItById(whoCanSeeIt, postId);
 	}
-	
-	
+
+	public List<Users> searchPeople(String search) {
+		return UsersRepository.searchPeopleByNickName(search);
+	}
 }
