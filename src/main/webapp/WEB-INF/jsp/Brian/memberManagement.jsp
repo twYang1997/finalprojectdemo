@@ -219,6 +219,7 @@ img {
 											href="${contextRoot}/deleteUser?id=${users.userId}" 
 											role="button">停用</a>
 									</c:if>
+									<!--恢復按鈕 -->
 									<c:if test="${users.category == 0 }">
 										<a id="mydelete" class="rounded-pill btn btn-secondary" 
 											href="${contextRoot}/rebirthUser?id=${users.userId}" 

@@ -86,6 +86,20 @@ public class UsersListController {
 		Service.insertUsers(u1);
 		return "redirect:/memberManagement";
 	}
+	
+	@GetMapping("/rebirthUser")
+	public String rebirthUser(Model model, @RequestParam("id") String id) {
+		Users u1 = Service.BrainGetUserById(Integer.parseInt(id));
+		if (u1.getMoney()!=null) {
+			u1.setGender(2);
+			Service.insertUsers(u1);
+		} else if (u1.getMoney()==null) {
+			u1.setGender(1);
+			Service.insertUsers(u1); 
+		}
+		
+		return "redirect:/memberManagement";
+	}
 //	@PostMapping("/Brian/uploadImgAjax")
 //	@ResponseBody
 //	public String uploadImagAjax(@RequestBody ImageDto dto) throws FileNotFoundException {
