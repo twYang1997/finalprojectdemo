@@ -52,12 +52,12 @@ public class managerController  {
 	
 	@GetMapping("/zzzfindById")    //圖片
 	public String zzzfindAnUserById(@RequestParam(name = "id") Integer id, Model zzzmodel) {
+		 
 		
-		
-		Users oneMember = gService.zzzfindById(id);
+		Users oneMember = gService.zzzfindById(1);
 		
 		zzzmodel.addAttribute("oneMember", oneMember);
-		zzzmodel.addAttribute("userId", id);
+		zzzmodel.addAttribute("userId", 1);
 		
 
 

@@ -7,6 +7,8 @@
 
 <html lang="en">
 
+
+
     <head>
     <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
     <jsp:include page="../timmy/layout/navbar.jsp" />
@@ -63,12 +65,14 @@
                 </div>
             </header>
             <!-- About section one-->
+            
+							enctype="multipart/form-data">>
             <section class="py-5 bg-light" id="scroll-target">
                 <div class="container px-5 my-5">
                     <div class="row gx-5 align-items-center">
-                        <div class="col-lg-6"><img class="img-fluid rounded mb-5 mb-lg-0" src="${contextRoot}${oneMember.photoPath}" alt="..." /></div>
+                        <div class="col-lg-6"><img class="img-fluid rounded mb-5 mb-lg-0" src="${contextRoot}/img/joeyimg/2.jpeg" alt="..." /></div>
                         <div class="col-lg-6">
-                            <h2 class="fw-bolder">黃金土豪DogeS</h2>
+                            <h2 class="fw-bolder">黃金土豪Doge</h2>
                             <p class="lead fw-normal text-muted mb-0">用你們的錢炒虛擬貨幣</p>
                         </div>
                     </div>
@@ -78,7 +82,7 @@
             <section class="py-5">
                 <div class="container px-5 my-5">
                     <div class="row gx-5 align-items-center">
-                        <div class="col-lg-6 order-first order-lg-last"><img class="img-fluid rounded mb-5 mb-lg-0" src="${contextRoot}/img/userimg/toastdoge.jpg" alt="..." /></div>
+                        <div class="col-lg-6 order-first order-lg-last"><img class="img-fluid rounded mb-5 mb-lg-0" src="${contextRoot}/img/joeyimg/1.jpeg" alt="..." /></div>
                         <div class="col-lg-6">
                             <h2 class="fw-bolder">大安吐司大王Doge</h2>
                             <p class="lead fw-normal text-muted mb-0">用你們的錢賣一堆吐司</p>

@@ -39,7 +39,7 @@
 					</a></li>
 				</c:if>
 <!-- 				嘉鴻 -->
-				<li class="nav-item"><a class="nav-link"
+				<li  class="nav-item"><a class="nav-link"
 					href="${contextRoot}/zzzupload/fundraiser">Donate <span class="sr-only">(current)</span>
 				</a></li>
 <!-- 				亭孝 -->
