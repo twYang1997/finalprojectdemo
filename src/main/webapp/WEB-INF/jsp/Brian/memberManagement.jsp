@@ -16,6 +16,8 @@
 <title>會員頁面施工中</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script > 
+
 <style>
 img {
 	width: 200px;
@@ -184,9 +186,21 @@ img {
 														<!--下拉式選單-->
 															<label for="inputAddress">category</label><br>
 											               		<form:select id="myOption${vs.index}" path="category">
-											               		<!--選單內容-->
-											                        <form:option  value="1" label="一般會員"/>  
-											                        <form:option  value="2" label="基金會"/>  
+												               		<!--選單內容-->
+												               		<c:if test="${users.category == 0 } disabled=“disabled”">
+												                        <form:option  value="1" label="一般會員"/>  
+												                        <form:option  value="2" label="基金會"/> 
+												                    </c:if> 
+												               		<c:if test="${users.category != 0 }">
+												                        <form:option  value="1" label="一般會員"/>  
+												                        <form:option  value="2" label="基金會"/>
+												                    </c:if>  
+												                    <c:if test="${users.category != 0 } disabled=“disabled”"> 
+												                        <form:option  value="0" label="停用中"/> 
+												                    </c:if>   
+												                    <c:if test="${users.category == 0 }"> 
+												                        <form:option  value="0" label="停用中"/> 
+												                    </c:if>   
 											                    </form:select>
 														</div>
 														<script type="text/javascript">
@@ -215,13 +229,25 @@ img {
 									</div>
 									<!--停用按鈕 -->
 									<c:if test="${users.category != 0 }">
-										<a id="mydelete" class="rounded-pill btn btn-danger" 
+										<a id="aa" class="rounded-pill btn btn-danger" 
 											href="${contextRoot}/deleteUser?id=${users.userId}" 
-											role="button">停用</a>
+											role="button">
+											停用</a>
+											
+											<button id="bb" >a</button>
+											
+											<script type="text/javascript">
+											$("#aa").click(function(){
+							                    $("#bb").click();
+							                })
+											document.getElementById("bb").addEventListener("click",function(){
+												  swal("Good job!", "You clicked the button!", "success");
+												});
+											</script>
 									</c:if>
 									<!--恢復按鈕 -->
 									<c:if test="${users.category == 0 }">
-										<a id="mydelete" class="rounded-pill btn btn-secondary" 
+										<a  class="rounded-pill btn btn-success" 
 											href="${contextRoot}/rebirthUser?id=${users.userId}" 
 											role="button">恢復</a>
 									</c:if>
