@@ -58,18 +58,26 @@
 
 										<p>Please select a membership category：</p>
 										<div>
-											<form:radiobutton path="Category" value="2"
+											<form:radiobutton path="Category" value="1" onclick="changeToMember()"
 												required="required" />
 											member <br>
-											<form:radiobutton path="Category" value="3" />
+											<form:radiobutton path="Category" value="2" onclick="changeToCharity()"/>
 											charity
 										</div>
-
-
+										
+										<div style="display:none" id="moneydiv">
+										</div>
 										<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
 											<button type="submit" class="btn btn-primary btn-lg">Register</button>
 										</div>
-
+										<script>
+											function changeToMember(){
+												document.getElementById('moneydiv').innerHTML = '';
+											}
+											function changeToCharity(){
+												document.getElementById('moneydiv').innerHTML = '<form:input path="money" id="money" value="0"></form:input>';
+											}
+										</script>
 									</form:form>
 
 								</div>
