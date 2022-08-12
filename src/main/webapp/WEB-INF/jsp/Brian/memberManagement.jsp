@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <jsp:include page="../timmy/layout/navbar.jsp" />
 
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
@@ -14,7 +15,6 @@
 <meta charset="UTF-8">
 <title>會員頁面施工中</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<%-- <script src="${contextRoot}/js/Brian_js/brianuploadimg.js"></script> --%>
 
 <style>
 img {
@@ -57,11 +57,9 @@ img {
 												</div>
 												<!-- 彈出內容 -->
 												<div class="modal-body">
-												
-												
 													<!-- 修改表單 -->
 													<form:form class="form" method="post"
-														modelAttribute="users" action="${contextRoot}/postUser" enctype="multipart/form-data">
+														modelAttribute="users" action="${contextRoot}/editUser" enctype="multipart/form-data">
 														<form:input path="userId" type="hidden"
 															value="${users.userId}" />
 														<!--頭像上傳-->
@@ -215,10 +213,19 @@ img {
 											</div>
 										</div>
 									</div>
-									<a class="rounded-pill btn btn-danger "
-										onclick="return confirm('確認刪除?')"
-										href="${contextRoot}/message/deleteMessage/${workMessage.id}"
-										role="button">刪除</a> <a class="rounded-pill btn btn-info "
+									<!--停用按鈕 -->
+									<c:if test="${users.category != 0 }">
+										<a id="mydelete" class="rounded-pill btn btn-danger" 
+											href="${contextRoot}/deleteUser?id=${users.userId}" 
+											role="button">停用</a>
+									</c:if>
+									<c:if test="${users.category == 0 }">
+										<a id="mydelete" class="rounded-pill btn btn-secondary" 
+											href="${contextRoot}/rebirthUser?id=${users.userId}" 
+											role="button">恢復</a>
+									</c:if>
+									<!--貼文記錄按鈕 -->
+									<a class="rounded-pill btn btn-info "
 										href="${contextRoot}/message/editMessage/${workMessage.id}"
 										role="button">貼文記錄</a>
 								</div>

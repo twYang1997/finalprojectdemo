@@ -46,15 +46,15 @@ public class UsersListController {
 		return "Brian/memberManagement";
 	}
 
-	@PostMapping("/postUser")
-	public String postUser(@ModelAttribute Users user, Model model, @RequestParam("testfile") MultipartFile file) {
+	@PostMapping("/editUser")
+	public String editUser(@ModelAttribute Users user, Model model, @RequestParam("testfile") MultipartFile file) {
 		try {
 //			System.out.println(file.getContentType());
 //			System.out.println("String: ");
 //			for (int i = 0;i<file.getBytes().toString().length();i++) {
 //				System.out.print(file.getBytes().toString().charAt(i));
 //			}
-			Users u1 = Service.BraingetUserById(user.getUserId());
+			Users u1 = Service.BrainGetUserById(user.getUserId());
 			u1.setEmail(user.getEmail());
 			u1.setPassword(user.getPassword());
 			u1.setNickName(user.getNickName());
@@ -79,6 +79,13 @@ public class UsersListController {
 		return "redirect:/memberManagement";
 	}
 
+	@GetMapping("/deleteUser")
+	public String deleteUser(Model model, @RequestParam("id") String id) {
+		Users u1 = Service.BrainGetUserById(Integer.parseInt(id));
+		u1.setCategory(0);
+		Service.insertUsers(u1);
+		return "redirect:/memberManagement";
+	}
 //	@PostMapping("/Brian/uploadImgAjax")
 //	@ResponseBody
 //	public String uploadImagAjax(@RequestBody ImageDto dto) throws FileNotFoundException {

@@ -27,7 +27,7 @@ public class BrainService {
 		return uDao.save(user);
 	}
 	
-	public Users BraingetUserById(Integer id) {
+	public Users BrainGetUserById(Integer id) {
 		return uDao.findById(id).get();
 	}
 		
@@ -51,6 +51,8 @@ public class BrainService {
 	public Users findById(Integer id) {
 		return uDao.findById(id).get();
 	}
+	
+	
 //	public Users findBySelfIntroduction(String selfIntroduction) {
 //		List<Users> newselfIntroduction = uDao.findAll();
 //		
