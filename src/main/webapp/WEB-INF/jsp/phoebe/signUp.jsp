@@ -58,10 +58,10 @@
 
 										<p>Please select a membership category：</p>
 										<div>
-											<form:radiobutton path="Category" value="2"
+											<form:radiobutton path="Category" value="1"
 												required="required" />
 											member <br>
-											<form:radiobutton path="Category" value="3" />
+											<form:radiobutton path="Category" value="2" />
 											charity
 										</div>
 
