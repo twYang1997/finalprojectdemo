@@ -67,5 +67,6 @@ public class PetSettingController {
 		}
 		return "redirect:/timmy/accountsetting.controller";
 	}
+	
 
 }
