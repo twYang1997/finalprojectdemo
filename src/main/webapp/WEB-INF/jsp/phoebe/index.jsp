@@ -11,7 +11,7 @@
 <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
 <!--  All snippets are MIT license http://bootdey.com/license -->
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
-<title>profile timeline - Bootdey.com</title>
+<title>PET.COM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <link
