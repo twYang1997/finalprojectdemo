@@ -61,11 +61,11 @@
 <!-- 					</ul></li> -->
 				<li class="nav-item"><a class="nav-link disabled">Link</a></li>
 			</ul>
-			<form class="d-flex">
+			<form:form class="d-flex" method="GET" action="${contextRoot}/phoebe/search">
 				<input class="form-control mr-2" type="search" placeholder="Search"
 					aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Search</button>
-			</form>
+			</form:form>
 
 			<c:if test="${empty user}">
 				<form:form method="GET" action="${contextRoot}/phoebe/login">

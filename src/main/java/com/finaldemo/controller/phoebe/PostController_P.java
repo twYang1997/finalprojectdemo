@@ -87,7 +87,8 @@ public class PostController_P {
 		// 影片存資料夾
 		if (!(postVideo.isEmpty())) {
 			String fileName = postVideo.getOriginalFilename();
-			postVideo.transferTo(new File(fileName));
+			String videoPath = "C:/Git/Project/finalprojectdemo/src/main/webapp/video/" + fileName;
+			postVideo.transferTo(new File(videoPath));
 		}
 		return "redirect:/getMainPagePosts.controller";
 	}

@@ -26,4 +26,10 @@ public class PageController_P {
 		model.addAttribute("users", new Users()); // signUp.jsp的ModelAttribute需要
 		return "phoebe/signUp";
 	}
+	
+	@GetMapping("/phoebe/search")
+	public String search(Model model) {
+		
+		return "phoebe/searchResult";
+	}
 }
