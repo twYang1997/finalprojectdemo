@@ -90,11 +90,17 @@ public class UsersListController {
 	@GetMapping("/rebirthUser")
 	public String rebirthUser(Model model, @RequestParam("id") String id) {
 		Users u1 = Service.BrainGetUserById(Integer.parseInt(id));
+		System.out.println("this:"+ u1);
 		if (u1.getMoney()!=null) {
-			u1.setGender(2);
+			u1.setCategory(2);
+			System.out.println("this:!=null");
+
 			Service.insertUsers(u1);
+			
 		} else if (u1.getMoney()==null) {
-			u1.setGender(1);
+			u1.setCategory(1);
+			
+			System.out.println("this:==null");
 			Service.insertUsers(u1); 
 		}
 		
