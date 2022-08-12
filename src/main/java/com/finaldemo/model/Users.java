@@ -50,6 +50,8 @@ public class Users {
 	
 	private String selfIntroduction;
 	
+	private Integer money;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petUser",cascade = CascadeType.ALL)
 	private Set<Pets> pets = new LinkedHashSet<Pets>(); 
 	
@@ -220,6 +222,14 @@ public class Users {
 
 	public void setPhotoPath(String photoPath) {
 		this.photoPath = photoPath;
+	}
+	
+	public Integer getMoney() {
+		return money;
+	}
+
+	public void setMoney(Integer money) {
+		this.money = money;
 	}
 
 	@Override

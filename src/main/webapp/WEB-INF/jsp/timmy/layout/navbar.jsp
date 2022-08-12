@@ -35,7 +35,7 @@
 <!-- 				小郭 -->
 				<c:if test="${user.category == 2}">
 					<li class="nav-item"><a class="nav-link"
-						href="">User <span class="sr-only">(current)</span>
+						href="">Charity <span class="sr-only">(current)</span>
 					</a></li>
 				</c:if>
 <!-- 				嘉鴻 -->

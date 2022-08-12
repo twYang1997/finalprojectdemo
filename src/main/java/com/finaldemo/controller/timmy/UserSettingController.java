@@ -110,7 +110,8 @@ public class UserSettingController {
 	public String checkPassword(@RequestBody UserDataDto dto, HttpSession session) {
 		String password = dto.getValue();
 		Users user = (Users) session.getAttribute("user");
-		if (password.equals(user.getPassword()))
+		Users u1 = service.getUserById(user.getUserId());
+		if (password.equals(u1.getPassword()))
 			return "correctpassword";
 		else
 			return "wrongpassword";

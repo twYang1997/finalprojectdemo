@@ -63,7 +63,7 @@
 			<label class="form-label">Password:</label>
 			<div class="row" id="show"> 
 				<div class="col-sm-11" style="padding-right: 1">
-					<input class="form-control" type="password" name="password" value="${user.password }" disabled="disabled">
+					<input class="form-control" type="password" id="password" name="password" value="${user.password }" disabled="disabled">
 				</div>
 				<div class="col-sm-1" style="padding-left: 0">
 					<a class="btn btn-outline-secondary icon" role="button" data-toggle="modal" data-target="#myModal" id="viewDetailButton"><img src="${contextRoot}/img/userimg/pencil.png" width="18"></a>
@@ -130,7 +130,7 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-primary" id="edit" style="display:none">Edit</button>
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-danger" id="closeit" data-dismiss="modal">Close</button>
 								</div>
 							</form>
 						</div>
