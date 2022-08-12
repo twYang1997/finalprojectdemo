@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.finaldemo.model.Pets;
+import com.finaldemo.model.PetsRepository;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.PostsRepository;
 import com.finaldemo.model.Users;
@@ -21,6 +23,9 @@ public class TimmyService {
 	@Autowired
 	private PostsRepository pDao;
 	
+	@Autowired
+	private PetsRepository peDao;
+	
 	public Users getUserById(Integer id) {
 		return uDao.findById(id).get();
 	}
@@ -30,6 +35,11 @@ public class TimmyService {
 		List<Posts> posts = pDao.findPostsByUserId(u1.getUserId());
 		return posts;
 	}
+	
+	public Pets getPetByPetId(Integer id) {
+		return peDao.findById(id).get();
+	}
+	
 	public Users insertNewUser(Users user) {
 		return uDao.save(user);
 	}
@@ -37,7 +47,11 @@ public class TimmyService {
 	public Posts insertNewPost(Posts post) {
 		return pDao.save(post);
 	}
-
+	
+	public Pets savePet(Pets pet) {
+		return peDao.save(pet);
+	}
+	
 	public void deleteAllPost() {
 		pDao.deleteAll();
 	}
