@@ -16,7 +16,7 @@
 <title>會員頁面施工中</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script > 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
 img {
@@ -61,63 +61,80 @@ img {
 												<div class="modal-body">
 													<!-- 修改表單 -->
 													<form:form class="form" method="post"
-														modelAttribute="users" action="${contextRoot}/editUser" enctype="multipart/form-data">
+														modelAttribute="users" action="${contextRoot}/editUser"
+														enctype="multipart/form-data">
 														<form:input path="userId" type="hidden"
 															value="${users.userId}" />
 														<!--頭像上傳-->
 														<div class="container">
-														<img src="${contextRoot}${users.photoPath}"id="preview_progressbarTW_img${vs.index}"> 
-														<input type="file"name="testfile" id="testfile${vs.index}"  style="display:none ;">
-													</div>
-													<script>
-														$(document)
-														.ready(
-															function() {
-																var contextRoot = "/demo";
-																$("#preview_progressbarTW_img${vs.index}").click(function() {
-																	$("#testfile${vs.index}").click();
-																});
-																var file = document.getElementById("testfile${vs.index}");
-																file.onchange = function() {
-																	console.log(file.files[0]);
-																	readURL(this);
-																	console.log(this.files[0].type);
-																	
-																};
-																function readURL(input) {
-																	if (input.files && input.files[0]) {
-																		var reader = new FileReader();
-																		reader.onload = function(e) {
-																			document.getElementById(
-																				"preview_progressbarTW_img${vs.index}")
-																				.setAttribute("src",
-																					e.target.result);
-// 																			console.log(e.target.result);
-// 																			console.log(typeof e.target.result);
-// 																			var datao = {
-// 																				"img64": e.target.result,
-// 																				"type": file.files[0].type,
-// 																				"id": "${users.userId}"
-// 																			}
-// 																			var datas = JSON.stringify(datao);
-// 																			$.ajax({
-// 																					url: contextRoot + '/Brian/uploadImgAjax',
-// 																					contentType: 'application/json',
-// 																					dataType: 'text',
-// 																					method: 'post',
-// 																					data: datas,
-// 																					success: function(result) {
-// 																						console.log(result);
-// 																					},
-// 																					error: function(error) {
-// 																						console.log(error);
-// 																					}
-// 																				});
-																		}
-																	}
-																	reader.readAsDataURL(input.files[0]);
-																}
-															});
+															<img src="${contextRoot}${users.photoPath}"
+																id="preview_progressbarTW_img${vs.index}"> <input
+																type="file" name="testfile" id="testfile${vs.index}"
+																style="display: none;">
+														</div>
+														<script>
+															$(document)
+																	.ready(
+																			function() {
+																				var contextRoot = "/demo";
+																				$(
+																						"#preview_progressbarTW_img${vs.index}")
+																						.click(
+																								function() {
+																									$(
+																											"#testfile${vs.index}")
+																											.click();
+																								});
+																				var file = document
+																						.getElementById("testfile${vs.index}");
+																				file.onchange = function() {
+																					console
+																							.log(file.files[0]);
+																					readURL(this);
+																					console
+																							.log(this.files[0].type);
+
+																				};
+																				function readURL(
+																						input) {
+																					if (input.files
+																							&& input.files[0]) {
+																						var reader = new FileReader();
+																						reader.onload = function(
+																								e) {
+																							document
+																									.getElementById(
+																											"preview_progressbarTW_img${vs.index}")
+																									.setAttribute(
+																											"src",
+																											e.target.result);
+																							// 																			console.log(e.target.result);
+																							// 																			console.log(typeof e.target.result);
+																							// 																			var datao = {
+																							// 																				"img64": e.target.result,
+																							// 																				"type": file.files[0].type,
+																							// 																				"id": "${users.userId}"
+																							// 																			}
+																							// 																			var datas = JSON.stringify(datao);
+																							// 																			$.ajax({
+																							// 																					url: contextRoot + '/Brian/uploadImgAjax',
+																							// 																					contentType: 'application/json',
+																							// 																					dataType: 'text',
+																							// 																					method: 'post',
+																							// 																					data: datas,
+																							// 																					success: function(result) {
+																							// 																						console.log(result);
+																							// 																					},
+																							// 																					error: function(error) {
+																							// 																						console.log(error);
+																							// 																					}
+																							// 																				});
+																						}
+																					}
+																					reader
+																							.readAsDataURL(input.files[0]);
+																				}
+																			});
 														</script>
 														<!--email-->
 														<div class="form-row" style="text-align: left;">
@@ -155,56 +172,74 @@ img {
 														<!--生日-->
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">Birthday</label>
-															<form:input id="myDate${vs.index}" path="birthday" type="date"
-																class="form-control"/>
-														<!--取得生日-->
+															<form:input id="myDate${vs.index}" path="birthday"
+																type="date" class="form-control" />
+															<!--取得生日-->
 															<div id="hideDate${vs.index}" hidden="true">
-																<fmt:formatDate pattern='yyyy-MM-dd' value='${users.birthday}'/>
+																<fmt:formatDate pattern='yyyy-MM-dd'
+																	value='${users.birthday}' />
 															</div>
 														</div>
 														<script type="text/javascript">
-															$("#myDate${vs.index}").val($("#hideDate${vs.index}").html().trim());
+															$(
+																	"#myDate${vs.index}")
+																	.val(
+																			$(
+																					"#hideDate${vs.index}")
+																					.html()
+																					.trim());
 														</script>
 														<div class="form-group" style="text-align: left;">
 															<label for="inputAddress">gender</label><br>
 															<!--選項男-->
 															<form:radiobutton id="myRadiobutton1${vs.index}"
-																path ="gender" value ="1" label ="Male"/>
+																path="gender" value="1" label="Male" />
 															<!--選項女-->
-                  											<form:radiobutton id="myRadiobutton0${vs.index}"
-                  												path ="gender" value ="0" label ="Female"/>
+															<form:radiobutton id="myRadiobutton0${vs.index}"
+																path="gender" value="0" label="Female" />
 														</div>
 														<script type="text/javascript">
-														if("${users.gender}" == 1){
-															$("#myRadiobutton1${vs.index}").attr("checked", true);
-														}else if("${users.gender}" == 0){
-															$("#myRadiobutton0${vs.index}").attr("checked", true);
-														}
+															if ("${users.gender}" == 1) {
+																$(
+																		"#myRadiobutton1${vs.index}")
+																		.attr(
+																				"checked",
+																				true);
+															} else if ("${users.gender}" == 0) {
+																$(
+																		"#myRadiobutton0${vs.index}")
+																		.attr(
+																				"checked",
+																				true);
+															}
 														</script>
 														<!--權限-->
 														<div class="dropdown" style="text-align: left;">
-														<!--下拉式選單-->
+															<!--下拉式選單-->
 															<label for="inputAddress">category</label><br>
-											               		<form:select id="myOption${vs.index}" path="category">
-												               		<!--選單內容-->
-												               		<c:if test="${users.category == 0 } disabled=“disabled”">
-												                        <form:option  value="1" label="一般會員"/>  
-												                        <form:option  value="2" label="基金會"/> 
-												                    </c:if> 
-												               		<c:if test="${users.category != 0 }">
-												                        <form:option  value="1" label="一般會員"/>  
-												                        <form:option  value="2" label="基金會"/>
-												                    </c:if>  
-												                    <c:if test="${users.category != 0 } disabled=“disabled”"> 
-												                        <form:option  value="0" label="停用中"/> 
-												                    </c:if>   
-												                    <c:if test="${users.category == 0 }"> 
-												                        <form:option  value="0" label="停用中"/> 
-												                    </c:if>   
-											                    </form:select>
+															<form:select id="myOption${vs.index}" path="category">
+																<!--選單內容-->
+																<c:if test="${users.category == 0 } disabled=“disabled”">
+																	<form:option value="1" label="一般會員" />
+																	<form:option value="2" label="基金會" />
+																</c:if>
+																<c:if test="${users.category != 0 }">
+																	<form:option value="1" label="一般會員" />
+																	<form:option value="2" label="基金會" />
+																</c:if>
+																<c:if test="${users.category != 0 } disabled=“disabled”">
+																	<form:option value="0" label="停用中" />
+																</c:if>
+																<c:if test="${users.category == 0 }">
+																	<form:option value="0" label="停用中" />
+																</c:if>
+															</form:select>
 														</div>
 														<script type="text/javascript">
-															$("#myOption${vs.index}").val("${users.category}");
+															$(
+																	"#myOption${vs.index}")
+																	.val(
+																			"${users.category}");
 														</script>
 														<br>
 														<!--自介-->
@@ -214,7 +249,10 @@ img {
 																path="selfIntroduction" class="form-control aa" rows="3" />
 														</div>
 														<script type="text/javascript">
-															$("#myTextarea${vs.index}")	.val("${users.selfIntroduction}");
+															$(
+																	"#myTextarea${vs.index}")
+																	.val(
+																			"${users.selfIntroduction}");
 														</script>
 														<!-- 按鈕 -->
 														<div class="modal-footer">
@@ -229,26 +267,59 @@ img {
 									</div>
 									<!--停用按鈕 -->
 									<c:if test="${users.category != 0 }">
-										<a id="aa" class="rounded-pill btn btn-danger" 
-											href="${contextRoot}/deleteUser?id=${users.userId}" 
-											role="button">
-											停用</a>
-											
-											<button id="bb" >a</button>
-											
-											<script type="text/javascript">
-											$("#aa").click(function(){
-							                    $("#bb").click();
-							                })
-											document.getElementById("bb").addEventListener("click",function(){
-												  swal("Good job!", "You clicked the button!", "success");
-												});
-											</script>
+										<a id="aa${vs.index}" class="rounded-pill btn btn-danger"
+											role="button">停用</a>
+										<script type="text/javascript">
+										<!--連接a標籤 要包住整個sweetalert2 -->
+										$("#aa${vs.index}").on('click', function (e) {
+											e.preventDefault();
+											const href = $(this).attr('href')
+											<!--sweetalert2控制按鈕顏色 -->
+											const swalWithBootstrapButtons = Swal.mixin({
+											  customClass: {
+											    confirmButton: 'rounded-pill btn btn-danger',
+											    
+											    cancelButton: 'rounded-pill btn btn-secondary'
+											  },
+											  buttonsStyling: false
+											})
+											<!--sweetalert2官方提供的彈出視窗 -->
+											swalWithBootstrapButtons.fire({
+											  title: '確定停用嗎',
+											  text:'',
+											  icon: 'warning',
+											  showCancelButton: true,
+											  confirmButtonText: '確定停用',
+											  cancelButtonText: '不要停用',
+											  reverseButtons: true
+											}).then((result) => {
+											  if (result.isConfirmed) {
+											    swal.fire(
+											      '成功停用',
+											      '',
+											      'success')
+											 <!--讓官方按鈕連controller -->
+											    .then(function() {
+													 window.location = "${contextRoot}/deleteUser?id=${users.userId}"})
+											  } 
+											  else if (
+											    /* Read more about handling dismissals below */
+											    result.dismiss === Swal.DismissReason.cancel
+											  ) {
+											    swal.fire(
+											      '不停用',
+											      '',
+											      'success'
+											    )
+											  }
+											})
+										 })
+										</script>
 									</c:if>
 									<!--恢復按鈕 -->
 									<c:if test="${users.category == 0 }">
-										<a  class="rounded-pill btn btn-success" 
-											href="${contextRoot}/rebirthUser?id=${users.userId}" 
+										<a class="rounded-pill btn btn-success"
+											href="${contextRoot}/rebirthUser?id=${users.userId}"
 											role="button">恢復</a>
 									</c:if>
 									<!--貼文記錄按鈕 -->
