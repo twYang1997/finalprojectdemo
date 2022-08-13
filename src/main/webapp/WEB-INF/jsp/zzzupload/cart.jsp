@@ -12,28 +12,30 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>購買頁面</h3>
+	<h3>購務車頁面</h3>
 	<div>
-		<ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll"
-			style="max-height:;">
-			<li class="nav-item active"><a class="nav-link"
-				href="${contextRoot}/zzzupload/zzzabout">關於本機構<span
-					class="sr-only">(current)</span></a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="${contextRoot}/zzzupload/foundation">基金會<span
-					class="sr-only">(current)</span></a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="${contextRoot}/zzzupload/order">訂單查詢<span class="sr-only">(current)</span></a>
-			</li>
-			<li class="nav-item"><a class="nav-link"
-				href="${contextRoot}/zzzupload/cart">購買頁面<span class="sr-only">(current)</span></a>
-			</li>
-			<li class="nav-item"><a class="nav-link"
-				href="${contextRoot}/timmy/accountsetting.controller">論壇<span
-					class="sr-only">(current)</span></a></li>
-
-
-		</ul>
+		 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container px-5">
+                    <a class="navbar-brand" href="${contextRoot}/zzzupload/fundraiser">捐錢LA 首頁</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                           <li class="nav-item active"><a class="nav-link"
+					href="${contextRoot}/zzzupload/zzzabout">關於本機構<span
+						class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="${contextRoot}/zzzupload/foundation">基金會<span
+						class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="${contextRoot}/zzzupload/order">訂單查詢<span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link"
+					href="${contextRoot}/zzzupload/cart">購買頁面<span class="sr-only">(current)</span></a>
+				</li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
 
 	</div>
 
