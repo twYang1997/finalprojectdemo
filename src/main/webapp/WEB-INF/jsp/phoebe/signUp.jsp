@@ -63,7 +63,6 @@
 											member <br>
 											<form:radiobutton path="Category" value="2" onclick="changeToCharity()"/>
 											charity
-											
 										</div>
 										
 										<div style="display:none" id="moneydiv">
