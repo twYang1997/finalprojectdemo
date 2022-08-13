@@ -58,18 +58,12 @@
 
 										<p>Please select a membership category：</p>
 										<div>
-<<<<<<< HEAD
 											<form:radiobutton path="Category" value="1" onclick="changeToMember()"
 												required="required" />
 											member <br>
 											<form:radiobutton path="Category" value="2" onclick="changeToCharity()"/>
-=======
-											<form:radiobutton path="Category" value="1"
-												required="required" />
-											member <br>
-											<form:radiobutton path="Category" value="2" />
->>>>>>> setting
 											charity
+											
 										</div>
 										
 										<div style="display:none" id="moneydiv">

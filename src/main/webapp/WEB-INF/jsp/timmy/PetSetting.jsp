@@ -35,7 +35,7 @@
 				<c:forEach items="${user.pets }" var="p" varStatus="vs">
 					<div class="col">
 						<div class="card">
-							<img src="${contextRoot}${p.petPhotoPath}" class="card-img-top">
+							<img src="${contextRoot}${p.petPhotoPath}" class="card-img-top" id="petImgPreview{vs.index}">
 							<div class="card-body text-center fs-4">${p.petName }</div>
 							<div class="card-footer text-end">
 								<a class="rounded-pill btn btn-primary " role="button"
@@ -194,6 +194,8 @@
 									success: function(result){
 										console.log(result);
 										$("#closeplz${vs.index}").click();
+										if (file.includes("base64"))
+											document.getElementById("petImgPreview{vs.index}").setAttribute("src", file);
 									},
 									error: function(error){
 										console.log(error);
