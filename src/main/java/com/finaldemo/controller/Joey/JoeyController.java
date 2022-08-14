@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
+
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +24,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.model.Donate;
+import com.finaldemo.model.PostImg;
+import com.finaldemo.model.Posts;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.JoeyService;
+import com.finaldemo.service.PhoebeService;
 
 @Controller
 public class JoeyController {
 
 	@Autowired
 	private JoeyService service;
+	
+	@Autowired
+	private PhoebeService PhoebeService;
+
 
 	@InitBinder
 	public void InitBinder(WebDataBinder binder) {
@@ -38,20 +48,54 @@ public class JoeyController {
 		binder.registerCustomEditor(Date.class, dateEditor);
 	}
 
+	
+
 	@GetMapping("/findById")
 	public String findAnUserById(@RequestParam(name = "id") Integer id, Model model) {
 
 		Users oneMember = service.findById(id);
 		Set<Donate> donation = oneMember.getDonate();
-		
+
 		System.out.println("dotation:" + donation);
 		model.addAttribute("oneMember", oneMember);
 		model.addAttribute("dotation", donation);
 		model.addAttribute("userId", id);
-		
 
 		return "joey/editMember";
 
+	}
+	
+	@GetMapping("/findById2")
+	public String findAnUserById2(HttpSession session, Model model) {
+		Integer userId = ((Users) session.getAttribute("user")).getUserId();
+		List<Posts> postsToShow = PhoebeService.getPostsByUserId(userId);
+		
+//		Integer postId = ((Posts) session.getAttribute("post")).getPostId();
+//		List<PostImg> postImgsByPostId = PhoebeService.getPostImgsByPostId(postId);
+//		
+//		PostImg postImg = new PostImg();
+//		Integer postImgId = postImg.getPostImgId();
+//		String postImgPath = postImg.getPostImgPath();
+//		System.out.println("postImgPath:"+postImgPath);
+//		System.out.println("postImgsByPostId:"+postImgsByPostId);
+//		model.addAttribute("postImgPath", postImgPath);
+		
+		model.addAttribute("postsToShow", postsToShow);
+		Users u = new Users();
+		model.addAttribute("u", u);
+		
+		Users userBefore = (Users) session.getAttribute("user");
+		Users userAfter = service.findById(userBefore.getUserId());
+		session.setAttribute("user", userAfter);
+		
+		
+		
+		Set<Donate> donation = userAfter.getDonate();
+		model.addAttribute("oneMember", userAfter);
+		model.addAttribute("dotation", donation);
+	
+		
+		return "joey/editMember";
 	}
 
 	@PostMapping("/editMember")
@@ -82,6 +126,40 @@ public class JoeyController {
 			return "joey/joeytest";
 		}
 	}
+	
+	@PostMapping("/postuploadjoey")
+	public String uploadPost(@RequestParam Integer postId,@RequestParam String postText, @RequestParam("file") MultipartFile file) {
+		String photoPath = "/img/joeyimg/joeypostimg/";
+		String contentType = file.getContentType();
+		String photoType = "." + contentType.substring(6);
+		
+		Posts onePost = PhoebeService.getPostByPostId(postId);
+		onePost.setPostId(postId);
+		onePost.setPostText(postText);
+		Set<PostImg> getPostImg = onePost.getPostImg();
+		PostImg postImg = new PostImg();
+		postImg.setPostImgId(postId);
+		postImg.setPostImgPath(photoPath+postId+photoType);
+		getPostImg.add(postImg);
+		onePost.setPostImg(getPostImg);
+		PhoebeService.editPost(onePost);
+		
+		try {
+			byte[] bytes = file.getBytes();
+			FileUtils.writeByteArrayToFile(new File(
+					System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\joeypostimg\\", postId + photoType), bytes);
+
+			return "joey/joeytest";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "joey/joeytest";
+		}
+		
+//		new PostImg().setPostImgPath(photoPath+postId+photoType);
+
+		
+	}
+	
 
 	@PostMapping("/deleteMember")
 	public String deleteUser(@RequestParam Integer id) {
