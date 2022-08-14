@@ -26,16 +26,17 @@ import com.finaldemo.service.BrainService;
 @Controller
 public class UsersListController {
 	@Autowired
-	private BrainService Service; // 連接Service 調用insertMessage
-
+	private BrainService Service; // 連接Service
+	
+	// 前端传入的时间格式必须是"yyyy-MM-dd"效果!
 	@InitBinder
 	public void InitBinder(WebDataBinder binder) {
-		// 前端传入的时间格式必须是"yyyy-MM-dd"效果!
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		CustomDateEditor dateEditor = new CustomDateEditor(df, true);
 		binder.registerCustomEditor(Date.class, dateEditor);
 	}
-
+	
+	//撈出所以有一般會員
 	@GetMapping("/memberManagement")
 	public String memberManagement(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
 		Page<Users> page = Service.findByPage(pageNumber);
@@ -45,7 +46,8 @@ public class UsersListController {
 		model.addAttribute("page", page);
 		return "Brian/memberManagement";
 	}
-
+	
+	//編輯一般會員
 	@PostMapping("/editUser")
 	public String editUser(@ModelAttribute Users user, Model model, @RequestParam("testfile") MultipartFile file) {
 		try {
@@ -78,7 +80,8 @@ public class UsersListController {
 		}
 		return "redirect:/memberManagement";
 	}
-
+	
+	//停用一般會員 假刪除真更新
 	@GetMapping("/deleteUser")
 	public String deleteUser(Model model, @RequestParam("id") String id) {
 		Users u1 = Service.BrainGetUserById(Integer.parseInt(id));
@@ -87,6 +90,7 @@ public class UsersListController {
 		return "redirect:/memberManagement";
 	}
 	
+	//恢復會員判斷之前的是什麼會員
 	@GetMapping("/rebirthUser")
 	public String rebirthUser(Model model, @RequestParam("id") String id) {
 		Users u1 = Service.BrainGetUserById(Integer.parseInt(id));
@@ -179,6 +183,6 @@ public class UsersListController {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //			return "failed";
-//		123}
+//		}
 //	}
 }
