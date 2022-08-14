@@ -53,7 +53,7 @@
 			<div class="col-sm-11" style="padding-right: 1">
 				<input id="showEmail" class="form-control" name="email" value="${user.email }" disabled="disabled">
 			</div>
-			<div class="col-sm-1" style="padding-left: 0">
+			<div class="col-sm-1" style="padding-left: 0" >
 				<button id="pencil" class="btn btn-outline-secondary icon">
 					<img src="${contextRoot}/img/userimg/pencil.png" class="udateicon" width="18">
 				</button>

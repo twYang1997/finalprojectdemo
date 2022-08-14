@@ -13,19 +13,19 @@
 	<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 </head>
 <style>
-	.card {
-		mix-blend-mode: multiply;
-	}
+/* 	.card { */
+/* 		mix-blend-mode: multiply; */
+/* 	} */
 
-	.modal {
-		left: 400px;
-	}
+/* 	.modal { */
+/* 		left: 400px; */
+/* 	} */
 
-	#showPetImg {
-		width: 200px;
-		display: block;
-		margin: 10px auto 10px auto;
-	}
+/* 	#showPetImg { */
+/* 		width: 200px; */
+/* 		display: block; */
+/* 		margin: 10px auto 10px auto; */
+/* 	} */
 </style>
 
 <body>
@@ -33,8 +33,8 @@
 		<div class="album py-5">
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 				<c:forEach items="${user.pets }" var="p" varStatus="vs">
-					<div class="col">
-						<div class="card">
+<!-- 					<div class="col"> -->
+<!-- 						<div class="card"> -->
 							<img src="${contextRoot}${p.petPhotoPath}" class="card-img-top" id="petImgPreview{vs.index}">
 							<div class="card-body text-center fs-4">${p.petName }</div>
 							<div class="card-footer text-end">
@@ -42,8 +42,8 @@
 									data-toggle="modal" data-target="#myModal${vs.index}"
 									id="viewDetailButton${vs.index}">Edit</a>
 							</div>
-						</div>
-					</div>
+<!-- 						</div> -->
+<!-- 					</div> -->
 					<div class="modal" id="myModal${vs.index}">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -210,13 +210,9 @@
 				
 
 				<!-- 			------------------------------------------------ -->
-				<div class="col">
-					<div class="card">
 						<a class="btn btn-outline-secondary icon" role="button" data-toggle="modal"
 							data-target="#myModaladd" id="viewDetailButtonAdd"><img
 								src="${contextRoot}/img/petimg/add.png" class="card-img-top"></a>
-					</div>
-				</div>
 				<div class="modal" id="myModaladd">
 					<div class="modal-dialog">
 						<div class="modal-content">
