@@ -28,7 +28,31 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js">
 	
 </script>
-
+<script>
+function loadXMLDoc()
+{
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+		//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+		// IE6, IE5 浏览器执行代码
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+		}
+	}
+	xmlhttp.open("GET","${contextRoot}/ajaxtest",true);
+	xmlhttp.send();
+}
+</script>
 
 </head>
 <body>
@@ -41,10 +65,12 @@
 							<div class="card-body">
 								<form action="${contextRoot}/fileuploadjoey" method="post"
 									enctype="multipart/form-data">
-									<img src="${contextRoot}${oneMember.photoPath}"> <input
-										type="hidden" id="${userId}" name="userId" value="${userId}">
-									<br /> <input type="file" name="file"> <br /> <input
-										type="submit" value="Submit" />
+									<img src="${contextRoot}${oneMember.photoPath}"
+										style="width: 200px; height: 200px; border-radius: 50%;">
+									<input type="hidden" id="${userId}" name="userId"
+										value="${userId}"> <br /> <input type="file"
+										name="file"> <br /> <input type="submit"
+										value="Submit" />
 								</form>
 
 
@@ -146,7 +172,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<br>
 
 				<div class="row justify-content-left">
@@ -176,8 +202,26 @@
 						</div>
 					</div>
 				</div>
+				<br />
+				<div class="row justify-content-left">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							<div class="card-header">
+								AJAX測試
+							</div>
+							<div id="myDiv">Ajax</div>
+								<button type="button" onclick="loadXMLDoc()">顯示內容</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			</div>
 		</div>
+
+
+
+
 
 
 		<div class="right">
@@ -192,7 +236,7 @@
 
 						<!-- 新增post -->
 						<c:if test="${!empty user}">
-							<form action="${contextRoot}/addPost.controller"
+							<form action="${contextRoot}/addPostJoey"
 								class="panel-activity__status" method="post"
 								enctype="multipart/form-data">
 								<img src="${contextRoot}${oneMember.photoPath}"
@@ -248,12 +292,14 @@
 										<p>${p.getPostText()}</p>
 
 										<!-- post圖片 -->
-<%-- 										<c:forEach items="${postsToShow}" var="pImg" varStatus="loop"> --%>
+										<c:forEach items="${p.getPostImg()}" var="pImg"
+											varStatus="loop">
 											<ul class="gallery">
 												<li><img
-													src="${contextRoot}/img/joeyimg/joeypostimg/3.png"></li>
+													src="${contextRoot}/img/joeyimg/joeypostimg/${pImg.getPostImgPath()}">
+												</li>
 											</ul>
-<%-- 										</c:forEach> --%>
+										</c:forEach>
 									</div>
 									<div class="activity__list__footer">
 										<a href="#"> <i class="fa fa-thumbs-up"></i>123
@@ -275,8 +321,6 @@
 									</div></li>
 							</ul>
 
-
-
 							<!-- 彈出修改框 -->
 							<div class="modal fade" id="myModal${vs.index}" role="dialog">
 								<div class="modal-dialog modal-dialog-centered">
@@ -292,7 +336,7 @@
 												action="${contextRoot}/postuploadjoey?postId=${p.getPostId()}"
 												class="panel-activity__status" method="post"
 												enctype="multipart/form-data">
-												<img src="${contextRoot}/img/phoebeImg/DefaultUserImage.png"
+												<img src="${contextRoot}/img/joeyimg/joeypostimg/3.png"
 													style="width: 40px; height: 40px; border-radius: 50%;">
 												${user.getNickName()} <select name="whoCanSeeIt">
 													<option value="1">Public</option>
@@ -310,7 +354,8 @@
 													<div>
 														<label> <input
 															style="position: absolute; opacity: 0;" type="file"
-															name="file" id="file" multiple onchange="readAsDataURL()"
+															name="postImg" id="file" multiple
+															onchange="readAsDataURL()"
 															accept="image/gif,image/jpeg,image/x-png" /> <i
 															class="fa fa-image"></i>
 														</label> &emsp; <label> <input
@@ -1227,7 +1272,6 @@ li.list-group-item:first-child {
 	display: flex;
 	/* justify-content: space-between; */
 	margin-top: 15px;
-	
 }
 
 .left {
@@ -1243,8 +1287,6 @@ li.list-group-item:first-child {
 	/*     height: 200px; */
 	
 }
-
-
 </style>
 	<script type="text/javascript">
 	//上傳一張圖片
