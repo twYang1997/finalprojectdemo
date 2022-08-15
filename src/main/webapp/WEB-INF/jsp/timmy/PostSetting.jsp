@@ -166,7 +166,6 @@
 	</div>
 </body>
 <script type="text/javascript">
-<script type="text/javascript">
 //上傳一張圖片
 imgInp.onchange = evt => {
 	  const [file] = imgInp.files
