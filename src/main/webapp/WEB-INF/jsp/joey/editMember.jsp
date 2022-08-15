@@ -248,12 +248,12 @@
 										<p>${p.getPostText()}</p>
 
 										<!-- post圖片 -->
-										<c:forEach items="${postsToShow}" var="pImg" varStatus="loop">
+<%-- 										<c:forEach items="${postsToShow}" var="pImg" varStatus="loop"> --%>
 											<ul class="gallery">
 												<li><img
 													src="${contextRoot}/img/joeyimg/joeypostimg/3.png"></li>
 											</ul>
-										</c:forEach>
+<%-- 										</c:forEach> --%>
 									</div>
 									<div class="activity__list__footer">
 										<a href="#"> <i class="fa fa-thumbs-up"></i>123
@@ -1225,7 +1225,7 @@ li.list-group-item:first-child {
 	width: 100%;
 	height: 200px;
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	margin-top: 15px;
 	
 }
