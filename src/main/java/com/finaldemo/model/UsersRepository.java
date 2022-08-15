@@ -17,4 +17,8 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	
 	@Query(value = "select * from Users where nickName like %:search%", nativeQuery = true) 
 	public List<Users> searchPeopleByNickName(@Param("search") String search);
+	
+	@Query(value = "SELECT * FROM Users WHERE userId =?1", nativeQuery = true) 
+	List<Users> findProductById(@Param("userId") String userId);
+	
 }
