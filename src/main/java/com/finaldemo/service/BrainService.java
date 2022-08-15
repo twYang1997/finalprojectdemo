@@ -1,6 +1,6 @@
 package com.finaldemo.service;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +10,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.finaldemo.model.PostImg;
+import com.finaldemo.model.PostImgRepository;
+import com.finaldemo.model.Posts;
+import com.finaldemo.model.PostsRepository;
 import com.finaldemo.model.Users;
 import com.finaldemo.model.UsersRepository;
 
@@ -17,29 +21,16 @@ import com.finaldemo.model.UsersRepository;
 @Transactional
 public class BrainService {
 	
+	// UsersService
 	@Autowired
 	private UsersRepository uDao;
 	
 	public void insertUsers(Users msg) {
 		uDao.save(msg);
 	}
-	public Users insertNewUser(Users user) {
-		return uDao.save(user);
-	}
 	
 	public Users BrainGetUserById(Integer id) {
 		return uDao.findById(id).get();
-	}
-		
-	public Users findByEmail(Integer email) {
-		Optional<Users> optional = uDao.findById(email);
-
-		if (optional.isPresent()) {
-			return optional.get();
-		}
-
-		return null;
-
 	}
 	
 	public Page<Users> findByPage(Integer pageNumber) {
@@ -48,21 +39,19 @@ public class BrainService {
 		return page;
 	}
 	
-	public Users findById(Integer id) {
-		return uDao.findById(id).get();
+	// PostService
+	@Autowired
+	private PostsRepository pDao;
+	@Autowired
+	private PostImgRepository piDao;
+	
+	public List<Posts> getPostsByUserId(Integer userId) {
+		return pDao.findPostsByUserId(userId);
 	}
-	
-	
-//	public Users findBySelfIntroduction(String selfIntroduction) {
-//		List<Users> newselfIntroduction = uDao.findAll();
-//		
-//		System.out.println("Service ID:" + selfIntroduction);
-//		if (newselfIntroduction!=null) {
-//			return newselfIntroduction.get();
-//		}
-//
-//		return null;
-//
-//	}
+
+	public List<PostImg> getPostImgsByPostId(Integer postId) {
+		return piDao.findPostImgsByPostId(postId);
+	}
+
 	
 }

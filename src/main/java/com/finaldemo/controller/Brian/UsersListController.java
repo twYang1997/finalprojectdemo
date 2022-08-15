@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finaldemo.model.Posts;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.BrainService;
 
@@ -110,6 +114,20 @@ public class UsersListController {
 		
 		return "redirect:/memberManagement";
 	}
+	
+	// 顯示登入者主頁貼文
+		@GetMapping("/userPosts")
+		public String getMainPagePosts(HttpSession session, Model model) {
+			// 取得登入者發的posts
+			Integer userId = ((Users) session.getAttribute("user")).getUserId();
+			List<Posts> postsShow = Service.getPostsByUserId(userId);
+			model.addAttribute("postsShow", postsShow);
+			Users u = new Users();
+			model.addAttribute("u", u);
+			return "redirect:/memberManagement";
+		}
+	
+	
 //	@PostMapping("/Brian/uploadImgAjax")
 //	@ResponseBody
 //	public String uploadImagAjax(@RequestBody ImageDto dto) throws FileNotFoundException {
