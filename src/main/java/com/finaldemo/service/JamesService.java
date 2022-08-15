@@ -12,7 +12,7 @@ import com.finaldemo.model.Users;
 import com.finaldemo.model.UsersRepository;
 
 
-@Service
+//@Service
 @Transactional
 public class JamesService {
 	
@@ -79,12 +79,12 @@ public class JamesService {
 	}
 	
 	
-	public Users findCheckId(String userId) {
-		return memReps.findCheckId(userId);
-	}
-
-	public Users findEmail(String email) {
-		return memReps.findEmail(email);
-	}
+//	public Users findCheckId(String userId) {
+//		return memReps.findCheckId(userId);
+//	}
+//
+//	public Users findEmail(String email) {
+//		return memReps.findEmail(email);
+//	}
 
 }

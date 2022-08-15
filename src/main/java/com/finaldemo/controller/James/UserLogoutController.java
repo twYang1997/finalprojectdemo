@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-@Controller
+//@Controller
 @SessionAttributes(names = { "memlogin" })
 public class UserLogoutController {
 

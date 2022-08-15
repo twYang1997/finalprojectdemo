@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.finaldemo.model.Donate;
 import com.finaldemo.model.DonateRepository;
+import com.finaldemo.model.Orders;
+import com.finaldemo.model.OrdersRepository;
 import com.finaldemo.model.Users;
 import com.finaldemo.model.UsersRepository;
 import com.finaldemo.model.zzzDonateRepository;
@@ -20,7 +22,8 @@ public class zzzService {
 
 	@Autowired
 	private zzzDonateRepository gDao;
-	
+	@Autowired
+	private OrdersRepository oDao;
 	@Autowired
 	private UsersRepository wDao;
 
@@ -32,7 +35,11 @@ public class zzzService {
 	public Donate lastestMessage() {
 		return gDao.findFirstByOrderByDonateDateDesc();
 	}
-
+	
+	public List<Users> readAllCharities(){
+		
+		return wDao.findAllCharities();
+	}
 //	 列出全部
 //	 public List<Users> getAllPhoto() {
 //		return wDao.findAll();
@@ -61,5 +68,7 @@ public class zzzService {
 
 	}
 	
-	
+	public Orders insertNewOrder(Orders o) {
+		return oDao.save(o);
+	}
 }

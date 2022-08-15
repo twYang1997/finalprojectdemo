@@ -50,10 +50,10 @@
 	</div>
 	<%-- </form> --%>
 		<div class="row" id="show">
-			<div class="col-sm-11" style="padding-right: 1">
+			<div class="col-sm-10" style="padding-right: 1">
 				<input id="showEmail" class="form-control" name="email" value="${user.email }" disabled="disabled">
 			</div>
-			<div class="col-sm-1" style="padding-left: 0" >
+			<div class="col-sm-2" style="padding-left: 0" >
 				<button id="pencil" class="btn btn-outline-secondary icon">
 					<img src="${contextRoot}/img/userimg/pencil.png" class="udateicon" width="18">
 				</button>
@@ -62,10 +62,10 @@
 		<div>
 			<label class="form-label">Password:</label>
 			<div class="row" id="show"> 
-				<div class="col-sm-11" style="padding-right: 1">
+				<div class="col-sm-10" style="padding-right: 1">
 					<input class="form-control" type="password" id="password" name="password" value="${user.password }" disabled="disabled">
 				</div>
-				<div class="col-sm-1" style="padding-left: 0">
+				<div class="col-sm-2" style="padding-left: 0">
 					<a class="btn btn-outline-secondary icon" role="button" data-toggle="modal" data-target="#myModal" id="viewDetailButton"><img src="${contextRoot}/img/userimg/pencil.png" width="18"></a>
 				</div>
 			</div>
@@ -91,11 +91,11 @@
 										<label for="inputPassword4">Please enter the old
 											password：</label><span id="oldpwderror"></span>
 										<div class="row" id="show">
-											<div class="col-sm-11" style="padding-right: 1">
+											<div class="col-sm-10" style="padding-right: 1">
 												<input class="form-control" type="password" id="oldpwd">
 											</div>
 											<button type="reset" id="reset" style="display:none"></button>
-											<div class="col-sm-1" style="padding-left: 0">
+											<div class="col-sm-2" style="padding-left: 0">
 												<button type="button" class="btn btn-outline-secondary icon"
 													id="checkPassword">
 													<img src="${contextRoot}/img/userimg/enter.png" id="pwdenter"
@@ -156,10 +156,10 @@
 		<div style="margin-bottom:8px">
 			<label class="form-label">Address:</label>
 			<div class="row" id="showAddress">
-				<div class="col-sm-11" style="padding-right: 1">
+				<div class="col-sm-10" style="padding-right: 1">
 					<input class="form-control userSetting" name="address" value="${user.address }" id="address" disabled="disabled">
 				</div>
-				<div class="col-sm-1" style="padding-left: 0">
+				<div class="col-sm-2" style="padding-left: 0">
 					<button id="pencilAddress" class="btn btn-outline-secondary icon" onclick="editAddress()">
 						<img src="${contextRoot}/img/userimg/pencil.png" width="18">
 					</button>
@@ -177,10 +177,10 @@
 			<div style="display: none">
 				<input id="positionNumber" type="text" class="form-control" placeholder="輸入地區號碼"> 
 			</div>
-			<div class="col-sm-5" style="padding-right: 1">
+			<div class="col-sm-4" style="padding-right: 1">
 				<input id="completeAddress" type="text" class="form-control" placeholder="輸入地址" >
 			</div>
-			<div class="col-sm-1" style="padding-left: 0">
+			<div class="col-sm-2" style="padding-left: 0">
 				<button class="btn btn-outline-secondary icon" id="enterAddress" onclick="setAddress()">
 					<img src="${contextRoot}/img/userimg/enter.png" width="18">
 				</button>

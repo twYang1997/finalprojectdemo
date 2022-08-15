@@ -24,7 +24,7 @@ import com.finaldemo.model.Users;
 import com.finaldemo.service.JamesService;
 
 
-@Controller
+//@Controller
 @SessionAttributes(names = { "memlogin", "mnglogin", "members" })
 public class UsersController {
 

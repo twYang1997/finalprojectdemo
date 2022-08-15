@@ -41,7 +41,7 @@ public class Donate {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date donateDate;
 	
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class)
 	@JoinColumn(name="fk_user_id", referencedColumnName = "userId")
 	private Users user;
 	
