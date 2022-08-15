@@ -242,7 +242,7 @@ public class JoeyController {
 	@GetMapping("/ajaxtest")
 	public @ResponseBody String testAjax() {
 
-		String ajaxText="1234566";
+		String ajaxText="Ajax回傳內容";
 		
 		return ajaxText;
 		
