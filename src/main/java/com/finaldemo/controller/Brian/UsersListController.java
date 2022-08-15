@@ -117,13 +117,11 @@ public class UsersListController {
 	
 	// 顯示登入者主頁貼文
 		@GetMapping("/userPosts")
-		public String getMainPagePosts(HttpSession session, Model model) {
+		public String userPosts(Model model, @RequestParam("id") String id) {
 			// 取得登入者發的posts
-			Integer userId = ((Users) session.getAttribute("user")).getUserId();
-			List<Posts> postsShow = Service.getPostsByUserId(userId);
-			model.addAttribute("postsShow", postsShow);
-			Users u = new Users();
-			model.addAttribute("u", u);
+			Posts posts = Service.BrainGetPostsById(Integer.parseInt(id));
+			//posts.getPostText();
+			model.addAttribute("posts", posts);
 			return "redirect:/memberManagement";
 		}
 	
