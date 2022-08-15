@@ -20,5 +20,8 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	public List<Users> searchPeopleByNickName(@Param("search") String search);
 	
 
+	@Query(value = "SELECT * FROM Users WHERE userId =?1", nativeQuery = true) 
+	List<Users> findProductById(@Param("userId") String userId);
+
 	
 }
