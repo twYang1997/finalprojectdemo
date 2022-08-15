@@ -20,9 +20,5 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	public List<Users> searchPeopleByNickName(@Param("search") String search);
 	
 	
-	public Optional<Users> findByUserId(String userId);
-	
-	public Optional<Users> findByMemberId(Integer id);
-	
 	
 }
