@@ -72,10 +72,15 @@ public class Users {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Donate> Donate = new LinkedHashSet<Donate>();
-
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Orders> orders = new LinkedHashSet<Orders>(); 
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Product> products = new LinkedHashSet<Product>(); 
+	
 	public Users() {
 	}
-
 
 	public Integer getUserId() {
 		return userId;
@@ -231,6 +236,24 @@ public class Users {
 
 	public void setMoney(Integer money) {
 		this.money = money;
+	}
+	
+	public Set<Orders> getOrders() {
+		return orders;
+	}
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+
+	public void setOrders(Set<Orders> orders) {
+		this.orders = orders;
+	}
+
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
 	}
 
 	@Override
