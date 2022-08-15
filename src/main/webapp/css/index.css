@@ -848,3 +848,26 @@ li.list-group-item:first-child {
 	color: #999999;
 	z-index: 0;
 }
+
+.wrap { /*父元素*/
+	width: 100%;
+	height: 200px;
+	display: flex;
+	/* justify-content: space-between; */
+	margin-top: 15px;
+	
+}
+
+.left {
+	/*     background: red; */
+	/*     width: 50%; */
+	/*     height: 200px; */
+	
+}
+
+.right {
+	/*     background: blue; */
+	/*     width: 50%; */
+	/*     height: 200px; */
+	
+}

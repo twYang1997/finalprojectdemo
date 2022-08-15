@@ -11,7 +11,7 @@ import com.finaldemo.model.Users;
 import com.finaldemo.model.UsersRepository;
 
 
-@Service
+//@Service
 @Transactional
 public class JamesService {
 	
@@ -77,6 +77,17 @@ public class JamesService {
 		return memReps.save(mbBean);
 	}
 	
+<<<<<<< HEAD
+	
+//	public Users findCheckId(String userId) {
+//		return memReps.findCheckId(userId);
+//	}
+//
+//	public Users findEmail(String email) {
+//		return memReps.findEmail(email);
+//	}
+=======
 
+>>>>>>> 069998f286e38a1e521b0aeae9414005a6166ed6
 
 }

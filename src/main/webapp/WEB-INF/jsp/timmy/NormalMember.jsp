@@ -22,7 +22,7 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="${contextRoot}/css/user_setting.css">
+<%-- <link rel="stylesheet" href="${contextRoot}/css/user_setting.css"> --%>
 </head>
 <style>
 #preview_progressbarTW_img {
@@ -35,7 +35,7 @@
 
 table {
 	text-align: center;
-	font-size: 200%;
+	font-size: 100%;
 }
 
 td {
@@ -81,9 +81,11 @@ ul li button {
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
+								<span id="id" style="display: none;">${user.userId}</span>
 								<img src="${contextRoot}/${user.photoPath}"
 									id="preview_progressbarTW_img"> <input type="file"
 									name="testfile" id="testfile" style="display: none;">
+								<h3 id="hello">${user.nickName}</h3>
 							</div>
 						</div>
 					</div>
@@ -101,7 +103,7 @@ ul li button {
 									<table class="table table-borderless">
 										<thead>
 											<tr>
-												<td id="hello" colspan="2">Hello! ${user.nickName}</td>
+												<td id="hello" colspan="2"></td>
 											</tr>
 										</thead>
 										<tbody>

@@ -12,7 +12,6 @@ import com.finaldemo.model.Donate;
 import com.finaldemo.model.DonateRepository;
 import com.finaldemo.model.Users;
 import com.finaldemo.model.UsersRepository;
-import com.finaldemo.model.zzzDonateRepository;
 
 @Service
 @Transactional

@@ -20,8 +20,16 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	public List<Users> searchPeopleByNickName(@Param("search") String search);
 	
 
+	@Query(value = "select * from Users where category = 2", nativeQuery = true)
+	public List<Users> findAllCharities();
+	
+//	public Optional<Users> findByUserId(String userId);
+//	
+//	public Optional<Users> findByMemberId(Integer id);
+	
+
 	@Query(value = "SELECT * FROM Users WHERE userId =?1", nativeQuery = true) 
 	List<Users> findProductById(@Param("userId") String userId);
 
-	
+
 }

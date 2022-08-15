@@ -10,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,65 +22,73 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name="Users")
+@Table(name = "Users")
 public class Users {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
-	
+
 	private String email;
-	
+
 	private String password;
-	
+
 	private String nickName;
-	
+
 	private Integer category;
-	
+
 	private String address;
-	
+
 	private String phone;
-	
+
 	private String photoPath;
-	
+
 	@JsonFormat(pattern = "yyyy/MM/dd", timezone = "Asia/Taipei") // JSON
 	@DateTimeFormat(pattern = "yyyy/MM/dd") // SpringMVC
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date birthday;
-	
+
 	private Integer gender;
-	
+
 	private String selfIntroduction;
-	
+
 	private Integer money;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petUser",cascade = CascadeType.ALL)
-	private Set<Pets> pets = new LinkedHashSet<Pets>(); 
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "postUser",cascade = CascadeType.ALL)
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petUser", cascade = CascadeType.ALL)
+	private Set<Pets> pets = new LinkedHashSet<Pets>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "postUser", cascade = CascadeType.ALL)
 	private Set<Posts> posts = new LinkedHashSet<Posts>();
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Comments> Comments = new LinkedHashSet<Comments>();
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Notification> Notification = new LinkedHashSet<Notification>();
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fans")
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fans", cascade = CascadeType.ALL)
 	private Set<Follow> fans = new LinkedHashSet<Follow>();
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "follow")
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "follow", cascade = CascadeType.ALL)
 	private Set<Follow> follows = new LinkedHashSet<Follow>();
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Donate> Donate = new LinkedHashSet<Donate>();
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<Orders> orders = new LinkedHashSet<Orders>(); 
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<Product> products = new LinkedHashSet<Product>(); 
-	
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<Orders> orders = new LinkedHashSet<Orders>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<Product> products = new LinkedHashSet<Product>();
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_foundation_id")
+	private Foundation foundation;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_ShoppingCar_id")
+	private ShoppingCar ShoppingCar;
+
 	public Users() {
 	}
 
@@ -229,7 +239,7 @@ public class Users {
 	public void setPhotoPath(String photoPath) {
 		this.photoPath = photoPath;
 	}
-	
+
 	public Integer getMoney() {
 		return money;
 	}
@@ -237,7 +247,7 @@ public class Users {
 	public void setMoney(Integer money) {
 		this.money = money;
 	}
-	
+
 	public Set<Orders> getOrders() {
 		return orders;
 	}
@@ -246,14 +256,28 @@ public class Users {
 		return products;
 	}
 
-
 	public void setOrders(Set<Orders> orders) {
 		this.orders = orders;
 	}
 
-
 	public void setProducts(Set<Product> products) {
 		this.products = products;
+	}
+
+	public Foundation getFoundation() {
+		return foundation;
+	}
+
+	public void setFoundation(Foundation foundation) {
+		this.foundation = foundation;
+	}
+
+	public ShoppingCar getShoppingCar() {
+		return ShoppingCar;
+	}
+
+	public void setShoppingCar(ShoppingCar shoppingCar) {
+		ShoppingCar = shoppingCar;
 	}
 
 	@Override
@@ -298,5 +322,5 @@ public class Users {
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
 }

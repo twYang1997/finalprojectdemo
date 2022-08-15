@@ -29,5 +29,9 @@ public class FoundationPageController  {
 		return "Alan/foundation";
 	}
 	
+	@GetMapping("/Alan/order")               //跳轉用  後面要改掉  購物車頁面施工中
+	public String order() {
+		return "Alan/foundationProduct";
+	}
 	
 }

@@ -40,11 +40,11 @@ public class Orders {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date orderDate;
 	
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class)
 	@JoinColumn(name="fk_user_id", referencedColumnName = "userId")
 	private Users user;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orders")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orders", cascade = CascadeType.ALL)
 	private Set<OrderDetail> orderDetails = new LinkedHashSet<OrderDetail>(); 
 	
 	public Orders() {

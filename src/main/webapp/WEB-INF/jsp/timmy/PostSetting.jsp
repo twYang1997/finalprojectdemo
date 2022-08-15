@@ -59,13 +59,17 @@
 							<p>${p.getPostText()}</p>
 
 							<!-- post圖片 -->
-							<c:forEach items="${p.getPostImg()}" var="pImg" varStatus="loop">
-								<ul class="gallery">
-									<li><img
-										src="${contextRoot}/img/postimg/${pImg.getPostImgPath()}">
-									</li>
-								</ul>
-							</c:forEach>
+<%-- 							<c:forEach items="${p.getPostImg()}" var="pImg" varStatus="loop"> --%>
+<!-- 								<ul class="gallery"> -->
+<!-- 									<li><img -->
+<%-- 										src="${contextRoot}/img/postimg/${pImg.getPostImgPath()}"> --%>
+<!-- 									</li> -->
+<!-- 								</ul> -->
+<%-- 							</c:forEach> --%>
+<!-- 							<ul class="gallery"> -->
+<!-- 								<li><img -->
+<%-- 									src="${contextRoot}/img/joeyimg/joeypostimg/3.png"></li> --%>
+<!-- 							</ul> -->
 
 						</div>
 						<div class="activity__list__footer">

@@ -35,11 +35,15 @@ public class Product {
 	
 	private Date productDate;
 	
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class)
 	@JoinColumn(name="fk_user_id", referencedColumnName = "userId")
 	private Users user;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = ShoppingCar.class)
+	@JoinColumn(name="fk_shoppingCarId_id", referencedColumnName = "shoppingCarId")
+	private ShoppingCar shoppingCar;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products", cascade = CascadeType.ALL)
 	private Set<OrderDetail> orderDetail = new LinkedHashSet<OrderDetail>(); 
 	
 	public Product() {
@@ -116,6 +120,14 @@ public class Product {
 
 	public void setUser(Users user) {
 		this.user = user;
+	}
+
+	public ShoppingCar getShoppingCar() {
+		return shoppingCar;
+	}
+
+	public void setShoppingCar(ShoppingCar shoppingCar) {
+		this.shoppingCar = shoppingCar;
 	}
 	
 }

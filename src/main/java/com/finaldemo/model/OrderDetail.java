@@ -24,11 +24,11 @@ public class OrderDetail {
 	
 	private Integer totalPrice;
 	
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Orders.class, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Orders.class)
 	@JoinColumn(name="fk_order_id", referencedColumnName = "orderId")
 	private Orders orders;
 	
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Product.class, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Product.class)
 	@JoinColumn(name="fk_product_id", referencedColumnName = "productId")
 	private Product products;
 	

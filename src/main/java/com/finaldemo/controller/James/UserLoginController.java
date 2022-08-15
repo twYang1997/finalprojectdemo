@@ -18,7 +18,7 @@ import com.finaldemo.service.JamesService;
 
 
 
-@Controller
+//@Controller
 @SessionAttributes(names = { "memlogin" })
 public class UserLoginController {
 
