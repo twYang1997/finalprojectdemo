@@ -1,7 +1,6 @@
 package com.finaldemo.model;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,16 +18,5 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	@Query(value = "select * from Users where nickName like %:search%", nativeQuery = true) 
 	public List<Users> searchPeopleByNickName(@Param("search") String search);
 	
-<<<<<<< HEAD
-	@Query(value = "select * from Users where category = 2", nativeQuery = true)
-	public List<Users> findAllCharities();
-	
-//	public Optional<Users> findByUserId(String userId);
-//	
-//	public Optional<Users> findByMemberId(Integer id);
-	
-=======
 
->>>>>>> 069998f286e38a1e521b0aeae9414005a6166ed6
-	
 }

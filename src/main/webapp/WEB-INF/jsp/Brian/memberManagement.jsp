@@ -323,26 +323,40 @@ img {
 											role="button">恢復</a>
 									</c:if>
 									<!--貼文記錄按鈕 -->
-									<a class="rounded-pill btn btn-info "
-										href="${contextRoot}/message/editMessage/${workMessage.id}"
-										role="button">貼文記錄</a>
-										
-										<!-- Modal -->
-									<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-									  <div class="modal-dialog">
-									    <div class="modal-content">
-									      <div class="modal-header">
-									        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									          <span aria-hidden="true">&times;</span>
-									        </button>
-									      </div>
-									      <div class="modal-body">
-									        ...
-									      </div>
+									<a class="rounded-pill btn btn-info " role="button"
+										data-toggle="modal" data-target="#myRecordModal${vs.index}"
+										>貼文記錄</a>
+									<!-- 框體調整 -->
+									<div class="modal" id="myRecordModal${vs.index}">
+										<div class="modal-dialog modal-dialog-scrollable">
+											<div class="modal-content">
+												<!-- 彈出內容 -->
+												<div class="modal-body">
+									        		<c:forEach items="${users.posts}" var="p" varStatus="vs">
+										        		<div class="card">
+														  <div class="card-body" style="text-align: left;">
+														  <p>${p.postUser.getNickName()}</p>
+														    
+															<!-- post內文 -->
+															<p>${p.getPostText()}</p>
+															<!-- post圖片 -->
+															<c:forEach items="${p.getPostImg()}" var="pImg"
+																varStatus="loop">
+																<ul class="gallery">
+																	<li><img
+																		src="${contextRoot}/${pImg.getPostImgPath()}">
+																	</li>
+																</ul>
+															</c:forEach>
+														  </div>
+														  <span> 
+															<i class="fa fa-clock">${p.getPostTime()}</i>
+														</span>
+														</div>
+									        	</c:forEach>
+									      	</div>
 									      <div class="modal-footer">
-									        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-									        <button type="button" class="btn btn-primary">Save changes</button>
+									        <button type="button" class="btn btn-secondary btn-lg btn-block" data-dismiss="modal">Close</button>
 									      </div>
 									    </div>
 									  </div>

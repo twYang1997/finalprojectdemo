@@ -45,8 +45,8 @@ public class BrainService {
 	@Autowired
 	private PostImgRepository piDao;
 	
-	public List<Posts> getPostsByUserId(Integer userId) {
-		return pDao.findPostsByUserId(userId);
+	public Posts BrainGetPostsById(Integer id) {
+		return pDao.findById(id).get();
 	}
 
 	public List<PostImg> getPostImgsByPostId(Integer postId) {
