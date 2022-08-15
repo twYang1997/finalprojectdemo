@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 import com.finaldemo.model.Users;
 import com.finaldemo.model.UsersRepository;
@@ -78,6 +77,7 @@ public class JamesService {
 		return memReps.save(mbBean);
 	}
 	
+<<<<<<< HEAD
 	
 //	public Users findCheckId(String userId) {
 //		return memReps.findCheckId(userId);
@@ -86,5 +86,8 @@ public class JamesService {
 //	public Users findEmail(String email) {
 //		return memReps.findEmail(email);
 //	}
+=======
+
+>>>>>>> 069998f286e38a1e521b0aeae9414005a6166ed6
 
 }

@@ -19,6 +19,7 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	@Query(value = "select * from Users where nickName like %:search%", nativeQuery = true) 
 	public List<Users> searchPeopleByNickName(@Param("search") String search);
 	
+<<<<<<< HEAD
 	@Query(value = "select * from Users where category = 2", nativeQuery = true)
 	public List<Users> findAllCharities();
 	
@@ -26,5 +27,8 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 //	
 //	public Optional<Users> findByMemberId(Integer id);
 	
+=======
+
+>>>>>>> 069998f286e38a1e521b0aeae9414005a6166ed6
 	
 }
