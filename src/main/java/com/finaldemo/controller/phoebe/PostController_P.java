@@ -77,7 +77,7 @@ public class PostController_P {
 				img.transferTo(new File(postImgPath));
 				// 存PostImg資料表
 				newPostImg.setPost(newPost);
-				newPostImg.setPostImgPath(fileName);
+				newPostImg.setPostImgPath("/img/postimg/" + fileName);
 				service.addPostImg(newPostImg);
 			} else {
 				break;
@@ -120,7 +120,7 @@ public class PostController_P {
 				newPostImg.setPostImgPath(postImgPath);
 				// 存PostImg資料表
 				newPostImg.setPost(p);
-				newPostImg.setPostImgPath(postImgPath);
+				newPostImg.setPostImgPath("/img/postimg/" + fileName);
 				service.addPostImg(newPostImg);
 			} else {
 				break;
