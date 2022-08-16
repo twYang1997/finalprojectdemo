@@ -42,7 +42,7 @@
 					<form action="${contextRoot}/addPost.controller"
 						class="panel-activity__status" method="post"
 						enctype="multipart/form-data">
-						<img src="${contextRoot}/img/phoebeImg/DefaultUserImage.png"
+						<img src="${contextRoot}/${user.getPhotoPath()}"
 							style="width: 40px; height: 40px; border-radius: 50%;">
 						${user.getNickName()} <select name="whoCanSeeIt">
 							<option value="1">Public</option>
@@ -84,8 +84,8 @@
 					<ul class="panel-activity__list">
 						<li><i class="activity__list__icon fa fa-question-circle-o"></i>
 							<div class="activity__list__header">
-								<img src="https://bootdey.com/img/Content/avatar/avatar2.png"
-									alt="" /> <a href="#">${p.postUser.getNickName()}</a>
+								<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
+									alt="" style="width: 45px; height: 45px; border-radius: 50%;"/> <a href="#">${p.postUser.getNickName()}</a>
 							</div>
 							<div class="activity__list__body entry-content">
 
@@ -102,9 +102,9 @@
 
 							</div>
 							<div class="activity__list__footer">
-								<a href="#"> <i class="fa fa-thumbs-up"></i>123
-								</a> <a href="#"> <i class="fa fa-comments"></i>23
-								</a>
+								<a href="#"> <i class="fa fa-thumbs-up"></i>123</a> 
+								<a><i class="fa fa-comments"></i>${p.getComments().size()}</a>
+								
 								<c:if test="${p.postUser.getUserId() == user.getUserId()}">
 									<a href="#" role="button" data-toggle="modal"
 										data-target="#myModal${vs.index}"
@@ -119,46 +119,6 @@
 								</span>
 							</div> 
 							
-							<!-- 評論 -->
-							<div  style="background-color: #F0F0F0; padding: 15px;">
-							<c:forEach items="${p.getComments()}" var="c" varStatus="vs">
-								<div class="box-footer box-comments">
-									<div class="box-comment">
-									<div class="comment-text">
-										<img class="img-circle img-sm"
-											src="https://bootdey.com/img/Content/avatar/avatar5.png"
-											alt="User Image"
-											style="width: 40px; height: 40px; border-radius: 50%">
-											<span class="username" style="font-weight: bold;">
-												${c.getUser().getNickName()}</span></div> <span class="text-muted pull-right">${c.getCommentTime()}</span>
-											 &emsp; &emsp; ${c.getCommentText()} <hr>
-									</div>
-
-								</div>
-							</c:forEach>
-							<div class="box-footer">
-									<form
-										action="${contextRoot}/addComment.controller?postId=${p.getPostId()}"
-										method="post">
-										<div class="img-push">
-										<img class="img-responsive img-circle img-sm"
-											src="https://bootdey.com/img/Content/avatar/avatar1.png"
-											alt="Alt Text"
-											style="width: 40px; height: 40px; border-radius: 50%">
-										
-											<input type="text" class="form-control input-sm" required
-												placeholder="Press enter to post comment" name="commentText">
-										</div>
-										<a href="#"> <input
-											style="position: absolute; opacity: 0;" type="file"
-											name="commentImg" id="file" multiple
-											onchange="readAsDataURL()"
-											accept="image/gif,image/jpeg,image/x-png" /> <i
-											class="fa fa-image"></i>
-										</a>
-									</form>
-								</div>
-							 </div>
 							</li>
 					</ul>
 					<!-- 彈出修改框 -->
@@ -238,12 +198,46 @@
 							</div>
 						</div>
 					</div>
+					
+							<!-- 評論 -->
+							<div  style="background-color: #F0F0F0; padding: 15px;">
+							<c:forEach items="${p.getComments()}" var="c" varStatus="vs">
+								<div class="box-footer box-comments">
+									<div class="box-comment">
+									<div class="comment-text">
+										<img class="img-circle img-sm"
+											src="${contextRoot}/${c.getUser().getPhotoPath()}"
+											alt="User Image"
+											style="width: 40px; height: 40px; border-radius: 50%">
+											<span class="username" style="font-weight: bold;">
+												${c.getUser().getNickName()}</span></div> <span class="text-muted pull-right">${c.getCommentTime()}</span>
+											 &emsp; &emsp; ${c.getCommentText()} <hr>
+									</div>
+								</div>
+							</c:forEach>
+							<div class="box-footer">
+									<form
+ 										action="${contextRoot}/addComment.controller?postId=${p.getPostId()}" 
+ 										method="post"> 
+										<div class="img-push">
+										<img class="img-responsive img-circle img-sm"
+											src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
+											alt="Alt Text"
+											style="width: 40px; height: 40px; border-radius: 50%">
+										
+											<input type="text" class="form-control input-sm" required
+												placeholder="Press enter to post comment" name="commentText">
+										</div>
+ 									</form>
+								</div>
+							 </div>
+							 
 				</div>
 			</c:forEach>
 			<!--重複的結構 -->
 		</div>
 	</div>
-	<!-- 	</div> -->
+<!-- 		</div> -->
 
 
 	<style type="text/css">
