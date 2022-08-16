@@ -115,7 +115,7 @@ public class PostController_P {
 			// 存資料夾
 			if (!(img.isEmpty())) {
 				String fileName = img.getOriginalFilename();
-				String postImgPath = fileName;
+				String postImgPath = "C:/Git/Project/finalprojectdemo/src/main/webapp/img/postimg/" + fileName;
 				img.transferTo(new File(postImgPath));
 				newPostImg.setPostImgPath(postImgPath);
 				// 存PostImg資料表

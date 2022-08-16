@@ -59,11 +59,11 @@ public class PageController_P {
 		Set<Pets> ps = u1.getPets();
 		Pets p1 = new Pets();
 		p1.setPetBirthday(new Date());
-		p1.setPetDescription("這是一隻貓貓");
+		p1.setPetDescription("這是一隻狗勾");
 		p1.setPetGender(0);
-		p1.setPetName("貓貓的名字");
-		p1.setPetPhotoPath("cat01");
-		p1.setPetType(0);
+		p1.setPetName("狗勾的名字");
+		p1.setPetPhotoPath("dog01");
+		p1.setPetType(1);
 		p1.setPetUser(u1);
 		ps.add(p1);
 		u1.setPets(ps);
