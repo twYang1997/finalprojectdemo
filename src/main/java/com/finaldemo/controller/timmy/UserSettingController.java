@@ -15,7 +15,9 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finaldemo.dto.ImageDto;
 import com.finaldemo.dto.UserDataDto;
+import com.finaldemo.model.Pets;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.TimmyService;
 
@@ -142,5 +145,18 @@ public class UserSettingController {
 			return address;
 		}
 		return "failed";
+	}
+	
+	@GetMapping("/timmy/readUserById/{id}")
+	public String readUserById(@PathVariable Integer id, Model m, HttpSession session) {
+		Users guest = service.getUserById(id);
+		m.addAttribute("guest", guest);
+		
+		Users user = (Users) session.getAttribute("user");
+		Users u1 = service.getUserById(user.getUserId());
+		session.setAttribute("user", u1);
+		
+		m.addAttribute("newPet", new Pets());
+		return "timmy/NormalMember";
 	}
 }

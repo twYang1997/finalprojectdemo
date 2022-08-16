@@ -30,9 +30,17 @@
 }
 
 #viewDetailButtonAdd{
-	margin: 5px auto;
+	border:0px solid white;
+	display:block; 
+	margin:auto;
+	
 }
-
+#viewDetailButtonAdd:hover{
+	background-color: #F0F0F0;
+}
+.smallIcon:hover{
+	background-color: #F0F0F0;
+}
 .editPetPhoto{
 	width: 300px;
 }
@@ -41,9 +49,13 @@
 	margin-top: 2%; 
 	margin-bottom: 1%; 
 }
+
 </style>
 
 <body>
+	<c:if test="${!empty guest}">
+		<c:set var="user" value="${guest}" />
+	</c:if>
 				<table class="tableHead" >
 					<tr>
 						<td class="col-md-4"><h5>Photo</h5></td>
@@ -56,7 +68,7 @@
 				<c:forEach items="${user.pets }" var="p" varStatus="vs">
 					<!-- 					<div class="col"> -->
 					<!-- 						<div class="card"> -->
-                                <table class="table">
+                                <table class="table" id="allDisplay${vs.index}">
 	                                <tbody>
 	                                	<tr>
 	                                		<td class="col-md-4">
@@ -75,16 +87,44 @@
 											</td>
 											<td class="col-md-1">
 												<a class="rounded-pill" role="button" data-toggle="modal" data-target="#myModal${vs.index}pet" id="viewDetailButton${vs.index}">
-													<img src="${contextRoot}/img/userimg/pencil.png" width="18">
+													<img src="${contextRoot}/img/userimg/pencil.png" width="30" class="smallIcon">
 												</a>
 											</td>
 											<td class="col-md-1">
-												del
+												<a class="rounded-pill" role="button" id="deleteButton${vs.index}" >
+													<img src="${contextRoot}/img/userimg/delete.png" width="30" class="smallIcon">
+												</a>
+												<script>
+												
+												$(document).ready(function() {
+													var contextRoot = "/demo";
+													$("#deleteButton${vs.index}").click(function(){
+														checkDelete();
+													});
+													function checkDelete(){
+														  var r=confirm("${p.petId}")
+														  if (r==true) {
+														    $.ajax({
+														    	url: contextRoot + "/timmy/deletePetById/${p.petId}",
+														    	method: "get",
+														    	success: function(result){
+														    		console.log(result);
+														    		$("#allDisplay${vs.index}")[0].style = "display:none";
+														    	},
+														    	error: function(result){
+														    		console.log(result);
+														    	},
+														    })
+														  }
+														  
+													}
+												})
+												</script>
 											</td>
 	                                	</tr>
                                 	</tbody>
                                 </table>
-							
+								
 					<div class="modal petModal" id="myModal${vs.index}pet">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -190,10 +230,10 @@
 										</script>
 										<!-- 按鈕 -->
 										<div class="modal-footer">
-											<button type="button" class="btn btn-danger"
-												data-dismiss="modal" id="closeplz${vs.index}">Close</button>
 											<button type="button" class="btn btn-primary"
 												data-dismiss="modal" id="sub${vs.index}">Submit</button>
+											<button type="button" class="btn btn-danger"
+												data-dismiss="modal" id="closeplz${vs.index}">Close</button>
 										</div>
 									</form:form>
 								</div>
@@ -233,6 +273,7 @@
 									data : jsonData,
 									success : function(result) {
 										console.log(result);
+										window.location.reload();
 // 										$("#closeplz${vs.index}").click();
 										if (file.includes("base64"))
 											document.getElementById("petImgPreview{vs.index}").setAttribute("src", file);
@@ -248,7 +289,7 @@
 				<!-- 			------------------------------------------------ -->
 				<a class="btn btn-outline-secondary btn-icon-text btn-edit-profile" role="button"
 					data-toggle="modal" data-target="#myModaladd"
-					id="viewDetailButtonAdd"><img src="${contextRoot}/img/petimg/add.png" width="25" >
+					id="viewDetailButtonAdd"><img src="${contextRoot}/img/petimg/add.png" width="100px" >
 <!-- 					  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit btn-icon-prepend"> -->
 <!--                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path> -->
 <!--                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path> -->
@@ -348,29 +389,6 @@
 					}
 					reader.readAsDataURL(input.files[0]);
 				}
-				// $("#submitPetDetails").click(function () {
-				// 	if (img64.length > 0) {
-				// 		var datao = {
-				// 			"img64": img64,
-				// 			"type": imgType,
-				// 			"id": "${fn:length(user.pets)}"
-				// 		}
-				// 		var datas = JSON.stringify(datao);
-				// 		$.ajax({
-				// 			url: contextRoot + '/pets/uploadNewPetImgAjax',
-				// 			contentType: 'application/json',
-				// 			dataType: 'text',
-				// 			method: 'post',
-				// 			data: datas,
-				// 			success: function (result) {
-				// 				console.log(result);
-				// 			},
-				// 			error: function (error) {
-				// 				console.log(error);
-				// 			}
-				// 		})
-				// 	}
-				// })
 			});
 </script>
 
