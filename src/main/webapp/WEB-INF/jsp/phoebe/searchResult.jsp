@@ -39,16 +39,15 @@
 						<a href="#">${people.getNickName()}</a>
 					</h4>
 					<div class="row info-list">
-						<div class="col-sm-4"
-							style="border-width: 1px; border-radius: 5px; border-color: #D0D0D0; border-style: solid;">
+						<div class="col-sm-4">
 							<i class="fa fa-paw"></i>
 							<c:forEach items="${people.getPets()}" var="pet" varStatus="loop">
 								<c:if test="${pet.getPetGender() == 0}"><i class="fa fa-venus" aria-hidden="true"></i></c:if>
 								<c:if test="${pet.getPetGender() == 1}"><i class="fa fa-mars" aria-hidden="true"></i></c:if>
-								<c:if test="${pet.getPetType() == 0}">貓</c:if>
-								<c:if test="${pet.getPetType() == 1}">狗</c:if>
-								<c:if test="${pet.getPetType() == 2}">其他</c:if>
-							${pet.getNickName()} 
+								<c:if test="${pet.getPetType() == 0}">Cat</c:if>
+								<c:if test="${pet.getPetType() == 1}">Dog</c:if>
+								<c:if test="${pet.getPetType() == 2}">Others</c:if>
+							${pet.getPetName()} 
 							</c:forEach>
 						</div>
 						<!-- 						<div class="col-sm-4"> -->
