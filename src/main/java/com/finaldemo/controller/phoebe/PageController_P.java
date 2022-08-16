@@ -48,6 +48,10 @@ public class PageController_P {
 	public String search(@RequestParam String search, Model model) {
 		List<Users> peopleList = service.searchPeople(search);
 		model.addAttribute("peopleList", peopleList);
+		
+		List<Posts> postsList = service.searchPost(search);
+		model.addAttribute("postsList", postsList);
+		
 		return "phoebe/searchResult";
 	}
 	

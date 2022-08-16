@@ -79,6 +79,10 @@ public class PhoebeService {
 		return UsersRepository.searchPeopleByNickName(search);
 	}
 	
+	public List<Posts> searchPost(String search) {
+		return PostsRepository.searchPostsByText(search);
+	}
+	
 	// CommentsService
 	@Autowired 
 	private CommentsRepository CommentsRepository;
