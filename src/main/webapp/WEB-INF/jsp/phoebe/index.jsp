@@ -117,45 +117,48 @@
 								</c:if>
 								<span> <i class="fa fa-clock"></i>${p.getPostTime()}
 								</span>
-							</div> <!-- 評論 -->
-							<div class="box-footer box-comments">
-								<div class="box-comment">
-									<img class="img-circle img-sm"
-										src="https://bootdey.com/img/Content/avatar/avatar5.png"
-										alt="User Image"
-										style="width: 40px; height: 40px; border-radius: 50%">
+							</div> 
+							
+							<!-- 評論 -->
+							<div  style="background-color: #F0F0F0; padding: 15px;">
+							<c:forEach items="${p.getComments()}" var="c" varStatus="vs">
+								<div class="box-footer box-comments">
+									<div class="box-comment">
 									<div class="comment-text">
-										<span class="username" style="font-weight: bold;">
-											Maria Gonzales <span class="text-muted pull-right">8:03
-												PM Today</span>
-										</span> It is a long established fact that a reader will be
-										distracted by the readable content of a page when looking at
-										its layout.
+										<img class="img-circle img-sm"
+											src="https://bootdey.com/img/Content/avatar/avatar5.png"
+											alt="User Image"
+											style="width: 40px; height: 40px; border-radius: 50%">
+											<span class="username" style="font-weight: bold;">
+												${c.getUser().getNickName()}</span></div> <span class="text-muted pull-right">${c.getCommentTime()}</span>
+											 &emsp; &emsp; ${c.getCommentText()} <hr>
 									</div>
+
 								</div>
-
-							</div>
+							</c:forEach>
 							<div class="box-footer">
-								<form
-									action="${contextRoot}/addComment.controller?postId=${p.getPostId()}"
-									method="post">
-									<img class="img-responsive img-circle img-sm"
-										src="https://bootdey.com/img/Content/avatar/avatar1.png"
-										alt="Alt Text"
-										style="width: 40px; height: 40px; border-radius: 50%">
-									<div class="img-push">
-										<input type="text" class="form-control input-sm" required
-											placeholder="Press enter to post comment" name="commentText">
-									</div>
-									<a href="#"> <input style="position: absolute; opacity: 0;"
-										type="file" name="commentImg" id="file" multiple
-										onchange="readAsDataURL()"
-										accept="image/gif,image/jpeg,image/x-png" /> <i
-										class="fa fa-image"></i>
-									</a>
-								</form>
-							</div>
-
+									<form
+										action="${contextRoot}/addComment.controller?postId=${p.getPostId()}"
+										method="post">
+										<div class="img-push">
+										<img class="img-responsive img-circle img-sm"
+											src="https://bootdey.com/img/Content/avatar/avatar1.png"
+											alt="Alt Text"
+											style="width: 40px; height: 40px; border-radius: 50%">
+										
+											<input type="text" class="form-control input-sm" required
+												placeholder="Press enter to post comment" name="commentText">
+										</div>
+										<a href="#"> <input
+											style="position: absolute; opacity: 0;" type="file"
+											name="commentImg" id="file" multiple
+											onchange="readAsDataURL()"
+											accept="image/gif,image/jpeg,image/x-png" /> <i
+											class="fa fa-image"></i>
+										</a>
+									</form>
+								</div>
+							 </div>
 							</li>
 					</ul>
 					<!-- 彈出修改框 -->

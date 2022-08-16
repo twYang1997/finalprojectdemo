@@ -1,12 +1,9 @@
 package com.finaldemo.controller.phoebe;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,7 +21,6 @@ import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.PhoebeService;
-import com.finaldemo.service.TimmyService;
 
 @Controller
 public class PostController_P {
@@ -41,6 +37,9 @@ public class PostController_P {
 		model.addAttribute("postsToShow", postsToShow);
 		Users u = new Users();
 		model.addAttribute("u", u);
+		
+		// 取得評論
+		
 		
 		return "phoebe/index";
 	}
