@@ -81,9 +81,12 @@ ul li button {
 </style>
 
 <body>
-	${guest.nickName}
+	
 	<jsp:include page="layout/navbar.jsp" />
 	<!-- 	-------------------------------------------- -->
+	<c:if test="${!empty guest}">
+		<c:set var="user" value="${guest}" />
+	</c:if>
 	<div class="wrap">
 		<div class="left">
 			<div class="container">

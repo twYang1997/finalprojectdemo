@@ -53,6 +53,9 @@
 </style>
 
 <body>
+	<c:if test="${!empty guest}">
+		<c:set var="user" value="${guest}" />
+	</c:if>
 				<table class="tableHead" >
 					<tr>
 						<td class="col-md-4"><h5>Photo</h5></td>

@@ -40,7 +40,9 @@
 	<!-- 			</tr> -->
 	<!-- 		</table> -->
 	<%-- 	</c:forEach> --%>
-	
+	<c:if test="${!empty guest}">
+		<c:set var="user" value="${guest}" />
+	</c:if>
 			<c:forEach items="${user.posts}" var="p" varStatus="vs">
 				<ul class="panel-activity__list" style="margin-top:5%">
 					<li><i class="activity__list__icon fa fa-question-circle-o"></i>

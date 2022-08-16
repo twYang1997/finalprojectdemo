@@ -30,6 +30,9 @@
 </style>
 
 <body>
+	<c:if test="${!empty guest}">
+		<c:set var="user" value="${guest}" />
+	</c:if>
 	<label class="form-label">Email:</label>
 	<p id="emailerror" style="display:inline"></p>
 	<div class="row" id="write" style="display: none">

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finaldemo.dto.ImageDto;
 import com.finaldemo.dto.UserDataDto;
+import com.finaldemo.model.Pets;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.TimmyService;
 
@@ -147,9 +148,15 @@ public class UserSettingController {
 	}
 	
 	@GetMapping("/timmy/readUserById/{id}")
-	public String readUserById(@PathVariable Integer id, Model m) {
+	public String readUserById(@PathVariable Integer id, Model m, HttpSession session) {
 		Users guest = service.getUserById(id);
 		m.addAttribute("guest", guest);
-		return "redirect:/timmy/accountsetting.controller";
+		
+		Users user = (Users) session.getAttribute("user");
+		Users u1 = service.getUserById(user.getUserId());
+		session.setAttribute("user", u1);
+		
+		m.addAttribute("newPet", new Pets());
+		return "timmy/NormalMember";
 	}
 }
