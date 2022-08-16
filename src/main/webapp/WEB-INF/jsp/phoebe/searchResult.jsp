@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,8 +31,8 @@
 		<c:forEach items="${peopleList}" var="people" varStatus="vs">
 			<div class="member-entry">
 				<a href="#" class="member-img"> <img
-					src="https://bootdey.com/img/Content/avatar/avatar3.png"
-					class="img-rounded"> <i class="fa fa-forward"></i>
+					src="${contextRoot}/${people.getPhotoPath()}"
+					class="img-rounded" style="width: auto; height: 100px; border-radius: 10%"> <i class="fa fa-forward"></i>
 				</a>
 
 				<div class="member-details">
