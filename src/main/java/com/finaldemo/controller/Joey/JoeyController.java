@@ -155,7 +155,7 @@ public class JoeyController {
 				img.transferTo(new File(postImgPath));
 				// 存PostImg資料表
 				newPostImg.setPost(newPost);
-				newPostImg.setPostImgPath(fileName);
+				newPostImg.setPostImgPath("/img/joeyimg/joeypostimg/"+fileName);
 				PhoebeService.addPostImg(newPostImg);
 			} else {
 				break;
@@ -189,12 +189,12 @@ public class JoeyController {
 					// 存資料夾
 					if (!(img.isEmpty())) {
 						String fileName = img.getOriginalFilename();
-						String postImgPath =fileName;
+						String postImgPath ="C:/Git/Project/Team3FinalPorject/src/main/webapp/img/joeyimg/joeypostimg/"+fileName;
 						img.transferTo(new File(postImgPath));
 						newPostImg.setPostImgPath(postImgPath);
 						// 存PostImg資料表
 						newPostImg.setPost(post);
-						newPostImg.setPostImgPath(postImgPath);
+						newPostImg.setPostImgPath("/img/joeyimg/joeypostimg/" + fileName);
 						PhoebeService.addPostImg(newPostImg);
 					} else {
 						break;
