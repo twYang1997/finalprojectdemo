@@ -87,10 +87,11 @@ public class UsersListController {
 	
 	//停用一般會員 假刪除真更新
 	@GetMapping("/deleteUser")
-	public String deleteUser(Model model, @RequestParam("id") String id) {
+	public String deleteUser(HttpSession session, Model model, @RequestParam("id") String id) {
 		Users u1 = Service.BrainGetUserById(Integer.parseInt(id));
 		u1.setCategory(0);
 		Service.insertUsers(u1);
+		session.invalidate();
 		return "redirect:/memberManagement";
 	}
 	
@@ -124,6 +125,16 @@ public class UsersListController {
 			model.addAttribute("posts", posts);
 			return "redirect:/memberManagement";
 		}
+		
+		@GetMapping("/userLink")
+		public String userLink(Model model, @RequestParam("id") String id) {
+			System.out.println("********user:"+id);
+			Users userLink = Service.BrainGetUserById(Integer.parseInt(id));
+			System.out.println("********userLink:"+userLink);
+			model.addAttribute("userLink", userLink);
+			return "timmy/NormalMember";
+		}
+	
 	
 	
 //	@PostMapping("/Brian/uploadImgAjax")
