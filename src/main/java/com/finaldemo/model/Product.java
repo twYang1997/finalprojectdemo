@@ -35,6 +35,8 @@ public class Product {
 	
 	private Date productDate;
 	
+	private Integer productStatus;
+	
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class)
 	@JoinColumn(name="fk_user_id", referencedColumnName = "userId")
 	private Users user;
@@ -128,6 +130,14 @@ public class Product {
 
 	public void setShoppingCar(ShoppingCar shoppingCar) {
 		this.shoppingCar = shoppingCar;
+	}
+
+	public Integer getProductStatus() {
+		return productStatus;
+	}
+
+	public void setProductStatus(Integer productStatus) {
+		this.productStatus = productStatus;
 	}
 	
 }

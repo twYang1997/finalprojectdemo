@@ -46,7 +46,7 @@
 					<li><i class="activity__list__icon fa fa-question-circle-o"></i>
 						<div class="activity__list__header">
 							<img src="https://bootdey.com/img/Content/avatar/avatar2.png"
-								alt="" /> <a href="#">${p.postUser.getNickName()}</a>
+								alt="" /> <a href="#" class="preShowNickName">${p.postUser.getNickName()}</a>
 						</div>
 						<div class="activity__list__body entry-content">
 
