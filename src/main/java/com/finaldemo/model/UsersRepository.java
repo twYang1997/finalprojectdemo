@@ -28,8 +28,8 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 ////	public Optional<Users> findByMemberId(Integer id);
 //	
 //
-//	@Query(value = "SELECT * FROM Users WHERE userId =?1", nativeQuery = true) 
-//	List<Users> findProductById(@Param("userId") String userId);
+	@Query(value = "SELECT * FROM Users WHERE userId =?1", nativeQuery = true) 
+	List<Users> findProductById(@Param("userId") String userId);
 //
 //
 //=======

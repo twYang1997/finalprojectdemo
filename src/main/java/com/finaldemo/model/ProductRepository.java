@@ -15,7 +15,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	// 此為小郭寫的亂刪砍手
 
-	@Query(value = "Select * from Product where fk_user_id", nativeQuery = true)
+	@Query(value = "Select * from Product where fk_user_id = :id and productStatus != 0", nativeQuery = true)
 	public List<Product> findProudtsByUserId(@Param("id") Integer userId);
 
 }

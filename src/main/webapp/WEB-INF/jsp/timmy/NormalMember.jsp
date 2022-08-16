@@ -81,8 +81,12 @@ ul li button {
 </style>
 
 <body>
+	
 	<jsp:include page="layout/navbar.jsp" />
 	<!-- 	-------------------------------------------- -->
+	<c:if test="${!empty guest}">
+		<c:set var="user" value="${guest}" />
+	</c:if>
 	<div class="wrap">
 		<div class="left">
 			<div class="container">
@@ -155,7 +159,7 @@ ul li button {
 							<div class="card-body">
 								<div class="card-header"><h5>Introduction</h5></div>
 									<table class="table">
-											<tr><td style="text-align:left">${user.selfIntroduction}</td></tr>
+											<tr><td style="text-align:left" id="preShowIntroduction">${user.selfIntroduction}</td></tr>
 									</table>
 							</div>
 						</div>

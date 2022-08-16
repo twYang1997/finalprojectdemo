@@ -40,6 +40,11 @@ public class JoeyService {
 
 	}
 	
+	public Product addProduct(Product newProduct) {
+		return productDao.save(newProduct);
+		
+	}
+	
 	public  List<Product> findProudtsByUserId(Integer userId){
 		return productDao.findProudtsByUserId(userId);
 		

@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<c:set var="contextRoot" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +34,7 @@
 		</div>
 		<c:forEach items="${peopleList}" var="people" varStatus="vs">
 			<div class="member-entry">
-				<a href="#" class="member-img"> <img
+				<a href="${contextRoot}/timmy/readUserById/${people.getUserId()}" class="member-img"> <img
 					src="https://bootdey.com/img/Content/avatar/avatar3.png"
 					class="img-rounded"> <i class="fa fa-forward"></i>
 				</a>

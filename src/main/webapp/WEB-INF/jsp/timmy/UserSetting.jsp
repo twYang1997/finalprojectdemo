@@ -30,6 +30,9 @@
 </style>
 
 <body>
+	<c:if test="${!empty guest}">
+		<c:set var="user" value="${guest}" />
+	</c:if>
 	<label class="form-label">Email:</label>
 	<p id="emailerror" style="display:inline"></p>
 	<div class="row" id="write" style="display: none">
@@ -43,7 +46,7 @@
 			<input type="text" class="form-control" name="below" id="inlineFormInputGroup">
 		</div>
 		<div class="col-sm-2">
-			<button class="btn btn-outline-secondary icon" id="enter">
+			<button class="btn btn-outline-secondary icon smallIcon" id="enter">
 				<img src="${contextRoot}/img/userimg/enter.png" class="udateicon" width="18">
 			</button>
 		</div>
@@ -54,7 +57,7 @@
 			<input id="showEmail" class="form-control" name="email" value="${user.email }" disabled="disabled">
 		</div>
 		<div class="col-sm-1" style="padding-right: 0" >
-			<button id="pencil" class="btn btn-outline-secondary icon">
+			<button id="pencil" class="btn btn-outline-secondary icon smallIcon">
 				<img src="${contextRoot}/img/userimg/pencil.png" class="udateicon" width="18">
 			</button>
 		</div>
@@ -67,7 +70,7 @@
 				<input class="form-control" type="password" id="password" name="password" value="${user.password }" disabled="disabled">
 			</div>
 			<div class="col-sm-1" style="padding-right: 0">
-				<a class="btn btn-outline-secondary icon" role="button" data-toggle="modal" data-target="#myModal" id="viewDetailButton"><img src="${contextRoot}/img/userimg/pencil.png" width="18"></a>
+				<a class="btn btn-outline-secondary icon smallIcon" role="button" data-toggle="modal" data-target="#myModal" id="viewDetailButton"><img src="${contextRoot}/img/userimg/pencil.png" width="18"></a>
 			</div>
 		</div>
 		<!-- 框體調整 -->
@@ -90,14 +93,14 @@
 								<div class="form-group col-md-6" style="text-align: left;">
 									<!-- 								----------------------------------- -->
 									<label for="inputPassword4">Please enter the old
-										password：</label><span id="oldpwderror"></span>
+										password：</label><p id="oldpwderror"></p>
 									<div class="row" id="show">
 										<div class="col-sm-11" style="padding-right: 1">
 											<input class="form-control" type="password" id="oldpwd">
 										</div>
 										<button type="reset" id="reset" style="display:none"></button>
 										<div class="col-sm-1" style="padding-right: 0">
-											<button type="button" class="btn btn-outline-secondary icon"
+											<button type="button" class="btn btn-outline-secondary icon smallIcon"
 												id="checkPassword">
 												<img src="${contextRoot}/img/userimg/enter.png" id="pwdenter"
 													width="18">
@@ -114,7 +117,7 @@
 												<input class="form-control" type="password" id="newpwd" required="required" maxlength="12">
 											</div>
 										</div>
-										<label>Check Password：</label><span id="newpwderror"></span>
+										<label>Check Password：</label><p id="newpwderror"></p>
 										<div class="row">
 											<div class="col-sm-11" style="padding-right: 1">
 												<input class="form-control" type="password" id="checkpwd" required="required" maxlength="12">
@@ -165,8 +168,8 @@
 				<input class="form-control userSetting" name="address" value="${user.address }" id="address" disabled="disabled">
 			</div>
 			<div class="col-sm-1" style="padding-right: 0">
-				<button id="pencilAddress" class="btn btn-outline-secondary icon" onclick="editAddress()">
-					<img src="${contextRoot}/img/userimg/pencil.png" width="18">
+				<button id="pencilAddress" class="btn btn-outline-secondary icon smallIcon" onclick="editAddress()" >
+					<img src="${contextRoot}/img/userimg/pencil.png" width="18" >
 				</button>
 			</div>
 		</div>
@@ -186,7 +189,7 @@
 			<input id="completeAddress" type="text" class="form-control" placeholder="輸入地址" >
 		</div>
 		<div class="col-sm-1" style="padding-right: 0">
-			<button class="btn btn-outline-secondary icon" id="enterAddress" onclick="setAddress()">
+			<button class="btn btn-outline-secondary icon smallIcon" id="enterAddress" onclick="setAddress()">
 				<img src="${contextRoot}/img/userimg/enter.png" width="18">
 			</button>
 		</div>

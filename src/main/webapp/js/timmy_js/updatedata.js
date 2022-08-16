@@ -42,8 +42,8 @@ $(document).ready(function() {
 					if (hea == "phone"){
 						document.getElementById("preShowPhone").innerHTML = result;
 					}
-					if (hea == ""){
-						
+					if (hea == "selfIntroduction"){
+						document.getElementById("preShowIntroduction").innerHTML = result;
 					}
 				},
 				error : function(error) {

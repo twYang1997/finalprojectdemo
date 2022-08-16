@@ -97,16 +97,46 @@ public class JoeyController {
 
 		return "joey/editMember";
 	}
-	
-	//新增商品（待完成）
+
+	// 新增商品（待完成）
 	@PostMapping("/addProduct")
-	public String addProduct() {
-		return null;
+	public String addProduct(@RequestParam String productName, @RequestParam Integer productPrice,
+			@RequestParam String productContext, @RequestParam MultipartFile[] productImg,
+			HttpSession session)
+			throws IllegalStateException, IOException {
+
+		Product product = new Product();
+		Users user = (Users) session.getAttribute("user");
+		Users fundation = PhoebeService.getUserById(user.getUserId());
+		product.setProductStatus(1);
+		product.setBuyCount(0);
+		product.setProductContext(productContext);
+		product.setProductDate(new Date());
+
 		
+
+		for (MultipartFile img : productImg) {
+			// 存資料夾
+			if (!(img.isEmpty())) {
+				String fileName = img.getOriginalFilename();
+				String productImgPath = "C:/Git/Project/Team3FinalPorject/src/main/webapp/img/joeyimg/joeyproductimg/"
+						+ fileName;
+				img.transferTo(new File(productImgPath));
+//				// 存Product資料表
+				product.setProductImg("/img/postimg/" + fileName);
+				product.setUser(fundation);
+//				service.addProduct(newProductImg);
+//				newProductImg.setProductImgPath("/img/productimg/" + fileName);
+//				service.addPostImg(newPostImg);
+			} else {
+				break;
+			}
+
+		}
+		return "joey/editMember";
 	}
-	
-	
-	//列出所有商品（待完成）
+
+	// 列出所有商品（待完成）
 	@GetMapping("/findProductsById")
 	public String findPrductsById(HttpSession session, Model model) {
 		Integer userId = ((Users) session.getAttribute("user")).getUserId();
@@ -114,16 +144,15 @@ public class JoeyController {
 		model.addAttribute("productsToShow", productsToShow);
 		Users users = new Users();
 		model.addAttribute("u", users);
-		
-		
+
 		return "joey/editMember";
 	}
-	
-	//修改商品（待完成）
+
+	// 修改商品（待完成）
 	@PostMapping("/editProdut")
 	public String editProduct(@RequestParam Integer productId) {
 		return null;
-		
+
 	}
 
 	@PostMapping("/editMember")
@@ -145,8 +174,10 @@ public class JoeyController {
 
 		try {
 			byte[] bytes = file.getBytes();
-			FileUtils.writeByteArrayToFile(new File(
-					System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\joeypostimg\\", userId + photoType), bytes);
+			FileUtils.writeByteArrayToFile(
+					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\joeypostimg\\",
+							userId + photoType),
+					bytes);
 
 			return "joey/joeytest";
 		} catch (IOException e) {
@@ -179,12 +210,13 @@ public class JoeyController {
 			// 存資料夾
 			if (!(img.isEmpty())) {
 				String fileName = img.getOriginalFilename();
-				String postImgPath = "C:/Git/Project/Team3FinalPorject/src/main/webapp/img/joeyimg/joeypostimg/" + fileName;
+				String postImgPath = "C:/Git/Project/Team3FinalPorject/src/main/webapp/img/joeyimg/joeypostimg/"
+						+ fileName;
 //				String postImgPath = "C:/upload/" + fileName;
 				img.transferTo(new File(postImgPath));
 				// 存PostImg資料表
 				newPostImg.setPost(newPost);
-				newPostImg.setPostImgPath("/img/joeyimg/joeypostimg/"+fileName);
+				newPostImg.setPostImgPath("/img/joeyimg/joeypostimg/" + fileName);
 				PhoebeService.addPostImg(newPostImg);
 			} else {
 				break;
@@ -211,25 +243,25 @@ public class JoeyController {
 		post.setWhoCanSeeIt(whoCanSeeIt);
 		PhoebeService.editPost(post);
 		PhoebeService.deleteExtraImgs(postId);
-		
-		// 存圖片
-				PostImg newPostImg = new PostImg();
-				for (MultipartFile img : postImg) {
-					// 存資料夾
-					if (!(img.isEmpty())) {
-						String fileName = img.getOriginalFilename();
-						String postImgPath ="C:/Git/Project/Team3FinalPorject/src/main/webapp/img/joeyimg/joeypostimg/"+fileName;
-						img.transferTo(new File(postImgPath));
-						newPostImg.setPostImgPath(postImgPath);
-						// 存PostImg資料表
-						newPostImg.setPost(post);
-						newPostImg.setPostImgPath("/img/joeyimg/joeypostimg/" + fileName);
-						PhoebeService.addPostImg(newPostImg);
-					} else {
-						break;
-					}
-				}
 
+		// 存圖片
+		PostImg newPostImg = new PostImg();
+		for (MultipartFile img : postImg) {
+			// 存資料夾
+			if (!(img.isEmpty())) {
+				String fileName = img.getOriginalFilename();
+				String postImgPath = "C:/Git/Project/Team3FinalPorject/src/main/webapp/img/joeyimg/joeypostimg/"
+						+ fileName;
+				img.transferTo(new File(postImgPath));
+				newPostImg.setPostImgPath(postImgPath);
+				// 存PostImg資料表
+				newPostImg.setPost(post);
+				newPostImg.setPostImgPath("/img/joeyimg/joeypostimg/" + fileName);
+				PhoebeService.addPostImg(newPostImg);
+			} else {
+				break;
+			}
+		}
 
 		return "redirect:/findById2";
 //		String photoPath = "/img/joeyimg/joeypostimg/";
@@ -267,16 +299,14 @@ public class JoeyController {
 
 		return "/joey/editMember";
 	}
-	
+
 	@GetMapping("/ajaxtest")
 	public @ResponseBody String testAjax() {
 
-		String ajaxText="Ajax回傳內容";
-		
+		String ajaxText = "Ajax回傳內容";
+
 		return ajaxText;
-		
+
 	}
-	 
-	
 
 }

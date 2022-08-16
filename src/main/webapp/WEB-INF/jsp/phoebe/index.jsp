@@ -49,7 +49,7 @@
 							<option value="2">Follower</option>
 							<option value="3">Only me</option>
 						</select>
-						<textarea name="postText"
+						<textarea name="postText" required
 							placeholder="Share what you've been up to..."
 							class="form-control"></textarea>
 
@@ -117,23 +117,46 @@
 								</c:if>
 								<span> <i class="fa fa-clock"></i>${p.getPostTime()}
 								</span>
-							</div>
-							<div class="activity__list__footer">
-								<form action="${contextRoot}/addComment.controller?postId=${p.getPostId()}"
-									method="post">
-									<div class="mb-3">
-										<input name="commentText" type="text" class="form-control"
-											id="exampleInputEmail1" aria-describedby="emailHelp">
-										<a href="#"> <input
-											style="position: absolute; opacity: 0;" type="file"
-											name="commentImg" id="file" multiple onchange="readAsDataURL()"
-											accept="image/gif,image/jpeg,image/x-png" /> <i
-											class="fa fa-image"></i>
-										</a>
+							</div> <!-- 評論 -->
+							<div class="box-footer box-comments">
+								<div class="box-comment">
+									<img class="img-circle img-sm"
+										src="https://bootdey.com/img/Content/avatar/avatar5.png"
+										alt="User Image"
+										style="width: 40px; height: 40px; border-radius: 50%">
+									<div class="comment-text">
+										<span class="username" style="font-weight: bold;">
+											Maria Gonzales <span class="text-muted pull-right">8:03
+												PM Today</span>
+										</span> It is a long established fact that a reader will be
+										distracted by the readable content of a page when looking at
+										its layout.
 									</div>
-								</form>
+								</div>
 
-							</div></li>
+							</div>
+							<div class="box-footer">
+								<form
+									action="${contextRoot}/addComment.controller?postId=${p.getPostId()}"
+									method="post">
+									<img class="img-responsive img-circle img-sm"
+										src="https://bootdey.com/img/Content/avatar/avatar1.png"
+										alt="Alt Text"
+										style="width: 40px; height: 40px; border-radius: 50%">
+									<div class="img-push">
+										<input type="text" class="form-control input-sm" required
+											placeholder="Press enter to post comment" name="commentText">
+									</div>
+									<a href="#"> <input style="position: absolute; opacity: 0;"
+										type="file" name="commentImg" id="file" multiple
+										onchange="readAsDataURL()"
+										accept="image/gif,image/jpeg,image/x-png" /> <i
+										class="fa fa-image"></i>
+									</a>
+								</form>
+							</div>
+
+							</li>
 					</ul>
 					<!-- 彈出修改框 -->
 					<div class="modal fade" id="myModal${vs.index}" role="dialog">
@@ -238,7 +261,7 @@ body {
 	background-color: #fff;
 	border-radius: 5px;
 	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
-	margin-bottom: 30px;
+	margin-bottom: 30px;	
 }
 
 .profile-cover__action {
@@ -1070,6 +1093,7 @@ li.list-group-item:first-child {
 	font-size: 14px;
 	color: #999999;
 	z-index: 0;
+}
 }
 </style>
 	<script type="text/javascript">
