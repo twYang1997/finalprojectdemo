@@ -15,7 +15,7 @@
 </head>
 <style>
 .petModal {
-	left: 400px;
+/* 	left: 400px; */
 }
 
 #defaultPetImg {
@@ -25,33 +25,41 @@
 }
 
 .petPhotoImg {
-	width: 60px;
-	height: 40px;
+	width: 200px;
+	height: 160px;
 }
 
 #viewDetailButtonAdd{
-	margin: 5px 100px 5px 100px ;
+	margin: 5px auto;
 }
 
 .editPetPhoto{
 	width: 300px;
 }
 
-.table {
-	width: 200%;
+.tableHead{
+	margin-top: 2%; 
+	margin-bottom: 1%; 
 }
 </style>
 
 <body>
-
+				<table class="tableHead" >
+					<tr>
+						<td class="col-md-4"><h5>Photo</h5></td>
+						<td class="col-md-2"><h5>Name</h5></td>
+						<td class="col-md-4"><h5>About</h5></td>
+						<td class="col-md-1"><h5>Edit</h5></td>
+						<td class="col-md-1"><h5>Delete</h5></td>
+					</tr>
+				</table>
 				<c:forEach items="${user.pets }" var="p" varStatus="vs">
 					<!-- 					<div class="col"> -->
 					<!-- 						<div class="card"> -->
-							 <div class="d-flex justify-content-between">
                                 <table class="table">
 	                                <tbody>
 	                                	<tr>
-	                                		<td class="col-md-5">
+	                                		<td class="col-md-4">
 												<c:if test='${fn:contains(p.petPhotoPath, ".")}'>
 													<img src="${contextRoot}${p.petPhotoPath}" class="petPhotoImg" id="petImgPreview{vs.index}">
 												</c:if>
@@ -59,18 +67,23 @@
 													<img src="${contextRoot}/img/petimg/pawprint.png" class="petPhotoImg" id="petImgPreview{vs.index}">
 												</c:if>
 											</td >
-											<td class="col-md-5">
+											<td class="col-md-2">
 												<h6>${p.petName}</h6>
 											</td>
-											<td class="col-md-5">
+											<td class="col-md-4">
+												<p>${p.petDescription}</p>
+											</td>
+											<td class="col-md-1">
 												<a class="rounded-pill" role="button" data-toggle="modal" data-target="#myModal${vs.index}pet" id="viewDetailButton${vs.index}">
 													<img src="${contextRoot}/img/userimg/pencil.png" width="18">
 												</a>
 											</td>
+											<td class="col-md-1">
+												del
+											</td>
 	                                	</tr>
                                 	</tbody>
                                 </table>
-                            </div>
 							
 					<div class="modal petModal" id="myModal${vs.index}pet">
 						<div class="modal-dialog">

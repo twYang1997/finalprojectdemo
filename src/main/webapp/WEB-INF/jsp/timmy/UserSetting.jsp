@@ -25,13 +25,13 @@
 
 	.icon {
 		background-color: white;
-		border: 0px solid #ced4da;
+		border: 2px solid #ced4da;
 	}
 </style>
 
 <body>
 	<label class="form-label">Email:</label>
-	<span id="emailerror"></span>
+	<p id="emailerror" style="display:inline"></p>
 	<div class="row" id="write" style="display: none">
 		<div class="col-sm-5" style="padding-right: 0">
 			<input type="text" class="form-control" name="font" id="num">
@@ -49,147 +49,153 @@
 		</div>
 	</div>
 	<%-- </form> --%>
-		<div class="row" id="show">
-			<div class="col-sm-10" style="padding-right: 1">
-				<input id="showEmail" class="form-control" name="email" value="${user.email }" disabled="disabled">
+	<div class="row" id="show">
+		<div class="col-sm-11" style="padding-right: 1">
+			<input id="showEmail" class="form-control" name="email" value="${user.email }" disabled="disabled">
+		</div>
+		<div class="col-sm-1" style="padding-right: 0" >
+			<button id="pencil" class="btn btn-outline-secondary icon">
+				<img src="${contextRoot}/img/userimg/pencil.png" class="udateicon" width="18">
+			</button>
+		</div>
+	</div>
+	<br>
+	<div>
+		<label class="form-label">Password:</label>
+		<div class="row" id="show"> 
+			<div class="col-sm-11" style="padding-right: 1">
+				<input class="form-control" type="password" id="password" name="password" value="${user.password }" disabled="disabled">
 			</div>
-			<div class="col-sm-2" style="padding-left: 0" >
-				<button id="pencil" class="btn btn-outline-secondary icon">
-					<img src="${contextRoot}/img/userimg/pencil.png" class="udateicon" width="18">
-				</button>
+			<div class="col-sm-1" style="padding-right: 0">
+				<a class="btn btn-outline-secondary icon" role="button" data-toggle="modal" data-target="#myModal" id="viewDetailButton"><img src="${contextRoot}/img/userimg/pencil.png" width="18"></a>
 			</div>
 		</div>
-		<div>
-			<label class="form-label">Password:</label>
-			<div class="row" id="show"> 
-				<div class="col-sm-10" style="padding-right: 1">
-					<input class="form-control" type="password" id="password" name="password" value="${user.password }" disabled="disabled">
-				</div>
-				<div class="col-sm-2" style="padding-left: 0">
-					<a class="btn btn-outline-secondary icon" role="button" data-toggle="modal" data-target="#myModal" id="viewDetailButton"><img src="${contextRoot}/img/userimg/pencil.png" width="18"></a>
-				</div>
-			</div>
-			<!-- 框體調整 -->
-			<div class="modal" id="myModal">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<!-- 彈出標題 -->
-						<div class="modal-header">
-							<h4 class="modal-title">Edit Password:</h4>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<!-- 彈出內容 -->
-						<div class="modal-body">
-							<!-- 修改表單 -->
-							<form>
-								<div class="form-row" style="text-align: left;">
-									<!--密碼-->
-									<div class="form-group col-md-6" style="text-align: left;">
-										<!-- 								----------------------------------- -->
-										<label for="inputPassword4">Please enter the old
-											password：</label><span id="oldpwderror"></span>
-										<div class="row" id="show">
-											<div class="col-sm-10" style="padding-right: 1">
-												<input class="form-control" type="password" id="oldpwd">
-											</div>
-											<button type="reset" id="reset" style="display:none"></button>
-											<div class="col-sm-2" style="padding-left: 0">
-												<button type="button" class="btn btn-outline-secondary icon"
-													id="checkPassword">
-													<img src="${contextRoot}/img/userimg/enter.png" id="pwdenter"
-														width="18">
-													<img src="${contextRoot}/img/userimg/check.png" id="checkicon"
-														width="22" style="display:none">
-												</button>
+		<!-- 框體調整 -->
+		<div class="modal" id="myModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<!-- 彈出標題 -->
+					<div class="modal-header">
+						<h4 class="modal-title">Edit Password:</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<!-- 彈出內容 -->
+					<div class="modal-body">
+						<!-- 修改表單 -->
+						<form>
+							<div class="form-row" style="text-align: left;">
+								<!--密碼-->
+								<div class="form-group col-md-6" style="text-align: left;">
+									<!-- 								----------------------------------- -->
+									<label for="inputPassword4">Please enter the old
+										password：</label><span id="oldpwderror"></span>
+									<div class="row" id="show">
+										<div class="col-sm-11" style="padding-right: 1">
+											<input class="form-control" type="password" id="oldpwd">
+										</div>
+										<button type="reset" id="reset" style="display:none"></button>
+										<div class="col-sm-1" style="padding-right: 0">
+											<button type="button" class="btn btn-outline-secondary icon"
+												id="checkPassword">
+												<img src="${contextRoot}/img/userimg/enter.png" id="pwdenter"
+													width="18">
+												<img src="${contextRoot}/img/userimg/check.png" id="checkicon"
+													width="22" style="display:none">
+											</button>
+										</div>
+									</div>
+									<!-- 								----------------------------------- -->
+									<div id="updPwd" style="display:none">
+										<label>New Password：</label>
+										<div class="row">
+											<div class="col-sm-11" style="padding-right: 1">
+												<input class="form-control" type="password" id="newpwd" required="required" maxlength="12">
 											</div>
 										</div>
-										<!-- 								----------------------------------- -->
-										<div id="updPwd" style="display:none">
-											<label>New Password：</label>
-											<div class="row">
-												<div class="col-sm-11" style="padding-right: 1">
-													<input class="form-control" type="password" id="newpwd" required="required" maxlength="12">
-												</div>
+										<label>Check Password：</label><span id="newpwderror"></span>
+										<div class="row">
+											<div class="col-sm-11" style="padding-right: 1">
+												<input class="form-control" type="password" id="checkpwd" required="required" maxlength="12">
 											</div>
-											<label>Check Password：</label><span id="newpwderror"></span>
-											<div class="row">
-												<div class="col-sm-11" style="padding-right: 1">
-													<input class="form-control" type="password" id="checkpwd" required="required" maxlength="12">
-												</div>
-												<div class="col-sm-1" style="padding-left: 0" >
-													<button type="button" class="btn btn-outline-secondary icon" id="checkpwdicon" style="display:none">
-														<img src="${contextRoot}/img/userimg/check.png" 
-																width="22">
-													</button>
-												</div>
+											<div class="col-sm-1" style="padding-right: 0" >
+												<button type="button" class="btn btn-outline-secondary icon" id="checkpwdicon" style="display:none">
+													<img src="${contextRoot}/img/userimg/check.png" 
+															width="22">
+												</button>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" id="edit" style="display:none">Edit</button>
-									<button type="button" class="btn btn-danger" id="closeit" data-dismiss="modal">Close</button>
-								</div>
-							</form>
-						</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" id="edit" style="display:none">Edit</button>
+								<button type="button" class="btn btn-danger" id="closeit" data-dismiss="modal">Close</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div>
-			<label class="form-label">Nickname:</label> <input class="form-control userSetting" name="nickName"
-				value="${user.nickName }">
+	</div>
+	<br>
+	<div>
+		<label class="form-label">Nickname:</label> <input class="form-control userSetting" name="nickName"
+			value="${user.nickName }">
+	</div>
+	<br>
+	<div>
+		<label class="form-label">Birthday:</label>
+		<input id="showDate" type="date" class="form-control userSetting" name="birthday">
+		<div id="hideDate" hidden="true">
+			<fmt:formatDate pattern='YYYY-MM-dd' value='${user.birthday}' />
 		</div>
-		<div>
-			<label class="form-label">Birthday:</label>
-			<input id="showDate" type="date" class="form-control userSetting" name="birthday">
-			<div id="hideDate" hidden="true">
-				<fmt:formatDate pattern='YYYY-MM-dd' value='${user.birthday}' />
+	</div>
+	<br>
+	<div>
+		<label class="form-label">Phone:</label> <input class="form-control userSetting" name="phone"
+			value="${user.phone }" maxlength="10">
+	</div>
+	<br>
+	<div style="margin-bottom:8px">
+		<label class="form-label">Address:</label>
+		<div class="row" id="showAddress">
+			<div class="col-sm-11" style="padding-right: 1">
+				<input class="form-control userSetting" name="address" value="${user.address }" id="address" disabled="disabled">
 			</div>
-		</div>
-		<div>
-			<label class="form-label">Phone:</label> <input class="form-control userSetting" name="phone"
-				value="${user.phone }" maxlength="10">
-		</div>
-		<div style="margin-bottom:8px">
-			<label class="form-label">Address:</label>
-			<div class="row" id="showAddress">
-				<div class="col-sm-10" style="padding-right: 1">
-					<input class="form-control userSetting" name="address" value="${user.address }" id="address" disabled="disabled">
-				</div>
-				<div class="col-sm-2" style="padding-left: 0">
-					<button id="pencilAddress" class="btn btn-outline-secondary icon" onclick="editAddress()">
-						<img src="${contextRoot}/img/userimg/pencil.png" width="18">
-					</button>
-				</div>
-			</div>
-		</div>
-		
-		<div class="row" id="editAddress" style="display:none">
-			<div class="col-sm-3" style="padding-right: 0">
-				<select id="town" class="custom-select" onchange="setPosition()"></select>
-			</div>
-			<div class="col-sm-3" style="padding-right: 0">
-				<select id="position" class="custom-select" onchange="setPositionNumber()"></select> 
-			</div>
-			<div style="display: none">
-				<input id="positionNumber" type="text" class="form-control" placeholder="輸入地區號碼"> 
-			</div>
-			<div class="col-sm-4" style="padding-right: 1">
-				<input id="completeAddress" type="text" class="form-control" placeholder="輸入地址" >
-			</div>
-			<div class="col-sm-2" style="padding-left: 0">
-				<button class="btn btn-outline-secondary icon" id="enterAddress" onclick="setAddress()">
-					<img src="${contextRoot}/img/userimg/enter.png" width="18">
+			<div class="col-sm-1" style="padding-right: 0">
+				<button id="pencilAddress" class="btn btn-outline-secondary icon" onclick="editAddress()">
+					<img src="${contextRoot}/img/userimg/pencil.png" width="18">
 				</button>
 			</div>
 		</div>
-		<div>
-			<label class="form-label">Introduction:</label>
-			<textarea class="form-control userSetting" name="selfIntroduction">${user.selfIntroduction }</textarea>
+	</div>
+		
+	<div class="row" id="editAddress" style="display:none">
+		<div class="col-sm-3" style="padding-right: 0">
+			<select id="town" class="custom-select" onchange="setPosition()"></select>
 		</div>
+		<div class="col-sm-3" style="padding-right: 0">
+			<select id="position" class="custom-select" onchange="setPositionNumber()"></select> 
+		</div>
+		<div style="display: none">
+			<input id="positionNumber" type="text" class="form-control" placeholder="輸入地區號碼"> 
+		</div>
+		<div class="col-sm-5" style="padding-right: 1">
+			<input id="completeAddress" type="text" class="form-control" placeholder="輸入地址" >
+		</div>
+		<div class="col-sm-1" style="padding-right: 0">
+			<button class="btn btn-outline-secondary icon" id="enterAddress" onclick="setAddress()">
+				<img src="${contextRoot}/img/userimg/enter.png" width="18">
+			</button>
+		</div>
+	</div>
+	<br>
+	<div>
+		<label class="form-label">Introduction:</label>
+		<textarea class="form-control userSetting" name="selfIntroduction">${user.selfIntroduction }</textarea>
+	</div>
 
 		
 </body>
@@ -244,8 +250,7 @@
 							var errors = document
 								.getElementById("emailerror");
 							errors.innerHTML = "";
-							if (fn.length == 0
-								|| be.length == 0) {
+							if (fn.length == 0 || be.length == 0) {
 								errors.innerHTML = "column is empty";
 								font[0].value = num;
 								below[0].value = mail;
@@ -261,49 +266,30 @@
 									"value": fn,
 									"header": be
 								};
-								$
-									.ajax({
-										url: contextRoot
-											+ "/timmy/updateEmailAjax",
+								$.ajax({
+										url: contextRoot + "/timmy/updateEmailAjax",
 										contentType: "application/json",
 										dataType: 'text',
 										method: 'post',
-										data: JSON
-											.stringify(datao),
-										success: function (
-											result) {
-											console
-												.log("ajax success:"
-													+ result);
+										data: JSON.stringify(datao),
+										success: function (result) {
+											console.log("ajax success:" + result);
 											if (result == "email has been used") {
 												errors.innerHTML = result;
+												
 											} else {
 												emailString = result;
-												atpos = emailString
-													.lastIndexOf("@");
-												num = emailString
-													.substring(
-														0,
-														atpos);
-												mail = emailString
-													.substring(atpos + 1);
-												$("#showEmail")[0].value = num
-													+ "@"
-													+ mail;
-												$("#show")[0]
-													.setAttribute(
-														"style",
-														"display:");
-												$("#write")[0]
-													.setAttribute(
-														"style",
-														"display:none");
+												atpos = emailString.lastIndexOf("@");
+												num = emailString.substring(0, atpos);
+												mail = emailString.substring(atpos + 1);
+												$("#showEmail")[0].value = num + "@" + mail;
+												$("#show")[0].setAttribute("style","display:");
+												$("#write")[0].setAttribute("style","display:none");
+												document.getElementById("preShowEmail").innerHTML = result;
 											}
 										},
-										error: function (
-											error) {
-											console
-												.log(error);
+										error: function (error) {
+											console.log(error);
 										}
 									})
 							}

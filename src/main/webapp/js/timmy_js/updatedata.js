@@ -18,16 +18,32 @@ $(document).ready(function() {
 					console.log(result);
 					if (hea == "nickName") {
 						var head = document.getElementById("hello");
-						head.innerHTML = "Hello! " + result;
+						head.innerHTML = result;
 						var puN = document.querySelectorAll(".postUserName");
 						if (puN != null){
 								for (var i=0; i<puN.length;i++)
 								puN[i].innerHTML = result;
 						}
+						var pSNN = document.querySelectorAll(".preShowNickName");
+						if (pSNN != null){
+								for (let j=0; j<pSNN.length;j++){
+									pSNN[j].innerHTML = result;
+								}
+						}
 					}
 					if (hea == "email") {
 						var err = document.getElementById("emailerror");
-						err.innerHTML = result
+						err.innerHTML = result;
+						document.getElementById("preShowEmail").innerHTML = result;
+					}
+					if (hea == "birthday"){
+						document.getElementById("preShowBirthday").innerHTML = result;
+					}
+					if (hea == "phone"){
+						document.getElementById("preShowPhone").innerHTML = result;
+					}
+					if (hea == ""){
+						
 					}
 				},
 				error : function(error) {
