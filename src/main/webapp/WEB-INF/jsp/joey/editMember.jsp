@@ -230,11 +230,11 @@ function loadXMLDoc()
 				<div class="panel">
 					<div class="panel-heading">
 						<span id="tab-1"><h3 class="panel-title">Activity Feed</h3></span>
-						<span id="tab-2"><h3 class="panel-title">Product Area</h3></span>
+						<span id="tab-2"><h3 class="panel-title">Add Product</h3></span>
 						<div id="tab">
 							<ul>
 								<li><a href="#tab-1">Activity Feed</a></li>
-								<li><a href="#tab-2">Product Area</a></li>
+								<li><a href="#tab-2">Add Product</a></li>
 							</ul>
 						
 							<!-- 頁籤的內容區塊 -->
@@ -413,8 +413,39 @@ function loadXMLDoc()
 								</div></p>
 							</div>
 							<div class="tab-content-2">
-							  <p>Product Area <img
-								src="${contextRoot}/img/joeyimg/woocommerce-products-list-table.png"></p>
+							  <p><div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon1">@</span>
+								<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+							  </div>
+							  
+							  <div class="input-group mb-3">
+								<input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+								<span class="input-group-text" id="basic-addon2">@example.com</span>
+							  </div>
+							  
+							  <label for="basic-url" class="form-label">Your vanity URL</label>
+							  <div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+								<input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+							  </div>
+							  
+							  <div class="input-group mb-3">
+								<span class="input-group-text">$</span>
+								<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+								<span class="input-group-text">.00</span>
+							  </div>
+							  
+							  <div class="input-group mb-3">
+								<input type="text" class="form-control" placeholder="Username" aria-label="Username">
+								<span class="input-group-text">@</span>
+								<input type="text" class="form-control" placeholder="Server" aria-label="Server">
+							  </div>
+							  
+							  <div class="input-group">
+								<span class="input-group-text">With textarea</span>
+								<textarea class="form-control" aria-label="With textarea"></textarea>
+							  </div></p>
+							  <img src="${contextRoot}/img/joeyimg/woocommerce-products-list-table.png">
 							</div>
 						</div>
 					</div>

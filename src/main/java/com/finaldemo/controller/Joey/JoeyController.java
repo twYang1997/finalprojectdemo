@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.finaldemo.model.Donate;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
+import com.finaldemo.model.Product;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.JoeyService;
 import com.finaldemo.service.PhoebeService;
@@ -95,6 +96,34 @@ public class JoeyController {
 		model.addAttribute("dotation", donation);
 
 		return "joey/editMember";
+	}
+	
+	//新增商品（待完成）
+	@PostMapping("/addProduct")
+	public String addProduct() {
+		return null;
+		
+	}
+	
+	
+	//列出所有商品（待完成）
+	@GetMapping("/findProductsById")
+	public String findPrductsById(HttpSession session, Model model) {
+		Integer userId = ((Users) session.getAttribute("user")).getUserId();
+		List<Product> productsToShow = service.findProudtsByUserId(userId);
+		model.addAttribute("productsToShow", productsToShow);
+		Users users = new Users();
+		model.addAttribute("u", users);
+		
+		
+		return "joey/editMember";
+	}
+	
+	//修改商品（待完成）
+	@PostMapping("/editProdut")
+	public String editProduct(@RequestParam Integer productId) {
+		return null;
+		
 	}
 
 	@PostMapping("/editMember")
