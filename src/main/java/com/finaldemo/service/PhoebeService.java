@@ -1,15 +1,13 @@
 package com.finaldemo.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
+import com.finaldemo.model.Comments;
+import com.finaldemo.model.CommentsRepository;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.PostImgRepository;
 import com.finaldemo.model.Posts;
@@ -33,6 +31,10 @@ public class PhoebeService {
 
 	public Users checkLogin(String email, String password) {
 		return UsersRepository.selectUserByNameAndPwd(email, password);
+	}
+	
+	public Users getUserById(Integer id) {
+		return UsersRepository.findById(id).get();
 	}
 
 	// PostService
@@ -75,5 +77,13 @@ public class PhoebeService {
 
 	public List<Users> searchPeople(String search) {
 		return UsersRepository.searchPeopleByNickName(search);
+	}
+	
+	// CommentsService
+	@Autowired 
+	private CommentsRepository CommentsRepository;
+	
+	public Comments addComment(Comments newComment) {
+		return CommentsRepository.save(newComment);
 	}
 }

@@ -31,180 +31,193 @@
 		<div class="col-lg-8">
 			<br>
 			<div class="panel">
-				<div class="panel-heading">
-					<h3 class="panel-title">Activity Feed</h3>
-				</div>
+				<!-- 				<div class="panel-heading"> -->
+				<!-- 					<h3 class="panel-title">Activity Feed</h3> -->
+				<!-- 				</div> -->
 
-				<div class="panel-content panel-activity">
+				<!-- 				<div class="panel-content panel-activity"> -->
 
-					<!-- 新增post -->
-					<c:if test="${!empty user}">
-						<form action="${contextRoot}/addPost.controller"
-							class="panel-activity__status" method="post"
-							enctype="multipart/form-data">
-							<img src="${contextRoot}/img/phoebeImg/DefaultUserImage.png"
-								style="width: 40px; height: 40px; border-radius: 50%;">
-							${user.getNickName()} <select name="whoCanSeeIt">
-								<option value="1">Public</option>
-								<option value="2">Follower</option>
-								<option value="3">Only me</option>
-							</select>
-							<textarea name="postText"
-								placeholder="Share what you've been up to..."
-								class="form-control"></textarea>
+				<!-- 新增post -->
+				<c:if test="${!empty user}">
+					<form action="${contextRoot}/addPost.controller"
+						class="panel-activity__status" method="post"
+						enctype="multipart/form-data">
+						<img src="${contextRoot}/img/phoebeImg/DefaultUserImage.png"
+							style="width: 40px; height: 40px; border-radius: 50%;">
+						${user.getNickName()} <select name="whoCanSeeIt">
+							<option value="1">Public</option>
+							<option value="2">Follower</option>
+							<option value="3">Only me</option>
+						</select>
+						<textarea name="postText"
+							placeholder="Share what you've been up to..."
+							class="form-control"></textarea>
 
-							<div id="result" name="result"></div>
+						<div id="result" name="result"></div>
 
-							<div class="actions">
-								<div class="btn-group">
-									<a href="#"> <input style="position: absolute; opacity: 0;"
-										type="file" name="postImg" id="file" multiple
-										onchange="readAsDataURL()"
-										accept="image/gif,image/jpeg,image/x-png" /> <i
-										class="fa fa-image"></i>
-									</a> &emsp; <a href="#"> <input
-										style="position: absolute; opacity: 0;" type="file"
-										name="postVideo" id="file" accept="video/*" /><i
-										class="fa fa-video-camera"></i>
-									</a>
-									<!-- <button type="button" class="btn-link" title="Post an Video" -->
-									<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
-									<!-- <i class="fa fa-video-camera"></i> -->
-									<!-- </button> -->
-								</div>
-								<button type="submit" class="btn btn-sm btn-rounded btn-info">
-									Post</button>
+						<div class="actions">
+							<div class="btn-group">
+								<a href="#"> <input style="position: absolute; opacity: 0;"
+									type="file" name="postImg" id="file" multiple
+									onchange="readAsDataURL()"
+									accept="image/gif,image/jpeg,image/x-png" /> <i
+									class="fa fa-image"></i>
+								</a> &emsp; <a href="#"> <input
+									style="position: absolute; opacity: 0;" type="file"
+									name="postVideo" id="file" accept="video/*" /><i
+									class="fa fa-video-camera"></i>
+								</a>
+								<!-- <button type="button" class="btn-link" title="Post an Video" -->
+								<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
+								<!-- <i class="fa fa-video-camera"></i> -->
+								<!-- </button> -->
 							</div>
-						</form>
-					</c:if>
-
-					<!-- 重複的結構 -->
-					<c:forEach items="${postsToShow}" var="p" varStatus="vs">
-						<ul class="panel-activity__list">
-							<li><i class="activity__list__icon fa fa-question-circle-o"></i>
-								<div class="activity__list__header">
-									<img src="https://bootdey.com/img/Content/avatar/avatar2.png"
-										alt="" /> <a href="#">${p.postUser.getNickName()}</a>
-								</div>
-								<div class="activity__list__body entry-content">
-
-									<!-- post內文 -->
-									<p>${p.getPostText()}</p>
-
-									<!-- post圖片 -->
-									<c:forEach items="${p.getPostImg()}" var="pImg"
-										varStatus="loop">
-										<ul class="gallery">
-											<li><img
-												src="${contextRoot}/${pImg.getPostImgPath()}">
-											</li>
-										</ul>
-									</c:forEach>
-
-								</div>
-								<div class="activity__list__footer">
-									<a href="#"> <i class="fa fa-thumbs-up"></i>123
-									</a> <a href="#"> <i class="fa fa-comments"></i>23
-									</a>
-									<c:if test="${p.postUser.getUserId() == user.getUserId()}">
-										<a href="#" role="button" data-toggle="modal"
-											data-target="#myModal${vs.index}"
-											id="viewDetailButton${vs.index}"> <i class="fa fa-pencil"></i>Edit
-										</a>
-										<a href="#" role="button" data-toggle="modal"
-											data-target="#myModal${vs.index}deleteCheck"
-											id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>Delete
-										</a>
-									</c:if>
-									<span> <i class="fa fa-clock"></i>${p.getPostTime()}
-									</span>
-								</div></li>
-						</ul>
-						<!-- 彈出修改框 -->
-						<div class="modal fade" id="myModal${vs.index}" role="dialog">
-							<div class="modal-dialog modal-dialog-centered">
-								<div class="modal-content">
-									<!-- head -->
-									<div class="modal-header">
-										<h4 class="modal-title">Edit post</h4>
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-									</div>
-									<!-- body -->
-									<div class="modal-body">
-										<form
-											action="${contextRoot}/editPost.controller?postId=${p.getPostId()}"
-											class="panel-activity__status" method="post"
-											enctype="multipart/form-data">
-											<img src="${contextRoot}/img/phoebeImg/DefaultUserImage.png"
-												style="width: 40px; height: 40px; border-radius: 50%;">
-											${user.getNickName()} <select name="whoCanSeeIt">
-												<option value="1">Public</option>
-												<option value="2">Follower</option>
-												<option value="3">Only me</option>
-											</select>
-											<textarea name="postText" class="form-control"
-												style="border-style: none; overflow: hidden">${p.getPostText()}</textarea>
-
-											<div id="result" name="result"></div>
-
-											<!-- footer -->
-											<div>
-												<div>
-													<label> <input
-														style="position: absolute; opacity: 0;" type="file"
-														name="postImg" id="file" multiple
-														onchange="readAsDataURL()"
-														accept="image/gif,image/jpeg,image/x-png" /> <i
-														class="fa fa-image"></i>
-													</label> &emsp; <label> <input
-														style="position: absolute; opacity: 0;" type="file"
-														name="postVideo" id="file" accept="video/*" /> <i
-														class="fa fa-video-camera"></i>
-													</label>
-												</div>
-												<button type="submit"
-													class="btn btn-sm btn-rounded btn-info">Save</button>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
+							<button type="submit" class="btn btn-sm btn-rounded btn-info">
+								Post</button>
 						</div>
-
-						<!-- 彈出刪除確認 -->
-						<div class="modal fade" id="myModal${vs.index}deleteCheck"
-							tabindex="-1" role="dialog"
-							aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLongTitle">Move
-											to your trash?</h5>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">Items in your trash will be
-										automatically deleted after 30 days.</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-light"
-											data-dismiss="modal">Cancel</button>
-										<form method="Post"
-											action="${contextRoot}/movePostToTrash.controller?postId=${p.getPostId()}">
-											<button type="submit" class="btn btn-info">Move</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
-					<!--重複的結構 -->
-
-				</div>
+					</form>
+				</c:if>
 			</div>
+			<!-- 重複的結構 -->
+			<c:forEach items="${postsToShow}" var="p" varStatus="vs">
+				<div class="panel">
+					<ul class="panel-activity__list">
+						<li><i class="activity__list__icon fa fa-question-circle-o"></i>
+							<div class="activity__list__header">
+								<img src="https://bootdey.com/img/Content/avatar/avatar2.png"
+									alt="" /> <a href="#">${p.postUser.getNickName()}</a>
+							</div>
+							<div class="activity__list__body entry-content">
+
+								<!-- post內文 -->
+								<p>${p.getPostText()}</p>
+
+								<!-- post圖片 -->
+								<c:forEach items="${p.getPostImg()}" var="pImg" varStatus="loop">
+									<ul class="gallery">
+										<li><img src="${contextRoot}/${pImg.getPostImgPath()}">
+										</li>
+									</ul>
+								</c:forEach>
+
+							</div>
+							<div class="activity__list__footer">
+								<a href="#"> <i class="fa fa-thumbs-up"></i>123
+								</a> <a href="#"> <i class="fa fa-comments"></i>23
+								</a>
+								<c:if test="${p.postUser.getUserId() == user.getUserId()}">
+									<a href="#" role="button" data-toggle="modal"
+										data-target="#myModal${vs.index}"
+										id="viewDetailButton${vs.index}"> <i class="fa fa-pencil"></i>Edit
+									</a>
+									<a href="#" role="button" data-toggle="modal"
+										data-target="#myModal${vs.index}deleteCheck"
+										id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>Delete
+									</a>
+								</c:if>
+								<span> <i class="fa fa-clock"></i>${p.getPostTime()}
+								</span>
+							</div>
+							<div class="activity__list__footer">
+								<form action="${contextRoot}/addComment.controller?postId=${p.getPostId()}"
+									method="post">
+									<div class="mb-3">
+										<input name="commentText" type="text" class="form-control"
+											id="exampleInputEmail1" aria-describedby="emailHelp">
+										<a href="#"> <input
+											style="position: absolute; opacity: 0;" type="file"
+											name="commentImg" id="file" multiple onchange="readAsDataURL()"
+											accept="image/gif,image/jpeg,image/x-png" /> <i
+											class="fa fa-image"></i>
+										</a>
+									</div>
+								</form>
+
+							</div></li>
+					</ul>
+					<!-- 彈出修改框 -->
+					<div class="modal fade" id="myModal${vs.index}" role="dialog">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<!-- head -->
+								<div class="modal-header">
+									<h4 class="modal-title">Edit post</h4>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+								<!-- body -->
+								<div class="modal-body">
+									<form
+										action="${contextRoot}/editPost.controller?postId=${p.getPostId()}"
+										class="panel-activity__status" method="post"
+										enctype="multipart/form-data">
+										<img src="${contextRoot}/img/phoebeImg/DefaultUserImage.png"
+											style="width: 40px; height: 40px; border-radius: 50%;">
+										${user.getNickName()} <select name="whoCanSeeIt">
+											<option value="1">Public</option>
+											<option value="2">Follower</option>
+											<option value="3">Only me</option>
+										</select>
+										<textarea name="postText" class="form-control"
+											style="border-style: none; overflow: hidden">${p.getPostText()}</textarea>
+
+										<div id="result" name="result"></div>
+
+										<!-- footer -->
+										<div>
+											<div>
+												<label> <input
+													style="position: absolute; opacity: 0;" type="file"
+													name="postImg" id="file" multiple
+													onchange="readAsDataURL()"
+													accept="image/gif,image/jpeg,image/x-png" /> <i
+													class="fa fa-image"></i>
+												</label> &emsp; <label> <input
+													style="position: absolute; opacity: 0;" type="file"
+													name="postVideo" id="file" accept="video/*" /> <i
+													class="fa fa-video-camera"></i>
+												</label>
+											</div>
+											<button type="submit" class="btn btn-sm btn-rounded btn-info">Save</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- 彈出刪除確認 -->
+					<div class="modal fade" id="myModal${vs.index}deleteCheck"
+						tabindex="-1" role="dialog"
+						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLongTitle">Move to
+										your trash?</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">Items in your trash will be
+									automatically deleted after 30 days.</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-light"
+										data-dismiss="modal">Cancel</button>
+									<form method="Post"
+										action="${contextRoot}/movePostToTrash.controller?postId=${p.getPostId()}">
+										<button type="submit" class="btn btn-info">Move</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+			<!--重複的結構 -->
 		</div>
 	</div>
+	<!-- 	</div> -->
 
 
 	<style type="text/css">
@@ -220,11 +233,12 @@ body {
 }
 
 .panel {
-	margin-bottom: 30px;
+	padding: 1px 15px 15px 15px;
 	color: #696969;
 	background-color: #fff;
 	border-radius: 5px;
 	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+	margin-bottom: 30px;
 }
 
 .profile-cover__action {
