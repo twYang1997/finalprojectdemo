@@ -15,7 +15,9 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -142,5 +144,12 @@ public class UserSettingController {
 			return address;
 		}
 		return "failed";
+	}
+	
+	@GetMapping("/timmy/readUserById/{id}")
+	public String readUserById(@PathVariable Integer id, Model m) {
+		Users guest = service.getUserById(id);
+		m.addAttribute("guest", guest);
+		return "redirect:/timmy/accountsetting.controller";
 	}
 }

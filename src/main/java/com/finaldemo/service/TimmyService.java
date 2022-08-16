@@ -73,4 +73,8 @@ public class TimmyService {
 	public Users checkLogin(String email, String password) {
 		return uDao.selectUserByNameAndPwd(email, password);
 	}
+	
+	public void deletePetById(Integer id) {
+		peDao.deleteById(id);
+	}
 }

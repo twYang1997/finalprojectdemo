@@ -81,6 +81,7 @@ ul li button {
 </style>
 
 <body>
+	${guest.nickName}
 	<jsp:include page="layout/navbar.jsp" />
 	<!-- 	-------------------------------------------- -->
 	<div class="wrap">
@@ -155,7 +156,7 @@ ul li button {
 							<div class="card-body">
 								<div class="card-header"><h5>Introduction</h5></div>
 									<table class="table">
-											<tr><td style="text-align:left">${user.selfIntroduction}</td></tr>
+											<tr><td style="text-align:left" id="preShowIntroduction">${user.selfIntroduction}</td></tr>
 									</table>
 							</div>
 						</div>

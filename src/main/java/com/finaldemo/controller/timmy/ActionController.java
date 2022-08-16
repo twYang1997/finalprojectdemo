@@ -141,6 +141,11 @@ public class ActionController {
 		Users userAfter = service.getUserById(userBefore.getUserId());
 		session.setAttribute("user", userAfter);
 		m.addAttribute("newPet", new Pets());
+		
+		if(m.getAttribute("guest")!=null) {
+			System.out.println("yes");
+		}
+		
 		return "timmy/NormalMember";
 	}
 
