@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finaldemo.model.Comments;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Users;
@@ -52,7 +53,7 @@ public class PostController_P {
 			HttpServletRequest request) throws IllegalStateException, IOException {
 		Posts p = new Posts();
 		Users u = (Users) session.getAttribute("user");
-		Users author = TimmyService.getUserById(u.getUserId());
+		Users author = service.getUserById(u.getUserId());
 //		Set<Posts> posts = author.getPosts();
 		p.setIsReport(0);
 		p.setPostLike(0);
@@ -134,6 +135,30 @@ public class PostController_P {
 	@PostMapping("/movePostToTrash.controller")
 	public String movePostToTrash(@RequestParam Integer postId) {
 		service.movePostToTrash(0, postId);
+		return "redirect:/getMainPagePosts.controller";
+	}
+	
+	//新增評論
+	@PostMapping("/addComment.controller")
+	public String addComment(@RequestParam String commentText,@RequestParam Integer postId, HttpSession session,
+			HttpServletRequest request) throws IllegalStateException, IOException {
+		Comments c = new Comments();
+		Users u = (Users) session.getAttribute("user");
+		Users author = service.getUserById(u.getUserId());
+		Posts post = service.getPostByPostId(postId);
+//		Set<Posts> posts = author.getPosts();
+		c.setCommentLike(0);
+		c.setCommentText(commentText);
+		c.setCommentTime(new Date());
+		c.setIsReport(0);
+		c.setUser(author);
+		c.setPost(post);
+//		posts.add(p);
+//		author.setPosts(posts);
+//		TimmyService.insertNewUser(author);
+//		p.setPostUser((Users) session.getAttribute("user"));
+		Comments newComment = service.addComment(c);
+
 		return "redirect:/getMainPagePosts.controller";
 	}
 }
