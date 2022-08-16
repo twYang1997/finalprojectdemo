@@ -40,12 +40,7 @@
 	<!-- 			</tr> -->
 	<!-- 		</table> -->
 	<%-- 	</c:forEach> --%>
-	<div class="panel">
-		<div class="panel-heading">
-			<h3 class="panel-title">Posts</h3>
-		</div>
-
-		<div class="panel-content panel-activity" style="padding-top:0">
+	
 			<c:forEach items="${user.posts}" var="p" varStatus="vs">
 				<ul class="panel-activity__list" style="margin-top:5%">
 					<li><i class="activity__list__icon fa fa-question-circle-o"></i>
@@ -166,8 +161,6 @@
 					</div>
 				</div>
 			</c:forEach>
-		</div>
-	</div>
 </body>
 <script type="text/javascript">
 //上傳一張圖片
