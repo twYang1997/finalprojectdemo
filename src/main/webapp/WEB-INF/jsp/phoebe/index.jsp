@@ -238,7 +238,7 @@ body {
 	background-color: #fff;
 	border-radius: 5px;
 	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
-	margin-bottom: 30px;
+	margin-bottom: 30px;	
 }
 
 .profile-cover__action {
