@@ -18,6 +18,17 @@
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+	
+<link rel="stylesheet" href="${contextRoot}/css/index.css">
+<link rel="stylesheet" href="${contextRoot}/css/navs.css">
 <style>
 img {
 	width: 200px;
@@ -34,24 +45,20 @@ img {
 <body>
 	<div class="container">
 		<!--頁籤 -->
-		<ul class="nav nav-tabs" id="myTab" role="tablist">
-		  <li class="nav-item" role="presentation">
-		    <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#ordinary" type="button" role="tab" aria-controls="home" aria-selected="true">一般會員</button>
-		  </li>
-		  <li class="nav-item" role="presentation">
-		    <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#foundation" type="button" role="tab" aria-controls="profile" aria-selected="false">基金會會員</button>
-		  </li>
-		  
-		</ul>
+		<span id="tab-1">主頁</span>
+		<span id="tab-2">頁面1</span>
+		<div id="tab">
+		<ul>
+        <li><a href="#tab-1">一般會員</a></li>
+        <li><a href="#tab-2">基金會會員</a></li>
+        </ul>
 		<!--頁籤到此結束 -->
 		<!--包住全部頁籤 -->
-		<div class="tab-content">
-		
 		<!--一般會員頁籤 -->
-		<div class="tab-pane active" id="ordinary" role="tabpanel" aria-labelledby="home-tab">	
+		<div class="tab-content-1">
 			
 		<c:forEach var="users" items="${page.content}" varStatus="vs">
-		<c:if test="${users.category == 1 }">
+		<c:if test="${users.money==null}">
 			<div class="row justify-content-center">
 				<div class="col-8">
 					<div class="card">
@@ -406,9 +413,9 @@ img {
 		</div>
 		
 		<!--基金會會員頁籤 -->
-		<div class="tab-pane" id="foundation" role="tabpanel" aria-labelledby="profile-tab">
+		<div class="tab-content-2">
 			<c:forEach var="users" items="${page.content}" varStatus="vs">
-		<c:if test="${users.category == 2 }">
+		<c:if test="${users.money!=null}">
 			<div class="row justify-content-center">
 				<div class="col-8">
 					<div class="card">
