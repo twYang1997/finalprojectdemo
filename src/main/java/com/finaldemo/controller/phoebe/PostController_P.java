@@ -31,8 +31,6 @@ public class PostController_P {
 
 	@Autowired
 	private PhoebeService service;
-	@Autowired
-	private TimmyService TimmyService;
 
 	// 顯示登入者主頁貼文
 	@GetMapping("/getMainPagePosts.controller")
@@ -43,6 +41,7 @@ public class PostController_P {
 		model.addAttribute("postsToShow", postsToShow);
 		Users u = new Users();
 		model.addAttribute("u", u);
+		
 		return "phoebe/index";
 	}
 
@@ -158,7 +157,7 @@ public class PostController_P {
 //		TimmyService.insertNewUser(author);
 //		p.setPostUser((Users) session.getAttribute("user"));
 		Comments newComment = service.addComment(c);
-
+		
 		return "redirect:/getMainPagePosts.controller";
 	}
 }
