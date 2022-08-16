@@ -25,7 +25,7 @@
 
 	.icon {
 		background-color: white;
-		border: 1px solid #ced4da;
+		border: 0px solid #ced4da;
 	}
 </style>
 

@@ -69,6 +69,10 @@ ul li button {
 .container {
 	margin-bottom: 5%;
 }
+.right{
+	width: 80%;
+	margin: 0 auto;
+}
 </style>
 
 <body>
@@ -85,7 +89,7 @@ ul li button {
 								<img src="${contextRoot}/${user.photoPath}"
 									id="preview_progressbarTW_img"> <input type="file"
 									name="testfile" id="testfile" style="display: none;">
-								<h3 id="hello">${user.nickName}</h3>
+								<h3 id="hello" style="text-align:center;">${user.nickName}</h3>
 							</div>
 						</div>
 					</div>
@@ -98,7 +102,7 @@ ul li button {
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<div class="card-header">編輯公開資訊</div>
+								<div class="card-header">Follow :</div>
 								<div id="settingManagerDiv" style="display:">
 									<table class="table table-borderless">
 										<thead>
@@ -135,7 +139,7 @@ ul li button {
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<div class="card-header">編輯私人資訊</div>
+								<div class="card-header">About :</div>
 								<div id="settingManagerDiv" style="display:">
 									<jsp:include page="UserSetting.jsp" />
 								</div>
@@ -150,7 +154,7 @@ ul li button {
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<div class="card-header">寵物資訊：</div>
+								<div class="card-header">My Pets :</div>
 								<div id="petManagerDiv" style="display:">
 									<jsp:include page="PetSetting.jsp" />
 								</div>
@@ -163,8 +167,16 @@ ul li button {
 		<!-- 	-------------------------------------------- -->
 		<div class="right">
 			<div class="col-lg-12">
-				<div id="postManagerDiv" style="">
-					<jsp:include page="PostSetting.jsp" />
+				<div class="panel">
+					<div class="panel-heading">
+						<h3 class="panel-title">Posts</h3>
+					</div>
+
+					<div class="panel-content panel-activity" style="padding-top:0">
+						<div id="postManagerDiv" style="">
+							<jsp:include page="PostSetting.jsp" />
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -14,17 +14,31 @@
 <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 </head>
 <style>
-/* 	.card { */
-/* 		mix-blend-mode: multiply; */
-/* 	} */
 .petModal {
 	left: 400px;
 }
 
-#showPetImg {
+#defaultPetImg {
 	width: 200px;
 	display: block;
 	margin: 10px auto 10px auto;
+}
+
+.petPhotoImg {
+	width: 60px;
+	height: 40px;
+}
+
+#viewDetailButtonAdd{
+	margin: 5px 100px 5px 100px ;
+}
+
+.editPetPhoto{
+	width: 300px;
+}
+
+.table {
+	width: 200%;
 }
 </style>
 
@@ -34,18 +48,30 @@
 					<!-- 					<div class="col"> -->
 					<!-- 						<div class="card"> -->
 							 <div class="d-flex justify-content-between">
-                                <div class="d-flex align-items-center hover-pointer">
-                                    <a class="rounded-pill" role="button" data-toggle="modal" data-target="#myModal${vs.index}pet" id="viewDetailButton${vs.index}">
-									<img src="${contextRoot}${p.petPhotoPath}" class="img-xs rounded-circle" id="petImgPreview{vs.index}"></a>
-                                    <div class="ml-2">
-                                        <p>${p.petName}</p>
-                                        <p class="tx-11 text-muted">${p.petDescription}</p>
-                                    </div>
-                                </div>
+                                <table class="table">
+	                                <tbody>
+	                                	<tr>
+	                                		<td class="col-md-5">
+												<c:if test='${fn:contains(p.petPhotoPath, ".")}'>
+													<img src="${contextRoot}${p.petPhotoPath}" class="petPhotoImg" id="petImgPreview{vs.index}">
+												</c:if>
+												<c:if test='${!fn:contains(p.petPhotoPath, ".")}'>
+													<img src="${contextRoot}/img/petimg/pawprint.png" class="petPhotoImg" id="petImgPreview{vs.index}">
+												</c:if>
+											</td >
+											<td class="col-md-5">
+												<h6>${p.petName}</h6>
+											</td>
+											<td class="col-md-5">
+												<a class="rounded-pill" role="button" data-toggle="modal" data-target="#myModal${vs.index}pet" id="viewDetailButton${vs.index}">
+													<img src="${contextRoot}/img/userimg/pencil.png" width="18">
+												</a>
+											</td>
+	                                	</tr>
+                                	</tbody>
+                                </table>
                             </div>
 							
-					<!-- 						</div> -->
-					<!-- 					</div> -->
 					<div class="modal petModal" id="myModal${vs.index}pet">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -67,52 +93,36 @@
 											id="petId${vs.index}" />
 										<!--頭像上傳-->
 										<div class="container">
-											<img src="${contextRoot}${p.petPhotoPath}"
-												id="preview_progressbarTW_img${vs.index}"> <input
-												type="file" name="testfile" id="testfile${vs.index}"
-												style="display: none;">
+											<c:if test='${fn:contains(p.petPhotoPath, ".")}'>
+												<img src="${contextRoot}${p.petPhotoPath}" id="preview_progressbarTW_img${vs.index}" class="editPetPhoto"> 
+											</c:if>
+											<c:if test='${!fn:contains(p.petPhotoPath, ".")}'>
+												<img src="${contextRoot}/img/petimg/pawprint.png" id="preview_progressbarTW_img${vs.index}" class="editPetPhoto">
+											</c:if>
+											<input type="file" name="testfile" id="testfile${vs.index}" style="display: none;">
 										</div>
 										<script>
-											$(document)
-													.ready(
-															function() {
-																var contextRoot = "/demo";
-																$(
-																		"#preview_progressbarTW_img${vs.index}")
-																		.click(
-																				function() {
-																					$(
-																							"#testfile${vs.index}")
-																							.click();
-																				});
-																var file = document
-																		.getElementById("testfile${vs.index}");
-																file.onchange = function() {
-																	console
-																			.log(file.files[0]);
-																	readURL(this);
-																	console
-																			.log(this.files[0].type);
-																};
-																function readURL(
-																		input) {
-																	if (input.files
-																			&& input.files[0]) {
-																		var reader = new FileReader();
-																		reader.onload = function(
-																				e) {
-																			document
-																					.getElementById(
-																							"preview_progressbarTW_img${vs.index}")
-																					.setAttribute(
-																							"src",
-																							e.target.result);
-																		}
-																	}
-																	reader
-																			.readAsDataURL(input.files[0]);
-																}
-															});
+											$(document).ready(function() {
+												var contextRoot = "/demo";
+												$("#preview_progressbarTW_img${vs.index}").click(function() {
+														$("#testfile${vs.index}").click();
+												});
+												var file = document.getElementById("testfile${vs.index}");
+												file.onchange = function() {
+													console.log(file.files[0]);
+													readURL(this);
+													console.log(this.files[0].type);
+												};
+												function readURL(input) {
+													if (input.files&& input.files[0]) {
+														var reader = new FileReader();
+														reader.onload = function(e) {
+															document.getElementById("preview_progressbarTW_img${vs.index}").setAttribute("src", e.target.result);
+														}
+													}
+													reader.readAsDataURL(input.files[0]);
+												}
+											});
 										</script>
 										<!--暱稱-->
 										<div class="form-group" style="text-align: left;">
@@ -170,7 +180,7 @@
 											<button type="button" class="btn btn-danger"
 												data-dismiss="modal" id="closeplz${vs.index}">Close</button>
 											<button type="button" class="btn btn-primary"
-												id="sub${vs.index}">Submit</button>
+												data-dismiss="modal" id="sub${vs.index}">Submit</button>
 										</div>
 									</form:form>
 								</div>
@@ -178,102 +188,58 @@
 						</div>
 					</div>
 					<script>
-						$(document)
-								.ready(
-										function() {
-											var contextRoot = "/demo";
-											var checkGender = "${p.petGender}";
-											$("#myRadiobutton1${vs.index}")
-													.click(function() {
-														checkGender = 1;
-													});
-											$("#myRadiobutton0${vs.index}")
-													.click(function() {
-														checkGender = 0;
-													})
-											$("#sub${vs.index}")
-													.click(
-															function() {
-																var petId = $("#petId${vs.index}")[0].value;
-																var file = document
-																		.getElementById(
-																				"preview_progressbarTW_img${vs.index}")
-																		.getAttribute(
-																				"src");
-																var petName = $("#petName${vs.index}")[0].value;
-																var petBirthday = $("#myDate${vs.index}")[0].value;
-																var petIntroduction = $("#myTextarea${vs.index}")[0].value;
-																console
-																		.log("id:"
-																				+ petId);
-																console
-																		.log("file:"
-																				+ file);
-																console
-																		.log("Name:"
-																				+ petName);
-																console
-																		.log("birthday:"
-																				+ petBirthday);
-																console
-																		.log("Gender:"
-																				+ checkGender);
-																console
-																		.log("Introduction:"
-																				+ petIntroduction);
-																var datas = {
-																	"id" : petId,
-																	"file" : file,
-																	"name" : petName,
-																	"birthday" : petBirthday,
-																	"gender" : checkGender,
-																	"introduction" : petIntroduction
-																}
-																var jsonData = JSON
-																		.stringify(datas);
-																console
-																		.log(jsonData);
-																$
-																		.ajax({
-																			url : contextRoot
-																					+ "/timmy/updatePetDataAjax",
-																			method : 'post',
-																			contentType : 'application/json',
-																			data : jsonData,
-																			success : function(
-																					result) {
-																				console
-																						.log(result);
-																				$(
-																						"#closeplz${vs.index}")
-																						.click();
-																				if (file
-																						.includes("base64"))
-																					document
-																							.getElementById(
-																									"petImgPreview{vs.index}")
-																							.setAttribute(
-																									"src",
-																									file);
-																			},
-																			error : function(
-																					error) {
-																				console
-																						.log(error);
-																			}
-																		})
-															})
-										});
+						$(document).ready(function() {
+							var contextRoot = "/demo";
+							var checkGender = "${p.petGender}";
+							$("#myRadiobutton1${vs.index}").click(function() {
+								checkGender = 1;
+							});
+							$("#myRadiobutton0${vs.index}").click(function() {
+								checkGender = 0;
+							});
+							$("#sub${vs.index}").click(function() {
+								var petId = $("#petId${vs.index}")[0].value;
+								var file = document.getElementById("preview_progressbarTW_img${vs.index}").getAttribute("src");
+								var petName = $("#petName${vs.index}")[0].value;
+								var petBirthday = $("#myDate${vs.index}")[0].value;
+								var petIntroduction = $("#myTextarea${vs.index}")[0].value;
+								var datas = {
+									"id" : petId,
+									"file" : file,
+									"name" : petName,
+									"birthday" : petBirthday,
+									"gender" : checkGender,
+									"introduction" : petIntroduction
+								};
+								var jsonData = JSON.stringify(datas);
+								console.log(jsonData);
+								$.ajax({
+									url : contextRoot + "/timmy/updatePetDataAjax",
+									method : 'post',
+									contentType : 'application/json',
+									data : jsonData,
+									success : function(result) {
+										console.log(result);
+// 										$("#closeplz${vs.index}").click();
+										if (file.includes("base64"))
+											document.getElementById("petImgPreview{vs.index}").setAttribute("src", file);
+									},
+									error : function(error) {
+										console.log(error);
+									}
+								})
+							})
+						});
 					</script>
 				</c:forEach>
 				<!-- 			------------------------------------------------ -->
-				<a class="btn btn-primary btn-icon-text btn-edit-profile" role="button"
+				<a class="btn btn-outline-secondary btn-icon-text btn-edit-profile" role="button"
 					data-toggle="modal" data-target="#myModaladd"
-					id="viewDetailButtonAdd">
-					  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit btn-icon-prepend">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg> 
+					id="viewDetailButtonAdd"><img src="${contextRoot}/img/petimg/add.png" width="25" >
+<!-- 					  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit btn-icon-prepend"> -->
+<!--                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path> -->
+<!--                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path> -->
+<!--                                 </svg>  -->
 					</a>
 				<div class="modal petModal" id="myModaladd">
 					<div class="modal-dialog">
@@ -304,7 +270,7 @@
 									<!-- ------------------ -->
 									<div>
 										<img src="${contextRoot}/img/petimg/pawprint.png"
-											id="showPetImg">
+											id="defaultPetImg">
 									</div>
 									<!-- ------------------ -->
 									<br>
