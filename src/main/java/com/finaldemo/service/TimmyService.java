@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.finaldemo.model.FollowRepository;
 import com.finaldemo.model.Pets;
 import com.finaldemo.model.PetsRepository;
 import com.finaldemo.model.Posts;
@@ -25,6 +26,9 @@ public class TimmyService {
 	
 	@Autowired
 	private PetsRepository peDao;
+	
+	@Autowired
+	private FollowRepository fDao;
 	
 	public Users getUserById(Integer id) {
 		return uDao.findById(id).get();
@@ -76,5 +80,9 @@ public class TimmyService {
 	
 	public void deletePetById(Integer id) {
 		peDao.deleteById(id);
+	}
+	
+	public void deleteFollowRelation(Integer fansId, Integer followId) {
+		fDao.deleteFollowByFansIdAndFollowsId(fansId, followId);
 	}
 }
