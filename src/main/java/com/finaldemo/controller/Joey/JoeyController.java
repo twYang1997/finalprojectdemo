@@ -72,20 +72,12 @@ public class JoeyController {
 	@GetMapping("/findById2")
 	public String findAnUserById2(HttpSession session, Model model) {
 		Integer userId = ((Users) session.getAttribute("user")).getUserId();
+		List<Product> produtsToShow = service.findProudtsByUserId(userId);
 		List<Posts> postsToShow = PhoebeService.getPostsByUserId(userId);
+		model.addAttribute("produtsToShow", produtsToShow);
 		model.addAttribute("postsToShow", postsToShow);
 		Users users = new Users();
 		model.addAttribute("u", users);
-
-//		Integer postId = ((Posts) session.getAttribute("post")).getPostId();
-//		List<PostImg> postImgsByPostId = PhoebeService.getPostImgsByPostId(postId);
-//		
-//		PostImg postImg = new PostImg();
-//		Integer postImgId = postImg.getPostImgId();
-//		String postImgPath = postImg.getPostImgPath();
-//		System.out.println("postImgPath:"+postImgPath);
-//		System.out.println("postImgsByPostId:"+postImgsByPostId);
-//		model.addAttribute("postImgPath", postImgPath);
 
 		Users userBefore = (Users) session.getAttribute("user");
 		Users userAfter = service.findById(userBefore.getUserId());
@@ -98,7 +90,7 @@ public class JoeyController {
 		return "joey/editMember";
 	}
 
-	// 新增商品（待完成）
+	// 新增商品
 	@PostMapping("/addProductJoey")
 	public String addProduct(@RequestParam String productName, @RequestParam Integer productPrice,
 			@RequestParam String productContext, @RequestParam MultipartFile[] productImg,
