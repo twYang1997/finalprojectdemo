@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.model.Comments;
+import com.finaldemo.model.LikePost;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Users;
@@ -161,6 +162,13 @@ public class PostController_P {
 	}
 	
 	//按讚
-//	@PostMapping("/postLike.controller")
-//	public 
+	@PostMapping("/postLike.controller")
+	public String likePost(@RequestParam Integer postId, HttpSession session) {
+		Users u0 = (Users) session.getAttribute("user");
+		Users u = service.getUserById(u0.getUserId());
+		
+		LikePost LikePost = service.findPostsByUserId(postId, u.getUserId());
+		
+		return "redirect:/getMainPagePosts.controller";
+	}
 }

@@ -99,7 +99,7 @@
 
 							</div>
 							<div class="activity__list__footer">
-								<a href="#"> <i class="fa fa-thumbs-up"></i>123</a> 
+								<a href="${contextRoot}/postLike.controller?postId=${p.getPostId()}"> <i class="fa fa-thumbs-up"></i>123</a> 
 								<a><i class="fa fa-comments"></i>${p.getComments().size()}</a>
 								
 								<c:if test="${p.postUser.getUserId() == user.getUserId()}">
