@@ -11,5 +11,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface LikePostRepository extends JpaRepository<LikePost, Integer> {
 
 	@Query(value="Select * from LikePost where fk_user_id = :userId and fk_post_id = :postId", nativeQuery = true)
-	public LikePost findPostsByUserId(@Param("id") Integer userId, @Param("id") Integer postId);
+	public LikePost findPostsByUserId(@Param("userId") Integer userId, @Param("postId") Integer postId);
 }
