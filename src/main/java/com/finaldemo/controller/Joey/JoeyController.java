@@ -99,15 +99,20 @@ public class JoeyController {
 	}
 
 	// 新增商品（待完成）
-	@PostMapping("/addProduct")
+	@PostMapping("/addProductJoey")
 	public String addProduct(@RequestParam String productName, @RequestParam Integer productPrice,
 			@RequestParam String productContext, @RequestParam MultipartFile[] productImg,
 			HttpSession session)
 			throws IllegalStateException, IOException {
+		
+		System.out.println("productName:"+productName+"  "+"productPrice:"+productPrice+"  "+"productContext:"+productContext+"  "+"productImg:"+productImg);
 
 		Product product = new Product();
 		Users user = (Users) session.getAttribute("user");
 		Users fundation = PhoebeService.getUserById(user.getUserId());
+		
+		product.setProductName(productName);
+		product.setProductPrice(productPrice);
 		product.setProductStatus(1);
 		product.setBuyCount(0);
 		product.setProductContext(productContext);
@@ -123,17 +128,17 @@ public class JoeyController {
 						+ fileName;
 				img.transferTo(new File(productImgPath));
 //				// 存Product資料表
-				product.setProductImg("/img/postimg/" + fileName);
+				product.setProductImg("/img/joeyimg/joeyproductimg/" + fileName);
 				product.setUser(fundation);
-//				service.addProduct(newProductImg);
-//				newProductImg.setProductImgPath("/img/productimg/" + fileName);
-//				service.addPostImg(newPostImg);
+				System.out.println("fundation:"+fundation);
+				service.addProduct(product);
+
 			} else {
 				break;
 			}
 
 		}
-		return "joey/editMember";
+		return "redirect:/findById2";
 	}
 
 	// 列出所有商品（待完成）
@@ -145,7 +150,7 @@ public class JoeyController {
 		Users users = new Users();
 		model.addAttribute("u", users);
 
-		return "joey/editMember";
+		return "redirect:/findById2";
 	}
 
 	// 修改商品（待完成）
@@ -264,32 +269,6 @@ public class JoeyController {
 		}
 
 		return "redirect:/findById2";
-//		String photoPath = "/img/joeyimg/joeypostimg/";
-//		String contentType = file.getContentType();
-//		String photoType = "." + contentType.substring(6);
-//		Posts onePost = PhoebeService.getPostByPostId(postId);
-//		onePost.setPostId(postId);
-//		onePost.setPostText(postText);
-//		Set<PostImg> getPostImg = onePost.getPostImg();
-//		PostImg postImg = new PostImg();
-//		postImg.setPostImgId(postId);
-//		postImg.setPostImgPath(photoPath+postId+photoType);
-//		getPostImg.add(postImg);
-//		onePost.setPostImg(getPostImg);
-//		PhoebeService.editPost(onePost);
-//		
-//		try {
-//			byte[] bytes = file.getBytes();
-//			FileUtils.writeByteArrayToFile(new File(
-//					System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\joeypostimg\\", postId + photoType), bytes);
-//
-//			return "joey/joeytest";
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			return "joey/joeytest";
-//		}
-//		
-//		new PostImg().setPostImgPath(photoPath+postId+photoType);
 
 	}
 
