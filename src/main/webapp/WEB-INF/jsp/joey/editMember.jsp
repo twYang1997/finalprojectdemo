@@ -204,18 +204,16 @@ function loadXMLDoc()
 				</div>
 				<br />
 				<div class="row justify-content-left">
-				<div class="col-12">
-					<div class="card">
-						<div class="card-body">
-							<div class="card-header">
-								AJAX測試
-							</div>
-							<div id="myDiv">預設內容</div>
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="card-header">AJAX測試</div>
+								<div id="myDiv">預設內容</div>
 								<button type="button" onclick="loadXMLDoc()">顯示內容</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 			</div>
 		</div>
 
@@ -236,10 +234,11 @@ function loadXMLDoc()
 								<li><a href="#tab-1">Activity Feed</a></li>
 								<li><a href="#tab-2">Add Product</a></li>
 							</ul>
-						
+
 							<!-- 頁籤的內容區塊 -->
 							<div class="tab-content-1">
-								<p><div class="panel-content panel-activity">
+								<p>
+								<div class="panel-content panel-activity">
 
 									<!-- 新增post -->
 									<c:if test="${!empty user}">
@@ -256,14 +255,15 @@ function loadXMLDoc()
 											<textarea name="postText"
 												placeholder="Share what you've been up to..."
 												class="form-control"></textarea>
-			
+
 											<div id="result" name="result"></div>
-			
+
 											<div class="actions">
 												<div class="btn-group">
 													<a href="#"> <input
 														style="position: absolute; opacity: 0;" type="file"
-														name="postImg" id="file" multiple onchange="readAsDataURL()"
+														name="postImg" id="file" multiple
+														onchange="readAsDataURL()"
 														accept="image/gif,image/jpeg,image/x-png" /> <i
 														class="fa fa-image"></i>
 													</a> &emsp; <a href="#"> <input
@@ -276,35 +276,35 @@ function loadXMLDoc()
 													<!-- <i class="fa fa-video-camera"></i> -->
 													<!-- </button> -->
 												</div>
-												<button type="submit" class="btn btn-sm btn-rounded btn-info">
-													Post</button>
+												<button type="submit"
+													class="btn btn-sm btn-rounded btn-info">Post</button>
 											</div>
 										</form>
 									</c:if>
-			
-			
-			
-			
+
+
+
+
 									<!-- 		重複的結構-->
 									<c:forEach items="${postsToShow}" var="p" varStatus="vs">
 										<ul class="panel-activity__list">
-											<li><i class="activity__list__icon fa fa-question-circle-o"></i>
+											<li><i
+												class="activity__list__icon fa fa-question-circle-o"></i>
 												<div class="activity__list__header">
-													<img src="${contextRoot}${oneMember.photoPath}" alt="" /> <a
-														href="#">${p.postUser.getNickName()}</a>
+													<img src="${contextRoot}${oneMember.photoPath}" alt="" />
+													<a href="#">${p.postUser.getNickName()}</a>
 												</div>
 												<div class="activity__list__body entry-content">
-			
+
 													<!-- post內文 -->
 													<p>${p.getPostText()}</p>
-			
+
 													<!-- post圖片 -->
 													<c:forEach items="${p.getPostImg()}" var="pImg"
 														varStatus="loop">
 														<ul class="gallery">
 															<li><img
-																src="${contextRoot}${pImg.getPostImgPath()}">
-															</li>
+																src="${contextRoot}${pImg.getPostImgPath()}"></li>
 														</ul>
 													</c:forEach>
 												</div>
@@ -320,14 +320,15 @@ function loadXMLDoc()
 														</a>
 														<a href="#" role="button" data-toggle="modal"
 															data-target="#myModal${vs.index}deleteCheck"
-															id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>Delete
+															id="viewDetailButton${vs.index}"> <i
+															class="fa fa-trash"></i>Delete
 														</a>
 													</c:if>
 													<span> <i class="fa fa-clock"></i>${p.getPostTime()}
 													</span>
 												</div></li>
 										</ul>
-			
+
 										<!-- 彈出修改框 -->
 										<div class="modal fade" id="myModal${vs.index}" role="dialog">
 											<div class="modal-dialog modal-dialog-centered">
@@ -352,10 +353,10 @@ function loadXMLDoc()
 															</select>
 															<textarea name="postText" class="form-control"
 																style="border-style: none; overflow: hidden">${p.getPostText()}</textarea>
-			
+
 															<div id="result" name="result"></div>
-			
-			
+
+
 															<!-- footer -->
 															<div>
 																<div>
@@ -379,13 +380,14 @@ function loadXMLDoc()
 												</div>
 											</div>
 										</div>
-			
-			
+
+
 										<!-- 						彈出刪除確認 -->
 										<div class="modal fade" id="myModal${vs.index}deleteCheck"
 											tabindex="-1" role="dialog"
 											aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-dialog modal-dialog-centered"
+												role="document">
 												<div class="modal-content">
 													<div class="modal-header">
 														<h5 class="modal-title" id="exampleModalLongTitle">Move
@@ -410,192 +412,98 @@ function loadXMLDoc()
 										</div>
 									</c:forEach>
 									<!-- 					重複的結構 -->
-								</div></p>
+								</div>
+								</p>
 							</div>
 							<div class="tab-content-2">
-							  <p>
-							  <!-- 頁籤的內容區塊 -->
-							<div class="tab-content-1">
-								<p><div class="panel-content panel-activity">
+								<p>
+									<!-- 頁籤的內容區塊 -->
+								<div class="tab-content-1">
+									<p>
+									<div class="panel-content panel-activity">
 
-									<!-- 新增product -->
-									<div style="height: 200px;">
-										<img src="${contextRoot}/img/joeyimg/default_product_image.png">
-										  </div>
-									<c:if test="${!empty user}">
-										<form action="${contextRoot}/addProductJoey"
-										
-											class="panel-activity__status" method="post"
-											enctype="multipart/form-data">
-											<div class="input-group mb-3">
-												<span class="input-group-text">商品名稱</span>
-											   <input type="text" class="form-control" placeholder="Product Name" name="productName" aria-label="Username">
-											   <span class="input-group-text">金額</span>
-											   <input type="text" class="form-control" placeholder="Price" name="productPrice" aria-label="Server">
+										<!-- 新增product -->
+										<div style="height: 200px;">
+											<div id="result2" name="result2" ><img src="${contextRoot}/img/joeyimg/default_product_image.png"></div>
+											
+									</div>
+									
+										<c:if test="${!empty user}">
+											<form action="${contextRoot}/addProductJoey"
+												class="panel-activity__status" method="post"
+												enctype="multipart/form-data">
+												<div class="input-group mb-3">
+													<span class="input-group-text">商品名稱</span> <input
+														type="text" class="form-control"
+														placeholder="Product Name" name="productName"
+														aria-label="Username"> <span
+														class="input-group-text">金額</span> <input type="text"
+														class="form-control" placeholder="Price"
+														name="productPrice" aria-label="Server">
 												</div>
 												<div class="input-group">
 													<span class="input-group-text">商品說明</span>
-													<textarea placeholder="Product Discription" name="productContext" class="form-control" aria-label="With textarea"></textarea>
-													  </div>
+													<textarea placeholder="Product Discription"
+														name="productContext" class="form-control"
+														aria-label="With textarea"></textarea>
+												</div>
 
-											<div id="result2" name="result2"></div>
-			
-											<div class="actions">
-												<div class="btn-group">
-													<a href="#"> <input
-														style="position: absolute; opacity: 0;" type="file"
-														name="productImg" id="file2" multiple onchange="readAsDataURL2()"
-														accept="image/gif,image/jpeg,image/x-png" /> <i
-														class="fa fa-image"></i>
-													</a> &emsp; <a href="#"> <input
-														style="position: absolute; opacity: 0;" type="file"
-														name="postVideo" id="" accept="video/*" /><i
-														class="fa fa-video-camera"></i>
-													</a>
-													<!-- <button type="button" class="btn-link" title="Post an Video" -->
-													<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
-													<!-- <i class="fa fa-video-camera"></i> -->
-													<!-- </button> -->
-												</div>
-												<button type="submit" class="btn btn-sm btn-rounded btn-info">
-													Post</button>
-											</div>
-										</form>
-									</c:if>
-							 
-								
-							  <!--重複的結構（商品）-->
-									<c:forEach items="${postsToShow}" var="p" varStatus="vs">
-										<ul class="panel-activity__list">
-											<li><i class="activity__list__icon fa fa-question-circle-o"></i>
-												<div class="activity__list__header">
-													<img src="${contextRoot}${oneMember.photoPath}" alt="" /> <a
-														href="#">${p.postUser.getNickName()}</a>
-												</div>
-												<div class="activity__list__body entry-content">
-			
-													<!-- post內文 -->
-													<p>${p.getPostText()}</p>
-			
-													<!-- post圖片 -->
-													<c:forEach items="${p.getPostImg()}" var="pImg"
-														varStatus="loop">
-														<ul class="gallery">
-															<li><img
-																src="${contextRoot}${pImg.getPostImgPath()}">
-															</li>
-														</ul>
-													</c:forEach>
-												</div>
-												<div class="activity__list__footer">
-													<a href="#"> <i class="fa fa-thumbs-up"></i>123
-													</a> <a href="#"> <i class="fa fa-comments"></i>23
-													</a>
-													<c:if test="${p.postUser.getUserId() == user.getUserId()}">
-														<a href="#" role="button" data-toggle="modal"
-															data-target="#myModal${vs.index}"
-															id="viewDetailButton${vs.index}"> <i
-															class="fa fa-pencil"></i>Edit
+
+
+												<div class="actions">
+													<div class="btn-group">
+														<a href="#"> <input
+															style="position: absolute; opacity: 0;" type="file"
+															name="productImg" id="file2" multiple
+															onchange="readAsDataURL2()"
+															accept="image/gif,image/jpeg,image/x-png" /> <i
+															class="fa fa-image"></i>
+														</a> &emsp; <a href="#"> <input
+															style="position: absolute; opacity: 0;" type="file"
+															name="postVideo" id="" accept="video/*" /><i
+															class="fa fa-video-camera"></i>
 														</a>
-														<a href="#" role="button" data-toggle="modal"
-															data-target="#myModal${vs.index}deleteCheck"
-															id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>Delete
-														</a>
-													</c:if>
-													<span> <i class="fa fa-clock"></i>${p.getPostTime()}
-													</span>
-												</div></li>
-										</ul>
-			
-										<!-- 彈出修改框 -->
-										<div class="modal fade" id="myModal${vs.index}" role="dialog">
-											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content">
-													<!-- head -->
-													<div class="modal-header">
-														<h4 class="modal-title">Edit post</h4>
-														<button type="button" class="close" data-dismiss="modal">&times;</button>
+														<!-- <button type="button" class="btn-link" title="Post an Video" -->
+														<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
+														<!-- <i class="fa fa-video-camera"></i> -->
+														<!-- </button> -->
 													</div>
-													<!-- body -->
-													<div class="modal-body">
-														<form
-															action="${contextRoot}/postuploadjoey?postId=${p.getPostId()}"
-															class="panel-activity__status" method="post"
-															enctype="multipart/form-data">
-															<img src="${contextRoot}/img/joeyimg/joeypostimg/3.png"
-																style="width: 40px; height: 40px; border-radius: 50%;">
-															${user.getNickName()} <select name="whoCanSeeIt">
-																<option value="1">Public</option>
-																<option value="2">Follower</option>
-																<option value="3">Only me</option>
-															</select>
-															<textarea name="postText" class="form-control"
-																style="border-style: none; overflow: hidden">${p.getPostText()}</textarea>
-			
-															<div id="result" name="result"></div>
-			
-			
-															<!-- footer -->
-															<div>
-																<div>
-																	<label> <input
-																		style="position: absolute; opacity: 0;" type="file"
-																		name="postImg" id="file" multiple
-																		onchange="readAsDataURL()"
-																		accept="image/gif,image/jpeg,image/x-png" /> <i
-																		class="fa fa-image"></i>
-																	</label> &emsp; <label> <input
-																		style="position: absolute; opacity: 0;" type="file"
-																		name="postVideo" id="file" accept="video/*" /> <i
-																		class="fa fa-video-camera"></i>
-																	</label>
-																</div>
-																<button type="submit"
-																	class="btn btn-sm btn-rounded btn-info">Save</button>
-															</div>
-														</form>
-													</div>
+													<button type="submit"
+														class="btn btn-sm btn-rounded btn-info">新增商品</button>
 												</div>
-											</div>
-										</div>
-			
-			
-										<!-- 						彈出刪除確認 -->
-										<div class="modal fade" id="myModal${vs.index}deleteCheck"
-											tabindex="-1" role="dialog"
-											aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLongTitle">Move
-															to your trash?</h5>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">Items in your trash will be
-														automatically deleted after 30 days.</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-light"
-															data-dismiss="modal">Cancel</button>
-														<form method="Post"
-															action="${contextRoot}/movePostToTrash.controller?postId=${p.getPostId()}">
-															<button type="submit" class="btn btn-info">Move</button>
-														</form>
-													</div>
+											</form>
+										</c:if>
+										<!-- 重複的結構（商品）-->
+										<c:forEach items="${produtsToShow}" var="prod" varStatus="vs">
+											<img src="${contextRoot}${prod.getProductImg()}">
+											<div class="input-group mb-3">
+											
+													<span class="input-group-text">商品名稱</span> <input
+														type="text" class="form-control"
+														value="${prod.getProductName()}" name="productName"
+														aria-label="Username"> <span
+														class="input-group-text">金額</span> <input type="text"
+														class="form-control" value="${prod.getProductPrice()}"
+														name="productPrice" aria-label="Server">
 												</div>
-											</div>
-										</div>
-									</c:forEach>
-									<!-- 					重複的結構 -->
+												<div class="input-group">
+													<span class="input-group-text">商品說明</span>
+													<textarea
+														name="productContext" class="form-control"
+														aria-label="With textarea">${prod.getProductContext()}</textarea>
+												</div>
+							
+											<p></p>
+									
+										</c:forEach>
+										<!-- 					重複的結構 -->
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 
 
 
@@ -603,7 +511,7 @@ function loadXMLDoc()
 
 
 
-	<style type="text/css">
+			<style type="text/css">
 /* Profile_page */
 body {
 	background: #dcdcdc;
@@ -1477,88 +1385,82 @@ li.list-group-item:first-child {
 }
 
 #tab {
-    width: 1000px;
-    background: #c5d2cb;
-    border: solid 1px #161616;
+	width: 1000px;
+	background: #c5d2cb;
+	border: solid 1px #161616;
 }
 
 /* 頁籤ul */
-#tab > ul {
-    /* overflow: hidden; */
-    margin: 0;
-    padding: 10px 20px 0 20px;
-
+#tab>ul {
+	/* overflow: hidden; */
+	margin: 0;
+	padding: 10px 20px 0 20px;
 }
 
-#tab > ul > li {
-    list-style-type: none;
+#tab>ul>li {
+	list-style-type: none;
 }
 
 /* 頁籤上的文字 */
-#tab > ul > li > a { 
-    text-decoration: none;
-    font-size: 15px;
-    color: #333;
-    float: left;
-    padding: 10px;
-    margin-left: 5px;
+#tab>ul>li>a {
+	text-decoration: none;
+	font-size: 15px;
+	color: #333;
+	float: left;
+	padding: 10px;
+	margin-left: 5px;
 }
 
 /*頁籤div內容*/
-#tab > div {
-    clear: both;
-    padding: 0 15px;
-    height: 0;
-    overflow: hidden;
-    visibility: hidden;
+#tab>div {
+	clear: both;
+	padding: 0 15px;
+	height: 0;
+	overflow: hidden;
+	visibility: hidden;
 }
 
 /*第一筆的底色*/
-span:target ~ #tab > ul li:first-child a {
-    background: #c5d2cb;
+span:target ~ #tab>ul li:first-child a {
+	background: #c5d2cb;
 }
 
-span:target ~ #tab > div:first-of-type {
-    visibility: hidden;
-    height: 0;
-    padding: 0 15px;
+span:target ~ #tab>div:first-of-type {
+	visibility: hidden;
+	height: 0;
+	padding: 0 15px;
 }
 
 /*頁籤變換&第一筆*/
-span ~ #tab > ul li:first-child a,
-#tab-1:target ~ #tab > ul li a[href$="#tab-1"],
-#tab-2:target ~ #tab > ul li a[href$="#tab-2"],
-#tab-3:target ~ #tab > ul li a[href$="#tab-3"],
-#tab-4:target ~ #tab > ul li a[href$="#tab-4"] {
-    background: #fff;
-    border-radius: 5px 5px 0 0;
+span ~ #tab>ul li:first-child a, #tab-1:target ~ #tab>ul li a[href$="#tab-1"],
+	#tab-2:target ~ #tab>ul li a[href$="#tab-2"], #tab-3:target ~ #tab>ul li a[href$="#tab-3"],
+	#tab-4:target ~ #tab>ul li a[href$="#tab-4"] {
+	background: #fff;
+	border-radius: 5px 5px 0 0;
 }
 
-span ~ #tab > ul li:first-child a::before,
-#tab-1:target ~ #tab > ul li a[href$="#tab-1"]::before,
-#tab-2:target ~ #tab > ul li a[href$="#tab-2"]::before,
-#tab-3:target ~ #tab > ul li a[href$="#tab-3"]::before,
-#tab-4:target ~ #tab > ul li a[href$="#tab-4"]::before {
-    background-color: white;
-    height: 100%;
+span ~ #tab>ul li:first-child a::before, #tab-1:target ~ #tab>ul li a[href$="#tab-1"]::before,
+	#tab-2:target ~ #tab>ul li a[href$="#tab-2"]::before, #tab-3:target ~
+	#tab>ul li a[href$="#tab-3"]::before, #tab-4:target ~ #tab>ul li a[href$="#tab-4"]::before
+	{
+	background-color: white;
+	height: 100%;
 }
 
 /*頁籤內容顯示&第一筆*/
-span ~ #tab > div:first-of-type,
-#tab-1:target ~ #tab > div.tab-content-1,
-#tab-2:target ~ #tab > div.tab-content-2,
-#tab-3:target ~ #tab > div.tab-content-3,
-#tab-4:target ~ #tab > div.tab-content-4 {
-    visibility: visible;
-    height:auto;
-    background: #fff;
+span ~ #tab>div:first-of-type, #tab-1:target ~ #tab>div.tab-content-1,
+	#tab-2:target ~ #tab>div.tab-content-2, #tab-3:target ~ #tab>div.tab-content-3,
+	#tab-4:target ~ #tab>div.tab-content-4 {
+	visibility: visible;
+	height: auto;
+	background: #fff;
 }
 
 span {
-    display: none;
+	display: none;
 }
 </style>
-	<script type="text/javascript">
+			<script type="text/javascript">
 	//上傳一張圖片（貼文）
 	imgInp.onchange = evt => {
 		  const [file] = imgInp.files
@@ -1612,7 +1514,7 @@ for(i = 0; i< file2.length; i ++) {
     reader.readAsDataURL(file2[i]);  
     reader.onload=function(e){  
         //多圖預覽
-        result2.innerHTML = result2.innerHTML + '<img src="' + this.result +'" alt=""  width="auto" height="100"/>';  
+        result2.innerHTML = result2.innerHTML + '<img src="' + this.result +'" alt=""  width="auto" height="180"/>';  
     }
 
 }
