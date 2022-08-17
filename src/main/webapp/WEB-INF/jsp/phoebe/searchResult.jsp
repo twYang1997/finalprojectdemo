@@ -206,7 +206,7 @@
  										method="post"> 
 										<div class="img-push">
 										<img class="img-responsive img-circle img-sm"
-											src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
+											src="${contextRoot}/${user.getPhotoPath()}"
 											alt="Alt Text"
 											style="width: 40px; height: 40px; border-radius: 50%">
 										

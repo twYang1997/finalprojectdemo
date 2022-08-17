@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.finaldemo.model.Comments;
 import com.finaldemo.model.CommentsRepository;
+import com.finaldemo.model.LikePost;
+import com.finaldemo.model.LikePostRepository;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.PostImgRepository;
 import com.finaldemo.model.Posts;
@@ -42,6 +44,8 @@ public class PhoebeService {
 	private PostsRepository PostsRepository;
 	@Autowired
 	private PostImgRepository PostImgRepository;
+	@Autowired
+	private LikePostRepository LikePostRepository;
 
 	public List<Posts> getPostsByUserId(Integer userId) {
 		return PostsRepository.findPostsByUserId(userId);
@@ -83,6 +87,10 @@ public class PhoebeService {
 		return PostsRepository.searchPostsByText(search);
 	}
 	
+	public LikePost findLikedPost(Integer userId, Integer postId) {
+		return LikePostRepository.findLikedPost(userId, postId);
+	}
+	
 	// CommentsService
 	@Autowired 
 	private CommentsRepository CommentsRepository;
@@ -90,4 +98,5 @@ public class PhoebeService {
 	public Comments addComment(Comments newComment) {
 		return CommentsRepository.save(newComment);
 	}
+	
 }
