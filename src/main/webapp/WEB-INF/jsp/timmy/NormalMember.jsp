@@ -327,7 +327,7 @@ ul li button {
 <!-- 													判斷是不是個人頁面，否 -->
 													<c:if test="${empty guest || guest == userOrigin}">
 														<td class="col-md-2">
-															<button class="btn btn-outline-secondary icon smallIcon" id="follow${fan.fans.userId}">
+															<button class="btn btn-outline-secondary icon smallIcon" id="isfollow${fan.fans.userId}">
 																<img src="${contextRoot}/img/userimg/add-friend.png" class="udateicon" width="30">
 															</button>
 														</td>
