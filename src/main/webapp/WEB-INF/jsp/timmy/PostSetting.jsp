@@ -41,6 +41,7 @@
 	<!-- 		</table> -->
 	<%-- 	</c:forEach> --%>
 	<c:if test="${!empty guest}">
+		<c:set var="userOrigin" value="${user}" />
 		<c:set var="user" value="${guest}" />
 	</c:if>
 			<c:forEach items="${user.posts}" var="p" varStatus="vs">
