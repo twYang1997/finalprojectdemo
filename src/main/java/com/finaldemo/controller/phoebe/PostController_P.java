@@ -167,7 +167,7 @@ public class PostController_P {
 		Users u0 = (Users) session.getAttribute("user");
 		Users u = service.getUserById(u0.getUserId());
 		
-		LikePost LikePost = service.findPostsByUserId(postId, u.getUserId());
+		LikePost LikePost = service.findLikedPost(postId, u.getUserId());
 		
 		return "redirect:/getMainPagePosts.controller";
 	}

@@ -218,7 +218,7 @@
  										method="post"> 
 										<div class="img-push">
 										<img class="img-responsive img-circle img-sm"
-											src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
+											src="${contextRoot}/${user.getPhotoPath()}"
 											alt="Alt Text"
 											style="width: 40px; height: 40px; border-radius: 50%">
 										
@@ -226,6 +226,8 @@
 												placeholder="Press enter to post comment" name="commentText">
 										</div>
  									</form>
+ 									<script type="text/javascript">
+ 									</script>
 								</div>
 							 </div>
 							 
@@ -1119,7 +1121,7 @@ function readAsDataURL(){
     }
     
 }  
-  
+
 	</script>
 </body>
 </html>
