@@ -31,11 +31,6 @@
 		<div class="col-lg-8">
 			<br>
 			<div class="panel">
-				<!-- 				<div class="panel-heading"> -->
-				<!-- 					<h3 class="panel-title">Activity Feed</h3> -->
-				<!-- 				</div> -->
-
-				<!-- 				<div class="panel-content panel-activity"> -->
 
 				<!-- 新增post -->
 				<c:if test="${!empty user}">
@@ -212,7 +207,7 @@
 											alt="User Image"
 											style="width: 40px; height: 40px; border-radius: 50%">
 											<span class="username" style="font-weight: bold;">
-												${c.getUser().getNickName()}</span></div> <span class="text-muted pull-right">${c.getCommentTime()}</span>
+												${c.getUser().getNickName()} </span></div> <span class="text-muted pull-right">${c.getCommentTime()}</span>
 											 &emsp; &emsp; ${c.getCommentText()} <hr>
 									</div>
 								</div>

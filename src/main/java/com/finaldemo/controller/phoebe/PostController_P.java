@@ -159,4 +159,8 @@ public class PostController_P {
 		
 		return "redirect:/getMainPagePosts.controller";
 	}
+	
+	//按讚
+//	@PostMapping("/postLike.controller")
+//	public 
 }
