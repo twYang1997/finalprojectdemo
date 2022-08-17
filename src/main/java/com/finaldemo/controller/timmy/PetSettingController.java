@@ -49,7 +49,7 @@ public class PetSettingController {
 	@PostMapping("/pet/insertNewPet.controller")
 	public String insertNewPet(@RequestParam(name = "petName", defaultValue = "none") String petName,
 			@RequestParam(name = "petBirthday", defaultValue = "2010-01-01") Date petBirthday,
-			@RequestParam(name = "petDescription", defaultValue = "") String petDescription,
+			@RequestParam(name = "petDescription", defaultValue = "say something") String petDescription,
 			@RequestParam(name = "file") MultipartFile file,
 			@RequestParam(name = "petType", defaultValue = "0") Integer petType,
 			@RequestParam(name = "petGender", defaultValue = "0") Integer petGender, HttpSession session, Model model) {

@@ -72,12 +72,18 @@ ul li button {
 }
 .right{
 	width: 80%;
-	margin: 0 auto;
+	margin: 0 auto 3% auto;
+	
+}
+.container{
+	padding-bottom: 10%;
 }
 .prePetPhotoImg{
 	width: 100px;
 }
-	
+#hello{
+	margin: 0 5px 0 20% ;
+}
 </style>
 
 <body>
@@ -85,6 +91,7 @@ ul li button {
 	<jsp:include page="layout/navbar.jsp" />
 	<!-- 	-------------------------------------------- -->
 	<c:if test="${!empty guest}">
+		<c:set var="userOrigin" value="${user}" />
 		<c:set var="user" value="${guest}" />
 	</c:if>
 	<div class="wrap">
@@ -98,7 +105,33 @@ ul li button {
 								<img src="${contextRoot}/${user.photoPath}"
 									id="preview_progressbarTW_img"> <input type="file"
 									name="testfile" id="testfile" style="display: none;">
-								<h3 id="hello" style="text-align:center;">${user.nickName}</h3>
+								<h3 id="hello" style="fload:center;display:inline" >${user.nickName}</h3>
+<!-- 								check this page is UserSetting page or not -->
+								<c:if test="${!empty guest}">  
+<!-- 									check this page is user-self page or not -->
+									<c:if test="${guest != userOrigin}">
+										<c:set var="isFollowing" value="0"></c:set>
+										<c:forEach items="${userOrigin.follows}" var="checkUser">
+											<c:if test="${checkUser.fans.getUserId() == guest.getUserId() }">
+												<c:set var="isFollowing" value="1"></c:set>
+											</c:if>
+										</c:forEach>
+										<c:if test="${isFollowing == 0 }">
+											<a href="${contextRoot}/timmy/addFollows?guestId=${guest.userId}">
+												<button class="btn btn-outline-secondary icon smallIcon" >
+													<img src="${contextRoot}/img/userimg/add-user.png" class="udateicon" width="30">
+												</button>
+											</a>
+										</c:if>
+										<c:if test="${isFollowing == 1 }">
+											<a href="${contextRoot}/timmy/removeFollows?guestId=${guest.userId}">
+												<button class="btn btn-outline-secondary icon smallIcon" >
+													<img src="${contextRoot}/img/userimg/add-friend.png" class="udateicon" width="30">
+												</button>
+											</a>
+										</c:if>
+									</c:if>
+								</c:if>
 							</div>
 						</div>
 					</div>

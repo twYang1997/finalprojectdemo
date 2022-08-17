@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finaldemo.dto.ImageDto;
 import com.finaldemo.dto.UserDataDto;
+import com.finaldemo.model.Follow;
 import com.finaldemo.model.Pets;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.TimmyService;
@@ -158,5 +160,26 @@ public class UserSettingController {
 		
 		m.addAttribute("newPet", new Pets());
 		return "timmy/NormalMember";
+	}
+	
+	@GetMapping("/timmy/addFollows")
+	public String addFansById(@RequestParam("guestId") Integer guestId, HttpSession session) {
+		Users userBefore = (Users) session.getAttribute("user");
+		Users user = service.getUserById(userBefore.getUserId());
+		Set<Follow> follows = user.getFollows(); // 追隨清單
+		Follow fo1 = new Follow(); // 建立新關係
+		fo1.setFans(service.getUserById(guestId)); // 被追隨者
+		fo1.setFollow(user); // 追隨者
+		follows.add(fo1); 
+		service.insertNewUser(user);
+		return "redirect:/timmy/readUserById/" + guestId.toString();
+	}
+	
+	@GetMapping("/timmy/removeFollows")
+	public String removeFollowById(@RequestParam("guestId") Integer guestId, HttpSession session) {
+		Users userBefore = (Users) session.getAttribute("user");
+		Users user = service.getUserById(userBefore.getUserId());
+		service.deleteFollowRelation(guestId, user.getUserId());
+		return "redirect:/timmy/readUserById/" + guestId.toString();
 	}
 }
