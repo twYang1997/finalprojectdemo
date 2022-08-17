@@ -46,24 +46,38 @@
 }
 
 .tableHead{
-	margin-top: 2%; 
-	margin-bottom: 1%; 
+	width: 100%;
+	margin:2% 0 1% 0;
 }
 
 </style>
 
 <body>
 	<c:if test="${!empty guest}">
+		<c:set var="userOrigin" value="${user}" />
 		<c:set var="user" value="${guest}" />
 	</c:if>
 				<table class="tableHead" >
-					<tr>
-						<td class="col-md-4"><h5>Photo</h5></td>
-						<td class="col-md-2"><h5>Name</h5></td>
-						<td class="col-md-4"><h5>About</h5></td>
-						<td class="col-md-1"><h5>Edit</h5></td>
-						<td class="col-md-1"><h5>Delete</h5></td>
-					</tr>
+					
+						<c:if test="${empty guest || guest == userOrigin}">
+							<tr>
+								<td class="col-md-4"><h5>Photo</h5></td>
+								<td class="col-md-2"><h5>Name</h5></td>
+								<td class="col-md-4"><h5>About</h5></td>
+								<td class="col-md-1"><h5>Edit</h5></td>
+								<td class="col-md-1"><h5>Delete</h5></td>
+							</tr>
+						</c:if>
+						<c:if test="${!(empty guest || guest == userOrigin)}">
+							<tbody >
+								<tr>
+									<td class="col-md-4"><h5>Photo</h5></td>
+									<td class="col-md-2"><h5>Name</h5></td>
+									<td class="col-md-4"><h5>About</h5></td>
+								</tr>
+							</tbody>
+						</c:if>
+					
 				</table>
 				<c:forEach items="${user.pets }" var="p" varStatus="vs">
 					<!-- 					<div class="col"> -->
@@ -85,42 +99,44 @@
 											<td class="col-md-4">
 												<p>${p.petDescription}</p>
 											</td>
-											<td class="col-md-1">
-												<a class="rounded-pill" role="button" data-toggle="modal" data-target="#myModal${vs.index}pet" id="viewDetailButton${vs.index}">
-													<img src="${contextRoot}/img/userimg/pencil.png" width="30" class="smallIcon">
-												</a>
-											</td>
-											<td class="col-md-1">
-												<a class="rounded-pill" role="button" id="deleteButton${vs.index}" >
-													<img src="${contextRoot}/img/userimg/delete.png" width="30" class="smallIcon">
-												</a>
-												<script>
-												
-												$(document).ready(function() {
-													var contextRoot = "/demo";
-													$("#deleteButton${vs.index}").click(function(){
-														checkDelete();
-													});
-													function checkDelete(){
-														  var r=confirm("${p.petId}")
-														  if (r==true) {
-														    $.ajax({
-														    	url: contextRoot + "/timmy/deletePetById/${p.petId}",
-														    	method: "get",
-														    	success: function(result){
-														    		console.log(result);
-														    		$("#allDisplay${vs.index}")[0].style = "display:none";
-														    	},
-														    	error: function(result){
-														    		console.log(result);
-														    	},
-														    })
-														  }
-														  
-													}
-												})
-												</script>
-											</td>
+											<c:if test="${empty guest || guest == userOrigin}">
+												<td class="col-md-1">
+													<a class="rounded-pill" role="button" data-toggle="modal" data-target="#myModal${vs.index}pet" id="viewDetailButton${vs.index}">
+														<img src="${contextRoot}/img/userimg/pencil.png" width="30" class="smallIcon">
+													</a>
+												</td>
+												<td class="col-md-1">
+													<a class="rounded-pill" role="button" id="deleteButton${vs.index}" >
+														<img src="${contextRoot}/img/userimg/delete.png" width="30" class="smallIcon">
+													</a>
+													<script>
+													
+													$(document).ready(function() {
+														var contextRoot = "/demo";
+														$("#deleteButton${vs.index}").click(function(){
+															checkDelete();
+														});
+														function checkDelete(){
+															  var r=confirm("${p.petId}")
+															  if (r==true) {
+															    $.ajax({
+															    	url: contextRoot + "/timmy/deletePetById/${p.petId}",
+															    	method: "get",
+															    	success: function(result){
+															    		console.log(result);
+															    		$("#allDisplay${vs.index}")[0].style = "display:none";
+															    	},
+															    	error: function(result){
+															    		console.log(result);
+															    	},
+															    })
+															  }
+															  
+														}
+													})
+													</script>
+												</td>
+											</c:if>
 	                                	</tr>
                                 	</tbody>
                                 </table>
@@ -287,82 +303,80 @@
 					</script>
 				</c:forEach>
 				<!-- 			------------------------------------------------ -->
-				<a class="btn btn-outline-secondary btn-icon-text btn-edit-profile" role="button"
-					data-toggle="modal" data-target="#myModaladd"
-					id="viewDetailButtonAdd"><img src="${contextRoot}/img/petimg/add.png" width="100px" >
-<!-- 					  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit btn-icon-prepend"> -->
-<!--                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path> -->
-<!--                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path> -->
-<!--                                 </svg>  -->
-					</a>
-				<div class="modal petModal" id="myModaladd">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<!-- 彈出標題 -->
-							<div class="modal-header">
-								<h4 class="modal-title">New Pet:</h4>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
+				<c:if test="${empty guest || guest == userOrigin}">
+					<a class="btn btn-outline-secondary btn-icon-text btn-edit-profile" role="button"
+						data-toggle="modal" data-target="#myModaladd"
+						id="viewDetailButtonAdd"><img src="${contextRoot}/img/petimg/add.png" width="100px" >
+						</a>
+					<div class="modal petModal" id="myModaladd">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<!-- 彈出標題 -->
+								<div class="modal-header">
+									<h4 class="modal-title">New Pet:</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+	
+								<form class="form" method="post"
+									action="${contextRoot}/pet/insertNewPet.controller"
+									enctype="multipart/form-data">
+									<div class="modal-body">
+										<label>Name:</label>
+										<!-- ------------------ -->
+										<input type="file" id="addPetImg" name="file"
+											style="display: none;">
+										<!-- ------------------ -->
+										<!-- ------------------ -->
+										<div>
+											<input class="form-control" name="petName" type="text">
+										</div>
+										<label>Photo:</label>
+										<!-- ------------------ -->
+										<div>
+											<img src="${contextRoot}/img/petimg/pawprint.png"
+												id="defaultPetImg">
+										</div>
+										<!-- ------------------ -->
+										<br>
+										<div class="form-group" style="text-align: left;">
+											<label>Breed:&nbsp;&nbsp;&nbsp;&nbsp;</label> <input
+												type="radio" name="petType" value="1">Dog
+											&nbsp;&nbsp; <input type="radio" name="petType" value="0">Cat
+											&nbsp;&nbsp;
+										</div>
+										<!-- ------------------ -->
+										<div class="form-group" style="text-align: left;">
+											<label>Gender:&nbsp;&nbsp;&nbsp;</label> <input type="radio"
+												name="petGender" value="1">Male &nbsp;&nbsp; <input
+												type="radio" name="petGender" value="0">Female
+										</div>
+										<!-- ------------------ -->
+										<div class="form-group" style="text-align: left;">
+											<label>Birthday</label> <input name="petBirthday" type="date"
+												class="form-control">
+										</div>
+										<!-- ------------------ -->
+										<label>Introduction:</label>
+										<div>
+											<textarea class="form-control" name="petDescription"></textarea>
+										</div>
+										<input name="petPhotoPath" style="display: none" value="">
+										<!-- ------------------ -->
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn btn-primary"
+											id="submitPetDetails">Add</button>
+										<button type="button" class="btn btn-danger"
+											data-dismiss="modal">Close</button>
+									</div>
+								</form>
 							</div>
-
-							<form class="form" method="post"
-								action="${contextRoot}/pet/insertNewPet.controller"
-								enctype="multipart/form-data">
-								<div class="modal-body">
-									<label>Name:</label>
-									<!-- ------------------ -->
-									<input type="file" id="addPetImg" name="file"
-										style="display: none;">
-									<!-- ------------------ -->
-									<!-- ------------------ -->
-									<div>
-										<input class="form-control" name="petName" type="text">
-									</div>
-									<label>Photo:</label>
-									<!-- ------------------ -->
-									<div>
-										<img src="${contextRoot}/img/petimg/pawprint.png"
-											id="defaultPetImg">
-									</div>
-									<!-- ------------------ -->
-									<br>
-									<div class="form-group" style="text-align: left;">
-										<label>Breed:&nbsp;&nbsp;&nbsp;&nbsp;</label> <input
-											type="radio" name="petType" value="1">Dog
-										&nbsp;&nbsp; <input type="radio" name="petType" value="0">Cat
-										&nbsp;&nbsp;
-									</div>
-									<!-- ------------------ -->
-									<div class="form-group" style="text-align: left;">
-										<label>Gender:&nbsp;&nbsp;&nbsp;</label> <input type="radio"
-											name="petGender" value="1">Male &nbsp;&nbsp; <input
-											type="radio" name="petGender" value="0">Female
-									</div>
-									<!-- ------------------ -->
-									<div class="form-group" style="text-align: left;">
-										<label>Birthday</label> <input name="petBirthday" type="date"
-											class="form-control">
-									</div>
-									<!-- ------------------ -->
-									<label>Introduction:</label>
-									<div>
-										<textarea class="form-control" name="petDescription"></textarea>
-									</div>
-									<input name="petPhotoPath" style="display: none" value="">
-									<!-- ------------------ -->
-								</div>
-								<div class="modal-footer">
-									<button type="submit" class="btn btn-primary"
-										id="submitPetDetails">Add</button>
-									<button type="button" class="btn btn-danger"
-										data-dismiss="modal">Close</button>
-								</div>
-							</form>
 						</div>
 					</div>
-				</div>
+				</c:if>
 </body>
 <script>
 	$(document).ready(

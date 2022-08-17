@@ -12,9 +12,10 @@
 
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>PET.COM</title>
 <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 <script src="${contextRoot}/js/timmy_js/uploadimg.js"></script>
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -24,6 +25,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
 <%-- <link rel="stylesheet" href="${contextRoot}/css/user_setting.css"> --%>
+
 </head>
 <style>
 #preview_progressbarTW_img {
@@ -109,11 +111,11 @@ ul li button {
 <!-- 								check this page is UserSetting page or not -->
 								<c:if test="${!empty guest}">  
 <!-- 									check this page is user-self page or not -->
+									<c:set var="isFollowing" value="0" />
 									<c:if test="${guest != userOrigin}">
-										<c:set var="isFollowing" value="0"></c:set>
 										<c:forEach items="${userOrigin.follows}" var="checkUser">
 											<c:if test="${checkUser.fans.getUserId() == guest.getUserId() }">
-												<c:set var="isFollowing" value="1"></c:set>
+												<c:set var="isFollowing" value="1" />
 											</c:if>
 										</c:forEach>
 										<c:if test="${isFollowing == 0 }">
@@ -239,14 +241,20 @@ ul li button {
 				<div class="panel" style="border-radius: 10px; padding-top: 1%; padding-bottom: 0.5%">
 					<div class="panel-heading">
 						<span id="tab-1" class="panel-title">Posts</span>
-						<span id="tab-2" class="panel-title">About</span>
+						<c:if test="${empty guest || guest == userOrigin}">
+							<span id="tab-2" class="panel-title">About</span>
+						</c:if>
 						<span id="tab-3" class="panel-title">Pets</span>
+						<span id="tab-4" class="panel-title">Following</span>
 <!-- 						<h3 class="panel-title">Posts</h3> -->
 						<div id="tab">
 							<ul>
 								<li><a href="#tab-1">Posts</a></li>
-								<li><a href="#tab-2">About</a></li>
+								<c:if test="${empty guest || guest == userOrigin}">
+									<li><a href="#tab-2">About</a></li>
+								</c:if>
 								<li><a href="#tab-3">Pets</a></li>
+								<li><a href="#tab-4">Following</a></li>
 							</ul>
 							<div class="tab-content-1 tab-content-border">
 								<div class="panel-content panel-activity" style="padding-top:0">
@@ -255,18 +263,70 @@ ul li button {
 									</div>
 								</div>
 							</div>
-							<div class="tab-content-2 tab-content-border">
-								<div class="panel-content panel-activity" style="padding-top:20px">
-								<div id="settingManagerDiv" style="display:">
-									<jsp:include page="UserSetting.jsp" />
+							<c:if test="${empty guest || guest == userOrigin}">
+								<div class="tab-content-2 tab-content-border">
+									<div class="panel-content panel-activity" style="padding-top:20px">
+									<div id="settingManagerDiv" style="display:">
+										<jsp:include page="UserSetting.jsp" />
+									</div>
+									</div>
 								</div>
-								</div>
-							</div>
+							</c:if>
 							<div class="tab-content-3 tab-content-border">
 								<div class="panel-content panel-activity" style="padding-top:0">
 									<div id="petManagerDiv" style="display:">
 										<jsp:include page="PetSetting.jsp" />
 									</div>
+								</div>
+							</div>
+							<div class="tab-content-4 tab-content-border">
+								<div class="panel-content panel-activity" style="padding-top:3%">
+									<table id="followTable" class="table table-borderless">
+										<thead>
+											<tr>
+												<th>Photo</th>
+												<th>NickName</th>
+												<th>Email</th>
+												<th>Follow</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${user.follows}" var="fan">
+												<tr>
+													<td class="col-md-3"><img src="${contextRoot}${fan.fans.photoPath}" width="100px"></td>
+													<td class="col-md-2">${fan.fans.nickName }</td>
+													<td class="col-md-5">${fan.fans.email }</td>
+													<td class="col-md-2">
+														<button class="btn btn-outline-secondary icon smallIcon" id="follow${fan.fans.userId}">
+															<img src="${contextRoot}/img/userimg/add-friend.png" class="udateicon" width="30">
+														</button>
+													</td>
+												</tr>
+												<script>
+														$(document).ready( function () {
+															var contextRoot = "/demo";
+														    $('#followTable').DataTable(); 
+														    $("#follow${fan.fans.userId}").click(function(e){
+														    	let checkBox = confirm("Sure to remove the following?");
+														    	if (checkBox == true){
+														    		$.ajax({
+														    			url: contextRoot + "/timmy/deleteFollowingById" ,
+																		method: "POST",
+																		data: "${fan.fans.userId}",
+																		success: function(result){
+																			console.log(result);
+																		},
+																		error: function(result){
+																			console.log(result);
+																		},
+														    		})
+														    	}
+														    });
+														} );	
+												</script>
+											</c:forEach>
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
@@ -275,58 +335,7 @@ ul li button {
 			</div>
 		</div>
 	</div>
-	<!-- 	-------------------------------------------- -->
-
-	<!-- 	<div class="container"> -->
-	<%-- 		<img src="${contextRoot}/${user.photoPath}" --%>
-	<!-- 			id="preview_progressbarTW_img"> <input type="file" -->
-	<!-- 			name="testfile" id="testfile" style="display: none;"> -->
-	<!-- 		<table class="table table-borderless"> -->
-	<!-- 			<thead> -->
-	<!-- 				<tr> -->
-	<%-- 					<td id="hello" colspan="2">Hello! ${user.nickName}</td> --%>
-	<!-- 				</tr> -->
-	<!-- 			</thead> -->
-	<!-- 			<tbody> -->
-	<!-- 				<tr> -->
-	<!-- 					<td>Follow</td> -->
-	<!-- 					<td>Fans</td> -->
-	<!-- 				</tr> -->
-	<!-- 			</tbody> -->
-	<!-- 			<tfoot> -->
-	<!-- 				<tr> -->
-	<!-- 					<td><a -->
-	<%-- 						href="/timmy/followersManager.controller?id=${user.userId}">${fn:length(user.follows)}</a> --%>
-	<!-- 					</td> -->
-	<%-- 					<td><a href="/timmy/fansManager.controller?id=${user.userId}">${fn:length(user.fans)}</a> --%>
-	<!-- 					</td> -->
-	<!-- 				</tr> -->
-	<!-- 			</tfoot> -->
-	<!-- 		</table> -->
-	<%-- 		<span id="id" style="display: none;">${user.userId}</span> --%>
-
-	<!-- 		<ul id="ulnav"> -->
-	<%-- 			<li><button id="postManager"><img src="${contextRoot}/img/userimg/social-media.png" class="iconImg"></button></li> --%>
-	<%-- 			<li><button id="settingManager"><img src="${contextRoot}/img/userimg/user.png" class="iconImg"></button></li> --%>
-	<%-- 			<li><button id="petManager"><img src="${contextRoot}/img/userimg/pet.png" class="iconImg"></button></li> --%>
-	<!-- 		</ul> -->
-	<!-- 		<div id="navSetting"> -->
-	<!-- 			<div id="postManagerDiv" style=""> -->
-	<%-- 				<jsp:include page="PostSetting.jsp" /> --%>
-	<!-- 			</div> -->
-	<!-- 			<div id="settingManagerDiv" style="display: none"> -->
-	<%-- 				<jsp:include page="UserSetting.jsp" /> --%>
-	<!-- 			</div> -->
-	<!-- 			<div id="petManagerDiv" style="display: none"> -->
-	<%-- 				<jsp:include page="PetSetting.jsp" /> --%>
-	<!-- 			</div> -->
-	<!-- 		</div> -->
-	<!-- 	</div> -->
 </body>
-
-
-
-
 <script>
 	$(document).ready(function() {
 		var contextRoot = "/demo";
@@ -416,6 +425,7 @@ span ~ #tab > ul li:first-child a,
 #tab-1:target ~ #tab > ul li a[href$="#tab-1"],
 #tab-2:target ~ #tab > ul li a[href$="#tab-2"],
 #tab-3:target ~ #tab > ul li a[href$="#tab-3"],
+#tab-5:target ~ #tab > ul li a[href$="#tab-5"],
 #tab-4:target ~ #tab > ul li a[href$="#tab-4"] {
     background: #fff;
     border-radius: 5px 5px 0 0;
@@ -425,6 +435,7 @@ span ~ #tab > ul li:first-child a::before,
 #tab-1:target ~ #tab > ul li a[href$="#tab-1"]::before,
 #tab-2:target ~ #tab > ul li a[href$="#tab-2"]::before,
 #tab-3:target ~ #tab > ul li a[href$="#tab-3"]::before,
+#tab-5:target ~ #tab > ul li a[href$="#tab-5"]::before,
 #tab-4:target ~ #tab > ul li a[href$="#tab-4"]::before {
     background-color: white;
     height: 100%;
@@ -435,6 +446,7 @@ span ~ #tab > div:first-of-type,
 #tab-1:target ~ #tab > div.tab-content-1,
 #tab-2:target ~ #tab > div.tab-content-2,
 #tab-3:target ~ #tab > div.tab-content-3,
+#tab-5:target ~ #tab > div.tab-content-5,
 #tab-4:target ~ #tab > div.tab-content-4 {
     visibility: visible;
     height:auto;
@@ -444,5 +456,14 @@ span ~ #tab > div:first-of-type,
 span {
     display: none;
 }
+#followTable{
+	border-color: #dee2e6;
+}
+#followTable thead th{
+	border-bottom: 1px solid #dee2e6;
+}
 </style>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 </html>
