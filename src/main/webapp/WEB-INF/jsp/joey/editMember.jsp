@@ -414,23 +414,59 @@ function loadXMLDoc()
 							</div>
 							<div class="tab-content-2">
 							  <p>
-							  
-							  <div style="height: 200px;">
-								<img src="${contextRoot}/img/joeyimg/default_product_image.png">
-							  </div>
-							  
-							  <div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="Username" aria-label="Username">
-								<span class="input-group-text">$</span>
-								<input type="text" class="form-control" placeholder="Price" aria-label="Server">
-							  </div>
-							  
-							  <div class="input-group">
-								<span class="input-group-text">With textarea</span>
-								<textarea class="form-control" aria-label="With textarea"></textarea>
-							  </div></p>
+							  <!-- 頁籤的內容區塊 -->
+							<div class="tab-content-1">
+								<p><div class="panel-content panel-activity">
+
+									<!-- 新增product -->
+									<div style="height: 200px;">
+										<img src="${contextRoot}/img/joeyimg/default_product_image.png">
+										  </div>
+									<c:if test="${!empty user}">
+										<form action="${contextRoot}/addProductJoey"
+										
+											class="panel-activity__status" method="post"
+											enctype="multipart/form-data">
+											<div class="input-group mb-3">
+												<span class="input-group-text">商品名稱</span>
+											   <input type="text" class="form-control" placeholder="Product Name" name="productName" aria-label="Username">
+											   <span class="input-group-text">金額</span>
+											   <input type="text" class="form-control" placeholder="Price" name="productPrice" aria-label="Server">
+												</div>
+												<div class="input-group">
+													<span class="input-group-text">商品說明</span>
+													<textarea placeholder="Product Discription" name="productContext" class="form-control" aria-label="With textarea"></textarea>
+													  </div>
+
+											<div id="result2" name="result2"></div>
+			
+											<div class="actions">
+												<div class="btn-group">
+													<a href="#"> <input
+														style="position: absolute; opacity: 0;" type="file"
+														name="productImg" id="file2" multiple onchange="readAsDataURL2()"
+														accept="image/gif,image/jpeg,image/x-png" /> <i
+														class="fa fa-image"></i>
+													</a> &emsp; <a href="#"> <input
+														style="position: absolute; opacity: 0;" type="file"
+														name="postVideo" id="file2" accept="video/*" /><i
+														class="fa fa-video-camera"></i>
+													</a>
+													<!-- <button type="button" class="btn-link" title="Post an Video" -->
+													<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
+													<!-- <i class="fa fa-video-camera"></i> -->
+													<!-- </button> -->
+												</div>
+												<button type="submit" class="btn btn-sm btn-rounded btn-info">
+													Post</button>
+											</div>
+										</form>
+									</c:if>
+							 
+								
 							  <img src="${contextRoot}/img/joeyimg/woocommerce-products-list-table.png">
 							</div>
+						
 						</div>
 					</div>
 
@@ -1330,6 +1366,7 @@ li.list-group-item:first-child {
     /* overflow: hidden; */
     margin: 0;
     padding: 10px 20px 0 20px;
+
 }
 
 #tab > ul > li {
@@ -1401,7 +1438,7 @@ span {
 }
 </style>
 	<script type="text/javascript">
-	//上傳一張圖片
+	//上傳一張圖片（貼文）
 	imgInp.onchange = evt => {
 		  const [file] = imgInp.files
 		  if (file) {
@@ -1409,7 +1446,7 @@ span {
 		  }
 		}
 	
-	//上傳多張圖片
+	//上傳多張圖片（貼文）
 var result=document.getElementById("result");  
 var file=document.getElementById("file");  
   
@@ -1417,7 +1454,8 @@ function readAsDataURL(){
 
     var file = document.getElementById("file").files;
     var result=document.getElementById("result");  
-
+    console.log(result);
+	console.log(file);
     for(i = 0; i< file.length; i ++) {
         var reader    = new FileReader();    
         reader.readAsDataURL(file[i]);  
@@ -1427,8 +1465,41 @@ function readAsDataURL(){
         }
 
     }
+	
     
 }  
+//上傳一張圖片（商品）
+imgInp.onchange = evt => {
+	  const [file] = imgInp.files
+	  if (file) {
+	    blah.src = URL.createObjectURL(file)
+	  }
+	}
+
+//上傳多張圖片（商品）
+var result2=document.getElementById("result2");  
+var file2=document.getElementById("file2");  
+
+function readAsDataURL2(){  
+
+var file2 = document.getElementById("file2").files;
+var result2 =document.getElementById("result2");  
+console.log(result2);
+console.log(file2);
+for(i = 0; i< file2.length; i ++) {
+    var reader    = new FileReader();    
+    reader.readAsDataURL2(file2[i]);  
+    reader.onload=function(e){  
+        //多圖預覽
+        result2.innerHTML = result2.innerHTML + '<img src="' + this.result2 +'" alt=""  width="auto" height="100"/>';  
+    }
+
+}
+
+
+}
+
+
   
 	</script>
 </body>
