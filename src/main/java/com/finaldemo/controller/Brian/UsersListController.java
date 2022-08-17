@@ -45,9 +45,10 @@ public class UsersListController {
 	public String memberManagement(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
 		Page<Users> page = Service.findByPage(pageNumber);
 		Users newMsg = new Users();
-
-		model.addAttribute("users", newMsg);
+		List<Users> findAllUsers = Service.findAllUsers();
+		model.addAttribute("formUser", newMsg);
 		model.addAttribute("page", page);
+		model.addAttribute("userList", findAllUsers);
 		return "Brian/memberManagement";
 	}
 	

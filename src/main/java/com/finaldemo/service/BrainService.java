@@ -39,6 +39,10 @@ public class BrainService {
 		return page;
 	}
 	
+	public List<Users> findAllUsers() {
+		return uDao.findAll();
+	}
+	
 	// PostService
 	@Autowired
 	private PostsRepository pDao;

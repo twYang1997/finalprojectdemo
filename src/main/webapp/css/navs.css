@@ -7,20 +7,18 @@
 /* 頁籤ul */
 #tab>ul {
     /* overflow: hidden; */
-    display: flex;
-    /* 水平置中 */
-    justify-content: center;
+    
     margin: 0;
     padding: 20px 20px 0 20px;
+    
 
 }
 
 #tab>ul>li {
     /* width: 50%; */
     list-style-type: none;
-    display: flex;
-    /* 水平置中 */
-    justify-content: center;
+   
+    
 
 }
 
@@ -29,8 +27,10 @@
     text-decoration: none;
     font-size: 18px;
     color: #333;
-    width: 400px;
+    font-weight:bold;
+    width: 200px;
     height: 50px;
+    float: left;
     display: flex;
     justify-content: center;
     align-items: center;   
@@ -59,7 +59,7 @@
 
 /*第一筆的底色*/
 span:target~#tab>ul li:first-child a {
-    background: #F0F0F0;
+    background: #eaeaea;
     border-radius: 0 10px 0 10px;
     border-radius: 10px 10px 0 0;
 }
@@ -71,8 +71,8 @@ span:target~#tab>div:first-of-type {
 }
 
 /*第二筆的底色*/
-span:target~#tab>ul li {
-    background: #F0F0F0;
+span:target~#tab>ul li a{
+    background: #eaeaea;
     border-radius: 10px 10px 0 0;
 }
 
@@ -80,7 +80,7 @@ span:target~#tab>ul li {
 span~#tab>ul li:first-child a,
 #tab-1:target~#tab>ul li a[href$="#tab-1"],
 #tab-2:target~#tab>ul li a[href$="#tab-2"] {
-    background: #fff;
+    background: #bcbcbce2;
     border-radius: 10px 10px 0 0;
 }
 
@@ -97,7 +97,7 @@ span~#tab>div:first-of-type,
 #tab-2:target~#tab>div.tab-content-2 {
     visibility: visible;
     height: auto;
-    background: #fff;
+    background: #bcbcbce2
 }
 
 span {
