@@ -84,8 +84,10 @@
 					<ul class="panel-activity__list">
 						<li><i class="activity__list__icon fa fa-question-circle-o"></i>
 							<div class="activity__list__header">
+							<a href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
 								<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
-									alt="" style="width: 45px; height: 45px; border-radius: 50%;"/> <a href="#">${p.postUser.getNickName()}</a>
+									alt="" style="width: 45px; height: 45px; border-radius: 50%;"/> ${p.postUser.getNickName()}
+							</a>
 							</div>
 							<div class="activity__list__body entry-content">
 
