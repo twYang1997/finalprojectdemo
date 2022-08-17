@@ -293,28 +293,60 @@ ul li button {
 										<tbody>
 											<c:forEach items="${user.follows}" var="fan">
 												<tr>
-													<td class="col-md-3"><img src="${contextRoot}${fan.fans.photoPath}" width="100px"></td>
+													<td class="col-md-3">
+														<a href="${contextRoot}/timmy/readUserById/${fan.fans.getUserId()}">
+															<img src="${contextRoot}${fan.fans.photoPath}" width="100px">
+														</a>
+													</td>
 													<td class="col-md-2">${fan.fans.nickName }</td>
 													<td class="col-md-5">${fan.fans.email }</td>
-													<td class="col-md-2">
-														<button class="btn btn-outline-secondary icon smallIcon" id="follow${fan.fans.userId}">
-															<img src="${contextRoot}/img/userimg/add-friend.png" class="udateicon" width="30">
-														</button>
-													</td>
+<!-- 													判斷是不是個人頁面，是 -->
+													<c:if test="${!(empty guest || guest == userOrigin)}">
+														<td class="col-md-2">
+															<c:set var="isFollowingGuest" value="0" />
+<!-- 															判斷此人是否是我追蹤中的人 -->
+															<c:forEach items="${userOrigin.follows}" var="follow">
+																<c:if test="${follow.fans == fan.fans}">
+																	<c:set var="isFollowingGuest" value="1" />
+																</c:if>
+															</c:forEach>
+<!-- 															是 明天TODO --> 
+															<c:if test="${isFollowingGuest == 0 }">
+																<button class="btn btn-outline-secondary icon smallIcon" id="follow${fan.fans.userId}">
+																	<img src="${contextRoot}/img/userimg/add-user.png" class="udateicon" width="30">
+																</button>
+															</c:if>
+<!-- 															否 -->
+															<c:if test="${isFollowingGuest == 1 }">
+																<button class="btn btn-outline-secondary icon smallIcon" id="isfollow${fan.fans.userId}">
+																	<img src="${contextRoot}/img/userimg/add-friend.png" class="udateicon" width="30">
+																</button>
+															</c:if>
+														</td>
+													</c:if>
+<!-- 													判斷是不是個人頁面，否 -->
+													<c:if test="${empty guest || guest == userOrigin}">
+														<td class="col-md-2">
+															<button class="btn btn-outline-secondary icon smallIcon" id="follow${fan.fans.userId}">
+																<img src="${contextRoot}/img/userimg/add-friend.png" class="udateicon" width="30">
+															</button>
+														</td>
+													</c:if>
 												</tr>
 												<script>
 														$(document).ready( function () {
 															var contextRoot = "/demo";
 														    $('#followTable').DataTable(); 
-														    $("#follow${fan.fans.userId}").click(function(e){
+														    $("#isfollow${fan.fans.userId}").click(function(e){
 														    	let checkBox = confirm("Sure to remove the following?");
 														    	if (checkBox == true){
 														    		$.ajax({
-														    			url: contextRoot + "/timmy/deleteFollowingById" ,
+														    			url: contextRoot + "/timmy/deleteFollowingByIdAjax" ,
 																		method: "POST",
 																		data: "${fan.fans.userId}",
 																		success: function(result){
 																			console.log(result);
+																			window.location.reload();
 																		},
 																		error: function(result){
 																			console.log(result);
