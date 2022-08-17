@@ -46,11 +46,11 @@ public class PageController_P {
 	
 	@GetMapping("/phoebe/search")
 	public String search(@RequestParam String search, Model model) {
-		List<Users> peopleList = service.searchPeople(search);
-		model.addAttribute("peopleList", peopleList);
+		List<Users> userList = service.searchPeople(search);
+		model.addAttribute("userList", userList);
 		
-		List<Posts> postsList = service.searchPost(search);
-		model.addAttribute("postsList", postsList);
+		List<Posts> postList = service.searchPost(search);
+		model.addAttribute("postList", postList);
 		
 		return "phoebe/searchResult";
 	}
