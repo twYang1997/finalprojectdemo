@@ -83,10 +83,7 @@ img {
 						sear.onclick = function(){
 							callProduct(txt.value);
 						};
-						clear.onclick = function(){
-							txt.value = "";
-							callProduct(txt.value);
-						};
+						
 					</script>
 				<c:if test="${!empty searchemail}">
 					<c:set var="userList" value="${searchemail}"/>
@@ -94,7 +91,7 @@ img {
 				<c:forEach var="users" items="${userList}" varStatus="vs">
 					<c:if test="${users.money==null}">
 						<section class="projects no-padding-top">
-							<div class="container" data-index="${users.email}">
+							<div class="container">
 								<!-- Project-->
 								<div class="project" >
 									<div class="row bg-white has-shadow" >

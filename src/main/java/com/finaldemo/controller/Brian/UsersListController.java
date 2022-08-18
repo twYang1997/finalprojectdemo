@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -141,13 +142,15 @@ public class UsersListController {
 		@GetMapping("/searchEmail")
 		@ResponseBody
 		public String searchEmail(Model model,@RequestParam String email, HttpSession session) {
+			System.out.println("*****session******"+session);
+			System.out.println("*****email******"+email);
 			List<Users> sE = Service.searchEmail(email);
-//			model.addAttribute("searchemail", sE);
+			
+			System.out.println("*****sE******"+sE);
+			model.addAttribute("searchemail", sE);
 			session.setAttribute("searchemail", sE);
 			return email;
 		}
-	
-	
 }	
 //	@PostMapping("/Brian/uploadImgAjax")
 //	@ResponseBody
