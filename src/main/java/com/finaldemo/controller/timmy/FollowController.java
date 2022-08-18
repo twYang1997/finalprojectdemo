@@ -53,4 +53,19 @@ public class FollowController {
 		service.deleteFollowRelation(Integer.parseInt(guestId), user.getUserId());
 		return guestId;
 	}
+	
+	@PostMapping("/timmy/addFollowingByIdAjax")
+	@ResponseBody
+	public String addFollowingByIdAjax(@RequestBody String guestId, HttpSession session) {
+		guestId = guestId.replaceAll("=", "");
+		Users userBefore = (Users) session.getAttribute("user");
+		Users user = service.getUserById(userBefore.getUserId());
+		Set<Follow> follows = user.getFollows(); // 追隨清單
+		Follow fo1 = new Follow(); // 建立新關係
+		fo1.setFans(service.getUserById(Integer.parseInt(guestId))); // 被追隨者
+		fo1.setFollow(user); // 追隨者
+		follows.add(fo1); 
+		service.insertNewUser(user);
+		return guestId;
+	}
 }

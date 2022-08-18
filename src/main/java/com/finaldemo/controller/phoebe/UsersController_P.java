@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.finaldemo.model.Foundation;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.PhoebeService;
 
@@ -24,7 +25,12 @@ public class UsersController_P {
 	
 	@PostMapping("/phoebe/signUp.controller")
 	public String signUp(@ModelAttribute Users user, Model model) {
+		user.setPhotoPath("/img/userimg/none.png");
+		if(user.getCategory() == 2) {
+			user.setFoundation(new Foundation());
+		}
 		UsersService.signUp(user);
+		
 		return "redirect:/phoebe/login";
 	}
 	
