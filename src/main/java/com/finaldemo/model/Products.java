@@ -21,37 +21,37 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name="Products")
+@Table(name = "Products")
 public class Products {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productId;
-	
+
 	private String productName;
-	
+
 	private Integer productPrice;
-	
+
 	private String productImg;
-	
+
 	private Integer buyCount;
-	
+
 	private String productContext;
-	
+
 	private Date productDate;
-	
+
 	private Integer productStatus;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Foundation.class)
-	@JoinColumn(name="fk_foundation_id", referencedColumnName = "foundationId")
+	@JoinColumn(name = "fk_foundation_id", referencedColumnName = "foundationId")
 	private Foundation foundation;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products", cascade = CascadeType.ALL)
-	private Set<OrderDetail> orderDetail = new LinkedHashSet<OrderDetail>();
-	
+	private List<OrderDetail> orderDetail = new ArrayList<OrderDetail>();
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products", cascade = CascadeType.ALL)
-	private Set<ShoppingCar> shoppingCar = new LinkedHashSet<ShoppingCar>();
-	
+	private List<ShoppingCar> shoppingCar = new ArrayList<ShoppingCar>();
+
 	public Products() {
 	}
 
@@ -74,14 +74,6 @@ public class Products {
 		builder.append(productDate);
 		builder.append("]");
 		return builder.toString();
-	}
-
-	public Set<ShoppingCar> getShoppingCar() {
-		return shoppingCar;
-	}
-
-	public void setShoppingCar(Set<ShoppingCar> shoppingCar) {
-		this.shoppingCar = shoppingCar;
 	}
 
 	public Integer getProductId() {
@@ -148,12 +140,20 @@ public class Products {
 		this.productDate = productDate;
 	}
 
-	public Set<OrderDetail> getOrderDetail() {
+	public List<OrderDetail> getOrderDetail() {
 		return orderDetail;
 	}
 
-	public void setOrderDetail(Set<OrderDetail> orderDetail) {
+	public void setOrderDetail(List<OrderDetail> orderDetail) {
 		this.orderDetail = orderDetail;
+	}
+
+	public List<ShoppingCar> getShoppingCar() {
+		return shoppingCar;
+	}
+
+	public void setShoppingCar(List<ShoppingCar> shoppingCar) {
+		this.shoppingCar = shoppingCar;
 	}
 
 	public Integer getProductStatus() {
@@ -163,5 +163,5 @@ public class Products {
 	public void setProductStatus(Integer productStatus) {
 		this.productStatus = productStatus;
 	}
-	
+
 }
