@@ -1,28 +1,45 @@
 package com.finaldemo.model;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Foundation")
+@Table(name = "Foundation")
 public class Foundation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer foundationId;
-	
+
 	private Integer foundationMoney;
-	
+
 	private String foundationGmail;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "foundation", cascade = CascadeType.ALL)
+	private Set<Products> products = new LinkedHashSet<Products>();
 	
 	@OneToOne(mappedBy = "foundation")
 	private Users user;
 	
 	public Foundation() {
+	}
+
+	public Set<Products> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Products> products) {
+		this.products = products;
 	}
 
 	public Integer getFoundationId() {
@@ -37,10 +54,6 @@ public class Foundation {
 		return foundationGmail;
 	}
 
-	public Users getUser() {
-		return user;
-	}
-
 	public void setFoundationId(Integer foundationId) {
 		this.foundationId = foundationId;
 	}
@@ -53,9 +66,27 @@ public class Foundation {
 		this.foundationGmail = foundationGmail;
 	}
 
+	public Users getUser() {
+		return user;
+	}
+
 	public void setUser(Users user) {
 		this.user = user;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Foundation [foundationId=");
+		builder.append(foundationId);
+		builder.append(", foundationMoney=");
+		builder.append(foundationMoney);
+		builder.append(", foundationGmail=");
+		builder.append(foundationGmail);
+		builder.append(", products=");
+		builder.append(products);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

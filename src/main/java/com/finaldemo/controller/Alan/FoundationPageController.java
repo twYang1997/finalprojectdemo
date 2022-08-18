@@ -10,28 +10,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.AlanService;
 
-
 @Controller
-public class FoundationPageController  {
-	
+public class FoundationPageController {
+
 	@Autowired
 	private AlanService alanService;
-	
+
 	/*** 
-	 * 
-	 * 
-	 * 
+	 * 取得所有基金會資料
 	 */
 	@GetMapping("/Alan/foundation")
-	public String findFoundation(Model model) {
-		List<Users> userList= alanService.findAll();
-		model.addAttribute("userList", userList);
+	public String getFoundation(Model model) {
+		List<Users> usersList = alanService.findAllCharities();
+		System.out.println("usersList"+usersList);
+		model.addAttribute("usersList", usersList);
 		return "Alan/foundation";
 	}
-	
-	@GetMapping("/Alan/order")               //跳轉用  後面要改掉  購物車頁面施工中
-	public String order() {
-		return "Alan/foundationProduct";
-	}
-	
+
 }

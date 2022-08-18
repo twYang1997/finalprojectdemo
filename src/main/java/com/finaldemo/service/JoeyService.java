@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import com.finaldemo.model.Donate;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.PostsRepository;
-import com.finaldemo.model.Product;
-import com.finaldemo.model.ProductRepository;
+import com.finaldemo.model.Products;
+import com.finaldemo.model.ProductsRepository;
 import com.finaldemo.model.Users;
 import com.finaldemo.model.UsersRepository;
 
@@ -22,16 +22,16 @@ public class JoeyService {
 
 	@Autowired
 	private UsersRepository uDao;
-	
+
 	@Autowired
 	private PostsRepository pDao;
-	
+
 	@Autowired
-	private ProductRepository productDao;
+	private ProductsRepository productDao;
 
 	public Users findById(Integer id) {
 		Optional<Users> optional = uDao.findById(id);
-	
+
 		if (optional.isPresent()) {
 			return optional.get();
 		}
@@ -39,21 +39,21 @@ public class JoeyService {
 		return null;
 
 	}
-	
-	public Product addProduct(Product newProduct) {
+
+	public Products addProduct(Products newProduct) {
 		return productDao.save(newProduct);
-		
+
 	}
-	
-	public  List<Product> findProudtsByUserId(Integer userId){
+
+	public List<Products> findProudtsByUserId(Integer userId) {
 		return productDao.findProudtsByUserId(userId);
-		
+
 	}
 
 	public void editUser(Users user) {
 		uDao.save(user);
 	}
-	
+
 	public void editPost(Posts post) {
 		pDao.save(post);
 	}
@@ -63,9 +63,9 @@ public class JoeyService {
 	}
 
 	public Donate findDonationsById(Integer id) {
-		
+
 		return null;
-		
+
 	}
 
 }

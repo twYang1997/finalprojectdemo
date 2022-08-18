@@ -1,10 +1,13 @@
 package com.finaldemo.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,6 +23,7 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Users")
@@ -53,7 +57,7 @@ public class Users {
 	private String selfIntroduction;
 
 	private Integer money;
-
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petUser", cascade = CascadeType.ALL)
 	private Set<Pets> pets = new LinkedHashSet<Pets>();
 
@@ -75,19 +79,15 @@ public class Users {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Donate> Donate = new LinkedHashSet<Donate>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderUser", cascade = CascadeType.ALL)
 	private Set<Orders> orders = new LinkedHashSet<Orders>();
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<Product> products = new LinkedHashSet<Product>();
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_foundation_id")
 	private Foundation foundation;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_ShoppingCar_id")
-	private ShoppingCar ShoppingCar;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "shopUser", cascade = CascadeType.ALL)
+	private Set<ShoppingCar> shoppingCar = new LinkedHashSet<ShoppingCar>();
 
 	public Users() {
 	}
@@ -252,16 +252,16 @@ public class Users {
 		return orders;
 	}
 
-	public Set<Product> getProducts() {
-		return products;
-	}
-
 	public void setOrders(Set<Orders> orders) {
 		this.orders = orders;
 	}
 
-	public void setProducts(Set<Product> products) {
-		this.products = products;
+	public Set<ShoppingCar> getShoppingCar() {
+		return shoppingCar;
+	}
+
+	public void setShoppingCar(Set<ShoppingCar> shoppingCar) {
+		this.shoppingCar = shoppingCar;
 	}
 
 	public Foundation getFoundation() {
@@ -271,15 +271,7 @@ public class Users {
 	public void setFoundation(Foundation foundation) {
 		this.foundation = foundation;
 	}
-
-	public ShoppingCar getShoppingCar() {
-		return ShoppingCar;
-	}
-
-	public void setShoppingCar(ShoppingCar shoppingCar) {
-		ShoppingCar = shoppingCar;
-	}
-
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -319,6 +311,7 @@ public class Users {
 		builder.append(follows);
 		builder.append(", Donate=");
 		builder.append(Donate);
+		builder.append(", fk_foundation_id=");
 		builder.append("]");
 		return builder.toString();
 	}

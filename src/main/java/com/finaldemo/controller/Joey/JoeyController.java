@@ -26,9 +26,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.model.Donate;
+import com.finaldemo.model.Foundation;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
-import com.finaldemo.model.Product;
+import com.finaldemo.model.Products;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.JoeyService;
 import com.finaldemo.service.PhoebeService;
@@ -71,8 +72,9 @@ public class JoeyController {
 
 	@GetMapping("/findById2")
 	public String findAnUserById2(HttpSession session, Model model) {
+		Users u1 = (Users) session.getAttribute("user");
 		Integer userId = ((Users) session.getAttribute("user")).getUserId();
-		List<Product> produtsToShow = service.findProudtsByUserId(userId);
+		List<Products> produtsToShow = service.findProudtsByUserId(u1.getFoundation().getFoundationId());
 		List<Posts> postsToShow = PhoebeService.getPostsByUserId(userId);
 		model.addAttribute("produtsToShow", produtsToShow);
 		model.addAttribute("postsToShow", postsToShow);
@@ -99,9 +101,9 @@ public class JoeyController {
 		
 		System.out.println("productName:"+productName+"  "+"productPrice:"+productPrice+"  "+"productContext:"+productContext+"  "+"productImg:"+productImg);
 
-		Product product = new Product();
+		Products product = new Products();
 		Users user = (Users) session.getAttribute("user");
-		Users fundation = PhoebeService.getUserById(user.getUserId());
+		Foundation fundation = PhoebeService.getUserById(user.getUserId()).getFoundation();
 		
 		product.setProductName(productName);
 		product.setProductPrice(productPrice);
@@ -109,19 +111,19 @@ public class JoeyController {
 		product.setBuyCount(0);
 		product.setProductContext(productContext);
 		product.setProductDate(new Date());
-
+		System.out.println("root---------------------------------------------------:" + System.getProperty("user.dir"));
 		
 
 		for (MultipartFile img : productImg) {
 			// 存資料夾
 			if (!(img.isEmpty())) {
 				String fileName = img.getOriginalFilename();
-				String productImgPath = "C:/Git/Project/Team3FinalPorject/src/main/webapp/img/joeyimg/joeyproductimg/"
+				String productImgPath = "C:\\Git\\workspace\\FinalProject_ver2\\src\\main\\webapp\\img\\joeyimg\\joeyproductimg\\"
 						+ fileName;
 				img.transferTo(new File(productImgPath));
 //				// 存Product資料表
 				product.setProductImg("/img/joeyimg/joeyproductimg/" + fileName);
-				product.setUser(fundation);
+				product.setFoundation(fundation);
 				System.out.println("fundation:"+fundation);
 				service.addProduct(product);
 
@@ -137,7 +139,7 @@ public class JoeyController {
 	@GetMapping("/findProductsById")
 	public String findPrductsById(HttpSession session, Model model) {
 		Integer userId = ((Users) session.getAttribute("user")).getUserId();
-		List<Product> productsToShow = service.findProudtsByUserId(userId);
+		List<Products> productsToShow = service.findProudtsByUserId(userId);
 		model.addAttribute("productsToShow", productsToShow);
 		Users users = new Users();
 		model.addAttribute("u", users);

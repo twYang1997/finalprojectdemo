@@ -11,11 +11,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Transactional
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface ShoppingCarRepository extends JpaRepository<ShoppingCar, Integer> {
 
-	// 此為小郭寫的亂刪砍手
-
-	@Query(value = "Select * from Product where fk_user_id = :id and productStatus != 0", nativeQuery = true)
-	public List<Product> findProudtsByUserId(@Param("id") Integer userId);
-
+	@Query(value = "SELECT * FROM ShoppingCar S INNER JOIN Products P on S.fk_product_Id = P.productId  WHERE S.fk_user_id= ?1" ,nativeQuery = true)
+	public List<ShoppingCar> ShoppingCarProducts(@Param("userId") String fk_user_id);	
 }

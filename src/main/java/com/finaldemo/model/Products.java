@@ -1,7 +1,9 @@
 package com.finaldemo.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,9 +17,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
-@Table(name="Product")
-public class Product {
+@Table(name="Products")
+public class Products {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,18 +42,46 @@ public class Product {
 	
 	private Integer productStatus;
 	
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class)
-	@JoinColumn(name="fk_user_id", referencedColumnName = "userId")
-	private Users user;
-	
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = ShoppingCar.class)
-	@JoinColumn(name="fk_shoppingCarId_id", referencedColumnName = "shoppingCarId")
-	private ShoppingCar shoppingCar;
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Foundation.class)
+	@JoinColumn(name="fk_foundation_id", referencedColumnName = "foundationId")
+	private Foundation foundation;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products", cascade = CascadeType.ALL)
-	private Set<OrderDetail> orderDetail = new LinkedHashSet<OrderDetail>(); 
+	private Set<OrderDetail> orderDetail = new LinkedHashSet<OrderDetail>();
 	
-	public Product() {
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products", cascade = CascadeType.ALL)
+	private Set<ShoppingCar> shoppingCar = new LinkedHashSet<ShoppingCar>();
+	
+	public Products() {
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Products [productId=");
+		builder.append(productId);
+		builder.append(", productName=");
+		builder.append(productName);
+		builder.append(", productPrice=");
+		builder.append(productPrice);
+		builder.append(", productImg=");
+		builder.append(productImg);
+		builder.append(", buyCount=");
+		builder.append(buyCount);
+		builder.append(", productContext=");
+		builder.append(productContext);
+		builder.append(", productDate=");
+		builder.append(productDate);
+		builder.append("]");
+		return builder.toString();
+	}
+
+	public Set<ShoppingCar> getShoppingCar() {
+		return shoppingCar;
+	}
+
+	public void setShoppingCar(Set<ShoppingCar> shoppingCar) {
+		this.shoppingCar = shoppingCar;
 	}
 
 	public Integer getProductId() {
@@ -79,6 +112,13 @@ public class Product {
 		return productDate;
 	}
 
+	public Foundation getFoundation() {
+		return foundation;
+	}
+
+	public void setFoundation(Foundation foundation) {
+		this.foundation = foundation;
+	}
 
 	public void setProductId(Integer productId) {
 		this.productId = productId;
@@ -114,22 +154,6 @@ public class Product {
 
 	public void setOrderDetail(Set<OrderDetail> orderDetail) {
 		this.orderDetail = orderDetail;
-	}
-
-	public Users getUser() {
-		return user;
-	}
-
-	public void setUser(Users user) {
-		this.user = user;
-	}
-
-	public ShoppingCar getShoppingCar() {
-		return shoppingCar;
-	}
-
-	public void setShoppingCar(ShoppingCar shoppingCar) {
-		this.shoppingCar = shoppingCar;
 	}
 
 	public Integer getProductStatus() {

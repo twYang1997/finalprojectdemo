@@ -28,9 +28,9 @@ public class OrderDetail {
 	@JoinColumn(name="fk_order_id", referencedColumnName = "orderId")
 	private Orders orders;
 	
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Product.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Products.class)
 	@JoinColumn(name="fk_product_id", referencedColumnName = "productId")
-	private Product products;
+	private Products products;
 	
 	public OrderDetail() {
 	}
@@ -55,7 +55,7 @@ public class OrderDetail {
 		return orders;
 	}
 
-	public Product getProducts() {
+	public Products getProducts() {
 		return products;
 	}
 
@@ -79,7 +79,7 @@ public class OrderDetail {
 		this.orders = orders;
 	}
 
-	public void setProducts(Product products) {
+	public void setProducts(Products products) {
 		this.products = products;
 	}
 

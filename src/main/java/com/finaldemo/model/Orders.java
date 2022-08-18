@@ -42,7 +42,7 @@ public class Orders {
 	
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class)
 	@JoinColumn(name="fk_user_id", referencedColumnName = "userId")
-	private Users user;
+	private Users orderUser;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orders", cascade = CascadeType.ALL)
 	private Set<OrderDetail> orderDetails = new LinkedHashSet<OrderDetail>(); 
@@ -70,10 +70,6 @@ public class Orders {
 		return orderDate;
 	}
 
-	public Users getUser() {
-		return user;
-	}
-
 	public Set<OrderDetail> getOrderDetails() {
 		return orderDetails;
 	}
@@ -98,14 +94,16 @@ public class Orders {
 		this.orderDate = orderDate;
 	}
 
-	public void setUser(Users user) {
-		this.user = user;
-	}
-
 	public void setOrderDetails(Set<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
 
-	
-	
+	public Users getOrderUser() {
+		return orderUser;
+	}
+
+	public void setOrderUser(Users orderUser) {
+		this.orderUser = orderUser;
+	}
+
 }
