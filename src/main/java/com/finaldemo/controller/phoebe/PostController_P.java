@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.model.Comments;
@@ -115,7 +116,7 @@ public class PostController_P {
 			// 存資料夾
 			if (!(img.isEmpty())) {
 				String fileName = img.getOriginalFilename();
-				String postImgPath = "C:/Git/Project/finalprojectdemo/src/main/webapp/img/postimg/" + fileName;
+				String postImgPath = System.getProperty("user.dir") + "/src/main/webapp/img/postimg/" + fileName;
 				img.transferTo(new File(postImgPath));
 				newPostImg.setPostImgPath(postImgPath);
 				// 存PostImg資料表
@@ -139,6 +140,7 @@ public class PostController_P {
 	
 	//新增評論
 	@PostMapping("/addComment.controller")
+	@ResponseBody
 	public String addComment(@RequestParam String commentText,@RequestParam Integer postId, HttpSession session,
 			HttpServletRequest request) throws IllegalStateException, IOException {
 		Comments c = new Comments();
@@ -158,7 +160,8 @@ public class PostController_P {
 //		p.setPostUser((Users) session.getAttribute("user"));
 		Comments newComment = service.addComment(c);
 		
-		return "redirect:/getMainPagePosts.controller";
+//		return "redirect:/getMainPagePosts.controller";
+		return "add comment success";
 	}
 	
 	//按讚
