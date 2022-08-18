@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.model.Posts;
@@ -127,17 +129,26 @@ public class UsersListController {
 			return "redirect:/memberManagement";
 		}
 		
-		@GetMapping("/userLink")
-		public String userLink(Model model, @RequestParam("id") String id) {
-			System.out.println("********user:"+id);
-			Users userLink = Service.BrainGetUserById(Integer.parseInt(id));
-			System.out.println("********userLink:"+userLink);
-			model.addAttribute("userLink", userLink);
-			return "timmy/NormalMember";
+//		@GetMapping("/userLink")
+//		public String userLink(Model model, @RequestParam("id") String id) {
+//			System.out.println("********user:"+id);
+//			Users userLink = Service.BrainGetUserById(Integer.parseInt(id));
+//			System.out.println("********userLink:"+userLink);
+//			model.addAttribute("userLink", userLink);
+//			return "timmy/NormalMember";
+//		}
+		
+		@GetMapping("/searchEmail")
+		@ResponseBody
+		public String searchEmail(Model model,@RequestParam String email, HttpSession session) {
+			List<Users> sE = Service.searchEmail(email);
+//			model.addAttribute("searchemail", sE);
+			session.setAttribute("searchemail", sE);
+			return email;
 		}
 	
 	
-	
+}	
 //	@PostMapping("/Brian/uploadImgAjax")
 //	@ResponseBody
 //	public String uploadImagAjax(@RequestBody ImageDto dto) throws FileNotFoundException {
@@ -213,4 +224,4 @@ public class UsersListController {
 //			return "failed";
 //		}
 //	}
-}
+

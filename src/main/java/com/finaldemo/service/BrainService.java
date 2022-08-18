@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.PostImgRepository;
@@ -43,6 +45,11 @@ public class BrainService {
 		return uDao.findAll();
 	}
 	
+	public List<Users> searchEmail(String search) {
+		return uDao.searchPeopleByEmail(search);
+	}
+	
+	
 	// PostService
 	@Autowired
 	private PostsRepository pDao;
@@ -56,6 +63,8 @@ public class BrainService {
 	public List<PostImg> getPostImgsByPostId(Integer postId) {
 		return piDao.findPostImgsByPostId(postId);
 	}
+	
+	
 
 	
 }
