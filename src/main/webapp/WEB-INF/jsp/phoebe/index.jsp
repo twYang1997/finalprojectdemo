@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <jsp:include page="../timmy/layout/navbar.jsp" />
 <!DOCTYPE html>
@@ -13,7 +14,10 @@
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <title>PET.COM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script> -->
+<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery.easyui.min.js"></script> 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -213,15 +217,13 @@
 								</div>
 							</c:forEach>
 							<div class="box-footer">
-									<form
- 										action="${contextRoot}/addComment.controller?postId=${p.getPostId()}" 
- 										method="post"> 
-										<div class="img-push">
-										<img class="img-responsive img-circle img-sm"
+											<img class="img-responsive img-circle img-sm"
 											src="${contextRoot}/${user.getPhotoPath()}"
 											alt="Alt Text"
 											style="width: 40px; height: 40px; border-radius: 50%">
-										
+									<form id="addComment" 
+									method="post" onsubmit="return submitForm();"> 
+										<div class="img-push">
 											<input type="text" class="form-control input-sm" required
 												placeholder="Press enter to post comment" name="commentText">
 										</div>
@@ -1121,6 +1123,36 @@ function readAsDataURL(){
     }
     
 }  
+
+	//送出評論Ajax
+	function submitForm() {
+    var form = document.getElementById('addComment'),
+        formData = new FormData(form);
+        	$.ajax({
+        		url : contextRoot + "/addComment.controller",
+        		type : "post",
+        		data:formData,
+                processData:false,
+                contentType:false,
+                done: function (res) {
+                    uxAlert('finish:' + res);
+                },
+                success:function(res){
+                    if(res){
+                        uxAlert("上傳成功！");
+                    }
+                    console.log(res);
+                },
+                error:function(err){
+                    uxAlert("網路連線失敗,稍後重試",err);
+                }
+            });
+
+            return false;
+        }
+    }
+    );
+}
 
 	</script>
 </body>
