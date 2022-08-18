@@ -1,7 +1,9 @@
 package com.finaldemo.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -45,7 +47,7 @@ public class Orders {
 	private Users orderUser;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orders", cascade = CascadeType.ALL)
-	private Set<OrderDetail> orderDetails = new LinkedHashSet<OrderDetail>(); 
+	private List<OrderDetail> orderDetails = new ArrayList<OrderDetail>(); 
 	
 	public Orders() {
 	}
@@ -70,9 +72,7 @@ public class Orders {
 		return orderDate;
 	}
 
-	public Set<OrderDetail> getOrderDetails() {
-		return orderDetails;
-	}
+	
 
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
@@ -94,7 +94,13 @@ public class Orders {
 		this.orderDate = orderDate;
 	}
 
-	public void setOrderDetails(Set<OrderDetail> orderDetails) {
+	
+
+	public List<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(List<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
 
