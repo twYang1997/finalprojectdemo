@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.model.Donate;
-import com.finaldemo.model.Foundation;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Products;
