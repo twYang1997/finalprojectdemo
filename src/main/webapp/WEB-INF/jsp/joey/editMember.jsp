@@ -68,7 +68,7 @@ function loadXMLDoc()
 									<img src="${contextRoot}${oneMember.photoPath}"
 										style="width: 200px; height: 200px; border-radius: 50%;">
 									<input type="hidden" id="${userId}" name="userId"
-										value="${userId}"> <br /> <input type="file"
+										value="${oneMember.userId}"> <br /> <input type="file"
 										name="file"> <br /> <input type="submit"
 										value="Submit" />
 								</form>
