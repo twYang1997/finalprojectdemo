@@ -310,9 +310,12 @@ ul li button {
 																	<c:set var="isFollowingGuest" value="1" />
 																</c:if>
 															</c:forEach>
+															<c:if test="${userOrigin == fan.fans }">
+																<c:set var="isFollowingGuest" value="2" />
+															</c:if>
 <!-- 															是 明天TODO --> 
 															<c:if test="${isFollowingGuest == 0 }">
-																<button class="btn btn-outline-secondary icon smallIcon" id="follow${fan.fans.userId}">
+																<button class="btn btn-outline-secondary icon smallIcon" id="nofollow${fan.fans.userId}">
 																	<img src="${contextRoot}/img/userimg/add-user.png" class="udateicon" width="30">
 																</button>
 															</c:if>
@@ -337,7 +340,7 @@ ul li button {
 														$(document).ready( function () {
 															var contextRoot = "/demo";
 														    $('#followTable').DataTable(); 
-														    $("#isfollow${fan.fans.userId}").click(function(e){
+														    $("#isfollow${fan.fans.userId}").click(function(){
 														    	let checkBox = confirm("Sure to remove the following?");
 														    	if (checkBox == true){
 														    		$.ajax({
@@ -354,7 +357,21 @@ ul li button {
 														    		})
 														    	}
 														    });
-														} );	
+														    $("#nofollow${fan.fans.userId}").click(function(){
+														    	$.ajax({
+														    		url: contextRoot + "/timmy/addFollowingByIdAjax",
+														    		method: "POST",
+														    		data: "${fan.fans.userId}",
+														    		success: function(result){
+																		console.log(result);
+																		window.location.reload();
+																	},
+																	error: function(result){
+																		console.log(result);
+																	},
+														    	})
+														    });
+														});	
 												</script>
 											</c:forEach>
 										</tbody>
