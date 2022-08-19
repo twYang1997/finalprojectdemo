@@ -70,6 +70,7 @@ img {
 										return resp.text();
 									}).then(function(jsonObj) {
 										console.log(jsonObj);
+										window.location.reload();
 // 								let allData = "";
 // 								for (let i = 0; i < jsonObj.length; i++) {
 // 									allData += "<tr><td>" + jsonObj[i].id + "</td>";
