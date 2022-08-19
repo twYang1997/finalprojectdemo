@@ -74,7 +74,7 @@ public class PostController_P {
 			// 存資料夾
 			if (!(img.isEmpty())) {
 				String fileName = img.getOriginalFilename();
-				String postImgPath = "C:/Git/Project/finalprojectdemo/src/main/webapp/img/postimg/" + fileName;
+				String postImgPath = System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\postimg\\" + fileName;
 				img.transferTo(new File(postImgPath));
 				// 存PostImg資料表
 				newPostImg.setPost(newPost);
@@ -88,7 +88,7 @@ public class PostController_P {
 		// 影片存資料夾
 		if (!(postVideo.isEmpty())) {
 			String fileName = postVideo.getOriginalFilename();
-			String videoPath = "C:/Git/Project/finalprojectdemo/src/main/webapp/video/" + fileName;
+			String videoPath = System.getProperty("user.dir") +  "\\src\\main\\webapp\\video\\" + fileName;
 			postVideo.transferTo(new File(videoPath));
 		}
 		return "redirect:/getMainPagePosts.controller";
@@ -116,7 +116,7 @@ public class PostController_P {
 			// 存資料夾
 			if (!(img.isEmpty())) {
 				String fileName = img.getOriginalFilename();
-				String postImgPath = System.getProperty("user.dir") + "/src/main/webapp/img/postimg/" + fileName;
+				String postImgPath = System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\postimg\\" + fileName;
 				img.transferTo(new File(postImgPath));
 				newPostImg.setPostImgPath(postImgPath);
 				// 存PostImg資料表
