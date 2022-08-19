@@ -52,7 +52,7 @@ public class UsersListController {
 		model.addAttribute("formUser", newMsg);
 		model.addAttribute("page", page);
 		model.addAttribute("userList", findAllUsers);
-		return "Brian/memberManagement";
+		return "Brian/testbrain";
 	}
 	
 	//編輯一般會員
@@ -141,15 +141,15 @@ public class UsersListController {
 		
 		@GetMapping("/searchEmail")
 		@ResponseBody
-		public String searchEmail(Model model,@RequestParam String email, HttpSession session) {
+		public String searchEmail(Model model,@RequestParam String email) {
 			System.out.println("*****session******"+session);
 			System.out.println("*****email******"+email);
 			List<Users> sE = Service.searchEmail(email);
 			
 			System.out.println("*****sE******"+sE);
 			model.addAttribute("searchemail", sE);
-			session.setAttribute("searchemail", sE);
-			return email;
+//			session.setAttribute("searchemail", sE);
+			return "?????";
 		}
 }	
 //	@PostMapping("/Brian/uploadImgAjax")
