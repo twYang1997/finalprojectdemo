@@ -27,7 +27,7 @@ public class PhoebeService {
 
 	// UserService
 	public void signUp(Users user) {
-		user.setPhotoPath("DefaultUserImage.png");
+		user.setPhotoPath("/img/userimg/none.png");
 		UsersRepository.save(user);
 	}
 

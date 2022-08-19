@@ -117,7 +117,7 @@
 															checkDelete();
 														});
 														function checkDelete(){
-															  var r=confirm("${p.petId}")
+															  var r=confirm("Remove the pet?")
 															  if (r==true) {
 															    $.ajax({
 															    	url: contextRoot + "/timmy/deletePetById/${p.petId}",
@@ -384,7 +384,7 @@
 				var contextRoot = "/demo";
 				var img64 = "";
 				var imgType = "";
-				$('#showPetImg').click(function() {
+				$('#defaultPetImg').click(function() {
 					$('#addPetImg').click();
 				});
 				var file = document.getElementById("addPetImg");
@@ -397,7 +397,7 @@
 						reader.onload = function(e) {
 							img64 = e.target.result;
 							imgType = file.files[0].type;
-							document.getElementById("showPetImg").setAttribute(
+							document.getElementById("defaultPetImg").setAttribute(
 									"src", e.target.result);
 						}
 					}

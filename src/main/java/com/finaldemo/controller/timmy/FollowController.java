@@ -68,4 +68,14 @@ public class FollowController {
 		service.insertNewUser(user);
 		return guestId;
 	}
+	
+	@PostMapping("/timmy/deleteFansByIdAjax")
+	@ResponseBody
+	public String deleteFansByIdAjax(@RequestBody String guestId, HttpSession session) {
+		guestId = guestId.replaceAll("=", "");
+		Users userBefore = (Users) session.getAttribute("user");
+		Users user = service.getUserById(userBefore.getUserId());
+		service.deleteFollowRelation(user.getUserId(), Integer.parseInt(guestId));
+		return guestId;
+	}
 }

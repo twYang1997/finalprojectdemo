@@ -250,8 +250,8 @@ span {
 									<table class="table table-borderless">
 										<tbody>
 											<tr>
-												<td><h5>Following</h5></td>
-												<td><h5>Followed</h5></td>
+												<td><h5>Follow</h5></td>
+												<td><h5>Fans</h5></td>
 											</tr>
 										</tbody>
 										<tfoot >
@@ -489,6 +489,9 @@ span {
 												<th>NickName</th>
 												<th>Email</th>
 												<th>Follow</th>
+												<c:if test="${empty guest}">
+													<th>Del</th>
+												</c:if>
 											</tr>
 										</thead>
 										<tbody>
@@ -501,7 +504,7 @@ span {
 													</td>
 													<td class="col-md-2">${follow.follow.nickName}</td>
 													<td class="col-md-5">${follow.follow.email}</td>
-													<td class="col-md-2">
+													<td class="col-md-1">
 														<c:set var="isFansGuest" value="0" />
 														<c:if test="${!empty guest}">
 															<c:forEach items="${userOrigin.fans}" var="fans">
@@ -511,8 +514,10 @@ span {
 															</c:forEach>
 														</c:if>
 														<c:if test="${empty guest}">
-															<c:forEach items="${user.fans}" var="fans">
-																<c:if test="${fans.follow == follow.follow }">
+															<c:forEach items="${user.follows}" var="fans">
+<%-- 																登入帳號的粉絲：${fans.fans.nickName } <br> --%>
+<%-- 																個人頁面的粉絲：${follow.follow.nickName} <br> --%>
+																<c:if test="${fans.fans == follow.follow }">
 																	<c:set var="isFansGuest" value="1" />
 																</c:if>
 															</c:forEach>
@@ -531,6 +536,13 @@ span {
 															</button>
 														</c:if>
 													</td>
+													<c:if test="${empty guest}">
+														<td class="col-md-1">
+															<button class="btn btn-outline-secondary icon smallIcon" id="deleteFansBtn${follow.follow.userId}">
+																<img src="${contextRoot}/img/userimg/block-user.png" width="30" class="smallIcon">
+															</button>
+														</td>
+													</c:if>
 												</tr>
 												<script>
 														$(document).ready( function () {
@@ -539,33 +551,50 @@ span {
 														    $("#isfans${follow.follow.userId}").click(function(){
 														    	let checkBox = confirm("Sure to remove the follow?");
 														    	if (checkBox == true){
-// 														    		$.ajax({
-// 														    			url: contextRoot + "/timmy/deleteFollowingByIdAjax" ,
-// 																		method: "POST",
-// 																		data: "${fan.fans.userId}",
-// 																		success: function(result){
-// 																			console.log(result);
-// 																			window.location.reload();
-// 																		},
-// 																		error: function(result){
-// 																			console.log(result);
-// 																		},
-// 														    		})
+														    		$.ajax({
+														    			url: contextRoot + "/timmy/deleteFollowingByIdAjax" ,
+																		method: "POST",
+																		data: "${follow.follow.userId}",
+																		success: function(result){
+																			console.log(result);
+																			window.location.reload();
+																		},
+																		error: function(result){
+																			console.log(result);
+																		},
+														    		})
 														    	}
 														    });
 														    $("#nofans${follow.follow.userId}").click(function(){
-// 														    	$.ajax({
-// 														    		url: contextRoot + "/timmy/addFollowingByIdAjax",
-// 														    		method: "POST",
-// 														    		data: "${fan.fans.userId}",
-// 														    		success: function(result){
-// 																		console.log(result);
-// 																		window.location.reload();
-// 																	},
-// 																	error: function(result){
-// 																		console.log(result);
-// 																	},
-// 														    	})
+														    	$.ajax({
+														    		url: contextRoot + "/timmy/addFollowingByIdAjax",
+														    		method: "POST",
+														    		data: "${follow.follow.userId}",
+														    		success: function(result){
+																		console.log(result);
+																		window.location.reload();
+																	},
+																	error: function(result){
+																		console.log(result);
+																	},
+														    	})
+														    });
+														    $("#deleteFansBtn${follow.follow.userId}").click(function(){
+														    	let checkBox = confirm("Sure to remove the fans?");
+														    	if (checkBox == true){
+															    	$.ajax({
+															    		url: contextRoot + "/timmy/deleteFansByIdAjax",
+															    		method: "POST",
+															    		data: "${follow.follow.userId}",
+															    		success: function(result){
+																			console.log(result);
+																			window.location.reload();
+																		},
+																		error: function(result){
+																			console.log(result);
+																		},
+															    	})
+														    	}
 														    });
 														});	
 												</script>
