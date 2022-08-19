@@ -68,7 +68,7 @@ function loadXMLDoc()
 									<img src="${contextRoot}${oneMember.photoPath}"
 										style="width: 200px; height: 200px; border-radius: 50%;">
 									<input type="hidden" id="${userId}" name="userId"
-										value="${userId}"> <br /> <input type="file"
+										value="${oneMember.userId}"> <br /> <input type="file"
 										name="file"> <br /> <input type="submit"
 										value="Submit" />
 								</form>
@@ -423,8 +423,8 @@ function loadXMLDoc()
 									<div class="panel-content panel-activity">
 
 										<!-- 新增product -->
-										<div style="height: 200px;">
-											<div id="result2" name="result2" ><img src="${contextRoot}/img/joeyimg/default_product_image.png"></div>
+										<div style="height: 200px;" >
+											<div id="result2" name="result2" ><img src="${contextRoot}/img/joeyimg/default_product_image.png" id="defaultProductImg"></div>
 											
 									</div>
 									
@@ -1504,7 +1504,7 @@ var result2=document.getElementById("result2");
 var file2=document.getElementById("file2");  
 
 function readAsDataURL2(){  
-
+document.getElementById("defaultProductImg").setAttribute("style", "display:none"); //將預設圖片隱藏
 var file2 = document.getElementById("file2").files;
 var result2 =document.getElementById("result2");  
 console.log(result2);

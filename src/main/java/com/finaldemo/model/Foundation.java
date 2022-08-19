@@ -1,6 +1,8 @@
 package com.finaldemo.model;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -26,19 +28,19 @@ public class Foundation {
 	private String foundationGmail;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "foundation", cascade = CascadeType.ALL)
-	private Set<Products> products = new LinkedHashSet<Products>();
-	
+	private List<Products> products = new ArrayList<Products>();
+
 	@OneToOne(mappedBy = "foundation")
 	private Users user;
-	
+
 	public Foundation() {
 	}
 
-	public Set<Products> getProducts() {
+	public List<Products> getProducts() {
 		return products;
 	}
 
-	public void setProducts(Set<Products> products) {
+	public void setProducts(List<Products> products) {
 		this.products = products;
 	}
 

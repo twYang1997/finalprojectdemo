@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.model.Donate;
-import com.finaldemo.model.Foundation;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Products;
@@ -55,20 +54,20 @@ public class JoeyController {
 		binder.registerCustomEditor(Date.class, dateEditor);
 	}
 
-	@GetMapping("/findById")
-	public String findAnUserById(@RequestParam(name = "id") Integer id, Model model) {
-
-		Users oneMember = service.findById(id);
-		Set<Donate> donation = oneMember.getDonate();
-
-		System.out.println("dotation:" + donation);
-		model.addAttribute("oneMember", oneMember);
-		model.addAttribute("dotation", donation);
-		model.addAttribute("userId", id);
-
-		return "joey/editMember";
-
-	}
+//	@GetMapping("/findById")
+//	public String findAnUserById(@RequestParam(name = "id") Integer id, Model model) {
+//
+//		Users oneMember = service.findById(id);
+//		Set<Donate> donation = oneMember.getDonate();
+//
+//		System.out.println("dotation:" + donation);
+//		model.addAttribute("oneMember", oneMember);
+//		model.addAttribute("dotation", donation);
+//		model.addAttribute("userId", id);
+//
+//		return "joey/editMember";
+//
+//	}
 
 	@GetMapping("/findById2")
 	public String findAnUserById2(HttpSession session, Model model) {
@@ -101,31 +100,35 @@ public class JoeyController {
 		
 		System.out.println("productName:"+productName+"  "+"productPrice:"+productPrice+"  "+"productContext:"+productContext+"  "+"productImg:"+productImg);
 
-		Products product = new Products();
+		Products products = new Products();
 		Users user = (Users) session.getAttribute("user");
 		Foundation fundation = PhoebeService.getUserById(user.getUserId()).getFoundation();
+		System.out.println("fundation:"+fundation);
 		
-		product.setProductName(productName);
-		product.setProductPrice(productPrice);
-		product.setProductStatus(1);
-		product.setBuyCount(0);
-		product.setProductContext(productContext);
-		product.setProductDate(new Date());
-		System.out.println("root---------------------------------------------------:" + System.getProperty("user.dir"));
+		System.out.println("productName:"+productName+"  "+"productPrice:"+productPrice+"  "+"productContext:"+productContext+"  "+"productImg:"+productImg);
+
+		
+		products.setProductName(productName);
+		products.setProductPrice(productPrice);
+		products.setProductStatus(1);
+		products.setBuyCount(0);
+		products.setProductContext(productContext);
+		products.setProductDate(new Date());
+//		System.out.println("root---------------------------------------------------:" + System.getProperty("user.dir"));
 		
 
 		for (MultipartFile img : productImg) {
 			// 存資料夾
 			if (!(img.isEmpty())) {
 				String fileName = img.getOriginalFilename();
-				String productImgPath = "C:\\Git\\workspace\\FinalProject_ver2\\src\\main\\webapp\\img\\joeyimg\\joeyproductimg\\"
+				String productImgPath = "C:/Git/Project/Team3FinalPorject/src/main/webapp/img/joeyimg/joeyproductimg/"
 						+ fileName;
 				img.transferTo(new File(productImgPath));
 //				// 存Product資料表
-				product.setProductImg("/img/joeyimg/joeyproductimg/" + fileName);
-				product.setFoundation(fundation);
-				System.out.println("fundation:"+fundation);
-				service.addProduct(product);
+				products.setProductImg("/img/joeyimg/joeyproductimg/" + fileName);
+				products.setFoundation(fundation);
+				
+				service.addProduct(products);
 
 			} else {
 				break;
@@ -156,32 +159,60 @@ public class JoeyController {
 
 	@PostMapping("/editMember")
 	public String editAnUser(@ModelAttribute Users user, Model model) {
-		service.editUser(user);
+		Users u1 = service.findById(user.getUserId());
+		if (user.getSelfIntroduction() != null) 
+			u1.setSelfIntroduction(user.getSelfIntroduction());
+		if (user.getNickName() != null) 
+			u1.setNickName(user.getNickName());
+		if (user.getPhone() != null) 
+			u1.setPhone(user.getPhone());
+		if (user.getAddress() != null) 
+			u1.setAddress(user.getAddress());
+		if (user.getBirthday() != null) 
+			u1.setBirthday(user.getBirthday());
+		if (user.getCategory() != null) 
+			u1.setCategory(user.getCategory());
+		if (user.getEmail() != null) 
+			u1.setEmail(user.getEmail());
+		if (user.getGender() != null) 
+			u1.setGender(user.getGender());
+		if (user.getPassword() != null) 
+			u1.setPassword(user.getPassword());
+		if (user.getPhotoPath() != null) 
+			u1.setPhotoPath(user.getPhotoPath());
+		service.editUser(u1);
 
 		return "joey/joeytest";
 	}
 
 	@PostMapping("/fileuploadjoey")
 	public String uploadNewPhoto(@RequestParam("userId") String userId, @RequestParam("file") MultipartFile file) {
+		
+		System.out.println("userId:"+userId+" "+"file:"+file);
+		
 		String photoPath = "/img/joeyimg/";
 		String contentType = file.getContentType();
 		String photoType = "." + contentType.substring(6);
 		Users oneMember = service.findById(Integer.parseInt(userId));
+		Foundation foundation = oneMember.getFoundation();
 		oneMember.setUserId(Integer.parseInt(userId));
 		oneMember.setPhotoPath(photoPath + userId + photoType);
+		oneMember.setFoundation(foundation);
+		System.out.println("before save :" + foundation.getFoundationId());
 		service.editUser(oneMember);
-
+		if (foundation != null) {
+			System.out.println("after save :" + foundation.getFoundationId());
+		}
 		try {
 			byte[] bytes = file.getBytes();
 			FileUtils.writeByteArrayToFile(
-					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\joeypostimg\\",
-							userId + photoType),
-					bytes);
+					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\",
+							userId + photoType),bytes);
 
-			return "joey/joeytest";
+			return "redirect:/getMainPagePosts.controller";
 		} catch (IOException e) {
 			e.printStackTrace();
-			return "joey/joeytest";
+			return "redirect:/getMainPagePosts.controller";
 		}
 	}
 

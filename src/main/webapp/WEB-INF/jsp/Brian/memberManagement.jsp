@@ -55,18 +55,49 @@ img {
 			<!--頁籤到此結束 -->
 			<!--包住全部頁籤 -->
 			<!--一般會員頁籤 -->
-			<div class="tab-content-1">
-
+			<div class="tab-content-1"><br>
+				<input class="form-control mr-2" type="search" placeholder="Search" id=txt
+					aria-label="Search" name="search" required>
+				<button class="btn btn-outline-success" type="submit" id=sear>Search</button>
+				<div id="test"></div>
+					<script>
+						var contextRoot = "/demo";
+						var txt = document.getElementById("txt");
+						var sear = document.getElementById("sear");
+						function callProduct(email) {
+							fetch(contextRoot + "/searchEmail?email=" + email).then(
+									function(resp) {
+										return resp.text();
+									}).then(function(jsonObj) {
+										console.log(jsonObj);
+// 								let allData = "";
+// 								for (let i = 0; i < jsonObj.length; i++) {
+// 									allData += "<tr><td>" + jsonObj[i].id + "</td>";
+// 									allData += "<td>" + jsonObj[i].username + "</td></tr>";
+// 								}
+// 								let body = document.getElementById("test");
+// 								body.innerHTML = "<c:if test='${!empty searchList}'><c:set var='userList' /></c:if>";
+							})
+						};
+						callProduct("");
+						sear.onclick = function(){
+							callProduct(txt.value);
+						};
+						
+					</script>
+				<c:if test="${!empty searchemail}">
+					<c:set var="userList" value="${searchemail}"/>
+				</c:if>
 				<c:forEach var="users" items="${userList}" varStatus="vs">
 					<c:if test="${users.money==null}">
 						<section class="projects no-padding-top">
 							<div class="container">
 								<!-- Project-->
-								<div class="project">
-									<div class="row bg-white has-shadow">
-										<div
+								<div class="project" >
+									<div class="row bg-white has-shadow" >
+										<div 
 											class="left-col col-lg-12 d-flex align-items-center justify-content-between">
-											<div class="project-title d-flex align-items-center">
+											<div class="project-title d-flex align-items-center" >
 												<div class="text">
 													<h3 class="h4">${users.email}</h3>
 												</div>
