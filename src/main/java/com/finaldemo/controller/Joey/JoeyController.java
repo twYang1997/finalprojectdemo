@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.model.Donate;
+import com.finaldemo.model.Foundation;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Products;
@@ -98,15 +99,11 @@ public class JoeyController {
 			HttpSession session)
 			throws IllegalStateException, IOException {
 		
-		System.out.println("productName:"+productName+"  "+"productPrice:"+productPrice+"  "+"productContext:"+productContext+"  "+"productImg:"+productImg);
 
 		Products products = new Products();
 		Users user = (Users) session.getAttribute("user");
 		Foundation fundation = PhoebeService.getUserById(user.getUserId()).getFoundation();
 		System.out.println("fundation:"+fundation);
-		
-		System.out.println("productName:"+productName+"  "+"productPrice:"+productPrice+"  "+"productContext:"+productContext+"  "+"productImg:"+productImg);
-
 		
 		products.setProductName(productName);
 		products.setProductPrice(productPrice);
@@ -151,9 +148,15 @@ public class JoeyController {
 	}
 
 	// 修改商品（待完成）
-	@PostMapping("/editProdut")
-	public String editProduct(@RequestParam Integer productId) {
-		return null;
+	@PostMapping("/editProdutjoey")
+	public String editProduct(@RequestParam Integer productId, @RequestParam String productName, @RequestParam Integer productPrice, @RequestParam String productContext) {
+		Products product = service.findProductById(productId);
+		product.setProductName(productName);
+		product.setProductPrice(productPrice);
+		product.setProductContext(productContext);
+		service.editProduct(product);
+		
+		return "redirect:/findById2";
 
 	}
 

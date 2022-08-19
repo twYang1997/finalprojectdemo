@@ -475,6 +475,9 @@ function loadXMLDoc()
 										</c:if>
 										<!-- 重複的結構（商品）-->
 										<c:forEach items="${produtsToShow}" var="prod" varStatus="vs">
+											<form action="${contextRoot}/editProdutjoey?productId=${prod.getProductId()}"
+															class="panel-activity__status" method="post"
+															enctype="multipart/form-data">
 											<img src="${contextRoot}${prod.getProductImg()}">
 											<div class="input-group mb-3">
 											
@@ -491,7 +494,11 @@ function loadXMLDoc()
 													<textarea
 														name="productContext" class="form-control"
 														aria-label="With textarea">${prod.getProductContext()}</textarea>
+														<button type="submit"
+													class="btn btn-sm btn-rounded btn-info">修改商品</button>
 												</div>
+												
+												</form>
 							
 											<p></p>
 									
