@@ -135,7 +135,7 @@ public class JoeyController {
 		return "redirect:/findById2";
 	}
 
-	// 列出所有商品（待完成）
+
 	@GetMapping("/findProductsById")
 	public String findPrductsById(HttpSession session, Model model) {
 		Integer userId = ((Users) session.getAttribute("user")).getUserId();
@@ -149,12 +149,34 @@ public class JoeyController {
 
 	// 修改商品（待完成）
 	@PostMapping("/editProdutjoey")
-	public String editProduct(@RequestParam Integer productId, @RequestParam String productName, @RequestParam Integer productPrice, @RequestParam String productContext) {
+	public String editProduct(@RequestParam Integer productId, @RequestParam String productName, @RequestParam Integer productPrice, @RequestParam String productContext, @RequestParam MultipartFile[] productImg) throws IllegalStateException, IOException{
 		Products product = service.findProductById(productId);
 		product.setProductName(productName);
 		product.setProductPrice(productPrice);
 		product.setProductContext(productContext);
-		service.editProduct(product);
+		
+		
+		System.out.println("********************productImg********************:"+productImg);
+		
+		// 存圖片
+				for (MultipartFile img : productImg) {
+					// 存資料夾
+					if (!(img.isEmpty())) {
+						String fileName = img.getOriginalFilename();
+						String productImgPath = "C:/Git/Project/Team3FinalPorject/src/main/webapp/img/joeyimg/joeyproductimg/"
+								+ fileName;
+						img.transferTo(new File(productImgPath));
+						product.setProductImg(productImgPath);
+						// 存PostImg資料表
+			
+						product.setProductImg("/img/joeyimg/joeyproductimg/" + fileName);
+						service.editProduct(product);
+
+						
+					} else {
+						break;
+					}
+				}
 		
 		return "redirect:/findById2";
 

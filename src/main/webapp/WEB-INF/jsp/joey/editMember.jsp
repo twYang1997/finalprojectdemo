@@ -68,8 +68,8 @@ function loadXMLDoc()
 									<img src="${contextRoot}${oneMember.photoPath}"
 										style="width: 200px; height: 200px; border-radius: 50%;">
 									<input type="hidden" id="${userId}" name="userId"
-										value="${oneMember.userId}"> <br /> <input type="file"
-										name="file"> <br /> <input type="submit"
+										value="${oneMember.userId}"> <br /> <input
+										type="file" name="file"> <br /> <input type="submit"
 										value="Submit" />
 								</form>
 
@@ -423,11 +423,14 @@ function loadXMLDoc()
 									<div class="panel-content panel-activity">
 
 										<!-- 新增product -->
-										<div style="height: 200px;" >
-											<div id="result2" name="result2" ><img src="${contextRoot}/img/joeyimg/default_product_image.png" id="defaultProductImg"></div>
-											
-									</div>
-									
+										<div style="height: 200px;">
+											<div id="result2" name="result2">
+												<img
+													src="${contextRoot}/img/joeyimg/default_product_image.png"
+													id="defaultProductImg">
+											</div>
+										</div>
+
 										<c:if test="${!empty user}">
 											<form action="${contextRoot}/addProductJoey"
 												class="panel-activity__status" method="post"
@@ -475,12 +478,27 @@ function loadXMLDoc()
 										</c:if>
 										<!-- 重複的結構（商品）-->
 										<c:forEach items="${produtsToShow}" var="prod" varStatus="vs">
-											<form action="${contextRoot}/editProdutjoey?productId=${prod.getProductId()}"
-															class="panel-activity__status" method="post"
-															enctype="multipart/form-data">
-											<img src="${contextRoot}${prod.getProductImg()}">
-											<div class="input-group mb-3">
-											
+											<form
+												action="${contextRoot}/editProdutjoey?productId=${prod.getProductId()}"
+												class="panel-activity__status" method="post"
+												enctype="multipart/form-data">
+
+
+												<img src="${contextRoot}${prod.getProductImg()}"> <a
+													href="#"> <input
+													style="position: absolute; opacity: 0;" type="file"
+													name="productImg" id="file3" multiple
+													onchange="readAsDataURL2()"
+													accept="image/gif,image/jpeg,image/x-png" /> <i
+													class="fa fa-image"></i>
+												</a>
+
+
+
+												<div class="input-group mb-3">
+
+
+
 													<span class="input-group-text">商品名稱</span> <input
 														type="text" class="form-control"
 														value="${prod.getProductName()}" name="productName"
@@ -488,20 +506,22 @@ function loadXMLDoc()
 														class="input-group-text">金額</span> <input type="text"
 														class="form-control" value="${prod.getProductPrice()}"
 														name="productPrice" aria-label="Server">
+
 												</div>
+
+
 												<div class="input-group">
 													<span class="input-group-text">商品說明</span>
-													<textarea
-														name="productContext" class="form-control"
+													<textarea name="productContext" class="form-control"
 														aria-label="With textarea">${prod.getProductContext()}</textarea>
-														<button type="submit"
-													class="btn btn-sm btn-rounded btn-info">修改商品</button>
+													<button type="submit"
+														class="btn btn-sm btn-rounded btn-info">修改商品</button>
 												</div>
-												
-												</form>
-							
+
+											</form>
+
 											<p></p>
-									
+
 										</c:forEach>
 										<!-- 					重複的結構 -->
 									</div>
@@ -1506,7 +1526,7 @@ imgInp.onchange = evt => {
 	  }
 	}
 
-//上傳多張圖片（商品）
+//上傳多張圖片（新增商品）
 var result2=document.getElementById("result2");  
 var file2=document.getElementById("file2");  
 
@@ -1528,6 +1548,9 @@ for(i = 0; i< file2.length; i ++) {
 
 
 }
+
+
+
 
 
   
