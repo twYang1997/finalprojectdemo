@@ -39,8 +39,26 @@ public class JoeyService {
 		return null;
 
 	}
+	
+	public Products findProductById(Integer id) {
+		Optional<Products> optional = productDao.findById(id);
+
+		if (optional.isPresent()) {
+			return optional.get();
+		}
+
+		return null;
+
+	}
+	
+	
 
 	public Products addProduct(Products newProduct) {
+		return productDao.save(newProduct);
+
+	}
+	
+	public Products editProduct(Products newProduct) {
 		return productDao.save(newProduct);
 
 	}
