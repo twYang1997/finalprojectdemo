@@ -216,22 +216,45 @@
 									</div>
 								</div>
 							</c:forEach>
+							
+							
+							
 							<div class="box-footer">
 											<img class="img-responsive img-circle img-sm"
 											src="${contextRoot}/${user.getPhotoPath()}"
 											alt="Alt Text"
 											style="width: 40px; height: 40px; border-radius: 50%">
-									<form id="addComment" 
-									method="post" onsubmit="return submitForm();"> 
+									<form id="addComment" onsubmit="submitForm()">   
 										<div class="img-push">
-											<input type="text" class="form-control input-sm" required
+											<input type="text" class="form-control input-sm" required id="commentText"
 												placeholder="Press enter to post comment" name="commentText">
 										</div>
  									</form>
+ 									<button id="subbutton">123</button>
  									<script type="text/javascript">
  									</script>
 								</div>
 							 </div>
+							 <script type="text/javascript">
+							 
+							//送出評論Ajax
+							$("#subbutton").click(function() {
+								var commentText = $("#commentText").value;
+								var postId = ${p.getPostId()};
+								let body = {
+									    "commentText": commentText,
+									    "postId": postId,
+									}
+
+									fetch(url, {
+									    method: "POST",
+									    //別忘了把主體参數轉成字串，否則資料會變成[object Object]，它無法被成功儲存在後台
+									    body: JSON.stringify(body)
+									})
+									    .then(response => response.json())
+									    .then(json => console.log(json));
+							}
+							</script>
 							 
 				</div>
 			</c:forEach>
@@ -1125,34 +1148,34 @@ function readAsDataURL(){
 }  
 
 	//送出評論Ajax
-	function submitForm() {
-    var form = document.getElementById('addComment'),
-        formData = new FormData(form);
-        	$.ajax({
-        		url : contextRoot + "/addComment.controller",
-        		type : "post",
-        		data:formData,
-                processData:false,
-                contentType:false,
-                done: function (res) {
-                    uxAlert('finish:' + res);
-                },
-                success:function(res){
-                    if(res){
-                        uxAlert("上傳成功！");
-                    }
-                    console.log(res);
-                },
-                error:function(err){
-                    uxAlert("網路連線失敗,稍後重試",err);
-                }
-            });
+// 	function submitForm() {
+// 		console.log('進ajax');
+//     var form = document.getElementById('addComment'),
+//         formData = new FormData(form);
+//         	$.ajax({
+//         		url : contextRoot + "/addComment.controller",
+//         		type : "post",
+//         		data:formData,
+//                 processData:false,
+//                 contentType:false,
+//                 done: function (res) {
+//                     uxAlert('finish:' + res);
+//                 },
+//                 success:function(res){
+//                     if(res){
+//                         uxAlert("上傳成功！");
+//                     }
+//                     console.log(res);
+//                 },
+//                 error:function(err){
+//                     uxAlert("網路連線失敗,稍後重試",err);
+//                 }
+//             });
 
-            return false;
-        }
-    }
-    );
-}
+//             return false;
+//         }
+//     );
+// }
 
 	</script>
 </body>
