@@ -75,4 +75,5 @@ public class PageController_P {
 //		service.insertNewPost(p1);
 		return p1;
 	}
+	
 }

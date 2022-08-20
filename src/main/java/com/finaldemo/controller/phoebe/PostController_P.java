@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finaldemo.dto.CommentDto;
 import com.finaldemo.model.Comments;
 import com.finaldemo.model.LikePost;
 import com.finaldemo.model.PostImg;
@@ -139,18 +140,21 @@ public class PostController_P {
 		return "redirect:/getMainPagePosts.controller";
 	}
 	
+	
 	//新增評論
 	@PostMapping("/addComment.controller")
 	@ResponseBody
-	public String addComment(@RequestBody String commentText,@RequestBody Integer postId, HttpSession session,
+	public String addComment(@RequestBody CommentDto dto, HttpSession session,
 			HttpServletRequest request) throws IllegalStateException, IOException {
+//		throw new IOException();
+//		System.out.println("進addComment controller");
 		Comments c = new Comments();
 		Users u = (Users) session.getAttribute("user");
 		Users author = service.getUserById(u.getUserId());
-		Posts post = service.getPostByPostId(postId);
+		Posts post = service.getPostByPostId(Integer.parseInt(dto.getPostId()));
 //		Set<Posts> posts = author.getPosts();
 		c.setCommentLike(0);
-		c.setCommentText(commentText);
+		c.setCommentText(dto.getCommentText());
 		c.setCommentTime(new Date());
 		c.setIsReport(0);
 		c.setUser(author);
@@ -159,7 +163,7 @@ public class PostController_P {
 //		author.setPosts(posts);
 //		TimmyService.insertNewUser(author);
 //		p.setPostUser((Users) session.getAttribute("user"));
-		Comments newComment = service.addComment(c);
+		Comments c1 = service.addComment(c);
 		
 //		return "redirect:/getMainPagePosts.controller";
 		return "add comment success";
@@ -173,6 +177,6 @@ public class PostController_P {
 		
 		LikePost LikePost = service.findLikedPost(postId, u.getUserId());
 		
-		return "redirect:/getMainPagePosts.controller";
+		return "add Like success";
 	}
 }

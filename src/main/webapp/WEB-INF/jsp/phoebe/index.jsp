@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <jsp:include page="../timmy/layout/navbar.jsp" />
 <!DOCTYPE html>
@@ -17,7 +17,7 @@
 <!-- <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script> -->
 <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/js/jquery/jquery.form.js"></script>
-<script type="text/javascript" src="/js/jquery/jquery.easyui.min.js"></script> 
+<script type="text/javascript" src="/js/jquery/jquery.easyui.min.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -83,10 +83,12 @@
 					<ul class="panel-activity__list">
 						<li><i class="activity__list__icon fa fa-question-circle-o"></i>
 							<div class="activity__list__header">
-							<a href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
-								<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
-									alt="" style="width: 45px; height: 45px; border-radius: 50%;"/> ${p.postUser.getNickName()}
-							</a>
+								<a
+									href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
+									<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
+									alt="" style="width: 45px; height: 45px; border-radius: 50%;" />
+									${p.postUser.getNickName()}
+								</a>
 							</div>
 							<div class="activity__list__body entry-content">
 
@@ -103,9 +105,11 @@
 
 							</div>
 							<div class="activity__list__footer">
-								<a href="${contextRoot}/postLike.controller?postId=${p.getPostId()}"> <i class="fa fa-thumbs-up"></i>123</a> 
-								<a><i class="fa fa-comments"></i>${p.getComments().size()}</a>
-								
+								<a
+									href="${contextRoot}/postLike.controller?postId=${p.getPostId()}">
+									<i class="fa fa-thumbs-up"></i>123
+								</a> <a><i class="fa fa-comments"></i>${p.getComments().size()}</a>
+
 								<c:if test="${p.postUser.getUserId() == user.getUserId()}">
 									<a href="#" role="button" data-toggle="modal"
 										data-target="#myModal${vs.index}"
@@ -118,9 +122,7 @@
 								</c:if>
 								<span> <i class="fa fa-clock"></i>${p.getPostTime()}
 								</span>
-							</div> 
-							
-							</li>
+							</div></li>
 					</ul>
 					<!-- 彈出修改框 -->
 					<div class="modal fade" id="myModal${vs.index}" role="dialog">
@@ -199,69 +201,83 @@
 							</div>
 						</div>
 					</div>
-					
-							<!-- 評論 -->
-							<div  style="background-color: #F0F0F0; padding: 15px;">
-							<c:forEach items="${p.getComments()}" var="c" varStatus="vs">
-								<div class="box-footer box-comments">
-									<div class="box-comment">
+
+					<!-- 評論 -->
+					<div style="background-color: #F0F0F0; padding: 15px;">
+						<c:forEach items="${p.getComments()}" var="c" varStatus="vs">
+							<div class="box-footer box-comments">
+								<div class="box-comment">
 									<div class="comment-text">
 										<img class="img-circle img-sm"
 											src="${contextRoot}/${c.getUser().getPhotoPath()}"
 											alt="User Image"
 											style="width: 40px; height: 40px; border-radius: 50%">
-											<span class="username" style="font-weight: bold;">
-												${c.getUser().getNickName()} </span></div> <span class="text-muted pull-right">${c.getCommentTime()}</span>
-											 &emsp; &emsp; ${c.getCommentText()} <hr>
+										<span class="username" style="font-weight: bold;">
+											${c.getUser().getNickName()} </span>
 									</div>
+									<span class="text-muted pull-right">${c.getCommentTime()}</span>
+									&emsp; &emsp; ${c.getCommentText()}
+									<hr>
 								</div>
-							</c:forEach>
-							
-							
-							
-							<div class="box-footer">
-											<img class="img-responsive img-circle img-sm"
-											src="${contextRoot}/${user.getPhotoPath()}"
-											alt="Alt Text"
-											style="width: 40px; height: 40px; border-radius: 50%">
-									<form id="addComment" onsubmit="submitForm()">   
-										<div class="img-push">
-											<input type="text" class="form-control input-sm" required id="commentText"
-												placeholder="Press enter to post comment" name="commentText">
-										</div>
- 									</form>
- 									<button id="subbutton">123</button>
- 									<script type="text/javascript">
- 									</script>
-								</div>
-							 </div>
-							 <script type="text/javascript">
-							 
-							//送出評論Ajax
-							$("#subbutton").click(function() {
-								var commentText = $("#commentText").value;
-								var postId = ${p.getPostId()};
-								let body = {
-									    "commentText": commentText,
-									    "postId": postId,
-									}
+							</div>
+						</c:forEach>
 
-									fetch(url, {
-									    method: "POST",
-									    //別忘了把主體参數轉成字串，否則資料會變成[object Object]，它無法被成功儲存在後台
-									    body: JSON.stringify(body)
-									})
-									    .then(response => response.json())
-									    .then(json => console.log(json));
-							}
-							</script>
-							 
+
+						<div class="box-footer">
+							<img class="img-responsive img-circle img-sm"
+								src="${contextRoot}/${user.getPhotoPath()}" alt="Alt Text"
+								style="width: 40px; height: 40px; border-radius: 50%">
+								
+								<div class="img-push">
+									<input type="text" class="form-control input-sm" required
+										id="commentText" placeholder="Press enter to post comment"
+										name="commentText">
+										<button type="button" class="btn btn-primary"
+										data-dismiss="modal" id="sub${vs.index}">Submit</button>
+								</div>
+
+							<script type="text/javascript">
+ 									</script>
+						</div>
+					</div>
 				</div>
+						<script>
+						//送出評論ajax
+						$(document).ready(function() {
+							var contextRoot = "/demo";
+							$("#sub${vs.index}").off().click(function() {
+// 								var postId = $("#petId${vs.index}")[0].value;
+// 								var petName = $("#petName${vs.index}")[0].value;
+								var datas = {
+									"postId" : 5,
+									"commentText" : "ajax01",
+								};
+								var jsonData = JSON.stringify(datas);
+								console.log(jsonData);
+								
+								$.ajax({
+// 									
+									url : contextRoot + "/addComment.controller",
+									method : 'post',
+									contentType : 'application/json',
+									data : jsonData,
+									success : function(result) {
+										console.log(result);
+// 										$("#closeplz${vs.index}").click();
+									},
+									error : function(error) {
+										console.log(error);
+									}
+								})
+							})
+						});
+					</script>
+				
 			</c:forEach>
 			<!--重複的結構 -->
 		</div>
 	</div>
-<!-- 		</div> -->
+	<!-- 		</div> -->
 
 
 	<style type="text/css">
@@ -282,7 +298,7 @@ body {
 	background-color: #fff;
 	border-radius: 5px;
 	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
-	margin-bottom: 30px;	
+	margin-bottom: 30px;
 }
 
 .profile-cover__action {
@@ -1179,4 +1195,35 @@ function readAsDataURL(){
 
 	</script>
 </body>
+
+<script type="text/javascript">
+//送出評論Ajax
+	function submitForm() {
+		console.log('進ajax');
+    var form = document.getElementById('addComment'),
+        formData = new FormData(form);
+        	$.ajax({
+        		url : contextRoot + "/addComment.controller",
+        		type : "post",
+        		data:formData,
+                processData:false,
+                contentType:false,
+                done: function (res) {
+                    uxAlert('finish:' + res);
+                },
+                success:function(res){
+                    if(res){
+                        uxAlert("上傳成功！");
+                    }
+                    console.log(res);
+                },
+                error:function(err){
+                    uxAlert("網路連線失敗,稍後重試",err);
+                }
+            });
+
+            return false;
+        }
+</script>
+
 </html>
