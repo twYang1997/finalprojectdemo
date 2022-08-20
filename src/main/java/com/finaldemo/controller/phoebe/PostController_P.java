@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -141,7 +142,7 @@ public class PostController_P {
 	//新增評論
 	@PostMapping("/addComment.controller")
 	@ResponseBody
-	public String addComment(@RequestParam String commentText,@RequestParam Integer postId, HttpSession session,
+	public String addComment(@RequestBody String commentText,@RequestBody Integer postId, HttpSession session,
 			HttpServletRequest request) throws IllegalStateException, IOException {
 		Comments c = new Comments();
 		Users u = (Users) session.getAttribute("user");
