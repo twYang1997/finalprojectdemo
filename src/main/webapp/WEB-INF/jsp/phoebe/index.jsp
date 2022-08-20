@@ -204,8 +204,8 @@
 
 					<!-- 評論 -->
 					<div style="background-color: #F0F0F0; padding: 15px;">
-						<c:forEach items="${p.getComments()}" var="c" varStatus="vs">
-							<div class="box-footer box-comments">
+						<c:forEach items="${p.getComments()}" var="c">
+							<div id="comment${vs.index}" class="box-footer box-comments">
 								<div class="box-comment">
 									<div class="comment-text">
 										<img class="img-circle img-sm"
@@ -230,10 +230,13 @@
 								
 								<div class="img-push">
 									<input type="text" class="form-control input-sm" required
-										id="commentText" placeholder="Press enter to post comment"
+										id="commentText${vs.index}" placeholder="Press enter to post comment"
 										name="commentText">
-										<button type="button" class="btn btn-primary"
+										<button type="button" class="btn btn-info"
 										data-dismiss="modal" id="sub${vs.index}">Submit</button>
+										
+<!-- 									取得評論關聯的postID -->
+										<input id="postId${vs.index}" value="${p.getPostId()}" style="visibility: hidden;">
 								</div>
 
 							<script type="text/javascript">
@@ -246,24 +249,26 @@
 						$(document).ready(function() {
 							var contextRoot = "/demo";
 							$("#sub${vs.index}").off().click(function() {
-// 								var postId = $("#petId${vs.index}")[0].value;
-// 								var petName = $("#petName${vs.index}")[0].value;
+								var postId = $("#postId${vs.index}")[0].value;
+								var commentText = $("#commentText${vs.index}")[0].value;
 								var datas = {
-									"postId" : 5,
-									"commentText" : "ajax01",
+									"postId" : postId,
+									"commentText" : commentText,
 								};
 								var jsonData = JSON.stringify(datas);
 								console.log(jsonData);
 								
 								$.ajax({
-// 									
+ 									
 									url : contextRoot + "/addComment.controller",
 									method : 'post',
 									contentType : 'application/json',
 									data : jsonData,
 									success : function(result) {
 										console.log(result);
-// 										$("#closeplz${vs.index}").click();
+										
+// 										局部刷新，讓新增的評論可以馬上顯示
+										$( "#comment${vs.index}" ).load(window.location.href + " #comment${vs.index}" );
 									},
 									error : function(error) {
 										console.log(error);
@@ -1163,67 +1168,7 @@ function readAsDataURL(){
     
 }  
 
-	//送出評論Ajax
-// 	function submitForm() {
-// 		console.log('進ajax');
-//     var form = document.getElementById('addComment'),
-//         formData = new FormData(form);
-//         	$.ajax({
-//         		url : contextRoot + "/addComment.controller",
-//         		type : "post",
-//         		data:formData,
-//                 processData:false,
-//                 contentType:false,
-//                 done: function (res) {
-//                     uxAlert('finish:' + res);
-//                 },
-//                 success:function(res){
-//                     if(res){
-//                         uxAlert("上傳成功！");
-//                     }
-//                     console.log(res);
-//                 },
-//                 error:function(err){
-//                     uxAlert("網路連線失敗,稍後重試",err);
-//                 }
-//             });
-
-//             return false;
-//         }
-//     );
-// }
 
 	</script>
 </body>
-
-<script type="text/javascript">
-//送出評論Ajax
-	function submitForm() {
-		console.log('進ajax');
-    var form = document.getElementById('addComment'),
-        formData = new FormData(form);
-        	$.ajax({
-        		url : contextRoot + "/addComment.controller",
-        		type : "post",
-        		data:formData,
-                processData:false,
-                contentType:false,
-                done: function (res) {
-                    uxAlert('finish:' + res);
-                },
-                success:function(res){
-                    if(res){
-                        uxAlert("上傳成功！");
-                    }
-                    console.log(res);
-                },
-                error:function(err){
-                    uxAlert("網路連線失敗,稍後重試",err);
-                }
-            });
-
-            return false;
-        }
-</script>
-
 </html>

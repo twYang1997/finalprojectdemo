@@ -44,6 +44,7 @@
 								<!-- User Information Card -->
 								<i class="fa fa-paw"></i>
 								<c:forEach items="${u.getPets()}" var="pet" varStatus="loop">
+									<span style="border: solid; border-radius: 5%; border-color: #E0E0E0; border-width: 1px; padding: 15px 10px 18px 10px; margin: 5px">
 									<img alt="" src="${contextRoot}/${pet.getPetPhotoPath()}" style="height: 50px; width: 50px; border-radius: 30%">
 									<c:if test="${pet.getPetType() == 0}"><span class="badge badge-info">Cat</span></c:if>
 									<c:if test="${pet.getPetType() == 1}"><span class="badge badge-info">Dog</span></c:if>
@@ -51,10 +52,11 @@
 									${pet.getPetName()}
 									<c:if test="${pet.getPetGender() == 0}"><span class="badge badge-dark"><i class="fa fa-venus" aria-hidden="true"></i></span></c:if>
 									<c:if test="${pet.getPetGender() == 1}"><span class="badge badge-dark"><i class="fa fa-mars" aria-hidden="true"></i></span></c:if>
+									</span>
 								</c:forEach>
 							</div>
 							<div class="activity__list__body entry-content">
-							<i class="fa fa-map-marker" aria-hidden="true"></i>${u.getAddress()}
+							<i class="fa fa-map-marker" aria-hidden="true"></i>&ensp; ${u.getAddress()}
 							</div>
 							<hr>
 							</c:forEach>
