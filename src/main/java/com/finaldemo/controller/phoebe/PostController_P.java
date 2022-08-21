@@ -168,15 +168,19 @@ public class PostController_P {
 	}
 	
 	//刪除評論
-//	@PostMapping("/deleteComment.controller")
-//	@ResponseBody
-//	public 
+	@PostMapping("/deleteComment.controller")
+	@ResponseBody
+	public String deleteComment(@RequestBody IdDto IdDto) {
+		Integer commentId = Integer.parseInt(IdDto.getId());
+		service.deleteComment(commentId);
+		
+		return "comment deleted";
+	}
 
 	// 按讚
 	@PostMapping("/postLike.controller")
 	@ResponseBody
 	public String likePost(@RequestBody IdDto IdDto, HttpSession session) {
-		System.out.println("進入按讚controller");
 		Users u0 = (Users) session.getAttribute("user");
 		Users u = service.getUserById(u0.getUserId());
 		Integer postId = Integer.parseInt(IdDto.getId());
