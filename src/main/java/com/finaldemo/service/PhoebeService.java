@@ -113,4 +113,8 @@ public class PhoebeService {
 		return CommentsRepository.save(newComment);
 	}
 	
+	public void deleteComment(Integer commentId) {
+		CommentsRepository.deleteById(commentId);
+	}
+	
 }

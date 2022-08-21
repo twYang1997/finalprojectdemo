@@ -251,7 +251,7 @@
 					</div>
 
 					<!-- 評論 -->
-					<div style="background-color: #F0F0F0; padding: 15px;">
+					<div id="commentDiv" style="background-color: #F0F0F0; padding: 15px; border-radius: 1%">
 						<c:forEach items="${p.getComments()}" var="c">
 							<div id="comment${vs.index}" class="box-footer box-comments">
 								<div class="box-comment">
@@ -262,6 +262,10 @@
 											style="width: 40px; height: 40px; border-radius: 50%">
 										<span class="username" style="font-weight: bold;">
 											${c.getUser().getNickName()} </span>
+											
+									<!-- 	取得評論id -->
+									<input id="commentId${vs.index}" value="${c.getCommentId()}"
+									style="visibility: hidden">
 
 										<!-- 	是作者才會顯示的修改刪除按鈕		 -->
 										<c:if test="${c.user.getUserId() == user.getUserId()}">
@@ -329,12 +333,10 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-light"
 										data-dismiss="modal">No</button>
-									<form method="Post"
-										action="${contextRoot}/movePostToTrash.controller?postId=${p.getPostId()}">
-										<button type="submit" class="btn btn-info">Delete</button>
-									</form>
+										<button id="deleteComment${vs.index}" type="submit" class="btn btn-info">Delete</button>
+									
 								</div>
-							</div>
+							</div>  
 						</div>
 					</div>
 				
@@ -347,7 +349,7 @@
 								var commentText = $("#commentText${vs.index}")[0].value;
 								var datas = {
 									"postId" : postId,
-									"commentText" : commentText,
+									"commentText" : commentText
 								};
 								var jsonData = JSON.stringify(datas);
 								console.log(jsonData);
@@ -362,7 +364,7 @@
 										console.log(result);
 										
 // 										局部刷新，讓新增的評論可以馬上顯示
-										$( "#comment${vs.index}" ).load(window.location.href + " #comment${vs.index}" );
+										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
 									},
 									error : function(error) {
@@ -371,6 +373,41 @@
 								})
 							})
 						});
+						
+						//刪除評論ajax
+						$(document).ready(function() {
+							var contextRoot = "/demo";
+							$("#deleteComment${vs.index}").off().click(function() {
+								var id = $("#commentId${vs.index}")[0].value;
+								var datas = {
+									"id" : id
+								};
+								var jsonData = JSON.stringify(datas);
+								console.log(jsonData);
+								
+								$.ajax({
+									url : contextRoot + "/deleteComment.controller",
+									method : 'post',
+									contentType : 'application/json',
+									data : jsonData,
+									success : function(result) {
+										console.log(result);
+										
+ 										//局部刷新
+										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
+										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
+										//關掉modal
+										$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
+										$("body").removeClass("modal-open");
+										$( ".modal-backdrop").remove();
+									},
+									error : function(error) {
+										console.log(error);
+									}
+								})
+							})
+						});
+						
 					</script>
 
 			</c:forEach>
