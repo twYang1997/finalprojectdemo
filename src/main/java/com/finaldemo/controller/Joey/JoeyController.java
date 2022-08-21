@@ -77,22 +77,18 @@ public class JoeyController {
 		Integer userId = ((Users) session.getAttribute("user")).getUserId();
 		List<Products> produtsToShow = service.findProudtsByUserId(u1.getFoundation().getFoundationId());
 		List<Posts> postsToShow = PhoebeService.getPostsByUserId(userId);
+		List<Orders> ordersToShow = service.findOrdersByUserId(u1.getFoundation().getFoundationId());
 		
-		Integer foundationId = u1.getFoundation().getFoundationId();
+		System.out.println("************ordersToShow:"+ordersToShow+"************");
 		
 		
-		u1.getFoundation().getFoundationId();
-		List<Orders> ordersToShow = service.findOrdersByUserId(foundationId);
 		model.addAttribute("ordersToShow", ordersToShow);
 		model.addAttribute("produtsToShow", produtsToShow);
 		model.addAttribute("postsToShow", postsToShow);
 		Users users = new Users();
 		model.addAttribute("u", users);
 		
-		System.out.println("************************postsToShow:"+postsToShow);
-		System.out.println("************************userId:"+userId);
-		System.out.println("************************ordersToShow:"+ordersToShow);
-
+	
 		Users userBefore = (Users) session.getAttribute("user");
 		Users userAfter = service.findById(userBefore.getUserId());
 		session.setAttribute("user", userAfter);
