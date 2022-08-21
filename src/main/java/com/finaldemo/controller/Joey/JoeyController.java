@@ -118,7 +118,7 @@ public class JoeyController {
 			// 存資料夾
 			if (!(img.isEmpty())) {
 				String fileName = img.getOriginalFilename();
-				String productImgPath = "C:/Git/Project/Team3FinalPorject/src/main/webapp/img/joeyimg/joeyproductimg/"
+				String productImgPath = System.getProperty("user.dir") + "/src/main/webapp/img/joeyimg/joeyproductimg/"
 						+ fileName;
 				img.transferTo(new File(productImgPath));
 //				// 存Product資料表
@@ -154,16 +154,14 @@ public class JoeyController {
 		product.setProductName(productName);
 		product.setProductPrice(productPrice);
 		product.setProductContext(productContext);
-		
-		
-		System.out.println("********************productImg********************:"+productImg);
+		service.editProduct(product);
 		
 		// 存圖片
 				for (MultipartFile img : productImg) {
 					// 存資料夾
 					if (!(img.isEmpty())) {
 						String fileName = img.getOriginalFilename();
-						String productImgPath = "C:/Git/Project/Team3FinalPorject/src/main/webapp/img/joeyimg/joeyproductimg/"
+						String productImgPath = System.getProperty("user.dir") + "/src/main/webapp/img/joeyimg/joeyproductimg/"
 								+ fileName;
 						img.transferTo(new File(productImgPath));
 						product.setProductImg(productImgPath);
@@ -265,7 +263,7 @@ public class JoeyController {
 			// 存資料夾
 			if (!(img.isEmpty())) {
 				String fileName = img.getOriginalFilename();
-				String postImgPath = "C:/Git/Project/Team3FinalPorject/src/main/webapp/img/joeyimg/joeypostimg/"
+				String postImgPath = System.getProperty("user.dir") + "/src/main/webapp/img/joeyimg/joeypostimg/"
 						+ fileName;
 //				String postImgPath = "C:/upload/" + fileName;
 				img.transferTo(new File(postImgPath));
@@ -281,7 +279,7 @@ public class JoeyController {
 		// 影片存資料夾
 		if (!(postVideo.isEmpty())) {
 			String fileName = postVideo.getOriginalFilename();
-			String videoPath = "C:/Git/Project/finalprojectdemo/src/main/webapp/video/" + fileName;
+			String videoPath = System.getProperty("user.dir") + "/src/main/webapp/video/" + fileName;
 			postVideo.transferTo(new File(videoPath));
 		}
 		return "redirect:/getMainPagePosts.controller";
@@ -298,21 +296,23 @@ public class JoeyController {
 		post.setWhoCanSeeIt(whoCanSeeIt);
 		PhoebeService.editPost(post);
 		PhoebeService.deleteExtraImgs(postId);
-
+		
 		// 存圖片
 		PostImg newPostImg = new PostImg();
 		for (MultipartFile img : postImg) {
 			// 存資料夾
 			if (!(img.isEmpty())) {
 				String fileName = img.getOriginalFilename();
-				String postImgPath = "C:/Git/Project/Team3FinalPorject/src/main/webapp/img/joeyimg/joeypostimg/"
+				String postImgPath = System.getProperty("user.dir") + "/src/main/webapp/img/joeyimg/joeypostimg/"
 						+ fileName;
 				img.transferTo(new File(postImgPath));
 				newPostImg.setPostImgPath(postImgPath);
 				// 存PostImg資料表
 				newPostImg.setPost(post);
+			
 				newPostImg.setPostImgPath("/img/joeyimg/joeypostimg/" + fileName);
 				PhoebeService.addPostImg(newPostImg);
+		
 			} else {
 				break;
 			}

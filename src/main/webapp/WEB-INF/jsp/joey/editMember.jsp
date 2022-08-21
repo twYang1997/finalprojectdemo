@@ -538,6 +538,7 @@ function loadXMLDoc()
 
 
 
+
 			<style type="text/css">
 /* Profile_page */
 body {
@@ -1487,7 +1488,11 @@ span {
 	display: none;
 }
 </style>
+
+
 			<script type="text/javascript">
+			
+		
 	//上傳一張圖片（貼文）
 	imgInp.onchange = evt => {
 		  const [file] = imgInp.files
