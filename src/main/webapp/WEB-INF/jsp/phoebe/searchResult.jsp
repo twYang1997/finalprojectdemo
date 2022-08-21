@@ -65,6 +65,7 @@
 			
 			<!-- Rrepetitive Sstructure(post) -->
 			<c:forEach items="${postList}" var="p" varStatus="vs">
+			<c:if test="${p.getWhoCanSeeIt() == 1}">
 				<div class="panel">
 					<ul class="panel-activity__list">
 						<li><i class="activity__list__icon fa fa-question-circle-o"></i>
@@ -88,10 +89,11 @@
 								</c:forEach>
 
 							</div>
+							<!-- 						按讚/評論/修改/刪除 按鈕 -->
 							<div class="activity__list__footer">
-								<a href="#"> <i class="fa fa-thumbs-up"></i>123</a> 
-								<a><i class="fa fa-comments"></i>${p.getComments().size()}</a>
-								
+								<a id="like${vs.index}"> <i onclick="likeIconFunction(this)" class="fa fa-thumbs-up"></i>${p.getPostLike()}</a>
+								<a id="commentCount${vs.index}"> <i class="fa fa-comments"></i>${p.getComments().size()}</a>
+
 								<c:if test="${p.postUser.getUserId() == user.getUserId()}">
 									<a href="#" role="button" data-toggle="modal"
 										data-target="#myModal${vs.index}"
@@ -104,10 +106,42 @@
 								</c:if>
 								<span> <i class="fa fa-clock"></i>${p.getPostTime()}
 								</span>
-							</div> 
-							
-							</li>
+							</div></li>
 					</ul>
+					<!-- 				取得按讚關聯的postID -->
+					<input id="likedPostId${vs.index}" value="${p.getPostId()}"
+						style="visibility: hidden;">
+					<script>
+						//按讚ajax
+						$(document).ready(function() {
+							var contextRoot = "/demo";
+							$("#like${vs.index}").off().click(function() {
+								var id = $("#likedPostId${vs.index}")[0].value;
+								var datas = {
+									"id" : id
+								};
+								var jsonData = JSON.stringify(datas);
+								console.log(jsonData);
+								
+								$.ajax({
+									url : contextRoot + "/postLike.controller",
+									method : 'post',
+									contentType : 'application/json',
+									data : jsonData,
+									success : function(result) {
+										console.log(result);
+										
+// 										局部刷新，讓按讚數可以馬上顯示
+										$( "#like${vs.index}" ).load(window.location.href + " #like${vs.index}" );
+									},
+									error : function(error) {
+										console.log(error);
+									}
+								})
+							})
+						});
+					</script>
+
 					<!-- Update form -->
 					<div class="modal fade" id="myModal${vs.index}" role="dialog">
 						<div class="modal-dialog modal-dialog-centered">
@@ -186,39 +220,84 @@
 						</div>
 					</div>
 					
-							<!-- Comment -->
-							<div  style="background-color: #F0F0F0; padding: 15px;">
-							<c:forEach items="${p.getComments()}" var="c" varStatus="vs">
-								<div class="box-footer box-comments">
-									<div class="box-comment">
+								<!-- 評論 -->
+					<div style="background-color: #F0F0F0; padding: 15px;">
+						<c:forEach items="${p.getComments()}" var="c">
+							<div id="comment${vs.index}" class="box-footer box-comments">
+								<div class="box-comment">
 									<div class="comment-text">
 										<img class="img-circle img-sm"
 											src="${contextRoot}/${c.getUser().getPhotoPath()}"
 											alt="User Image"
 											style="width: 40px; height: 40px; border-radius: 50%">
-											<span class="username" style="font-weight: bold;">
-												${c.getUser().getNickName()}</span></div> <span class="text-muted pull-right">${c.getCommentTime()}</span>
-											 &emsp; &emsp; ${c.getCommentText()} <hr>
+										<span class="username" style="font-weight: bold;">
+											${c.getUser().getNickName()} </span>
 									</div>
+									<span class="text-muted pull-right">${c.getCommentTime()}</span>
+									&emsp; &emsp; ${c.getCommentText()}
+									<hr>
 								</div>
-							</c:forEach>
-							<div class="box-footer">
-									<form
- 										action="${contextRoot}/addComment.controller?postId=${p.getPostId()}" 
- 										method="post"> 
-										<div class="img-push">
-										<img class="img-responsive img-circle img-sm"
-											src="${contextRoot}/${user.getPhotoPath()}"
-											alt="Alt Text"
-											style="width: 40px; height: 40px; border-radius: 50%">
-										
-											<input type="text" class="form-control input-sm" required
-												placeholder="Press enter to post comment" name="commentText">
-										</div>
- 									</form>
-								</div>
-							 </div>
+							</div>
+						</c:forEach>
+
+
+						<div class="box-footer">
+							<img class="img-responsive img-circle img-sm"
+								src="${contextRoot}/${user.getPhotoPath()}" alt="Alt Text"
+								style="width: 40px; height: 40px; border-radius: 50%">
+
+							<div class="img-push">
+								<input type="text" class="form-control input-sm" required
+									id="commentText${vs.index}"
+									placeholder="Press enter to post comment" name="commentText">
+								<button type="button" class="btn btn-info" data-dismiss="modal"
+									id="sub${vs.index}">Submit</button>
+
+								<!-- 									取得評論關聯的postID -->
+								<input id="postId${vs.index}" value="${p.getPostId()}"
+									style="visibility: hidden;">
+							</div>
+
+							<script type="text/javascript">
+ 									</script>
 						</div>
+					</div>
+				</div>
+				<script>
+						//送出評論ajax
+						$(document).ready(function() {
+							var contextRoot = "/demo";
+							$("#sub${vs.index}").off().click(function() {
+								var postId = $("#postId${vs.index}")[0].value;
+								var commentText = $("#commentText${vs.index}")[0].value;
+								var datas = {
+									"postId" : postId,
+									"commentText" : commentText,
+								};
+								var jsonData = JSON.stringify(datas);
+								console.log(jsonData);
+								
+								$.ajax({
+ 									
+									url : contextRoot + "/addComment.controller",
+									method : 'post',
+									contentType : 'application/json',
+									data : jsonData,
+									success : function(result) {
+										console.log(result);
+										
+// 										局部刷新，讓新增的評論可以馬上顯示
+										$( "#comment${vs.index}" ).load(window.location.href + " #comment${vs.index}" );
+										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
+									},
+									error : function(error) {
+										console.log(error);
+									}
+								})
+							})
+						});
+					</script>
+			</c:if>
 			</c:forEach>
 			<!--Rrepetitive Sstructure(post) -->
 			
