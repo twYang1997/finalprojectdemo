@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.finaldemo.model.Donate;
+import com.finaldemo.model.Orders;
+import com.finaldemo.model.OrdersRepository;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.PostsRepository;
 import com.finaldemo.model.Products;
@@ -28,6 +30,9 @@ public class JoeyService {
 
 	@Autowired
 	private ProductsRepository productDao;
+	
+	@Autowired
+	private OrdersRepository oDao;
 
 	public Users findById(Integer id) {
 		Optional<Users> optional = uDao.findById(id);
@@ -67,6 +72,13 @@ public class JoeyService {
 		return productDao.findProudtsByUserId(userId);
 
 	}
+	
+	public List<Orders> findOrdersByUserId(Integer userId) {
+		return oDao.findOrdersByUserId(userId);
+
+	}
+	
+
 
 	public void editUser(Users user) {
 		uDao.save(user);
