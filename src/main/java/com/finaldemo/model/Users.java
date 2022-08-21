@@ -81,6 +81,9 @@ public class Users {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderUser", cascade = CascadeType.ALL)
 	private Set<Orders> orders = new LinkedHashSet<Orders>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<LikePost> LikePost = new LinkedHashSet<LikePost>();
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_foundation_id")

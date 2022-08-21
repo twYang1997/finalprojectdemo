@@ -105,10 +105,9 @@
 
 							</div>
 							<div class="activity__list__footer">
-								<a
-									href="${contextRoot}/postLike.controller?postId=${p.getPostId()}">
-									<i class="fa fa-thumbs-up"></i>123
-								</a> <a><i class="fa fa-comments"></i>${p.getComments().size()}</a>
+								<a  id="like${vs.index}">
+									<i class="fa fa-thumbs-up"></i>${p.getPostLike()}</a>   
+								<a><i class="fa fa-comments"></i>${p.getComments().size()}</a>
 
 								<c:if test="${p.postUser.getUserId() == user.getUserId()}">
 									<a href="#" role="button" data-toggle="modal"
@@ -124,6 +123,40 @@
 								</span>
 							</div></li>
 					</ul>
+<!-- 				取得按讚關聯的postID -->
+					<input id="likedPostId${vs.index}" value="${p.getPostId()}" style="visibility: hidden;">
+					<script>
+						//按讚ajax
+						$(document).ready(function() {
+							var contextRoot = "/demo";
+							$("#like${vs.index}").off().click(function() {
+								console.log("進入按讚ajax");
+								var id = $("#likedPostId${vs.index}")[0].value;
+								var datas = {
+									"id" : id
+								};
+								var jsonData = JSON.stringify(datas);
+								console.log(jsonData);
+								
+								$.ajax({
+									url : contextRoot + "/postLike.controller",
+									method : 'post',
+									contentType : 'application/json',
+									data : jsonData,
+									success : function(result) {
+										console.log(result);
+										
+// 										局部刷新，讓按讚數可以馬上顯示
+// 										$( "#like${vs.index}" ).load(window.location.href + " #like${vs.index}" );
+									},
+									error : function(error) {
+										console.log(error);
+									}
+								})
+							})
+						});
+					</script>
+					
 					<!-- 彈出修改框 -->
 					<div class="modal fade" id="myModal${vs.index}" role="dialog">
 						<div class="modal-dialog modal-dialog-centered">
@@ -285,7 +318,7 @@
 	<!-- 		</div> -->
 
 
-	<style type="text/css">
+<style type="text/css">
 /* Profile_page */
 body {
 	background: #dcdcdc;

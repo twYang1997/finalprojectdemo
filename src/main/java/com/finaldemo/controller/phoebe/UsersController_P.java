@@ -50,10 +50,11 @@ public class UsersController_P {
 		Users u = UsersService.checkLogin(email, password);
 		if (u != null) {
 			session.setAttribute("user", u);
+			System.out.println("登入成功");
 			return "redirect:/getMainPagePosts.controller";
 		}
 		errors.put("failed", "login failed");
-		return "redirect:/phoebe/";
+		return "redirect:phoebe/login";
 	}
 	
 	@GetMapping("/phoebe/logout")

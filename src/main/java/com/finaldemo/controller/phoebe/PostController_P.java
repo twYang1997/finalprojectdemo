@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.dto.CommentDto;
+import com.finaldemo.dto.IdDto;
 import com.finaldemo.model.Comments;
 import com.finaldemo.model.LikePost;
 import com.finaldemo.model.PostImg;
@@ -38,12 +39,10 @@ public class PostController_P {
 		// 取得登入者發的posts
 		Integer userId = ((Users) session.getAttribute("user")).getUserId();
 		List<Posts> postsToShow = service.getPostsByUserId(userId);
+		
 		model.addAttribute("postsToShow", postsToShow);
 		Users u = new Users();
 		model.addAttribute("u", u);
-		
-		// 取得評論
-		
 		
 		return "phoebe/index";
 	}
@@ -144,8 +143,7 @@ public class PostController_P {
 	//新增評論
 	@PostMapping("/addComment.controller")
 	@ResponseBody
-	public String addComment(@RequestBody CommentDto dto, HttpSession session,
-			HttpServletRequest request) throws IllegalStateException, IOException {
+	public String addComment(@RequestBody CommentDto dto, HttpSession session) throws IllegalStateException, IOException {
 //		throw new IOException();
 //		System.out.println("進addComment controller");
 		Comments c = new Comments();
@@ -171,12 +169,28 @@ public class PostController_P {
 	
 	//按讚
 	@PostMapping("/postLike.controller")
-	public String likePost(@RequestParam Integer postId, HttpSession session) {
+	@ResponseBody
+	public String likePost(@RequestBody IdDto IdDto, HttpSession session) {
+		System.out.println("進入按讚controller");
 		Users u0 = (Users) session.getAttribute("user");
 		Users u = service.getUserById(u0.getUserId());
-		
+		Integer postId =  Integer.parseInt(IdDto.getId());
+				
 		LikePost LikePost = service.findLikedPost(postId, u.getUserId());
 		
-		return "add Like success";
+		if(LikePost != null) {
+			service.deleteLikedPost(LikePost);
+		}else {
+			LikePost newLikePost = new LikePost();
+			newLikePost.setUser(u);
+			newLikePost.setLikedPost(service.getPostByPostId(postId));
+			service.saveLikedPost(newLikePost);
+		}
+		//填入貼文按讚數
+		Integer likeCount = service.findLikedPostByPostId(postId).size();
+		Posts p = service.getPostByPostId(postId);
+		p.setPostLike(likeCount);
+		
+		return "like clicked";
 	}
 }

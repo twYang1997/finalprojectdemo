@@ -50,6 +50,9 @@ public class Posts {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post",cascade = CascadeType.ALL)
 	private Set<Notification> Notification = new LinkedHashSet<Notification>();
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "likedPost",cascade = CascadeType.ALL)
+	private Set<LikePost> LikePost = new LinkedHashSet<LikePost>();
+	
 	public Posts() {
 	}
 
