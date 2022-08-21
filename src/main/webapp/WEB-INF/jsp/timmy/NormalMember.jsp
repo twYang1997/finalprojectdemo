@@ -205,8 +205,11 @@ span {
 							<div class="card-body">
 								<span id="id" style="display: none;">${user.userId}</span>
 								<img src="${contextRoot}/${user.photoPath}"
-									id="preview_progressbarTW_img"> <input type="file"
-									name="testfile" id="testfile" style="display: none;">
+									id="preview_progressbarTW_img"> 
+								<c:if test="${empty guest}">
+									<input type="file" name="testfile" id="testfile" style="display: none;">
+								</c:if>
+								
 								<h3 id="hello" style="fload:center;display:inline" >${user.nickName}</h3>
 <!-- 								check this page is UserSetting page or not -->
 								<c:if test="${!empty guest}">  
@@ -507,8 +510,8 @@ span {
 													<td class="col-md-1">
 														<c:set var="isFansGuest" value="0" />
 														<c:if test="${!empty guest}">
-															<c:forEach items="${userOrigin.fans}" var="fans">
-																<c:if test="${fans.follow == follow.follow }">
+															<c:forEach items="${userOrigin.follows}" var="fans">
+																<c:if test="${fans.fans == follow.follow }">
 																	<c:set var="isFansGuest" value="1" />
 																</c:if>
 															</c:forEach>
@@ -526,78 +529,25 @@ span {
 															<c:set var="isFansGuest" value="2" />
 														</c:if>
 														<c:if test="${isFansGuest == 0 }">
-															<button class="btn btn-outline-secondary icon smallIcon" id="nofans${follow.follow.userId}">
-																<img src="${contextRoot}/img/userimg/add-user.png" class="udateicon" width="30">
+															<button class="btn btn-outline-secondary icon smallIcon nofans" name="${follow.follow.userId}" onclick="test()">
+																<img src="${contextRoot}/img/userimg/add-user.png" name="${follow.follow.userId}" class="udateicon" width="30">
 															</button>
 														</c:if>
 														<c:if test="${isFansGuest == 1 }">
-															<button class="btn btn-outline-secondary icon smallIcon" id="isfans${follow.follow.userId}">
-																<img src="${contextRoot}/img/userimg/add-friend.png" class="udateicon" width="30">
+															<button class="btn btn-outline-secondary icon smallIcon isfans" name="${follow.follow.userId}" onclick="test()">
+																<img src="${contextRoot}/img/userimg/add-friend.png" name="${follow.follow.userId}" class="udateicon" width="30">
 															</button>
 														</c:if>
 													</td>
 													<c:if test="${empty guest}">
 														<td class="col-md-1">
-															<button class="btn btn-outline-secondary icon smallIcon" id="deleteFansBtn${follow.follow.userId}">
-																<img src="${contextRoot}/img/userimg/block-user.png" width="30" class="smallIcon">
+															<button class="btn btn-outline-secondary icon smallIcon deleteFansBtn" name="${follow.follow.userId}" onclick="test()">
+																<img src="${contextRoot}/img/userimg/block-user.png" name="${follow.follow.userId}" width="30" class="smallIcon">
 															</button>
+															
 														</td>
 													</c:if>
 												</tr>
-												<script>
-														$(document).ready( function () {
-															var contextRoot = "/demo";
-														    $('#fansTable').DataTable(); 
-														    $("#isfans${follow.follow.userId}").click(function(){
-														    	let checkBox = confirm("Sure to remove the follow?");
-														    	if (checkBox == true){
-														    		$.ajax({
-														    			url: contextRoot + "/timmy/deleteFollowingByIdAjax" ,
-																		method: "POST",
-																		data: "${follow.follow.userId}",
-																		success: function(result){
-																			console.log(result);
-																			window.location.reload();
-																		},
-																		error: function(result){
-																			console.log(result);
-																		},
-														    		})
-														    	}
-														    });
-														    $("#nofans${follow.follow.userId}").click(function(){
-														    	$.ajax({
-														    		url: contextRoot + "/timmy/addFollowingByIdAjax",
-														    		method: "POST",
-														    		data: "${follow.follow.userId}",
-														    		success: function(result){
-																		console.log(result);
-																		window.location.reload();
-																	},
-																	error: function(result){
-																		console.log(result);
-																	},
-														    	})
-														    });
-														    $("#deleteFansBtn${follow.follow.userId}").click(function(){
-														    	let checkBox = confirm("Sure to remove the fans?");
-														    	if (checkBox == true){
-															    	$.ajax({
-															    		url: contextRoot + "/timmy/deleteFansByIdAjax",
-															    		method: "POST",
-															    		data: "${follow.follow.userId}",
-															    		success: function(result){
-																			console.log(result);
-																			window.location.reload();
-																		},
-																		error: function(result){
-																			console.log(result);
-																		},
-															    	})
-														    	}
-														    });
-														});	
-												</script>
 											</c:forEach>
 										</tbody>
 									</table>
@@ -611,33 +561,69 @@ span {
 	</div>
 </body>
 <script>
-	$(document).ready(function() {
+function test(){
+	console.log("aaa");
+};
+	$(function(){
+		
 		var contextRoot = "/demo";
-		var pmd = $("#postManagerDiv")[0];
-		var smd = $("#settingManagerDiv")[0];
-		var emd = $("#petManagerDiv")[0];
-		$("#postManager").click(function() {
-			if (pmd.getAttribute("style") == "display: none") {
-				pmd.setAttribute("style", "");
-				smd.setAttribute("style", "display: none");
-				emd.setAttribute("style", "display: none");
-			}
-		});
-		$("#settingManager").click(function() {
-			if (smd.getAttribute("style") == "display: none") {
-				smd.setAttribute("style", "");
-				pmd.setAttribute("style", "display: none");
-				emd.setAttribute("style", "display: none");
-			}
-		});
-		$("#petManager").click(function() {
-			if (emd.getAttribute("style") == "display: none") {
-				emd.setAttribute("style", "");
-				smd.setAttribute("style", "display: none");
-				pmd.setAttribute("style", "display: none");
-			}
-		});
-
+	    $('#fansTable').DataTable(); 
+	  
+	    $(".isfans").click(function(e){
+	    	let iD = e.target.getAttribute("name");
+	    	console.log("id: " + iD)
+	    	let checkBox = confirm("Sure to remove the follow?");
+	    	if (checkBox == true){
+	    		$.ajax({
+	    			url: contextRoot + "/timmy/deleteFollowingByIdAjax" ,
+					method: "POST",
+					data: iD,
+					success: function(result){
+						console.log(result);
+						$( "#fansTable" ).load(window.location.href + " #fansTable" );
+					},
+					error: function(result){
+						console.log(result);
+					},
+	    		})
+	    	}
+	    });
+	    $(".nofans").click(function(e){
+	    	let iD = e.target.getAttribute("name");
+	    	console.log("id: " + iD)
+	    	$.ajax({
+	    		url: contextRoot + "/timmy/addFollowingByIdAjax",
+	    		method: "POST",
+	    		data: iD,
+	    		success: function(result){
+					console.log(result);
+					$( "#fansTable" ).load(window.location.href + " #fansTable" );
+	
+				},
+				error: function(result){
+					console.log(result);
+				},
+	    	})
+	    });
+	    $(".deleteFansBtn").click(function(e){
+	    	let iD = e.target.getAttribute("name");
+	    	console.log("id: " + iD)
+	    	let checkBox = confirm("Sure to remove the fans?");
+	    	if (checkBox == true){
+		    	$.ajax({
+		    		url: contextRoot + "/timmy/deleteFansByIdAjax",
+		    		method: "POST",
+		    		data: iD,
+		    		success: function(result){
+						console.log(result);
+						$( "#fansTable" ).load(window.location.href + " #fansTable" );
+					},
+					error: function(result){
+						console.log(result);
+					},
+		    	})
+	    	}
+	    });
 	})
 </script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
