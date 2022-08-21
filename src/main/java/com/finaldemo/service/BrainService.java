@@ -64,6 +64,10 @@ public class BrainService {
 		return piDao.findPostImgsByPostId(postId);
 	}
 	
+	public List<Posts> findAllPosts() {
+		return pDao.findAll();
+	}
+	
 	
 
 	
