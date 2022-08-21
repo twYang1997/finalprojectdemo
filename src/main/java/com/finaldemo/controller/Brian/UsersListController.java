@@ -45,14 +45,14 @@ public class UsersListController {
 	
 	//撈出所以有一般會員
 	@GetMapping("/memberManagement")
-	public String memberManagement(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
-		Page<Users> page = Service.findByPage(pageNumber);
+	public String memberManagement( Model model) {
+//		Page<Users> page = Service.findByPage(pageNumber);
 		Users newMsg = new Users();
 		List<Users> findAllUsers = Service.findAllUsers();
 		model.addAttribute("formUser", newMsg);
-		model.addAttribute("page", page);
+//		model.addAttribute("page", page);
 		model.addAttribute("userList", findAllUsers);
-		return "Brian/testbrain";
+		return "Brian/memberManagement";
 	}
 	
 	//編輯一般會員
@@ -142,15 +142,32 @@ public class UsersListController {
 		@GetMapping("/searchEmail")
 		@ResponseBody
 		public String searchEmail(Model model,@RequestParam String email) {
-			System.out.println("*****session******"+session);
+			
 			System.out.println("*****email******"+email);
 			List<Users> sE = Service.searchEmail(email);
 			
 			System.out.println("*****sE******"+sE);
 			model.addAttribute("searchemail", sE);
-//			session.setAttribute("searchemail", sE);
-			return "?????";
+
+			return "redirect:/memberManagement";
 		}
+		
+		@GetMapping("/memberReport")
+		public String memberReport(Model model) {
+			List<Users> findAllUsers = Service.findAllUsers();
+			model.addAttribute("usersreport", findAllUsers);
+			return "Brian/report";
+		}
+		
+		@GetMapping("/reportPosts")
+		public String reportPosts(Model model, @RequestParam("id") String id) {
+			// 取得登入者發的posts
+			Posts posts = Service.BrainGetPostsById(Integer.parseInt(id));
+			//posts.getPostText();
+			model.addAttribute("posts", posts);
+			return "redirect:/memberReport";
+		}
+		
 }	
 //	@PostMapping("/Brian/uploadImgAjax")
 //	@ResponseBody
