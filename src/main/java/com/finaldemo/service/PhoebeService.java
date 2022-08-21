@@ -44,8 +44,6 @@ public class PhoebeService {
 	private PostsRepository PostsRepository;
 	@Autowired
 	private PostImgRepository PostImgRepository;
-	@Autowired
-	private LikePostRepository LikePostRepository;
 
 	public List<Posts> getPostsByUserId(Integer userId) {
 		return PostsRepository.findPostsByUserId(userId);
@@ -87,8 +85,24 @@ public class PhoebeService {
 		return PostsRepository.searchPostsByText(search);
 	}
 	
+	// LikeService
+	@Autowired
+	private LikePostRepository LikePostRepository;
+	
 	public LikePost findLikedPost(Integer userId, Integer postId) {
 		return LikePostRepository.findLikedPost(userId, postId);
+	}
+	
+	public void deleteLikedPost(LikePost LikePost) {
+		LikePostRepository.delete(LikePost);
+	}
+	
+	public void saveLikedPost(LikePost LikePost) {
+		LikePostRepository.save(LikePost);
+	}
+	
+	public List<LikePost> findLikedPostByPostId(Integer postId){
+		return LikePostRepository.findLikedPostByPostId(postId);
 	}
 	
 	// CommentsService
