@@ -18,5 +18,4 @@ public class IdDto {
 		this.id = id;
 	}
 	
-	
 }
