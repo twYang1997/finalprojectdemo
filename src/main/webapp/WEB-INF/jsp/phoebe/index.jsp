@@ -24,6 +24,8 @@
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js">
 	</script>
@@ -83,12 +85,25 @@
 					<ul class="panel-activity__list">
 						<li><i class="activity__list__icon fa fa-question-circle-o"></i>
 							<div class="activity__list__header">
-								<a
-									href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
-									<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
-									alt="" style="width: 45px; height: 45px; border-radius: 50%;" />
-									${p.postUser.getNickName()}
-								</a>
+								<div>
+									<a
+										href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
+										<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
+										alt="" style="width: 45px; height: 45px; border-radius: 50%;" />
+										${p.postUser.getNickName()}
+									</a>
+								</div>
+
+								<!-- 下拉式menu -->
+								<div class="dropdown" style="float: right; margin-right: 5%;">
+									<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
+									<i class="fa fa-ellipsis-h" style="font-size: 22px"></i>
+									<div class="dropdown-content">
+										<a href="#">report</a>
+
+									</div>
+								</div>
+
 							</div>
 							<div class="activity__list__body entry-content">
 
@@ -103,11 +118,11 @@
 									</ul>
 								</c:forEach>
 
-							</div>
+							</div> <!-- 						按讚/評論/修改/刪除 按鈕 -->
 							<div class="activity__list__footer">
-								<a  id="like${vs.index}">
-									<i class="fa fa-thumbs-up"></i>${p.getPostLike()}</a>   
-								<a><i class="fa fa-comments"></i>${p.getComments().size()}</a>
+								<a id="like${vs.index}"> <i onclick="likeIconFunction(this)"
+									class="fa fa-thumbs-up"></i>${p.getPostLike()}</a> <a
+									id="commentCount${vs.index}"> <i class="fa fa-comments"></i>${p.getComments().size()}</a>
 
 								<c:if test="${p.postUser.getUserId() == user.getUserId()}">
 									<a href="#" role="button" data-toggle="modal"
@@ -123,14 +138,14 @@
 								</span>
 							</div></li>
 					</ul>
-<!-- 				取得按讚關聯的postID -->
-					<input id="likedPostId${vs.index}" value="${p.getPostId()}" style="visibility: hidden;">
+					<!-- 				取得按讚關聯的postID -->
+					<input id="likedPostId${vs.index}" value="${p.getPostId()}"
+						style="visibility: hidden;">
 					<script>
 						//按讚ajax
 						$(document).ready(function() {
 							var contextRoot = "/demo";
 							$("#like${vs.index}").off().click(function() {
-								console.log("進入按讚ajax");
 								var id = $("#likedPostId${vs.index}")[0].value;
 								var datas = {
 									"id" : id
@@ -147,7 +162,7 @@
 										console.log(result);
 										
 // 										局部刷新，讓按讚數可以馬上顯示
-// 										$( "#like${vs.index}" ).load(window.location.href + " #like${vs.index}" );
+										$( "#like${vs.index}" ).load(window.location.href + " #like${vs.index}" );
 									},
 									error : function(error) {
 										console.log(error);
@@ -156,8 +171,8 @@
 							})
 						});
 					</script>
-					
-					<!-- 彈出修改框 -->
+
+					<!-- 彈出貼文修改框 -->
 					<div class="modal fade" id="myModal${vs.index}" role="dialog">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
@@ -207,7 +222,7 @@
 						</div>
 					</div>
 
-					<!-- 彈出刪除確認 -->
+					<!-- 彈出貼文刪除確認 -->
 					<div class="modal fade" id="myModal${vs.index}deleteCheck"
 						tabindex="-1" role="dialog"
 						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -247,6 +262,24 @@
 											style="width: 40px; height: 40px; border-radius: 50%">
 										<span class="username" style="font-weight: bold;">
 											${c.getUser().getNickName()} </span>
+
+										<!-- 	是作者才會顯示的修改刪除按鈕		 -->
+										<c:if test="${c.user.getUserId() == user.getUserId()}">
+											<span style="float: right; margin-left: 10px">
+											<a href="#" role="button" data-toggle="modal"
+												data-target="#myModal${vs.index}deleteCommentCheck"
+												id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>
+											</a>
+											</span>
+											<span style="float: right">
+											<a href="#" role="button" data-toggle="modal"
+												data-target="#myModal${vs.index}"
+												id="viewDetailButton${vs.index}"> <i
+												class="fa fa-pencil" ></i>
+											</a>
+											</span>
+
+										</c:if>
 									</div>
 									<span class="text-muted pull-right">${c.getCommentTime()}</span>
 									&emsp; &emsp; ${c.getCommentText()}
@@ -260,24 +293,52 @@
 							<img class="img-responsive img-circle img-sm"
 								src="${contextRoot}/${user.getPhotoPath()}" alt="Alt Text"
 								style="width: 40px; height: 40px; border-radius: 50%">
-								
-								<div class="img-push">
-									<input type="text" class="form-control input-sm" required
-										id="commentText${vs.index}" placeholder="Press enter to post comment"
-										name="commentText">
-										<button type="button" class="btn btn-info"
-										data-dismiss="modal" id="sub${vs.index}">Submit</button>
-										
-<!-- 									取得評論關聯的postID -->
-										<input id="postId${vs.index}" value="${p.getPostId()}" style="visibility: hidden;">
-								</div>
+
+							<div class="img-push">
+								<input type="text" class="form-control input-sm" required
+									id="commentText${vs.index}"
+									placeholder="Press enter to post comment" name="commentText">
+								<button type="button" class="btn btn-info" data-dismiss="modal"
+									id="sub${vs.index}">Submit</button>
+
+								<!-- 取得評論關聯的postID -->
+								<input id="postId${vs.index}" value="${p.getPostId()}"
+									style="visibility: hidden;">
+							</div>
 
 							<script type="text/javascript">
  									</script>
 						</div>
 					</div>
 				</div>
-						<script>
+				
+				<!-- 彈出評論刪除確認 -->
+					<div class="modal fade" id="myModal${vs.index}deleteCommentCheck"
+						tabindex="-1" role="dialog"
+						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLongTitle">Delete Comment?</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">Are you sure you want to delete this comment?</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-light"
+										data-dismiss="modal">No</button>
+									<form method="Post"
+										action="${contextRoot}/movePostToTrash.controller?postId=${p.getPostId()}">
+										<button type="submit" class="btn btn-info">Delete</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				<script>
 						//送出評論ajax
 						$(document).ready(function() {
 							var contextRoot = "/demo";
@@ -302,6 +363,7 @@
 										
 // 										局部刷新，讓新增的評論可以馬上顯示
 										$( "#comment${vs.index}" ).load(window.location.href + " #comment${vs.index}" );
+										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
 									},
 									error : function(error) {
 										console.log(error);
@@ -310,7 +372,7 @@
 							})
 						});
 					</script>
-				
+
 			</c:forEach>
 			<!--重複的結構 -->
 		</div>
@@ -318,7 +380,7 @@
 	<!-- 		</div> -->
 
 
-<style type="text/css">
+	<style type="text/css">
 /* Profile_page */
 body {
 	background: #dcdcdc;
@@ -1169,6 +1231,58 @@ li.list-group-item:first-child {
 	color: #999999;
 	z-index: 0;
 }
+
+}
+
+/* 下拉式menu */
+/* Dropdown Button */
+.dropbtn {
+	background-color: #04AA6D;
+	color: white;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+	color: black;
+	padding: 10px;
+	text-decoration: none;
+	text-align: center;
+	display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+	background-color: #F0F0F0;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+	display: block;
+	background-color: #FFFFFF
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+	background-color: #3e8e41;
 }
 </style>
 	<script type="text/javascript">
@@ -1201,6 +1315,10 @@ function readAsDataURL(){
     
 }  
 
+	//按讚icon變化
+function likeIconFunction(x) {
+// 	  x.classList.toggle("fa fa-thumbs-up");
+	}
 
 	</script>
 </body>

@@ -39,11 +39,11 @@ public class PostController_P {
 		// 取得登入者發的posts
 		Integer userId = ((Users) session.getAttribute("user")).getUserId();
 		List<Posts> postsToShow = service.getPostsByUserId(userId);
-		
+
 		model.addAttribute("postsToShow", postsToShow);
 		Users u = new Users();
 		model.addAttribute("u", u);
-		
+
 		return "phoebe/index";
 	}
 
@@ -89,7 +89,7 @@ public class PostController_P {
 		// 影片存資料夾
 		if (!(postVideo.isEmpty())) {
 			String fileName = postVideo.getOriginalFilename();
-			String videoPath = System.getProperty("user.dir") +  "\\src\\main\\webapp\\video\\" + fileName;
+			String videoPath = System.getProperty("user.dir") + "\\src\\main\\webapp\\video\\" + fileName;
 			postVideo.transferTo(new File(videoPath));
 		}
 		return "redirect:/getMainPagePosts.controller";
@@ -138,12 +138,12 @@ public class PostController_P {
 		service.movePostToTrash(0, postId);
 		return "redirect:/getMainPagePosts.controller";
 	}
-	
-	
-	//新增評論
+
+	// 新增評論
 	@PostMapping("/addComment.controller")
 	@ResponseBody
-	public String addComment(@RequestBody CommentDto dto, HttpSession session) throws IllegalStateException, IOException {
+	public String addComment(@RequestBody CommentDto dto, HttpSession session)
+			throws IllegalStateException, IOException {
 //		throw new IOException();
 //		System.out.println("進addComment controller");
 		Comments c = new Comments();
@@ -162,35 +162,40 @@ public class PostController_P {
 //		TimmyService.insertNewUser(author);
 //		p.setPostUser((Users) session.getAttribute("user"));
 		Comments c1 = service.addComment(c);
-		
+
 //		return "redirect:/getMainPagePosts.controller";
 		return "add comment success";
 	}
 	
-	//按讚
+	//刪除評論
+//	@PostMapping("/deleteComment.controller")
+//	@ResponseBody
+//	public 
+
+	// 按讚
 	@PostMapping("/postLike.controller")
 	@ResponseBody
 	public String likePost(@RequestBody IdDto IdDto, HttpSession session) {
 		System.out.println("進入按讚controller");
 		Users u0 = (Users) session.getAttribute("user");
 		Users u = service.getUserById(u0.getUserId());
-		Integer postId =  Integer.parseInt(IdDto.getId());
-				
-		LikePost LikePost = service.findLikedPost(postId, u.getUserId());
-		
-		if(LikePost != null) {
+		Integer postId = Integer.parseInt(IdDto.getId());
+		LikePost LikePost = service.findLikedPost(u.getUserId(), postId);
+		Posts p = service.getPostByPostId(postId);
+
+		if (LikePost != null) {
 			service.deleteLikedPost(LikePost);
-		}else {
+			p.setPostLike(p.getPostLike() - 1);
+			service.addPost(p);
+		} else {
 			LikePost newLikePost = new LikePost();
 			newLikePost.setUser(u);
 			newLikePost.setLikedPost(service.getPostByPostId(postId));
 			service.saveLikedPost(newLikePost);
+			p.setPostLike(p.getPostLike() + 1);
+			service.addPost(p);
 		}
-		//填入貼文按讚數
-		Integer likeCount = service.findLikedPostByPostId(postId).size();
-		Posts p = service.getPostByPostId(postId);
-		p.setPostLike(likeCount);
-		
+
 		return "like clicked";
 	}
 }
