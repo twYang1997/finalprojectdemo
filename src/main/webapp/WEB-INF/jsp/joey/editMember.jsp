@@ -228,11 +228,13 @@ function loadXMLDoc()
 				<div class="panel">
 					<div class="panel-heading">
 						<span id="tab-1"><h3 class="panel-title">Activity Feed</h3></span>
-						<span id="tab-2"><h3 class="panel-title">Add Product</h3></span>
+						<span id="tab-2"><h3 class="panel-title">Add Product</h3></span> 
+						<span id="tab-3"><h3 class="panel-title">Order History</h3></span>
 						<div id="tab">
 							<ul>
 								<li><a href="#tab-1">Activity Feed</a></li>
 								<li><a href="#tab-2">Add Product</a></li>
+								<li><a href="#tab-3">Order History</a></li>
 							</ul>
 
 							<!-- 頁籤的內容區塊 -->
@@ -526,9 +528,38 @@ function loadXMLDoc()
 										<!-- 					重複的結構 -->
 									</div>
 								</div>
+
 							</div>
+							<div class="tab-content-3">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th scope="col">訂單日期</th>
+											<th scope="col">訂單金額</th>
+											<th scope="col">施主大名</th>
+											<th scope="col">付款方式</th>
+										</tr>
+									</thead>
+									<c:forEach items="${ordersToShow}" var="o" varStatus="vs">
+									<tbody>
+										<tr>
+											<th scope="row">${o.getOrderDate()}</th>
+											<td>${o.getOrderPrice()}</td>
+											<td>${o.getOrderUser().getNickName()}</td>
+											<td>${o.getPayment()}</td>
+										</tr>
+									</tbody>
+									</c:forEach>
+								</table>
+							</div>
+
+
+
+
 						</div>
+
 					</div>
+
 				</div>
 			</div>
 

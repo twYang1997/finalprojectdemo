@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.model.Donate;
 import com.finaldemo.model.Foundation;
+import com.finaldemo.model.Orders;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Products;
@@ -76,10 +77,21 @@ public class JoeyController {
 		Integer userId = ((Users) session.getAttribute("user")).getUserId();
 		List<Products> produtsToShow = service.findProudtsByUserId(u1.getFoundation().getFoundationId());
 		List<Posts> postsToShow = PhoebeService.getPostsByUserId(userId);
+		
+		Integer foundationId = u1.getFoundation().getFoundationId();
+		
+		
+		u1.getFoundation().getFoundationId();
+		List<Orders> ordersToShow = service.findOrdersByUserId(foundationId);
+		model.addAttribute("ordersToShow", ordersToShow);
 		model.addAttribute("produtsToShow", produtsToShow);
 		model.addAttribute("postsToShow", postsToShow);
 		Users users = new Users();
 		model.addAttribute("u", users);
+		
+		System.out.println("************************postsToShow:"+postsToShow);
+		System.out.println("************************userId:"+userId);
+		System.out.println("************************ordersToShow:"+ordersToShow);
 
 		Users userBefore = (Users) session.getAttribute("user");
 		Users userAfter = service.findById(userBefore.getUserId());
