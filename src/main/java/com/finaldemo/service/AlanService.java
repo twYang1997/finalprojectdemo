@@ -85,5 +85,11 @@ public class AlanService {
 		}
 		return null;
 	}
-
+	
+	/******** 刪除 *******/
+	public void deleteShoppingCarProducts(Integer shoppingCarId) {
+		System.out.println("shoppingCarId:" + shoppingCarId);
+		shoppingCarDao.deleteShoppingCarProducts(shoppingCarId);
+	}
+ 
 }
