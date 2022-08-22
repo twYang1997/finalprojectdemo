@@ -85,6 +85,9 @@
 									</c:if>
 							</div>
 							
+							<!-- 取得按讚關聯的postID -->
+							<input id="likedPostId${vs.index}" value="${p.getPostId()}" style="visibility: hidden;">
+						
 								<!-- 下拉式menu -->
 								<div class="dropdown" style="float: right; margin-right: 5%;">
 									<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
@@ -92,12 +95,47 @@
 									<div class="dropdown-content">
 										
 										<c:if test="${p.postUser.getUserId() != user.getUserId()}">
-										<form method="post" action="${contextRoot}/reportPost.controller?postId=${p.getPostId()}">
-										<a><button type="submit" class="btn btn-light">report</button></a>
-										</form>
+<%-- 										<form method="post" action="${contextRoot}/reportPost.controller?postId=${p.getPostId()}"> --%>
+										<a><button id="report${vs.index}" type="submit" class="btn btn-light">report</button></a>
+<%-- 										</form> --%>
 										</c:if>
 									</div>
 								</div>
+							
+						<script>	
+						//檢舉貼文ajax
+						$(document).ready(function() {
+							var contextRoot = "/demo";
+							$("#report${vs.index}").off().click(function() {
+								var id = $("#likedPostId${vs.index}")[0].value;
+								var datas = {
+									"id" : id
+								};
+								var jsonData = JSON.stringify(datas);
+								console.log(jsonData);
+								
+								$.ajax({
+									url : contextRoot + "/reportPost.controller",
+									method : 'post',
+									contentType : 'application/json',
+									data : jsonData,
+									success : function(result) {
+										console.log(result);
+										
+ 										//刷新
+ 										window.location.reload();
+										//關掉modal
+// 										$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
+// 										$("body").removeClass("modal-open");
+// 										$( ".modal-backdrop").remove();
+									},
+									error : function(error) {
+										console.log(error);
+									}
+								})
+							})
+						});
+					</script>
 								
 							<div class="activity__list__body entry-content">
 
@@ -140,9 +178,7 @@
 								</span>
 							</div></li>
 					</ul>
-					<!-- 				取得按讚關聯的postID -->
-					<input id="likedPostId${vs.index}" value="${p.getPostId()}"
-						style="visibility: hidden;">
+
 					<script>
 						//按讚ajax
 						$(document).ready(function() {
@@ -290,7 +326,7 @@
 								<!-- 評論 -->
 					<div style="background-color: #F0F0F0; padding: 15px; border-radius: 1%">
 						<div id="commentDiv">
-						<c:forEach items="${p.getComments()}" var="c">
+						<c:forEach items="${p.getComments()}" var="c" varStatus="Cvs">
 							<div id="comment${vs.index}" class="box-footer box-comments">
 								<div class="box-comment">
 									<div class="comment-text">
@@ -343,8 +379,8 @@
 								<input type="text" class="form-control input-sm" required
 									id="commentText${vs.index}"
 									placeholder="Press enter to post comment" name="commentText">
-								<button type="button" class="btn btn-info" data-dismiss="modal"
-									id="sub${vs.index}">Submit</button>
+<!-- 								<button type="button" class="btn btn-info" data-dismiss="modal" -->
+<%-- 									id="sub${vs.index}">Submit</button> --%>
 
 								<!-- 取得評論關聯的postID -->
 								<input id="postId${vs.index}" value="${p.getPostId()}"
@@ -385,7 +421,9 @@
 						//送出評論ajax
 						$(document).ready(function() {
 							var contextRoot = "/demo";
-							$("#sub${vs.index}").off().click(function() {
+// 							$("#sub${vs.index}").off().click(function() {
+							document.querySelector('#commentText${vs.index}').addEventListener('keypress', function (event) {
+								if (event.key === 'Enter') {//監聽鍵盤輸入事件，當事件為「Eenter」時執行程式
 								var postId = $("#postId${vs.index}")[0].value;
 								var commentText = $("#commentText${vs.index}")[0].value;
 								var datas = {
@@ -394,6 +432,7 @@
 								};
 								var jsonData = JSON.stringify(datas);
 								console.log(jsonData);
+								event.target.value = ''; //清除input內容
 								
 								$.ajax({
  									
@@ -404,15 +443,14 @@
 									success : function(result) {
 										console.log(result);
 										
-// 										局部刷新，讓新增的評論可以馬上顯示
-										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
-										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
+										//局部刷新，讓新增的評論可以馬上顯示
+										window.location.reload();
 									},
 									error : function(error) {
 										console.log(error);
 									}
 								})
-							})
+								}})
 						});
 						
 						//刪除評論ajax
@@ -435,8 +473,7 @@
 										console.log(result);
 										
  										//局部刷新
-										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
-										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
+ 										window.location.reload();
 										//關掉modal
 										$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
 										$("body").removeClass("modal-open");

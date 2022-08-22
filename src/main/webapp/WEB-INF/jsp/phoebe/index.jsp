@@ -265,9 +265,9 @@
 
 					<!-- 評論 -->
 					<div style="background-color: #F0F0F0; padding: 15px; border-radius: 1%">
-						<div id="commentDiv">
+					<!-- 重複的結構 -->
 						<c:forEach items="${p.getComments()}" var="c">
-							<div id="comment${vs.index}" class="box-footer box-comments">
+							<div id="comment" class="box-footer box-comments">
 								<div class="box-comment">
 									<div class="comment-text">
 									
@@ -308,8 +308,7 @@
 								</div>
 							</div>
 						</c:forEach>
-						</div>
-
+					<!-- 重複的結構 -->
 						<div class="box-footer">
 							<img class="img-responsive img-circle img-sm"
 								src="${contextRoot}/${user.getPhotoPath()}" alt="Alt Text"
@@ -319,8 +318,8 @@
 								<input type="text" class="form-control input-sm" required
 									id="commentText${vs.index}"
 									placeholder="Press enter to post comment" name="commentText">
-								<button type="button" class="btn btn-info" data-dismiss="modal"
-									id="sub${vs.index}">Submit</button>
+<!-- 								<button type="button" class="btn btn-info" data-dismiss="modal" -->
+<%-- 									id="sub${vs.index}">Submit</button> --%>
 
 								<!-- 取得評論關聯的postID -->
 								<input id="postId${vs.index}" value="${p.getPostId()}"
@@ -361,7 +360,9 @@
 						//送出評論ajax
 						$(document).ready(function() {
 							var contextRoot = "/demo";
-							$("#sub${vs.index}").off().click(function() {
+// 							$("#sub${vs.index}").off().click(function() {
+							document.querySelector('#commentText${vs.index}').addEventListener('keypress', function (event) {
+								if (event.key === 'Enter') {  //監聽鍵盤輸入事件，當事件為「Eenter」時執行程式
 								var postId = $("#postId${vs.index}")[0].value;
 								var commentText = $("#commentText${vs.index}")[0].value;
 								var datas = {
@@ -370,6 +371,7 @@
 								};
 								var jsonData = JSON.stringify(datas);
 								console.log(jsonData);
+								event.target.value = '';  //清除input內容
 								
 								$.ajax({
  									
@@ -381,14 +383,45 @@
 										console.log(result);
 										
 // 										局部刷新，讓新增的評論可以馬上顯示
-										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
-										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
+										window.location.href=window.location.href;
+// 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
+// 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
+
+										//新增HTML，創建元素後塞入目標元素
+// 							            let tempdiv1 = document.createElement('div');
+// 							            let tempdiv2 = document.createElement('div');
+// 							            let tempdiv3 = document.createElement('div');
+// 							            let tempa1 = document.createElement('a');
+// 							            let tempimg = document.createElement('img');
+// 							            let tempspan1 = document.createElement('span');
+// 							            let tempspan2 = document.createElement('span');
+// 							            let tempa2 = document.createElement('a');
+
+// 							            let tempInput = document.createElement('input');
+// 							            tempInput.type = 'checkbox';
+
+// 							            let tempSpan = document.createElement('span');
+// 							            tempSpan.innerHTML = newTodoString;
+
+// 							            let tempBTN = document.createElement('button');
+// 							            tempBTN.classList.add('btn');
+// 							            tempBTN.classList.add('btn-danger');
+// 							            tempBTN.innerHTML = '刪除';
+
+// 							            tempLabel.appendChild(tempInput);
+// 							            tempLabel.appendChild(tempSpan);
+
+// 							            tempLi.appendChild(tempLabel);
+// 							            tempLi.appendChild(tempBTN);
+
+// 							            todoMain.appendChild(tempLi);
+
 									},
 									error : function(error) {
 										console.log(error);
 									}
 								})
-							})
+								}})
 						});
 						
 						//刪除評論ajax
@@ -411,8 +444,9 @@
 										console.log(result);
 										
  										//局部刷新
-										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
-										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
+ 										window.location.href=window.location.href;
+// 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
+// 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
 										//關掉modal
 										$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
 										$("body").removeClass("modal-open");
