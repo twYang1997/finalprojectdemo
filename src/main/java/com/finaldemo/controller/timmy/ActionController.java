@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,10 +92,12 @@ public class ActionController {
 	}
 
 	@PostMapping("/timmy/checkLogin.controller")
-	public String checkLoginProcess(@RequestParam String email, @RequestParam String password, Model m,
-			HttpSession session) {
+	public String checkLoginProcess(@RequestParam String email, @RequestParam String password,
+			@RequestParam(defaultValue = "off") String rememberMe, Model m, HttpSession session, HttpServletResponse response) {
 		Map<String, String> errors = new HashMap<String, String>();
 		m.addAttribute("errors", errors);
+//		System.out.println(rememberMe);
+		
 		if (email == null || email.length() == 0) {
 			errors.put("email", "Email is required");
 		}
@@ -104,13 +108,25 @@ public class ActionController {
 			return "redirect:/timmy/";
 		}
 		Users u = service.checkLogin(email, password);
+//		cookie 設置
+		
 		if (u != null) {
+			if (rememberMe.equals("on")) {
+				Cookie cookie = new Cookie("userCookie", u.getEmail());
+				cookie.setMaxAge(7*24*60*60);
+				response.addCookie(cookie);
+			} else {
+				Cookie cookie = new Cookie("userCookie", u.getEmail());
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
+			}
 			session.setAttribute("user", u);
 			return "redirect:/phoebe/";
 		}
 		errors.put("failed", "login failed");
-		return "redirect:/timmy/";
+		return "timmy/login";
 	}
+
 	@GetMapping("/timmy/")
 	public String loginPage() {
 		return "timmy/login";
