@@ -37,7 +37,10 @@
 }
 .followImg{
 /* 	max-width: 100px; */
+	border-radius: 30%;
 	max-height: 80px;
+	border:1px solid #dee2e6;
+	
 }
 table {
 	text-align: center;
@@ -322,7 +325,7 @@ span {
 		                                	<tr>
 		                                		<td class="col-md-5">
 													<c:if test='${fn:contains(p.petPhotoPath, ".")}'>
-														<img src="${contextRoot}${p.petPhotoPath}" class="prePetPhotoImg" id="petImgPreview{vs.index}">
+														<img src="${contextRoot}${p.petPhotoPath}" class="prePetPhotoImg followImg" id="petImgPreview{vs.index}">
 													</c:if>
 													<c:if test='${!fn:contains(p.petPhotoPath, ".")}'>
 														<img src="${contextRoot}/img/petimg/pawprint.png" class="prePetPhotoImg" id="petImgPreview{vs.index}">

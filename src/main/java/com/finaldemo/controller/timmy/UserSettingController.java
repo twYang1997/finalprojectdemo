@@ -9,11 +9,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +39,10 @@ public class UserSettingController {
 	
 	@Autowired
 	private TimmyService service;
-
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	 
 	@PostMapping("/timmy/uploadImgAjax")
 	@ResponseBody
 	public String uploadImagAjax(@RequestBody ImageDto dto) throws FileNotFoundException {
@@ -160,5 +168,34 @@ public class UserSettingController {
 		return "timmy/NormalMember";
 	}
 	
+	@GetMapping("/timmy/buildEmailCertificationRP.controller")
+	public String buildEmailCertificationRP() {
+		return "timmy/enterEmail";
+	}
 	
+	@GetMapping("/timmy/buildEmailCertification.controller")
+	public String buildEmailCertification(@RequestParam String email) {
+		System.out.println(email);
+		MimeMessage mimeMessage = mailSender.createMimeMessage();
+        try {
+			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+			helper.setFrom("eeit14719@outlook.com");
+	        helper.setTo("timmy860930@gmail.com");
+	        helper.setSubject("主旨：認證email");
+	        helper.setText("<html><body>"
+	        		+ "<a href='http://localhost:8080/demo/timmy/buildEmailCertificationRP.controller?email="+ email +"'><button>here</button></a>"
+	        		+ "</body></html>", true);
+	        mailSender.send(mimeMessage);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+        System.out.println("here");
+		return "";
+	}
+	
+	@GetMapping("/timmy/buildEmailCertificationCheckPart.controller")
+	public String buildEmailCertificationCheckPart(@RequestParam String email) {
+		System.out.println(email);
+		return "";
+	}
 }
