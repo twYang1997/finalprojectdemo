@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -34,7 +31,7 @@ import com.finaldemo.service.BrainService;
 public class UsersListController {
 	@Autowired
 	private BrainService Service; // 連接Service
-	
+
 	// 前端传入的时间格式必须是"yyyy-MM-dd"效果!
 	@InitBinder
 	public void InitBinder(WebDataBinder binder) {
@@ -42,20 +39,20 @@ public class UsersListController {
 		CustomDateEditor dateEditor = new CustomDateEditor(df, true);
 		binder.registerCustomEditor(Date.class, dateEditor);
 	}
-	
-	//撈出所以有一般會員
+
+	// 撈出所以有一般會員
 	@GetMapping("/memberManagement")
-	public String memberManagement( Model model) {
-//		Page<Users> page = Service.findByPage(pageNumber);
+	public String memberManagement(Model model) {
 		Users newMsg = new Users();
-		List<Users> findAllUsers = Service.findAllUsers();
+
 		model.addAttribute("formUser", newMsg);
-//		model.addAttribute("page", page);
-		model.addAttribute("userList", findAllUsers);
+
+		model.addAttribute("userList", Service.findAllUsers());
+
 		return "Brian/memberManagement";
 	}
-	
-	//編輯一般會員
+
+	// 編輯一般會員
 	@PostMapping("/editUser")
 	public String editUser(@ModelAttribute Users user, Model model, @RequestParam("testfile") MultipartFile file) {
 		try {
@@ -88,8 +85,8 @@ public class UsersListController {
 		}
 		return "redirect:/memberManagement";
 	}
-	
-	//停用一般會員 假刪除真更新
+
+	// 停用一般會員 假刪除真更新
 	@GetMapping("/deleteUser")
 	public String deleteUser(HttpSession session, Model model, @RequestParam("id") String id) {
 		Users u1 = Service.BrainGetUserById(Integer.parseInt(id));
@@ -98,38 +95,38 @@ public class UsersListController {
 		session.invalidate();
 		return "redirect:/memberManagement";
 	}
-	
-	//恢復會員判斷之前的是什麼會員
+
+	// 恢復會員判斷之前的是什麼會員
 	@GetMapping("/rebirthUser")
 	public String rebirthUser(Model model, @RequestParam("id") String id) {
 		Users u1 = Service.BrainGetUserById(Integer.parseInt(id));
-		System.out.println("this:"+ u1);
-		if (u1.getMoney()!=null) {
+		System.out.println("this:" + u1);
+		if (u1.getMoney() != null) {
 			u1.setCategory(2);
 			System.out.println("this:!=null");
 
 			Service.insertUsers(u1);
-			
-		} else if (u1.getMoney()==null) {
+
+		} else if (u1.getMoney() == null) {
 			u1.setCategory(1);
-			
+
 			System.out.println("this:==null");
-			Service.insertUsers(u1); 
+			Service.insertUsers(u1);
 		}
-		
+
 		return "redirect:/memberManagement";
 	}
-	
+
 	// 顯示登入者主頁貼文
-		@GetMapping("/userPosts")
-		public String userPosts(Model model, @RequestParam("id") String id) {
-			// 取得登入者發的posts
-			Posts posts = Service.BrainGetPostsById(Integer.parseInt(id));
-			//posts.getPostText();
-			model.addAttribute("posts", posts);
-			return "redirect:/memberManagement";
-		}
-		
+	@GetMapping("/userPosts")
+	public String userPosts(Model model, @RequestParam("id") String id) {
+		// 取得登入者發的posts
+		Posts posts = Service.BrainGetPostsById(Integer.parseInt(id));
+		// posts.getPostText();
+		model.addAttribute("posts", posts);
+		return "redirect:/memberManagement";
+	}
+
 //		@GetMapping("/userLink")
 //		public String userLink(Model model, @RequestParam("id") String id) {
 //			System.out.println("********user:"+id);
@@ -138,37 +135,37 @@ public class UsersListController {
 //			model.addAttribute("userLink", userLink);
 //			return "timmy/NormalMember";
 //		}
-		
-		@GetMapping("/searchEmail")
-		@ResponseBody
-		public String searchEmail(Model model,@RequestParam String email) {
-			
-			System.out.println("*****email******"+email);
-			List<Users> sE = Service.searchEmail(email);
-			
-			System.out.println("*****sE******"+sE);
-			model.addAttribute("searchemail", sE);
 
-			return "redirect:/memberManagement";
-		}
-		
-		@GetMapping("/memberReport")
-		public String memberReport(Model model) {
-			List<Users> findAllUsers = Service.findAllUsers();
-			model.addAttribute("usersreport", findAllUsers);
-			return "Brian/report";
-		}
-		
-		@GetMapping("/reportPosts")
-		public String reportPosts(Model model, @RequestParam("id") String id) {
-			// 取得登入者發的posts
-			Posts posts = Service.BrainGetPostsById(Integer.parseInt(id));
-			//posts.getPostText();
-			model.addAttribute("posts", posts);
-			return "redirect:/memberReport";
-		}
-		
-}	
+	@GetMapping("/searchEmail")
+	@ResponseBody
+	public String searchEmail(Model model, @RequestParam String email) {
+
+		System.out.println("*****email******" + email);
+		List<Users> sE = Service.searchEmail(email);
+
+		System.out.println("*****sE******" + sE);
+		model.addAttribute("searchemail", sE);
+
+		return "redirect:/memberManagement";
+	}
+
+	@GetMapping("/memberReport")
+	public String memberReport(Model model) {
+		List<Users> findAllUsers = Service.findAllUsers();
+		model.addAttribute("usersreport", findAllUsers);
+		return "Brian/report";
+	}
+
+	@GetMapping("/reportPosts")
+	public String reportPosts(Model model, @RequestParam("id") String id) {
+		// 取得登入者發的posts
+		Posts posts = Service.BrainGetPostsById(Integer.parseInt(id));
+		// posts.getPostText();
+		model.addAttribute("posts", posts);
+		return "redirect:/memberReport";
+	}
+
+}
 //	@PostMapping("/Brian/uploadImgAjax")
 //	@ResponseBody
 //	public String uploadImagAjax(@RequestBody ImageDto dto) throws FileNotFoundException {
@@ -244,4 +241,3 @@ public class UsersListController {
 //			return "failed";
 //		}
 //	}
-

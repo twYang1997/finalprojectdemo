@@ -1,52 +1,67 @@
-@charset "UTF-8";
 body{
-    margin-top:20px;
-    background: #dcdcdc;
+    background:#eee;    
+}
+.main-box.no-header {
+    padding-top: 20px;
+}
+.main-box {
+    background: #FFFFFF;
+    -webkit-box-shadow: 1px 1px 2px 0 #CCCCCC;
+    -moz-box-shadow: 1px 1px 2px 0 #CCCCCC;
+    -o-box-shadow: 1px 1px 2px 0 #CCCCCC;
+    -ms-box-shadow: 1px 1px 2px 0 #CCCCCC;
+    box-shadow: 1px 1px 2px 0 #CCCCCC;
+    margin-bottom: 16px;
+    -webikt-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.table a.table-link.danger {
+    color: #e74c3c;
+}
+.label {
+    border-radius: 3px;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+.user-list tbody td .user-subhead {
+    font-size: 0.875em;
+    font-style: italic;
+}
+.user-list tbody td .user-link {
+    display: block;
+    font-size: 1.25em;
+    padding-top: 3px;
+    margin-left: 60px;
+}
+a {
+    color: #3498db;
+    outline: none!important;
+}
+.user-list tbody td>img {
+    position: relative;
+    max-width: 50px;
+    float: left;
+    margin-right: 15px;
 }
 
-/* card大小距離控制 */
-.project .row {
-    margin: 0;
-    padding: 15px 0;
-    margin-bottom: 25px ;
-    margin-top: 25px ;
-    border-radius: 10px;
-    
+.table thead tr th {
+    text-transform: uppercase;
+    font-size: 0.875em;
 }
-/* 字體調整 */
-.project .text h3 {
-    margin-bottom: 0;
-    color: #555
+.table thead tr th {
+    border-bottom: 2px solid #e7ebee;
 }
-
-.project .card {
-    margin-bottom: 0
+.table tbody tr td:first-child {
+    font-size: 1.125em;
+    font-weight: 300;
 }
-
-@media (max-width: 991px) {
-    .project .right-col {
-        margin-top: 20px;
-        margin-left: 65px
-    }
-    .project .project-progress {
-        width: 150px
-    }
+.table tbody tr td {
+    font-size: 0.875em;
+    vertical-align: middle;
+    border-top: 1px solid #e7ebee;
+    padding: 12px 8px;
 }
-
-@media (max-width: 480px) {
-    .project .project-progress {
-        display: none
-    }
-}
-
-/* 卡片顏色 */
-.bg-white {
-    background: #fff !important;
-}
-
-/* 卡片陰影 */
-
-.has-shadow {
-    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05);
-    box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05);
+a:hover{
+text-decoration:none;
 }

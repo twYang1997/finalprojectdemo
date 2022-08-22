@@ -26,6 +26,11 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+	
+<link 
+	rel="stylesheet" 
+	type="text/css" 
+	href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
 <link rel="stylesheet" href="${contextRoot}/css/index.css">
 <link rel="stylesheet" href="${contextRoot}/css/navs.css">
@@ -45,6 +50,7 @@ img {
 
 <body>
 	<div class="container">
+		
 		<!--頁籤 -->
 		<span id="tab-1">主頁</span> <span id="tab-2">頁面1</span>
 		<div id="tab">
@@ -56,92 +62,54 @@ img {
 			<!--包住全部頁籤 -->
 			<!--一般會員頁籤 -->
 			<div class="tab-content-1"><br>
-				<form:form class="d-flex" method="GET" action="${contextRoot}/phoebe/search">
-				<input class="form-control mr-2" type="search" placeholder="Search"
-					aria-label="Search" name="search" required>
-				<button class="btn btn-outline-success" type="submit">Search</button>
-				</form:form>
-				<div id="test"></div>
-<!-- 					<script> 
-// 						var contextRoot = "/demo";
-// 						var txt = document.getElementById("txt");
-// 						var sear = document.getElementById("sear");
-// 						function callProduct(email) {
-// 							fetch(contextRoot + "/searchEmail?email=" + email).then(
-// 									function(resp) {
-// 										return resp.text();
-// 									}).then(function(jsonObj) {
-// 										console.log(jsonObj);
-// 										window.location.reload();
-// 								let allData = "";
-// 								for (let i = 0; i < jsonObj.length; i++) {
-// 									allData += "<tr><td>" + jsonObj[i].id + "</td>";
-// 									allData += "<td>" + jsonObj[i].username + "</td></tr>";
-// 								}
-// 								let body = document.getElementById("test");
-// 								body.innerHTML = "<c:if test='${!empty searchList}'><c:set var='userList' /></c:if>";
-							})
-						};
-						callProduct("");
-						sear.onclick = function(){
-							callProduct(txt.value);
-						};
-						
-<!-- 					</script> -->
-<%-- 				<c:if test="${!empty searchemail}"> --%>
-<%-- 					<c:set var="userList" value="${searchemail}"/> --%>
-<%-- 				</c:if> --%>
-				<c:forEach var="users" items="${userList}" varStatus="vs">
-					<c:if test="${users.money==null}">
-						<section class="projects no-padding-top">
-							<div class="container">
-								<!-- Project-->
-								<div class="project" >
-									<div class="row bg-white has-shadow" >
-										<div 
-											class="left-col col-lg-12 d-flex align-items-center justify-content-between">
-											<div class="project-title d-flex align-items-center" >
-												<div class="text">
-													<h3 class="h4">${users.email}</h3>
-												</div>
-											</div>
-											<div class="text-right">
-												<!-- 修改按鈕 -->
-												<a
-													class="rounded-pill btn btn-outline-primary font-weight-bold"
-													role="button" data-toggle="modal"
-													data-target="#myModal${vs.index}"
-													id="viewDetailButton${vs.index}">修改</a>
-
-												<!-- 框體調整 -->
-												<div class="modal" id="myModal${vs.index}">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<!-- 彈出標題 -->
-															<div class="modal-header">
-																<h4 class="modal-title">修改資料</h4>
-																<button type="button" class="close" data-dismiss="modal"
-																	aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
+			<div style=" margin-top:5px; margin-bottom:20px; margin-left: 10px; margin-right: 10px;
+				background: #f6f2f2; border-radius: 10px;"  >
+				<table id="testTable" class="table">
+					<thead>
+						<tr>
+							<th class="col-md-6" style="font-weight:bold;">Email</th>
+							<th class="col-md-6">Edit</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="users" items="${userList}" varStatus="vs">
+							<c:if test="${users.money==null}">
+								<tr>
+									<td class="col-md-8">${users.email}</td>
+									<td class="col-md-4">
+										<a
+											class="rounded-pill btn btn-outline-primary font-weight-bold"
+											role="button" data-toggle="modal"
+											data-target="#myModal${vs.index}"
+											id="viewDetailButton${vs.index}">修改</a>
+										<div class="modal" id="myModal${vs.index}">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<!-- 彈出標題 -->
+													<div class="modal-header">
+														<h4 class="modal-title">修改資料</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<!-- 彈出內容 -->
+													<div class="modal-body">
+														<!-- 修改表單 -->
+														<form:form class="form" method="post"
+															modelAttribute="formUser"
+															action="${contextRoot}/editUser"
+															enctype="multipart/form-data">
+															<form:input path="userId" type="hidden"
+																value="${users.userId}" />
+															<!--頭像上傳-->
+															<div class="container">
+																<img src="${contextRoot}${users.photoPath}"
+																	id="preview_progressbarTW_img${vs.index}"> <input
+																	type="file" name="testfile" id="testfile${vs.index}"
+																	style="display: none;">
 															</div>
-															<!-- 彈出內容 -->
-															<div class="modal-body">
-																<!-- 修改表單 -->
-																<form:form class="form" method="post"
-																	modelAttribute="formUser"
-																	action="${contextRoot}/editUser"
-																	enctype="multipart/form-data">
-																	<form:input path="userId" type="hidden"
-																		value="${users.userId}" />
-																	<!--頭像上傳-->
-																	<div class="container">
-																		<img src="${contextRoot}${users.photoPath}"
-																			id="preview_progressbarTW_img${vs.index}"> <input
-																			type="file" name="testfile" id="testfile${vs.index}"
-																			style="display: none;">
-																	</div>
-																	<script>
+															<script>
 															$(document)
 																	.ready(
 																			function() {
@@ -205,142 +173,142 @@ img {
 																				}
 																			});
 														</script>
-																	<!--email-->
-																	<div class="form-row" style="text-align: left;">
-																		<div class="form-group col-md-6">
-																			<label for="group">Email</label>
-																			<form:input path="email" type="email"
-																				class="form-control" value="${users.email}" />
-																		</div>
-																		<!--密碼-->
-																		<div class="form-group col-md-6"
-																			style="text-align: left;">
-																			<label for="inputPassword4">Password</label>
-																			<form:input path="password" type="text"
-																				class="form-control" value="${users.password}" />
-																		</div>
-																	</div>
-																	<!--暱稱-->
-																	<div class="form-group" style="text-align: left;">
-																		<label for="inputAddress">Nick name</label>
-																		<form:input path="nickName" type="text"
-																			class="form-control" value="${users.nickName}" />
-																	</div>
-																	<!--電話-->
-																	<div class="form-group" style="text-align: left;">
-																		<label for="inputAddress">phone</label>
-																		<form:input path="phone" type="text"
-																			class="form-control" value="${users.phone}" />
-																	</div>
-																	<!--地址-->
-																	<div class="form-group" style="text-align: left;">
-																		<label for="inputAddress">Address</label>
-																		<form:input path="address" type="text"
-																			class="form-control" value="${users.address}" />
-																	</div>
-																	<!--生日-->
-																	<div class="form-group" style="text-align: left;">
-																		<label for="inputAddress">Birthday</label>
-																		<form:input id="myDate${vs.index}" path="birthday"
-																			type="date" class="form-control" />
-																		<!--取得生日-->
-																		<div id="hideDate${vs.index}" hidden="true">
-																			<fmt:formatDate pattern='yyyy-MM-dd'
-																				value='${users.birthday}' />
-																		</div>
-																	</div>
-																	<script type="text/javascript">
-													$(
-															"#myDate${vs.index}")
-															.val(
-																	$(
-																			"#hideDate${vs.index}")
-																			.html()
-																			.trim());
-												</script>
-																	<div class="form-group" style="text-align: left;">
-																		<label for="inputAddress">gender</label><br>
-																		<!--選項男-->
-																		<form:radiobutton id="myRadiobutton1${vs.index}"
-																			path="gender" value="1" label="Male" />
-																		<!--選項女-->
-																		<form:radiobutton id="myRadiobutton0${vs.index}"
-																			path="gender" value="0" label="Female" />
-																	</div>
-																	<script type="text/javascript">
-													if ("${users.gender}" == 1) {
-														$(
-																"#myRadiobutton1${vs.index}")
-																.attr(
-																		"checked",
-																		true);
-													} else if ("${users.gender}" == 0) {
-														$(
-																"#myRadiobutton0${vs.index}")
-																.attr(
-																		"checked",
-																		true);
-													}
-												</script>
-																	<!--權限-->
-																	<div class="dropdown" style="text-align: left;">
-																		<!--下拉式選單-->
-																		<label for="inputAddress">category</label><br>
-																		<form:select id="myOption${vs.index}" path="category">
-																			<!--選單內容-->
-																			<c:if
-																				test="${users.category == 0 } disabled=“disabled”">
-																				<form:option value="1" label="一般會員" />
-																				<form:option value="2" label="基金會" />
-																			</c:if>
-																			<c:if test="${users.category != 0 }">
-																				<form:option value="1" label="一般會員" />
-																				<form:option value="2" label="基金會" />
-																			</c:if>
-																			<c:if
-																				test="${users.category != 0 } disabled=“disabled”">
-																				<form:option value="0" label="停用中" />
-																			</c:if>
-																			<c:if test="${users.category == 0 }">
-																				<form:option value="0" label="停用中" />
-																			</c:if>
-																		</form:select>
-																	</div>
-																	<script type="text/javascript">
-													$(
-															"#myOption${vs.index}")
-															.val(
-																	"${users.category}");
-												</script>
-																	<br>
-																	<!--自介-->
-																	<div class="form-group" style="text-align: left;">
-																		<label for="exampleFormControlTextarea1">selfIntroduction</label>
-																		<form:textarea id="myTextarea${vs.index}"
-																			path="selfIntroduction" class="form-control aa"
-																			rows="3" />
-																	</div>
-																	<script type="text/javascript">
-													$(
-															"#myTextarea${vs.index}")
-															.val(
-																	"${users.selfIntroduction}");
-												</script>
-																	<!-- 按鈕 -->
-																	<div class="modal-footer">
-																		<button type="button"
-																			class="rounded-pill btn btn-outline-danger font-weight-bold"
-																			data-dismiss="modal">Close</button>
-																		<button type="submit"
-																			class="rounded-pill btn btn-outline-primary font-weight-bold">Submit</button>
-																	</div>
-																</form:form>
+															<!--email-->
+															<div class="form-row" style="text-align: left;">
+																<div class="form-group col-md-6">
+																	<label for="group">Email</label>
+																	<form:input path="email" type="email"
+																		class="form-control" value="${users.email}" />
+																</div>
+																<!--密碼-->
+																<div class="form-group col-md-6"
+																	style="text-align: left;">
+																	<label for="inputPassword4">Password</label>
+																	<form:input path="password" type="text"
+																		class="form-control" value="${users.password}" />
+																</div>
 															</div>
-														</div>
+															<!--暱稱-->
+															<div class="form-group" style="text-align: left;">
+																<label for="inputAddress">Nick name</label>
+																<form:input path="nickName" type="text"
+																	class="form-control" value="${users.nickName}" />
+															</div>
+															<!--電話-->
+															<div class="form-group" style="text-align: left;">
+																<label for="inputAddress">phone</label>
+																<form:input path="phone" type="text"
+																	class="form-control" value="${users.phone}" />
+															</div>
+															<!--地址-->
+															<div class="form-group" style="text-align: left;">
+																<label for="inputAddress">Address</label>
+																<form:input path="address" type="text"
+																	class="form-control" value="${users.address}" />
+															</div>
+															<!--生日-->
+															<div class="form-group" style="text-align: left;">
+																<label for="inputAddress">Birthday</label>
+																<form:input id="myDate${vs.index}" path="birthday"
+																	type="date" class="form-control" />
+																<!--取得生日-->
+																<div id="hideDate${vs.index}" hidden="true">
+																	<fmt:formatDate pattern='yyyy-MM-dd'
+																		value='${users.birthday}' />
+																</div>
+															</div>
+															<script type="text/javascript">
+												$(
+														"#myDate${vs.index}")
+														.val(
+																$(
+																		"#hideDate${vs.index}")
+																		.html()
+																		.trim());
+											</script>
+															<div class="form-group" style="text-align: left;">
+																<label for="inputAddress">gender</label><br>
+																<!--選項男-->
+																<form:radiobutton id="myRadiobutton1${vs.index}"
+																	path="gender" value="1" label="Male" />
+																<!--選項女-->
+																<form:radiobutton id="myRadiobutton0${vs.index}"
+																	path="gender" value="0" label="Female" />
+															</div>
+															<script type="text/javascript">
+																if ("${users.gender}" == 1) {
+																	$(
+																			"#myRadiobutton1${vs.index}")
+																			.attr(
+																					"checked",
+																					true);
+																} else if ("${users.gender}" == 0) {
+																	$(
+																			"#myRadiobutton0${vs.index}")
+																			.attr(
+																					"checked",
+																					true);
+																}
+															</script>
+															<!--權限-->
+															<div class="dropdown" style="text-align: left;">
+																<!--下拉式選單-->
+																<label for="inputAddress">category</label><br>
+																<form:select id="myOption${vs.index}" path="category">
+																	<!--選單內容-->
+																	<c:if
+																		test="${users.category == 0 } disabled=“disabled”">
+																		<form:option value="1" label="一般會員" />
+																		<form:option value="2" label="基金會" />
+																	</c:if>
+																	<c:if test="${users.category != 0 }">
+																		<form:option value="1" label="一般會員" />
+																		<form:option value="2" label="基金會" />
+																	</c:if>
+																	<c:if
+																		test="${users.category != 0 } disabled=“disabled”">
+																		<form:option value="0" label="停用中" />
+																	</c:if>
+																	<c:if test="${users.category == 0 }">
+																		<form:option value="0" label="停用中" />
+																	</c:if>
+																</form:select>
+															</div>
+															<script type="text/javascript">
+																$(
+																		"#myOption${vs.index}")
+																		.val(
+																				"${users.category}");
+															</script>
+															<br>
+															<!--自介-->
+															<div class="form-group" style="text-align: left;">
+																<label for="exampleFormControlTextarea1">selfIntroduction</label>
+																<form:textarea id="myTextarea${vs.index}"
+																	path="selfIntroduction" class="form-control aa"
+																	rows="3" />
+															</div>
+															<script type="text/javascript">
+																$(
+																		"#myTextarea${vs.index}")
+																		.val(
+																				"${users.selfIntroduction}");
+															</script>
+															<!-- 按鈕 -->
+															<div class="modal-footer">
+																<button type="button"
+																	class="rounded-pill btn btn-outline-danger font-weight-bold"
+																	data-dismiss="modal">Close</button>
+																<button type="submit"
+																	class="rounded-pill btn btn-outline-primary font-weight-bold">Submit</button>
+															</div>
+														</form:form>
 													</div>
 												</div>
-												<!--停用按鈕 -->
-												<c:if test="${users.category != 0 }">
+											</div>
+										</div>
+<!-- 										-------------------- -->
+										<c:if test="${users.category != 0 }">
 													<a id="aa${vs.index}"
 														class="rounded-pill btn btn-outline-danger font-weight-bold"
 														role="button">停用</a>
@@ -391,20 +359,20 @@ img {
 								 })
 								</script>
 												</c:if>
-												<!--恢復按鈕 -->
-												<c:if test="${users.category == 0 }">
+<!-- 										-------------------- -->
+										<c:if test="${users.category == 0 }">
 													<a
 														class="rounded-pill btn btn-outline-success font-weight-bold"
 														href="${contextRoot}/rebirthUser?id=${users.userId}"
 														role="button">恢復</a>
 												</c:if>
-												<!--貼文記錄按鈕 -->
-												<a
-													class="rounded-pill btn btn-outline-info font-weight-bold"
-													role="button" data-toggle="modal"
-													data-target="#myRecordModal${vs.index}">貼文記錄</a>
-												<!-- 框體調整 -->
-												<div class="modal" id="myRecordModal${vs.index}">
+<!-- 										-------------------- -->
+									<!--貼文記錄按鈕 -->
+										<a
+											class="rounded-pill btn btn-outline-info font-weight-bold"
+											role="button" data-toggle="modal"
+											data-target="#myRecordModal${vs.index}">貼文記錄</a>
+										<div class="modal" id="myRecordModal${vs.index}">
 													<div class="modal-dialog modal-dialog-scrollable">
 														<div class="modal-content">
 															<!-- 彈出內容 -->
@@ -440,85 +408,80 @@ img {
 														</div>
 													</div>
 												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</section>
-					</c:if>
-				</c:forEach>
-
-<!-- 				<div class="row justify-content-center font-weight-bold"> -->
-<!-- 					<div class="col-8"> -->
-<%-- 						<c:forEach var="pageNumber" begin="1" end="${page.totalPages}"> --%>
-<%-- 							<c:choose> --%>
-<%-- 								<c:when test="${page.number != pageNumber -1}"> --%>
-<!-- 									<a class="" -->
-<%-- 										href="${contextRoot}/memberManagement?p=${pageNumber}"> --%>
-<%-- 										${pageNumber} </a> --%>
-<%-- 								</c:when> --%>
-<%-- 								<c:otherwise> --%>
-<%-- 							${pageNumber}				 --%>
-<%-- 						</c:otherwise> --%>
-<%-- 							</c:choose> --%>
-<%-- 						</c:forEach> --%>
-<!-- 					</div> -->
-<!-- 				</div> -->
+									</td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</tbody>
+				</table>
+				</div>
+			<script>
+// 			DataTable
+			$(function(){
+				$("#testTable").DataTable({
+					
+					paging: false,
+				    scrollY: 350,
+				    "dom":"<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+				    "<'row'<'col-sm-12'tr>>" +
+				    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+					
+				});
+				
+			});
+			</script>
 			</div>
-
+			
 			<!--基金會會員頁籤 -->
-			<div class="tab-content-2">
-				<c:forEach var="users" items="${userList}" varStatus="vs">
-					<c:if test="${users.money!=null}">
-						<section class="projects no-padding-top">
-							<div class="container">
-								<!-- Project-->
-								<div class="project">
-									<div class="row bg-white has-shadow">
-										<div
-											class="left-col col-lg-12 d-flex align-items-center justify-content-between">
-											<div class="project-title d-flex align-items-center">
-												<div class="text">
-													<h3 class="h4">${users.email}</h3>
-												</div>
-											</div>
-											<div class="text-right">
-												<!-- 修改按鈕 -->
-												<a
-													class="rounded-pill btn btn-outline-primary font-weight-bold"
-													role="button" data-toggle="modal"
-													data-target="#myModal${vs.index}"
-													id="viewDetailButton${vs.index}">修改</a>
-												<!-- 框體調整 -->
-												<div class="modal" id="myModal${vs.index}">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<!-- 彈出標題 -->
-															<div class="modal-header">
-																<h4 class="modal-title">修改資料</h4>
-																<button type="button" class="close" data-dismiss="modal"
-																	aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
+			<div class="tab-content-2"><br>
+			<div style=" margin-top:5px; margin-bottom:20px; margin-left: 10px; margin-right: 10px;
+				background: #f6f2f2; border-radius: 10px;"  >
+			<table id="test2Table" class="table">
+					<thead>
+						<tr>
+							<th class="col-md-6">Email</th>
+							<th class="col-md-6">Edit</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="users" items="${userList}" varStatus="vs">
+							<c:if test="${users.money!=null}">
+								<tr>
+									<td class="col-md-8">${users.email}</td>
+									<td class="col-md-4">
+										<a
+											class="rounded-pill btn btn-outline-primary font-weight-bold"
+											role="button" data-toggle="modal"
+											data-target="#myModal${vs.index}"
+											id="viewDetailButton${vs.index}">修改</a>
+										<div class="modal" id="myModal${vs.index}">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<!-- 彈出標題 -->
+													<div class="modal-header">
+														<h4 class="modal-title">修改資料</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<!-- 彈出內容 -->
+													<div class="modal-body">
+														<!-- 修改表單 -->
+														<form:form class="form" method="post"
+															modelAttribute="formUser"
+															action="${contextRoot}/editUser"
+															enctype="multipart/form-data">
+															<form:input path="userId" type="hidden"
+																value="${users.userId}" />
+															<!--頭像上傳-->
+															<div class="container">
+																<img src="${contextRoot}${users.photoPath}"
+																	id="preview_progressbarTW_img${vs.index}"> <input
+																	type="file" name="testfile" id="testfile${vs.index}"
+																	style="display: none;">
 															</div>
-															<!-- 彈出內容 -->
-															<div class="modal-body">
-																<!-- 修改表單 -->
-																<form:form class="form" method="post"
-																	modelAttribute="formUser"
-																	action="${contextRoot}/editUser"
-																	enctype="multipart/form-data">
-																	<form:input path="userId" type="hidden"
-																		value="${users.userId}" />
-																	<!--頭像上傳-->
-																	<div class="container">
-																		<img src="${contextRoot}${users.photoPath}"
-																			id="preview_progressbarTW_img${vs.index}"> <input
-																			type="file" name="testfile" id="testfile${vs.index}"
-																			style="display: none;">
-																	</div>
-																	<script>
+															<script>
 															$(document)
 																	.ready(
 																			function() {
@@ -554,7 +517,27 @@ img {
 																									.setAttribute(
 																											"src",
 																											e.target.result);
-
+// 																			console.log(e.target.result);
+// 																			console.log(typeof e.target.result);
+// 																			var datao = {
+// 																				"img64": e.target.result,
+// 																				"type": file.files[0].type,
+// 																				"id": "${users.userId}"
+// 																			}
+// 																			var datas = JSON.stringify(datao);
+// 																			$.ajax({
+// 																					url: contextRoot + '/Brian/uploadImgAjax',
+// 																					contentType: 'application/json',
+// 																					dataType: 'text',
+// 																					method: 'post',
+// 																					data: datas,
+// 																					success: function(result) {
+// 																						console.log(result);
+// 																					},
+// 																					error: function(error) {
+// 																						console.log(error);
+// 																					}
+// 																				});
 																						}
 																					}
 																					reader
@@ -562,206 +545,206 @@ img {
 																				}
 																			});
 														</script>
-																	<!--email-->
-																	<div class="form-row" style="text-align: left;">
-																		<div class="form-group col-md-6">
-																			<label for="group">Email</label>
-																			<form:input path="email" type="email"
-																				class="form-control" value="${users.email}" />
-																		</div>
-																		<!--密碼-->
-																		<div class="form-group col-md-6"
-																			style="text-align: left;">
-																			<label for="inputPassword4">Password</label>
-																			<form:input path="password" type="text"
-																				class="form-control" value="${users.password}" />
-																		</div>
-																	</div>
-																	<!--暱稱-->
-																	<div class="form-group" style="text-align: left;">
-																		<label for="inputAddress">Nick name</label>
-																		<form:input path="nickName" type="text"
-																			class="form-control" value="${users.nickName}" />
-																	</div>
-																	<!--電話-->
-																	<div class="form-group" style="text-align: left;">
-																		<label for="inputAddress">phone</label>
-																		<form:input path="phone" type="text"
-																			class="form-control" value="${users.phone}" />
-																	</div>
-																	<!--地址-->
-																	<div class="form-group" style="text-align: left;">
-																		<label for="inputAddress">Address</label>
-																		<form:input path="address" type="text"
-																			class="form-control" value="${users.address}" />
-																	</div>
-																	<!--生日-->
-																	<div class="form-group" style="text-align: left;">
-																		<label for="inputAddress">Birthday</label>
-																		<form:input id="myDate${vs.index}" path="birthday"
-																			type="date" class="form-control" />
-																		<!--取得生日-->
-																		<div id="hideDate${vs.index}" hidden="true">
-																			<fmt:formatDate pattern='yyyy-MM-dd'
-																				value='${users.birthday}' />
-																		</div>
-																	</div>
-																	<script type="text/javascript">
-															$(
-																	"#myDate${vs.index}")
-																	.val(
-																			$(
-																					"#hideDate${vs.index}")
-																					.html()
-																					.trim());
-														</script>
-																	<div class="form-group" style="text-align: left;">
-																		<label for="inputAddress">gender</label><br>
-																		<!--選項男-->
-																		<form:radiobutton id="myRadiobutton1${vs.index}"
-																			path="gender" value="1" label="Male" />
-																		<!--選項女-->
-																		<form:radiobutton id="myRadiobutton0${vs.index}"
-																			path="gender" value="0" label="Female" />
-																	</div>
-																	<script type="text/javascript">
-															if ("${users.gender}" == 1) {
-																$(
-																		"#myRadiobutton1${vs.index}")
-																		.attr(
-																				"checked",
-																				true);
-															} else if ("${users.gender}" == 0) {
-																$(
-																		"#myRadiobutton0${vs.index}")
-																		.attr(
-																				"checked",
-																				true);
-															}
-														</script>
-																	<!--權限-->
-																	<div class="dropdown" style="text-align: left;">
-																		<!--下拉式選單-->
-																		<label for="inputAddress">category</label><br>
-																		<form:select id="myOption${vs.index}" path="category">
-																			<!--選單內容-->
-																			<c:if
-																				test="${users.category == 0 } disabled=“disabled”">
-																				<form:option value="1" label="一般會員" />
-																				<form:option value="2" label="基金會" />
-																			</c:if>
-																			<c:if test="${users.category != 0 }">
-																				<form:option value="1" label="一般會員" />
-																				<form:option value="2" label="基金會" />
-																			</c:if>
-																			<c:if
-																				test="${users.category != 0 } disabled=“disabled”">
-																				<form:option value="0" label="停用中" />
-																			</c:if>
-																			<c:if test="${users.category == 0 }">
-																				<form:option value="0" label="停用中" />
-																			</c:if>
-																		</form:select>
-																	</div>
-																	<script type="text/javascript">
-															$(
-																	"#myOption${vs.index}")
-																	.val(
-																			"${users.category}");
-														</script>
-																	<br>
-																	<!--自介-->
-																	<div class="form-group" style="text-align: left;">
-																		<label for="exampleFormControlTextarea1">selfIntroduction</label>
-																		<form:textarea id="myTextarea${vs.index}"
-																			path="selfIntroduction" class="form-control aa"
-																			rows="3" />
-																	</div>
-																	<script type="text/javascript">
-															$(
-																	"#myTextarea${vs.index}")
-																	.val(
-																			"${users.selfIntroduction}");
-														</script>
-																	<!-- 按鈕 -->
-																	<div class="modal-footer">
-																		<button type="button"
-																			class="rounded-pill btn btn-outline-danger font-weight-bold"
-																			data-dismiss="modal">Close</button>
-																		<button type="submit"
-																			class="rounded-pill btn btn-outline-primary font-weight-bold">Submit</button>
-																	</div>
-																</form:form>
+															<!--email-->
+															<div class="form-row" style="text-align: left;">
+																<div class="form-group col-md-6">
+																	<label for="group">Email</label>
+																	<form:input path="email" type="email"
+																		class="form-control" value="${users.email}" />
+																</div>
+																<!--密碼-->
+																<div class="form-group col-md-6"
+																	style="text-align: left;">
+																	<label for="inputPassword4">Password</label>
+																	<form:input path="password" type="text"
+																		class="form-control" value="${users.password}" />
+																</div>
 															</div>
-														</div>
+															<!--暱稱-->
+															<div class="form-group" style="text-align: left;">
+																<label for="inputAddress">Nick name</label>
+																<form:input path="nickName" type="text"
+																	class="form-control" value="${users.nickName}" />
+															</div>
+															<!--電話-->
+															<div class="form-group" style="text-align: left;">
+																<label for="inputAddress">phone</label>
+																<form:input path="phone" type="text"
+																	class="form-control" value="${users.phone}" />
+															</div>
+															<!--地址-->
+															<div class="form-group" style="text-align: left;">
+																<label for="inputAddress">Address</label>
+																<form:input path="address" type="text"
+																	class="form-control" value="${users.address}" />
+															</div>
+															<!--生日-->
+															<div class="form-group" style="text-align: left;">
+																<label for="inputAddress">Birthday</label>
+																<form:input id="myDate${vs.index}" path="birthday"
+																	type="date" class="form-control" />
+																<!--取得生日-->
+																<div id="hideDate${vs.index}" hidden="true">
+																	<fmt:formatDate pattern='yyyy-MM-dd'
+																		value='${users.birthday}' />
+																</div>
+															</div>
+															<script type="text/javascript">
+												$(
+														"#myDate${vs.index}")
+														.val(
+																$(
+																		"#hideDate${vs.index}")
+																		.html()
+																		.trim());
+											</script>
+															<div class="form-group" style="text-align: left;">
+																<label for="inputAddress">gender</label><br>
+																<!--選項男-->
+																<form:radiobutton id="myRadiobutton1${vs.index}"
+																	path="gender" value="1" label="Male" />
+																<!--選項女-->
+																<form:radiobutton id="myRadiobutton0${vs.index}"
+																	path="gender" value="0" label="Female" />
+															</div>
+															<script type="text/javascript">
+																if ("${users.gender}" == 1) {
+																	$(
+																			"#myRadiobutton1${vs.index}")
+																			.attr(
+																					"checked",
+																					true);
+																} else if ("${users.gender}" == 0) {
+																	$(
+																			"#myRadiobutton0${vs.index}")
+																			.attr(
+																					"checked",
+																					true);
+																}
+															</script>
+															<!--權限-->
+															<div class="dropdown" style="text-align: left;">
+																<!--下拉式選單-->
+																<label for="inputAddress">category</label><br>
+																<form:select id="myOption${vs.index}" path="category">
+																	<!--選單內容-->
+																	<c:if
+																		test="${users.category == 0 } disabled=“disabled”">
+																		<form:option value="1" label="一般會員" />
+																		<form:option value="2" label="基金會" />
+																	</c:if>
+																	<c:if test="${users.category != 0 }">
+																		<form:option value="1" label="一般會員" />
+																		<form:option value="2" label="基金會" />
+																	</c:if>
+																	<c:if
+																		test="${users.category != 0 } disabled=“disabled”">
+																		<form:option value="0" label="停用中" />
+																	</c:if>
+																	<c:if test="${users.category == 0 }">
+																		<form:option value="0" label="停用中" />
+																	</c:if>
+																</form:select>
+															</div>
+															<script type="text/javascript">
+																$(
+																		"#myOption${vs.index}")
+																		.val(
+																				"${users.category}");
+															</script>
+															<br>
+															<!--自介-->
+															<div class="form-group" style="text-align: left;">
+																<label for="exampleFormControlTextarea1">selfIntroduction</label>
+																<form:textarea id="myTextarea${vs.index}"
+																	path="selfIntroduction" class="form-control aa"
+																	rows="3" />
+															</div>
+															<script type="text/javascript">
+																$(
+																		"#myTextarea${vs.index}")
+																		.val(
+																				"${users.selfIntroduction}");
+															</script>
+															<!-- 按鈕 -->
+															<div class="modal-footer">
+																<button type="button"
+																	class="rounded-pill btn btn-outline-danger font-weight-bold"
+																	data-dismiss="modal">Close</button>
+																<button type="submit"
+																	class="rounded-pill btn btn-outline-primary font-weight-bold">Submit</button>
+															</div>
+														</form:form>
 													</div>
 												</div>
-												<!--停用按鈕 -->
-												<c:if test="${users.category != 0 }">
+											</div>
+										</div>
+<!-- 										-------------------- -->
+										<c:if test="${users.category != 0 }">
 													<a id="aa${vs.index}"
 														class="rounded-pill btn btn-outline-danger font-weight-bold"
 														role="button">停用</a>
 													<script type="text/javascript">
-										<!--連接a標籤 要包住整個sweetalert2 -->
-										$("#aa${vs.index}").on('click', function (e) {
-											e.preventDefault();
-											const href = $(this).attr('href')
-											<!--sweetalert2控制按鈕顏色 -->
-											const swalWithBootstrapButtons = Swal.mixin({
-											  customClass: {
-											    confirmButton: 'rounded-pill btn btn-outline-danger font-weight-bold',
-											    
-											    cancelButton: 'rounded-pill btn btn-outline-secondary font-weight-bold'
-											  },
-											  buttonsStyling: false
-											})
-											<!--sweetalert2官方提供的彈出視窗 -->
-											swalWithBootstrapButtons.fire({
-											  title: '確定停用嗎',
-											  text:'',
-											  icon: 'warning',
-											  showCancelButton: true,
-											  confirmButtonText: '確定停用',
-											  cancelButtonText: '不要停用',
-											  reverseButtons: true
-											}).then((result) => {
-											  if (result.isConfirmed) {
-											    swal.fire(
-											      '成功停用',
-											      '',
-											      'success')
-											 <!--讓官方按鈕連controller -->
-											    .then(function() {
-													 window.location = "${contextRoot}/deleteUser?id=${users.userId}"})
-											  } 
-											  else if (
-											    /* Read more about handling dismissals below */
-											    result.dismiss === Swal.DismissReason.cancel
-											  ) {
-											    swal.fire(
-											      '不停用',
-											      '',
-											      'success'
-											    )
-											  }
-											})
-										 })
-										</script>
+								<!--連接a標籤 要包住整個sweetalert2 -->
+								$("#aa${vs.index}").on('click', function (e) {
+									e.preventDefault();
+									const href = $(this).attr('href')
+									<!--sweetalert2控制按鈕顏色 -->
+									const swalWithBootstrapButtons = Swal.mixin({
+									  customClass: {
+									    confirmButton: 'rounded-pill btn btn-outline-danger font-weight-bold',
+									    
+									    cancelButton: 'rounded-pill btn btn-outline-secondary font-weight-bold'
+									  },
+									  buttonsStyling: false
+									})
+									<!--sweetalert2官方提供的彈出視窗 -->
+									swalWithBootstrapButtons.fire({
+									  title: '確定停用嗎',
+									  text:'',
+									  icon: 'warning',
+									  showCancelButton: true,
+									  confirmButtonText: '確定停用',
+									  cancelButtonText: '不要停用',
+									  reverseButtons: true
+									}).then((result) => {
+									  if (result.isConfirmed) {
+									    swal.fire(
+									      '成功停用',
+									      '',
+									      'success')
+									 <!--讓官方按鈕連controller -->
+									    .then(function() {
+											 window.location = "${contextRoot}/deleteUser?id=${users.userId}"})
+									  } 
+									  else if (
+									    /* Read more about handling dismissals below */
+									    result.dismiss === Swal.DismissReason.cancel
+									  ) {
+									    swal.fire(
+									      '不停用',
+									      '',
+									      'success'
+									    )
+									  }
+									})
+								 })
+								</script>
 												</c:if>
-												<!--恢復按鈕 -->
-												<c:if test="${users.category == 0 }">
+<!-- 										-------------------- -->
+										<c:if test="${users.category == 0 }">
 													<a
 														class="rounded-pill btn btn-outline-success font-weight-bold"
 														href="${contextRoot}/rebirthUser?id=${users.userId}"
 														role="button">恢復</a>
 												</c:if>
-												<!--貼文記錄按鈕 -->
-												<a
-													class="rounded-pill btn btn-outline-info font-weight-bold"
-													role="button" data-toggle="modal"
-													data-target="#myRecordModal${vs.index}">貼文記錄</a>
-												<!-- 框體調整 -->
-												<div class="modal" id="myRecordModal${vs.index}">
+<!-- 										-------------------- -->
+									<!--貼文記錄按鈕 -->
+										<a
+											class="rounded-pill btn btn-outline-info font-weight-bold"
+											role="button" data-toggle="modal"
+											data-target="#myRecordModal${vs.index}">貼文記錄</a>
+										<div class="modal" id="myRecordModal${vs.index}">
 													<div class="modal-dialog modal-dialog-scrollable">
 														<div class="modal-content">
 															<!-- 彈出內容 -->
@@ -797,31 +780,26 @@ img {
 														</div>
 													</div>
 												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</section>
-					</c:if>
-				</c:forEach>
-
-<!-- 				<div class="row justify-content-center font-weight-bold"> -->
-<!-- 					<div class="col-8"> -->
-<%-- 						<c:forEach var="pageNumber" begin="1" end="${page.totalPages}"> --%>
-<%-- 							<c:choose> --%>
-<%-- 								<c:when test="${page.number != pageNumber -1}"> --%>
-<%-- 									<a href="${contextRoot}/memberManagement?p=${pageNumber}"> --%>
-<%-- 										${pageNumber} </a> --%>
-<%-- 								</c:when> --%>
-<%-- 								<c:otherwise> --%>
-<%-- 							${pageNumber}				 --%>
-<%-- 						</c:otherwise> --%>
-<%-- 							</c:choose> --%>
-<%-- 						</c:forEach> --%>
-<!-- 					</div> -->
-<!-- 				</div> -->
-
+									</td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</tbody>
+				</table>
+				</div>
+			<script>
+// 			DataTable
+			$(function(){
+				$("#test2Table").DataTable({
+					paging: false,
+				    scrollY: 350,
+				    "dom":"<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6 'f>>" +
+				    "<'row'<'col-sm-12'tr>>" +
+				    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+			    });
+				
+			});
+			</script>
 			</div>
 		</div>
 
@@ -831,9 +809,18 @@ img {
 		  })
 		</script>
 	</div>
-
+	<c:if test="${!empty searchCategory }">
+		here is : ${searchCategory }
+		<a href="javascript:window.location.href .tab-content-2">here</a>
+	</c:if>
 
 
 </body>
+	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"></script>
+	<script src="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css"></script>
+	
 
 </html>
