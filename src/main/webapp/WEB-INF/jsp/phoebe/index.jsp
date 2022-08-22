@@ -33,7 +33,7 @@
 </head>
 <body>
 
-	<div class="container">
+	<div id="" class="container">
 		<div class="col-lg-8">
 			<br>
 			<div class="panel">
@@ -109,9 +109,11 @@
 									<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
 									<i class="fa fa-ellipsis-h" style="font-size: 22px"></i>
 									<div class="dropdown-content">
+										<c:if test="${p.postUser.getUserId() != user.getUserId()}">
 										<form method="post" action="${contextRoot}/reportPost.controller?postId=${p.getPostId()}">
 										<a><button type="submit" class="btn btn-light">report</button></a>
 										</form>
+										</c:if>
 									</div>
 								</div>
 							</div>
@@ -198,7 +200,7 @@
 										action="${contextRoot}/editPost.controller?postId=${p.getPostId()}"
 										class="panel-activity__status" method="post"
 										enctype="multipart/form-data">
-										<img src="${contextRoot}/img/phoebeImg/DefaultUserImage.png"
+										<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
 											style="width: 40px; height: 40px; border-radius: 50%;">
 										${user.getNickName()} <select name="whoCanSeeIt">
 											<option value="1">Public</option>
@@ -262,7 +264,8 @@
 					</div>
 
 					<!-- 評論 -->
-					<div id="commentDiv" style="background-color: #F0F0F0; padding: 15px; border-radius: 1%">
+					<div style="background-color: #F0F0F0; padding: 15px; border-radius: 1%">
+						<div id="commentDiv">
 						<c:forEach items="${p.getComments()}" var="c">
 							<div id="comment${vs.index}" class="box-footer box-comments">
 								<div class="box-comment">
@@ -305,7 +308,7 @@
 								</div>
 							</div>
 						</c:forEach>
-
+						</div>
 
 						<div class="box-footer">
 							<img class="img-responsive img-circle img-sm"
