@@ -455,21 +455,38 @@ span {
 												                "destroy": true
 												              }); 
 														    $("#isfollow${fan.fans.userId}").click(function(){
-														    	let checkBox = confirm("Sure to remove the follow?");
-														    	if (checkBox == true){
-														    		$.ajax({
-														    			url: contextRoot + "/timmy/deleteFollowingByIdAjax" ,
-																		method: "POST",
-																		data: "${fan.fans.userId}",
-																		success: function(result){
-																			console.log(result);
-																			window.location.reload();
-																		},
-																		error: function(result){
-																			console.log(result);
-																		},
+														    	Swal.fire({
+														    		  title: 'Are you sure?',
+														    		  icon: 'warning',
+														    		  showCancelButton: true,
+														    		  confirmButtonColor: '#3085d6',
+														    		  cancelButtonColor: '#d33',
+														    		  confirmButtonText: 'Remove'
+														    		}).then((result) => {
+														    		  if (result.isConfirmed) {
+														    		    Swal.fire(
+														    		      'Success!',
+														    		      'The follow has been removed.',
+														    		      'success'
+														    		    ).then((result) => {
+																    		  if (result.isConfirmed) {
+			 														    		    $.ajax({
+			 															    			url: contextRoot + "/timmy/deleteFollowingByIdAjax" ,
+			 																			method: "POST",
+			 																			data: "${fan.fans.userId}",
+			 																			success: function(result){
+			 																				console.log(result);
+			 																				window.location.reload();
+			 																			},
+			 																			error: function(result){
+			 																				console.log(result);
+			 																			},
+			 															    		})
+																	    		  }
+																	    		})
+														    		    
+														    		  }
 														    		})
-														    	}
 														    });
 														    $("#nofollow${fan.fans.userId}").click(function(){
 														    	$.ajax({
@@ -583,21 +600,37 @@ span {
 	    $(".isfans").click(function(e){
 	    	let iD = e.target.getAttribute("name");
 	    	console.log("id: " + iD)
-	    	let checkBox = confirm("Sure to remove the follow?");
-	    	if (checkBox == true){
-	    		$.ajax({
-	    			url: contextRoot + "/timmy/deleteFollowingByIdAjax" ,
-					method: "POST",
-					data: iD,
-					success: function(result){
-						console.log(result);
-						window.location.reload();
-					},
-					error: function(result){
-						console.log(result);
-					},
-	    		})
-	    	}
+	    	Swal.fire({
+			  title: 'Are you sure?',
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Remove'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    Swal.fire(
+			      'Success!',
+			      'The follow has been deleted.',
+			      'success'
+			    ).then((result) => {
+					  if (result.isConfirmed) {
+						  $.ajax({
+				    			url: contextRoot + "/timmy/deleteFollowingByIdAjax" ,
+								method: "POST",
+								data: iD,
+								success: function(result){
+									console.log(result);
+									window.location.reload();
+								},
+								error: function(result){
+									console.log(result);
+								},
+				    		})
+						  }
+						})
+			  }
+			})
 	    });
 	    $(".nofans").click(function(e){
 	    	let iD = e.target.getAttribute("name");
@@ -619,25 +652,43 @@ span {
 	    $(".deleteFansBtn").click(function(e){
 	    	let iD = e.target.getAttribute("name");
 	    	console.log("id: " + iD)
-	    	let checkBox = confirm("Sure to remove the fans?");
-	    	if (checkBox == true){
-		    	$.ajax({
-		    		url: contextRoot + "/timmy/deleteFansByIdAjax",
-		    		method: "POST",
-		    		data: iD,
-		    		success: function(result){
-						console.log(result);
-						window.location.reload();
-					},
-					error: function(result){
-						console.log(result);
-					},
-		    	})
-	    	}
+	    	Swal.fire({
+			  title: 'Are you sure?',
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Remove'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    Swal.fire(
+			      'Success!',
+			      'The Fans has been deleted.',
+			      'success'
+			    ).then((result) => {
+					  if (result.isConfirmed) {
+						  $.ajax({
+					    		url: contextRoot + "/timmy/deleteFansByIdAjax",
+					    		method: "POST",
+					    		data: iD,
+					    		success: function(result){
+									console.log(result);
+									window.location.reload();
+								},
+								error: function(result){
+									console.log(result);
+								},
+					    	})
+						  }
+						})
+			  }
+			})
 	    });
 	})
 </script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>
+
 </html>

@@ -114,25 +114,37 @@
 													$(document).ready(function() {
 														var contextRoot = "/demo";
 														$("#deleteButton${vs.index}").click(function(){
-															checkDelete();
+															Swal.fire({
+																  title: 'Are you sure?',
+																  icon: 'warning',
+																  showCancelButton: true,
+																  confirmButtonColor: '#3085d6',
+																  cancelButtonColor: '#d33',
+																  confirmButtonText: 'Remove'
+																}).then((result) => {
+																  if (result.isConfirmed) {
+																    Swal.fire(
+																      'Success!',
+																      'Your Pet has been removed.',
+																      'success'
+																    ).then((result) => {
+																		  if (result.isConfirmed) {
+																			  $.ajax({
+																			    	url: contextRoot + "/timmy/deletePetById/${p.petId}",
+																			    	method: "get",
+																			    	success: function(result){
+																			    		console.log(result);
+																			    		$("#allDisplay${vs.index}")[0].style = "display:none";
+																			    	},
+																			    	error: function(result){
+																			    		console.log(result);
+																			    	},
+																			    })
+																			  }
+																			})
+																  }
+																})
 														});
-														function checkDelete(){
-															  var r=confirm("Remove the pet?")
-															  if (r==true) {
-															    $.ajax({
-															    	url: contextRoot + "/timmy/deletePetById/${p.petId}",
-															    	method: "get",
-															    	success: function(result){
-															    		console.log(result);
-															    		$("#allDisplay${vs.index}")[0].style = "display:none";
-															    	},
-															    	error: function(result){
-															    		console.log(result);
-															    	},
-															    })
-															  }
-															  
-														}
 													})
 													</script>
 												</td>
@@ -141,7 +153,7 @@
                                 	</tbody>
                                 </table>
 								
-					<div class="modal petModal" id="myModal${vs.index}pet">
+					<div class="modal fade petModal" id="myModal${vs.index}pet">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<!-- 彈出標題 -->
@@ -308,7 +320,7 @@
 						data-toggle="modal" data-target="#myModaladd"
 						id="viewDetailButtonAdd"><img src="${contextRoot}/img/petimg/add.png" width="100px" >
 						</a>
-					<div class="modal petModal" id="myModaladd">
+					<div class="modal fade petModal" id="myModaladd">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<!-- 彈出標題 -->
