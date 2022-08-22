@@ -29,13 +29,16 @@
 </head>
 <style>
 #preview_progressbarTW_img {
-	width: 200px;
-	height: 150px;
+	max-width: 200px;
+	max-height: 150px;
 	display: block;
 	margin: 20px auto 20px auto;
 	border-radius: 40%;
 }
-
+.followImg{
+/* 	max-width: 100px; */
+	max-height: 80px;
+}
 table {
 	text-align: center;
 	font-size: 100%;
@@ -348,7 +351,7 @@ span {
 							<span id="tab-2" class="panel-title">About</span>
 						</c:if>
 						<span id="tab-3" class="panel-title">Pets</span>
-						<span id="tab-4" class="panel-title">Following</span>
+						<span id="tab-4" class="panel-title">Follow</span>
 						<span id="tab-5" class="panel-title">Fans</span>
 <!-- 						<h3 class="panel-title">Posts</h3> -->
 						<div id="tab">
@@ -358,7 +361,7 @@ span {
 									<li><a href="#tab-2">About</a></li>
 								</c:if>
 								<li><a href="#tab-3">Pets</a></li>
-								<li><a href="#tab-4">Following</a></li>
+								<li><a href="#tab-4">Follow</a></li>
 								<li><a href="#tab-5">Fans</a></li>
 							</ul>
 							<div class="tab-content-1 tab-content-border">
@@ -386,9 +389,10 @@ span {
 							</div>
 							<div class="tab-content-4 tab-content-border">
 								<div class="panel-content panel-activity" style="padding-top:3%">
-									<table id="followTable" class="table table-borderless">
+									<table id="followTable" class="table">
 										<thead>
 											<tr>
+												<th style="display:none">ID</th>
 												<th>Photo</th>
 												<th>NickName</th>
 												<th>Email</th>
@@ -396,11 +400,12 @@ span {
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${user.follows}" var="fan">
+											<c:forEach items="${user.follows}" var="fan" begin="0" step="1">
 												<tr>
+												<td style="display:none">${fan.fans.userId }</td>
 													<td class="col-md-3">
 														<a href="${contextRoot}/timmy/readUserById/${fan.fans.getUserId()}">
-															<img src="${contextRoot}${fan.fans.photoPath}" width="100px">
+															<img src="${contextRoot}${fan.fans.photoPath}" class="followImg">
 														</a>
 													</td>
 													<td class="col-md-2">${fan.fans.nickName }</td>
@@ -444,7 +449,11 @@ span {
 												<script>
 														$(document).ready( function () {
 															var contextRoot = "/demo";
-														    $('#followTable').DataTable(); 
+														    $('#followTable').DataTable({
+													              //跟数组下标一样，第一列从0开始，这里表格初始化时，第四列默认降序
+												                "order": [[ 0, "desc" ]],
+												                "destroy": true
+												              }); 
 														    $("#isfollow${fan.fans.userId}").click(function(){
 														    	let checkBox = confirm("Sure to remove the follow?");
 														    	if (checkBox == true){
@@ -485,9 +494,10 @@ span {
 							</div>
 							<div class="tab-content-5 tab-content-border">
 								<div class="panel-content panel-activity" style="padding-top:3%">
-									<table id="fansTable" class="table table-borderless">
+									<table id="fansTable" class="table ">
 										<thead>
 											<tr>
+												<th style="display:none">ID</th>
 												<th>Photo</th>
 												<th>NickName</th>
 												<th>Email</th>
@@ -498,11 +508,12 @@ span {
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${user.fans}" var="follow" >
+											<c:forEach items="${user.fans}" var="follow" begin="0" step="1">
 												<tr>
+													<td style="display:none">${follow.follow.userId }</td>
 													<td class="col-md-3">
 														<a href="${contextRoot}/timmy/readUserById/${follow.follow.getUserId()}">
-															<img src="${contextRoot}${follow.follow.photoPath}" width="100px">
+															<img src="${contextRoot}${follow.follow.photoPath}" class="followImg">
 														</a>
 													</td>
 													<td class="col-md-2">${follow.follow.nickName}</td>
@@ -529,19 +540,19 @@ span {
 															<c:set var="isFansGuest" value="2" />
 														</c:if>
 														<c:if test="${isFansGuest == 0 }">
-															<button class="btn btn-outline-secondary icon smallIcon nofans" name="${follow.follow.userId}" onclick="test()">
+															<button class="btn btn-outline-secondary icon smallIcon nofans" name="${follow.follow.userId}">
 																<img src="${contextRoot}/img/userimg/add-user.png" name="${follow.follow.userId}" class="udateicon" width="30">
 															</button>
 														</c:if>
 														<c:if test="${isFansGuest == 1 }">
-															<button class="btn btn-outline-secondary icon smallIcon isfans" name="${follow.follow.userId}" onclick="test()">
+															<button class="btn btn-outline-secondary icon smallIcon isfans" name="${follow.follow.userId}">
 																<img src="${contextRoot}/img/userimg/add-friend.png" name="${follow.follow.userId}" class="udateicon" width="30">
 															</button>
 														</c:if>
 													</td>
 													<c:if test="${empty guest}">
 														<td class="col-md-1">
-															<button class="btn btn-outline-secondary icon smallIcon deleteFansBtn" name="${follow.follow.userId}" onclick="test()">
+															<button class="btn btn-outline-secondary icon smallIcon deleteFansBtn" name="${follow.follow.userId}">
 																<img src="${contextRoot}/img/userimg/block-user.png" name="${follow.follow.userId}" width="30" class="smallIcon">
 															</button>
 															
@@ -560,14 +571,14 @@ span {
 		</div>
 	</div>
 </body>
-<script>
-function test(){
-	console.log("aaa");
-};
+<script id="fansScript">
 	$(function(){
 		
 		var contextRoot = "/demo";
-	    $('#fansTable').DataTable(); 
+	    $('#fansTable').DataTable({
+            "order": [[ 0, "desc" ]],
+            "destroy": true
+          }); 
 	  
 	    $(".isfans").click(function(e){
 	    	let iD = e.target.getAttribute("name");
@@ -580,7 +591,7 @@ function test(){
 					data: iD,
 					success: function(result){
 						console.log(result);
-						$( "#fansTable" ).load(window.location.href + " #fansTable" );
+						window.location.reload();
 					},
 					error: function(result){
 						console.log(result);
@@ -597,7 +608,7 @@ function test(){
 	    		data: iD,
 	    		success: function(result){
 					console.log(result);
-					$( "#fansTable" ).load(window.location.href + " #fansTable" );
+					window.location.reload();
 	
 				},
 				error: function(result){
@@ -616,7 +627,7 @@ function test(){
 		    		data: iD,
 		    		success: function(result){
 						console.log(result);
-						$( "#fansTable" ).load(window.location.href + " #fansTable" );
+						window.location.reload();
 					},
 					error: function(result){
 						console.log(result);
