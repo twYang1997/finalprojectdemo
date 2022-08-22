@@ -29,7 +29,6 @@
 										<div class="d-flex flex-row align-items-center mb-4">
 											<i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
 											<div class="form-outline flex-fill mb-0">
-												${errors.email }
 												<input name="email" type="email" id="form3Example3c"
 													class="form-control" placeholder="Email"
 													required="required" />
@@ -38,29 +37,15 @@
 										<div class="d-flex flex-row align-items-center mb-4">
 											<i class="fas fa-lock fa-lg me-3 fa-fw"></i>
 											<div class="form-outline flex-fill mb-0">
-												${errors.pwd }
 												<input name="password" type="password" id="form3Example4c"
 													class="form-control" placeholder="Password"
 													required="required" />
 											</div>
 										</div>
-										<div><span>Remember Me </span><input type="checkbox" name="rememberMe" value="on"></div>
-										<div><a href="${contextRoot}/timmy/buildEmailCertificationRP.controller"><span>forget password?</span></a></div>
-										<div>&emsp;</div>
 										<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
 											<button type="submit" class="btn btn-primary btn-lg">Login</button>
-												<div style="color:red">&emsp;${errors.failed }</div>
 										</div>
 									</form>
-									<script type="text/javascript">
-										$(document).ready(function() {
-											const acco = $('input[name="email"]');
-											acco[0].setAttribute("value", "${cookie.userCookie.value}");
-											if (acco[0].value != "") {
-												$('input[name="rememberMe"]')[0].setAttribute("checked", "")
-											}
-										});
-									</script>
 								</div>
 								<div
 									class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
