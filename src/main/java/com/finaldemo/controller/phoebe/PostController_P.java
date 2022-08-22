@@ -141,9 +141,11 @@ public class PostController_P {
 	
 	//舉報post
 	@PostMapping("/reportPost.controller")
-	public String reportPost(@RequestParam Integer postId) {
+	@ResponseBody
+	public String reportPost(@RequestBody IdDto IdDto) {
+		Integer postId = Integer.parseInt(IdDto.getId());
 		service.reportPost(1, postId);
-		return "redirect:/getMainPagePosts.controller";
+		return "comment reported";
 	}
 
 	// 新增評論
