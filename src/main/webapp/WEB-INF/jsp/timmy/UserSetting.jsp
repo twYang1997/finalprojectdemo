@@ -74,7 +74,7 @@
 			</div>
 		</div>
 		<!-- 框體調整 -->
-		<div class="modal" id="myModal">
+		<div class="modal fade" id="myModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<!-- 彈出標題 -->
