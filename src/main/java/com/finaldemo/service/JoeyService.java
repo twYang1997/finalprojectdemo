@@ -75,9 +75,8 @@ public class JoeyService {
 	
 	public List<Orders> findOrdersByUserId(Integer userId) {
 		return oDao.findOrdersByUserId(userId);
-
+		
 	}
-	
 
 
 	public void editUser(Users user) {
