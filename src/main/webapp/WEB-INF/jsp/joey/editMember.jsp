@@ -17,7 +17,8 @@
 <!--  All snippets are MIT license http://bootdey.com/license -->
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <title>profile timeline - Bootdey.com</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -58,7 +59,13 @@ function loadXMLDoc()
 </script>
 
 
-
+<!-- //CSS -->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<!-- //jq -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script
+	src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 </head>
 
 
@@ -240,6 +247,7 @@ function loadXMLDoc()
 						<span id="tab-2"><h3 class="panel-title">Add Product</h3></span> <span
 							id="tab-3"><h3 class="panel-title">Order History</h3></span> <span
 							id="tab-4"><h3 class="panel-title">Chart Test</h3></span>
+
 						<div id="tab">
 							<ul>
 								<li><a href="#tab-1">Activity Feed</a></li>
@@ -435,19 +443,35 @@ function loadXMLDoc()
 									<p>
 									<div class="panel-content panel-activity">
 
+										
 										<!-- 新增product -->
-										<div style="height: 200px;">
-											<div id="result2" name="result2">
-												<img
-													src="${contextRoot}/img/joeyimg/default_product_image.png"
-													id="defaultProductImg">
-											</div>
-										</div>
+										<!-- 										<div style="height: 200px;"> -->
+										<!-- 											<div id="result2" name="result2"> -->
+										<!-- 												<img -->
+										<%-- 													src="${contextRoot}/img/joeyimg/default_product_image.png" --%>
+										<!-- 													id="defaultProductImg"> -->
+										<!-- 											</div> -->
+										<!-- 										</div> -->
 
 										<c:if test="${!empty user}">
 											<form action="${contextRoot}/addProductJoey"
 												class="panel-activity__status" method="post"
 												enctype="multipart/form-data">
+												<label><img id="recipt"
+											src="${contextRoot}/img/joeyimg/default_product_image.png" />
+											<input type="file" id="rfile" name="productImg"
+											onchange="photochange(event,recipt)"
+											accept=".png, .jpg, .jpeg" style="display: none;" /></label>
+										<script type="text/javascript">
+											function photochange(event,imgid){
+											 var img=document.getElementById(imgid.id);
+											 var reader = new FileReader();
+											 img.src = URL.createObjectURL(event.target.files[0]);
+											 img.onload = function() {
+											      URL.revokeObjectURL(img.src) // free memory
+											    }
+												}
+												</script>
 												<div class="input-group mb-3">
 													<span class="input-group-text">商品名稱</span> <input
 														type="text" class="form-control"
@@ -462,49 +486,72 @@ function loadXMLDoc()
 													<textarea placeholder="Product Discription"
 														name="productContext" class="form-control"
 														aria-label="With textarea"></textarea>
+														<button type="submit"
+														class="btn btn-sm btn-rounded btn-info">新增商品</button>
 												</div>
 
 
 
-												<div class="actions">
-													<div class="btn-group">
-														<a href="#"> <input
-															style="position: absolute; opacity: 0;" type="file"
-															name="productImg" id="file2" multiple
-															onchange="readAsDataURL2()"
-															accept="image/gif,image/jpeg,image/x-png" /> <i
-															class="fa fa-image"></i>
-														</a> &emsp; <a href="#"> <input
-															style="position: absolute; opacity: 0;" type="file"
-															name="postVideo" id="" accept="video/*" /><i
-															class="fa fa-video-camera"></i>
-														</a>
+<!-- 												<div class="actions"> -->
+<!-- 													<div class="btn-group"> -->
+<!-- 														<a href="#"> <input -->
+<!-- 															style="position: absolute; opacity: 0;" type="file" -->
+<!-- 															name="productImg" id="file2" multiple -->
+<!-- 															onchange="readAsDataURL2()" -->
+<!-- 															accept="image/gif,image/jpeg,image/x-png" /> <i -->
+<!-- 															class="fa fa-image"></i> -->
+<!-- 														</a> &emsp; <a href="#"> <input -->
+<!-- 															style="position: absolute; opacity: 0;" type="file" -->
+<!-- 															name="postVideo" id="" accept="video/*" /><i -->
+<!-- 															class="fa fa-video-camera"></i> -->
+<!-- 														</a> -->
 														<!-- <button type="button" class="btn-link" title="Post an Video" -->
 														<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
 														<!-- <i class="fa fa-video-camera"></i> -->
 														<!-- </button> -->
-													</div>
-													<button type="submit"
-														class="btn btn-sm btn-rounded btn-info">新增商品</button>
-												</div>
+<!-- 													</div> -->
+<!-- 													<button type="submit" -->
+<!-- 														class="btn btn-sm btn-rounded btn-info">新增商品</button> -->
+<!-- 												</div> -->
 											</form>
 										</c:if>
 										<!-- 重複的結構（商品）-->
+										<% int count=0; %>
 										<c:forEach items="${produtsToShow}" var="prod" varStatus="vs">
+										<% count++; %>
 											<form
 												action="${contextRoot}/editProdutjoey?productId=${prod.getProductId()}"
 												class="panel-activity__status" method="post"
 												enctype="multipart/form-data">
+												
+												<label><img id="<%=count%>"
+											src="${contextRoot}${prod.getProductImg()}" />
+											<input type="file" id="rfile" name="productImg"
+											onchange="photochange(event,<%=count%> )"
+											accept=".png, .jpg, .jpeg" style="display: none;" /></label>
+										<script type="text/javascript">
+										
+											function photochange(event,imgid){
+												
+												console.log(imgid);
+											 var img=document.getElementById(imgid);
+											 var reader = new FileReader();
+											 img.src = URL.createObjectURL(event.target.files[0]);
+											 img.onload = function() {
+											      URL.revokeObjectURL(img.src) // free memory
+											    }
+												}
+												</script>
 
 
-												<img src="${contextRoot}${prod.getProductImg()}"> <a
-													href="#"> <input
-													style="position: absolute; opacity: 0;" type="file"
-													name="productImg" id="file3" multiple
-													onchange="readAsDataURL2()"
-													accept="image/gif,image/jpeg,image/x-png" /> <i
-													class="fa fa-image"></i>
-												</a>
+<%-- 												<img src="${contextRoot}${prod.getProductImg()}"> <a --%>
+<!-- 													href="#"> <input -->
+<!-- 													style="position: absolute; opacity: 0;" type="file" -->
+<!-- 													name="productImg" id="file3" multiple -->
+<!-- 													onchange="readAsDataURL2()" -->
+<!-- 													accept="image/gif,image/jpeg,image/x-png" /> <i -->
+<!-- 													class="fa fa-image"></i> -->
+<!-- 												</a> -->
 
 
 
@@ -533,7 +580,7 @@ function loadXMLDoc()
 
 											</form>
 
-											<p></p>
+
 
 										</c:forEach>
 										<!-- 					重複的結構 -->
@@ -542,7 +589,7 @@ function loadXMLDoc()
 
 							</div>
 							<div class="tab-content-3">
-								<table class="table table-hover">
+								<table class="table table-hover display" id="order_table">
 									<thead>
 										<tr>
 											<th scope="col">訂單日期</th>
@@ -551,54 +598,74 @@ function loadXMLDoc()
 											<th scope="col">付款方式</th>
 										</tr>
 									</thead>
-									<c:forEach items="${ordersToShow}" var="o" varStatus="vs">
-										<tbody>
+
+									<tbody>
+										<c:forEach items="${ordersToShow}" var="o" varStatus="vs">
 											<tr>
-												<th scope="row">${o.getOrderDate()}</th>
+												<th id="aaa" scope="row">${o.getOrderDate()}</th>
 												<td>${o.getOrderPrice()}</td>
 												<td>${o.getOrderUser().getNickName()}</td>
 												<td>${o.getPayment()}</td>
+
 											</tr>
-										</tbody>
-									</c:forEach>
+										</c:forEach>
+									</tbody>
+
 								</table>
+
+
+
+								<script type="text/javascript">
+									$(document).ready( function () {
+    								$('#order_table').DataTable(); 
+									} );
+								</script>
 							</div>
 							<div class="tab-content-4">
-							<canvas id="chart" width="800" height="600"></canvas>
-							<script type="text/javascript">
+								<canvas id="chart" width="800" height="600"></canvas>
+								<script type="text/javascript">
 							var ctx = document.getElementById('chart').getContext('2d');
+							var dateArray = new Array();
+							var incomeArray = new Array();
+							
+							<c:forEach items="${ordersToShow}" var="o" varStatus="vs">
+								dateArray.push('${o.getOrderDate()}');
+								incomeArray.push('${o.getOrderPrice()}');
+							</c:forEach>
+							var newDateArray = new Array();
+							for (let i=0;i<dateArray.length;i++){
+								newDateArray.push('日期:'+dateArray[i].substring(0,11))
+							}
 
 							var chart = new Chart(ctx, {
-							    type: 'bar',
+							    type: 'line',
 							    data: {
-							        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+							        labels: newDateArray,
 							        datasets: [{
 							            label: '# of Votes',
-							            data: [12, 19, 3, 5, 2, 3],
-							            backgroundColor: [
-							                'rgba(255, 99, 132, 0.2)',
-							                'rgba(54, 162, 235, 0.2)',
-							                'rgba(255, 206, 86, 0.2)',
-							                'rgba(75, 192, 192, 0.2)',
-							                'rgba(153, 102, 255, 0.2)',
-							                'rgba(255, 159, 64, 0.2)'
-							            ],
-							            borderColor: [
-							                'rgba(255,99,132,1)',
-							                'rgba(54, 162, 235, 1)',
-							                'rgba(255, 206, 86, 1)',
-							                'rgba(75, 192, 192, 1)',
-							                'rgba(153, 102, 255, 1)',
-							                'rgba(255, 159, 64, 1)'
-							            ],
+							            data: incomeArray,
 							            borderWidth: 1
 							        }]
-							    }
+							    },
+								options: {
+   						 // 自訂屬性設定
+   						 
+						 
+							scales:{
+								yAxes: [{
+									ticks: {
+										min: 0,
+										stepSize: 200
+									}
+								}]
+							}
+  								}
+							
 							});
 							</script>
+
+
 							</div>
-
-
 
 
 						</div>
@@ -1586,6 +1653,7 @@ function readAsDataURL(){
     var file = document.getElementById("file").files;
     var result=document.getElementById("result");  
     console.log(result);
+
 	console.log(file);
     for(i = 0; i< file.length; i ++) {
         var reader    = new FileReader();    
@@ -1608,27 +1676,27 @@ imgInp.onchange = evt => {
 	}
 
 //上傳多張圖片（新增商品）
-var result2=document.getElementById("result2");  
-var file2=document.getElementById("file2");  
+// var result2=document.getElementById("result2");  
+// var file2=document.getElementById("file2");  
 
-function readAsDataURL2(){  
-document.getElementById("defaultProductImg").setAttribute("style", "display:none"); //將預設圖片隱藏
-var file2 = document.getElementById("file2").files;
-var result2 =document.getElementById("result2");  
-console.log(result2);
-console.log(file2);
-for(i = 0; i< file2.length; i ++) {
-    var reader    = new FileReader();    
-    reader.readAsDataURL(file2[i]);  
-    reader.onload=function(e){  
-        //多圖預覽
-        result2.innerHTML = result2.innerHTML + '<img src="' + this.result +'" alt=""  width="auto" height="180"/>';  
-    }
+// function readAsDataURL2(){  
+// document.getElementById("defaultProductImg").setAttribute("style", "display:none"); //將預設圖片隱藏
+// var file2 = document.getElementById("file2").files;
+// var result2 =document.getElementById("result2");  
+// console.log(result2);
+// console.log(file2);
+// for(i = 0; i< file2.length; i ++) {
+//     var reader    = new FileReader();    
+//     reader.readAsDataURL(file2[i]);  
+//     reader.onload=function(e){  
+//         //多圖預覽
+//         result2.innerHTML = result2.innerHTML + '<img src="' + this.result +'" alt=""  width="auto" height="180"/>';  
+//     }
 
-}
+// }
 
 
-}
+// }
 
 
 
@@ -1637,4 +1705,12 @@ for(i = 0; i< file2.length; i ++) {
   
 	</script>
 </body>
+<!-- //CSS -->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<!-- //jq -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script
+	src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
 </html>

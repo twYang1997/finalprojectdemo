@@ -32,6 +32,7 @@ import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Products;
 import com.finaldemo.model.Users;
+import com.finaldemo.model.UsersRepository;
 import com.finaldemo.service.JoeyService;
 import com.finaldemo.service.PhoebeService;
 import com.finaldemo.service.TimmyService;
@@ -47,6 +48,9 @@ public class JoeyController {
 
 	@Autowired
 	private TimmyService TimmyService;
+	
+	@Autowired
+	private UsersRepository uDao;
 
 	@InitBinder
 	public void InitBinder(WebDataBinder binder) {
@@ -344,6 +348,13 @@ public class JoeyController {
 
 		return ajaxText;
 
+	}
+	
+	//Ajax找到所有使用者
+	@GetMapping("/findUsers")
+	public @ResponseBody List<Users> findUsers(){
+		 List<Users> uList = uDao.findAll();
+		 return uList;
 	}
 
 }
