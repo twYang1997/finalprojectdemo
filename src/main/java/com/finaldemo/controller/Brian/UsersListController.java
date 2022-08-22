@@ -151,17 +151,17 @@ public class UsersListController {
 
 	@GetMapping("/memberReport")
 	public String memberReport(Model model) {
-		List<Users> findAllUsers = Service.findAllUsers();
-		model.addAttribute("usersreport", findAllUsers);
+		
+		model.addAttribute("usersreport", Service.findAllUsers());
+		model.addAttribute("posts", Service.findAllPosts());
 		return "Brian/report";
 	}
 
 	@GetMapping("/reportPosts")
-	public String reportPosts(Model model, @RequestParam("id") String id) {
-		// 取得登入者發的posts
-		Posts posts = Service.BrainGetPostsById(Integer.parseInt(id));
-		// posts.getPostText();
-		model.addAttribute("posts", posts);
+	public String reportPosts(Model model) {
+		
+		
+		
 		return "redirect:/memberReport";
 	}
 
