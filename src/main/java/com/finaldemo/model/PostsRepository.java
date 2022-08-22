@@ -31,4 +31,8 @@ public interface PostsRepository extends JpaRepository<Posts, Integer> {
 	@Query(value = "select * from Posts where postText like %:search%", nativeQuery = true) 
 	public List<Posts> searchPostsByText(@Param("search") String search);
 
+	@Transactional
+	@Modifying
+	@Query(value = "update Posts set isReport = :isReport where postId = :postId", nativeQuery = true)
+	public void reportPost(@Param("isReport") Integer isReport, @Param("postId") Integer postId);
 }

@@ -138,6 +138,13 @@ public class PostController_P {
 		service.movePostToTrash(0, postId);
 		return "redirect:/getMainPagePosts.controller";
 	}
+	
+	//舉報post
+	@PostMapping("/reportPost.controller")
+	public String reportPost(@RequestParam Integer postId) {
+		service.reportPost(1, postId);
+		return "redirect:/getMainPagePosts.controller";
+	}
 
 	// 新增評論
 	@PostMapping("/addComment.controller")

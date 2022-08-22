@@ -91,7 +91,17 @@
 										<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
 										alt="" style="width: 45px; height: 45px; border-radius: 50%;" />
 										${p.postUser.getNickName()}
-									</a>
+									</a> &nbsp;
+									<!-- whoCanSeeIt圖示 -->
+									<c:if test="${p.getWhoCanSeeIt() == 1}">
+									<i id="public" class="fa fa-globe" aria-hidden="true"></i>
+									</c:if>
+									<c:if test="${p.getWhoCanSeeIt() == 2}">
+									<i id="followers" class="fa fa-users" aria-hidden="true"></i>
+									</c:if>
+									<c:if test="${p.getWhoCanSeeIt() == 3}">
+									<i id="onlyMe" class="fa fa-lock" aria-hidden="true"></i>
+									</c:if>
 								</div>
 
 								<!-- 下拉式menu -->
@@ -99,11 +109,11 @@
 									<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
 									<i class="fa fa-ellipsis-h" style="font-size: 22px"></i>
 									<div class="dropdown-content">
-										<a href="#">report</a>
-
+										<form method="post" action="${contextRoot}/reportPost.controller?postId=${p.getPostId()}">
+										<a><button type="submit" class="btn btn-light">report</button></a>
+										</form>
 									</div>
 								</div>
-
 							</div>
 							<div class="activity__list__body entry-content">
 
@@ -118,7 +128,8 @@
 									</ul>
 								</c:forEach>
 
-							</div> <!-- 						按讚/評論/修改/刪除 按鈕 -->
+							</div> 
+							<!-- 按讚/評論/修改/刪除 按鈕 -->
 							<div class="activity__list__footer">
 								<a id="like${vs.index}"> <i onclick="likeIconFunction(this)"
 									class="fa fa-thumbs-up"></i>${p.getPostLike()}</a> <a
@@ -256,13 +267,16 @@
 							<div id="comment${vs.index}" class="box-footer box-comments">
 								<div class="box-comment">
 									<div class="comment-text">
+									
+									<a href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
 										<img class="img-circle img-sm"
 											src="${contextRoot}/${c.getUser().getPhotoPath()}"
 											alt="User Image"
 											style="width: 40px; height: 40px; border-radius: 50%">
 										<span class="username" style="font-weight: bold;">
 											${c.getUser().getNickName()} </span>
-											
+									</a>
+									
 									<!-- 	取得評論id -->
 									<input id="commentId${vs.index}" value="${c.getCommentId()}"
 									style="visibility: hidden">
@@ -1308,7 +1322,7 @@ li.list-group-item:first-child {
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-	background-color: #F0F0F0;
+	background-color: #FFFFFF;
 }
 
 /* Show the dropdown menu on hover */
@@ -1320,6 +1334,20 @@ li.list-group-item:first-child {
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
 	background-color: #3e8e41;
+}
+
+/* 超連結樣式 */
+ a:visited { 
+ color:#8E8E8E; 
+ text-decoration:none; 
+ } 
+ a:hover { 
+ color:#000000; 
+ text-decoration:underline; 
+ } 
+ 
+/*  按讚樣式 */
+
 }
 </style>
 	<script type="text/javascript">

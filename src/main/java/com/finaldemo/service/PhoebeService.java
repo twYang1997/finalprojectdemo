@@ -76,6 +76,10 @@ public class PhoebeService {
 	public void movePostToTrash(Integer whoCanSeeIt, Integer postId) {
 		PostsRepository.changeWhoCanSeeItById(whoCanSeeIt, postId);
 	}
+	
+	public void reportPost(Integer isReport, Integer postId) {
+		PostsRepository.reportPost(isReport, postId);
+	}
 
 	public List<Users> searchPeople(String search) {
 		return UsersRepository.searchPeopleByNickName(search);
