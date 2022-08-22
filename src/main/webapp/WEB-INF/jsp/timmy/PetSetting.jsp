@@ -26,7 +26,9 @@
 
 .petPhotoImg {
 	width: 200px;
-	height: 160px;
+	max-height: 160px;
+	border:1px solid #dee2e6;
+	border-radius: 30%;
 }
 
 #viewDetailButtonAdd{
@@ -87,7 +89,7 @@
 	                                	<tr>
 	                                		<td class="col-md-4">
 												<c:if test='${fn:contains(p.petPhotoPath, ".")}'>
-													<img src="${contextRoot}${p.petPhotoPath}" class="petPhotoImg" id="petImgPreview{vs.index}">
+													<img src="${contextRoot}${p.petPhotoPath}" class="petPhotoImg " id="petImgPreview{vs.index}">
 												</c:if>
 												<c:if test='${!fn:contains(p.petPhotoPath, ".")}'>
 													<img src="${contextRoot}/img/petimg/pawprint.png" class="petPhotoImg" id="petImgPreview{vs.index}">
