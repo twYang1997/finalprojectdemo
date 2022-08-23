@@ -66,6 +66,45 @@ function loadXMLDoc()
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script
 	src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+<!-- 	Getting Started with Chart JS -->
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+}
+
+.chartMenu {
+	width: 100vw;
+	height: 40px;
+	background: #1A1A1A;
+	color: rgba(255, 26, 104, 1);
+}
+
+.chartMenu p {
+	padding: 10px;
+	font-size: 20px;
+}
+
+.chartCard {
+	width: 100vw;
+	height: calc(100vh - 40px);
+	background: rgba(255, 26, 104, 0.2);
+	display: flex;
+	align-items: center;
+	justify-content: left;
+}
+
+.chartBox {
+	width: 700px;
+	padding: 20px;
+	border-radius: 20px;
+	border: solid 3px rgba(255, 26, 104, 1);
+	background: white;
+}
+</style>
+
 </head>
 
 
@@ -443,7 +482,7 @@ function loadXMLDoc()
 									<p>
 									<div class="panel-content panel-activity">
 
-										
+
 										<!-- 新增product -->
 										<!-- 										<div style="height: 200px;"> -->
 										<!-- 											<div id="result2" name="result2"> -->
@@ -457,13 +496,15 @@ function loadXMLDoc()
 											<form action="${contextRoot}/addProductJoey"
 												class="panel-activity__status" method="post"
 												enctype="multipart/form-data">
+
 												<label><img id="recipt"
-											src="${contextRoot}/img/joeyimg/default_product_image.png" />
-											<input type="file" id="rfile" name="productImg"
-											onchange="photochange(event,recipt)"
-											accept=".png, .jpg, .jpeg" style="display: none;" /></label>
-										<script type="text/javascript">
-											function photochange(event,imgid){
+													src="${contextRoot}/img/joeyimg/default_product_image.png" />
+													<input type="file" id="rfile" name="productImg"
+													onchange="photochange1(event,recipt)"
+													accept=".png, .jpg, .jpeg" style="display: none;" /></label>
+
+												<script type="text/javascript"> 
+											function photochange1(event,imgid){
 											 var img=document.getElementById(imgid.id);
 											 var reader = new FileReader();
 											 img.src = URL.createObjectURL(event.target.files[0]);
@@ -471,7 +512,7 @@ function loadXMLDoc()
 											      URL.revokeObjectURL(img.src) // free memory
 											    }
 												}
-												</script>
+ 												</script>
 												<div class="input-group mb-3">
 													<span class="input-group-text">商品名稱</span> <input
 														type="text" class="form-control"
@@ -486,78 +527,81 @@ function loadXMLDoc()
 													<textarea placeholder="Product Discription"
 														name="productContext" class="form-control"
 														aria-label="With textarea"></textarea>
-														<button type="submit"
+													<button type="submit"
 														class="btn btn-sm btn-rounded btn-info">新增商品</button>
 												</div>
 
 
 
-<!-- 												<div class="actions"> -->
-<!-- 													<div class="btn-group"> -->
-<!-- 														<a href="#"> <input -->
-<!-- 															style="position: absolute; opacity: 0;" type="file" -->
-<!-- 															name="productImg" id="file2" multiple -->
-<!-- 															onchange="readAsDataURL2()" -->
-<!-- 															accept="image/gif,image/jpeg,image/x-png" /> <i -->
-<!-- 															class="fa fa-image"></i> -->
-<!-- 														</a> &emsp; <a href="#"> <input -->
-<!-- 															style="position: absolute; opacity: 0;" type="file" -->
-<!-- 															name="postVideo" id="" accept="video/*" /><i -->
-<!-- 															class="fa fa-video-camera"></i> -->
-<!-- 														</a> -->
-														<!-- <button type="button" class="btn-link" title="Post an Video" -->
-														<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
-														<!-- <i class="fa fa-video-camera"></i> -->
-														<!-- </button> -->
-<!-- 													</div> -->
-<!-- 													<button type="submit" -->
-<!-- 														class="btn btn-sm btn-rounded btn-info">新增商品</button> -->
-<!-- 												</div> -->
+												<!-- 												<div class="actions"> -->
+												<!-- 													<div class="btn-group"> -->
+												<!-- 														<a href="#"> <input -->
+												<!-- 															style="position: absolute; opacity: 0;" type="file" -->
+												<!-- 															name="productImg" id="file2" multiple -->
+												<!-- 															onchange="readAsDataURL2()" -->
+												<!-- 															accept="image/gif,image/jpeg,image/x-png" /> <i -->
+												<!-- 															class="fa fa-image"></i> -->
+												<!-- 														</a> &emsp; <a href="#"> <input -->
+												<!-- 															style="position: absolute; opacity: 0;" type="file" -->
+												<!-- 															name="postVideo" id="" accept="video/*" /><i -->
+												<!-- 															class="fa fa-video-camera"></i> -->
+												<!-- 														</a> -->
+												<!-- <button type="button" class="btn-link" title="Post an Video" -->
+												<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
+												<!-- <i class="fa fa-video-camera"></i> -->
+												<!-- </button> -->
+												<!-- 													</div> -->
+												<!-- 													<button type="submit" -->
+												<!-- 														class="btn btn-sm btn-rounded btn-info">新增商品</button> -->
+												<!-- 												</div> -->
 											</form>
 										</c:if>
 										<!-- 重複的結構（商品）-->
-										<% int count=0; %>
+										<%
+										int count = 0;
+										%>
 										<c:forEach items="${produtsToShow}" var="prod" varStatus="vs">
-										<% count++; %>
+											<%
+											count++;
+											%>
 											<form
 												action="${contextRoot}/editProdutjoey?productId=${prod.getProductId()}"
 												class="panel-activity__status" method="post"
 												enctype="multipart/form-data">
-												
+
 												<label><img id="<%=count%>"
-											src="${contextRoot}${prod.getProductImg()}" />
-											<input type="file" id="rfile" name="productImg"
-											onchange="photochange(event,<%=count%> )"
-											accept=".png, .jpg, .jpeg" style="display: none;" /></label>
-										<script type="text/javascript">
-										
-											function photochange(event,imgid){
-												
-												console.log(imgid);
-											 var img=document.getElementById(imgid);
-											 var reader = new FileReader();
-											 img.src = URL.createObjectURL(event.target.files[0]);
-											 img.onload = function() {
-											      URL.revokeObjectURL(img.src) // free memory
-											    }
-												}
-												</script>
+													src="${contextRoot}${prod.getProductImg()}" /> <input
+													type="file" id="rfile" name="productImg"
+													onchange="photochange(event,<%=count%> )"
+													accept=".png, .jpg, .jpeg" style="display: none;" /></label>
+												<!-- 										<script type="text/javascript"> -->
+
+												<!-- // 											function photochange(event,imgid){ -->
+
+												<!-- // 											 console.log(imgid); -->
+												<!-- // 											 console.log(imgid.id); -->
+												<!-- // 											 var img=document.getElementById(imgid); -->
+												<!-- // 											 var reader = new FileReader(); -->
+												<!-- // 											 img.src = URL.createObjectURL(event.target.files[0]); -->
+												<!-- // 											 img.onload = function() { -->
+												<!-- // 											      URL.revokeObjectURL(img.src) // free memory -->
+												<!-- // 											} -->
+												<!-- // 												} -->
+												<!-- 												</script> -->
 
 
-<%-- 												<img src="${contextRoot}${prod.getProductImg()}"> <a --%>
-<!-- 													href="#"> <input -->
-<!-- 													style="position: absolute; opacity: 0;" type="file" -->
-<!-- 													name="productImg" id="file3" multiple -->
-<!-- 													onchange="readAsDataURL2()" -->
-<!-- 													accept="image/gif,image/jpeg,image/x-png" /> <i -->
-<!-- 													class="fa fa-image"></i> -->
-<!-- 												</a> -->
+												<%-- 												<img src="${contextRoot}${prod.getProductImg()}"> <a --%>
+												<!-- 													href="#"> <input -->
+												<!-- 													style="position: absolute; opacity: 0;" type="file" -->
+												<!-- 													name="productImg" id="file3" multiple -->
+												<!-- 													onchange="readAsDataURL2()" -->
+												<!-- 													accept="image/gif,image/jpeg,image/x-png" /> <i -->
+												<!-- 													class="fa fa-image"></i> -->
+												<!-- 												</a> -->
 
 
 
 												<div class="input-group mb-3">
-
-
 
 													<span class="input-group-text">商品名稱</span> <input
 														type="text" class="form-control"
@@ -584,44 +628,24 @@ function loadXMLDoc()
 
 										</c:forEach>
 										<!-- 					重複的結構 -->
+										<script type="text/javascript"> -->
+										
+											function photochange(event,imgid){
+												
+											 console.log(imgid);
+											 console.log(imgid.id);
+											 var img=document.getElementById(imgid);
+											 var reader = new FileReader();
+											 img.src = URL.createObjectURL(event.target.files[0]);
+											 img.onload = function() {
+											      URL.revokeObjectURL(img.src) // free memory
+											}
+												</script>
 									</div>
 								</div>
 
 							</div>
 							<div class="tab-content-3">
-								<table class="table table-hover display" id="order_table">
-									<thead>
-										<tr>
-											<th scope="col">訂單日期</th>
-											<th scope="col">訂單金額</th>
-											<th scope="col">施主大名</th>
-											<th scope="col">付款方式</th>
-										</tr>
-									</thead>
-
-									<tbody>
-										<c:forEach items="${ordersToShow}" var="o" varStatus="vs">
-											<tr>
-												<th id="aaa" scope="row">${o.getOrderDate()}</th>
-												<td>${o.getOrderPrice()}</td>
-												<td>${o.getOrderUser().getNickName()}</td>
-												<td>${o.getPayment()}</td>
-
-											</tr>
-										</c:forEach>
-									</tbody>
-
-								</table>
-
-
-
-								<script type="text/javascript">
-									$(document).ready( function () {
-    								$('#order_table').DataTable(); 
-									} );
-								</script>
-							</div>
-							<div class="tab-content-4">
 								<canvas id="chart" width="800" height="600"></canvas>
 								<script type="text/javascript">
 							var ctx = document.getElementById('chart').getContext('2d');
@@ -665,6 +689,160 @@ function loadXMLDoc()
 							</script>
 
 
+
+								<table class="table table-hover display" id="order_table">
+									<thead>
+										<tr>
+											<th scope="col">訂單日期</th>
+											<th scope="col">訂單金額</th>
+											<th scope="col">施主大名</th>
+											<th scope="col">付款方式</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<c:forEach items="${ordersToShow}" var="o" varStatus="vs">
+											<tr>
+												<th id="aaa" scope="row">${o.getOrderDate()}</th>
+												<td>${o.getOrderPrice()}</td>
+												<td>${o.getOrderUser().getNickName()}</td>
+												<td>${o.getPayment()}</td>
+
+											</tr>
+										</c:forEach>
+									</tbody>
+
+								</table>
+
+								<script type="text/javascript">
+									$(document).ready( function () {
+    								$('#order_table').DataTable(); 
+									} );
+								</script>
+							</div>
+							<div class="tab-content-4">
+							
+								<div class="chartMenu">
+      <p>WWW.CHARTJS3.COM (Chart JS 3.9.1)</p>
+    </div>
+    <div class="chartCard">
+      <div class="chartBox">
+        <canvas id="myChart"></canvas>
+		<button onclick="timeFrame(this)" value="day">Day</button>
+		<button onclick="timeFrame(this)" value="week">Week</button>
+		<button onclick="timeFrame(this)" value="month">Month</button>
+
+      </div>
+    </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+	
+    <script>
+		const day =	[
+			{x: Date.parse('2021-11-01 00:00:00 GMT+0800'), y: 18},
+			{x: Date.parse('2021-11-02 00:00:00 GMT+0800'), y: 12},
+			{x: Date.parse('2021-11-03 00:00:00 GMT+0800'), y: 6},
+			{x: Date.parse('2021-11-04 00:00:00 GMT+0800'), y: 9},
+			{x: Date.parse('2021-11-05 00:00:00 GMT+0800'), y: 3},
+			{x: Date.parse('2021-11-06 00:00:00 GMT+0800'), y: 12},
+			{x: Date.parse('2021-11-07 00:00:00 GMT+0800'), y: 3},
+		];
+
+		const week =	[
+			{x: Date.parse('2021-10-31 00:00:00 GMT+0800'), y: 50},
+			{x: Date.parse('2021-11-07 00:00:00 GMT+0800'), y: 70},
+			{x: Date.parse('2021-11-14 00:00:00 GMT+0800'), y: 100},
+			{x: Date.parse('2021-11-21 00:00:00 GMT+0800'), y: 60},
+			{x: Date.parse('2021-11-28 00:00:00 GMT+0800'), y: 30},
+		];
+
+		const month =	[
+			{x: Date.parse('2021-08-01 00:00:00 GMT+0800'), y: 500},
+			{x: Date.parse('2021-09-01 00:00:00 GMT+0800'), y: 700},
+			{x: Date.parse('2021-10-01 00:00:00 GMT+0800'), y: 500},
+			{x: Date.parse('2021-11-01 00:00:00 GMT+0800'), y: 300},
+			{x: Date.parse('2021-12-01 00:00:00 GMT+0800'), y: 700},
+			{x: Date.parse('2022-01-01 00:00:00 GMT+0800'), y: 333},
+
+		];
+
+    // setup 
+    const data = {
+    //   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Weekly Sales',
+        data: week,
+        backgroundColor: [
+          'rgba(255, 26, 104, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(0, 0, 0, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 26, 104, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(0, 0, 0, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    // config 
+    const config = {
+      type: 'bar',
+      data,
+      options: {
+        scales: {
+			x:{
+				type:'time',
+				time:{
+					unit:'day'
+				}
+			},
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // render init block
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+
+	function timeFrame(peroid){
+		if(peroid.value == 'day') {
+			myChart.config.options.scales.x.time.unit = peroid.value;
+			myChart.config.data.datasets[0].data = day;
+		}	
+		if(peroid.value == 'week') {
+			myChart.config.options.scales.x.time.unit = peroid.value;
+			myChart.config.data.datasets[0].data = week;
+		}
+		if(peroid.value == 'month') {
+			myChart.config.options.scales.x.time.unit = peroid.value;
+			myChart.config.data.datasets[0].data = month;
+		}
+		myChart.update();
+	}
+    </script>
+
+    
+    
+    
+    
+    
+	
 							</div>
 
 
