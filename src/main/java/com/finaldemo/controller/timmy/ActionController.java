@@ -39,7 +39,7 @@ public class ActionController {
 		u1.setPassword("1234");
 		u1.setAddress("台南市永康區大橋兩百街100號");
 		u1.setBirthday(c.getTime());
-		u1.setCategory(1);
+		u1.setCategory(3);
 		u1.setEmail("timmy860930@gmail.com");
 		u1.setGender(1);
 		u1.setPhone("0970322377");
@@ -89,47 +89,6 @@ public class ActionController {
 	@GetMapping("/timmy/DeleteTestPage2")
 	public void deleteUsersTest() {
 		service.deleteAllUser();
-	}
-
-	@PostMapping("/timmy/checkLogin.controller")
-	public String checkLoginProcess(@RequestParam String email, @RequestParam String password,
-			@RequestParam(defaultValue = "off") String rememberMe, Model m, HttpSession session, HttpServletResponse response) {
-		Map<String, String> errors = new HashMap<String, String>();
-		m.addAttribute("errors", errors);
-//		System.out.println(rememberMe);
-		
-		if (email == null || email.length() == 0) {
-			errors.put("email", "Email is required");
-		}
-		if (password == null || password.length() == 0) {
-			errors.put("pwd", "Password is required");
-		}
-		if (errors != null && !errors.isEmpty()) {
-			return "redirect:/timmy/";
-		}
-		Users u = service.checkLogin(email, password);
-//		cookie 設置
-		
-		if (u != null) {
-			if (rememberMe.equals("on")) {
-				Cookie cookie = new Cookie("userCookie", u.getEmail());
-				cookie.setMaxAge(7*24*60*60);
-				response.addCookie(cookie);
-			} else {
-				Cookie cookie = new Cookie("userCookie", u.getEmail());
-				cookie.setMaxAge(0);
-				response.addCookie(cookie);
-			}
-			session.setAttribute("user", u);
-			return "redirect:/phoebe/";
-		}
-		errors.put("failed", "login failed");
-		return "timmy/login";
-	}
-
-	@GetMapping("/timmy/")
-	public String loginPage() {
-		return "timmy/login";
 	}
 
 	@PostMapping("/timmy/updateUserPage")

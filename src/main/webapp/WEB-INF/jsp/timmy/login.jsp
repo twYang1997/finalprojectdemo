@@ -59,7 +59,7 @@
 												$("#buildNewPwdBtn").click(function(){
 													var contextRoot = "/demo";
 													Swal.fire({
-													  title: 'Enter your email',
+													  title: 'New Password',
 													  html:
 														    'New Pwd  :<input id="swal-input1" type="password" class="swal2-input">' +
 														    'Check Pwd:<input id="swal-input2" type="password" class="swal2-input">',
@@ -121,6 +121,7 @@
 											$("#forgetPwdBtn").click(function(){
 												Swal.fire({
 													  title: 'Enter your email',
+													  text: 'We will send you an email to verify your account',
 													  input: 'text',
 													  inputAttributes: {
 													    autocapitalize: 'off'
@@ -144,7 +145,7 @@
 													}).then((result) => {
 													  if (result.isConfirmed) {
 													    Swal.fire({
-													      title: '驗證信已寄到您的信箱',
+													      title: 'Check your email to verify your account',
 													    })
 													  }
 													})
