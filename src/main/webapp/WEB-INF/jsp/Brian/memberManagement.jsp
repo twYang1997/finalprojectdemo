@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<jsp:include page="../timmy/layout/navbar.jsp" />
+<jsp:include page="../timmy/layout/navbar.jsp"/>
 
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -34,23 +34,22 @@
 
 <link rel="stylesheet" href="${contextRoot}/css/index.css">
 <link rel="stylesheet" href="${contextRoot}/css/navs.css">
-<link rel="stylesheet" href="${contextRoot}/css/users_list_cards.css">
+<%-- <link rel="stylesheet" href="${contextRoot}/css/users_list_cards.css"> --%>
 <style>
-img {
-	width: 200px;
-	height: 150px;
-	display: block;
-	margin: 20px auto 20px auto;
-	border-radius: 40%;
-	display: block;
-	display: block;
-}
+/* img { */
+/* 	width: 200px; */
+/* 	height: 150px; */
+/* 	display: block; */
+/* 	margin: 20px auto 20px auto; */
+/* 	border-radius: 40%; */
+/* 	display: block; */
+/* 	display: block; */
+/* } */
 </style>
 </head>
 
 <body>
 	<div class="container">
-		
 		<!--頁籤 -->
 		<span id="tab-1">主頁</span> <span id="tab-2">頁面1</span>
 		<div id="tab">
@@ -68,7 +67,7 @@ img {
 					<thead>
 						<tr>
 							<th class="col-md-6" style="font-weight:bold;">Email</th>
-							<th class="col-md-6">Edit</th>
+							<th class="col-md-6" >Edit</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -797,12 +796,10 @@ img {
 				    "<'row'<'col-sm-12'tr>>" +
 				    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
 			    });
-				
 			});
 			</script>
 			</div>
 		</div>
-
 		<script>
 		  $(function () {
 		    $('#myTab li:last-child button').tab('show')
@@ -810,17 +807,13 @@ img {
 		</script>
 	</div>
 	<c:if test="${!empty searchCategory }">
-		here is : ${searchCategory }
+		here is : ${searchCategory}
 		<a href="javascript:window.location.href .tab-content-2">here</a>
 	</c:if>
-
-
 </body>
 	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"></script>
 	<script src="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css"></script>
-	
-
 </html>
