@@ -212,15 +212,15 @@
 										<textarea name="postText" class="form-control"
 											style="border-style: none; overflow: hidden">${p.getPostText()}</textarea>
 
-										<div id="result" name="result"></div>
+										<div id="resultEdit" name="result"></div>
 
 										<!-- footer -->
 										<div>
 											<div>
 												<label> <input
 													style="position: absolute; opacity: 0;" type="file"
-													name="postImg" id="file" multiple
-													onchange="readAsDataURL()"
+													name="postImg" id="fileEdit" multiple
+													onchange="readAsDataURLEdit()"
 													accept="image/gif,image/jpeg,image/x-png" /> <i
 													class="fa fa-image"></i>
 												</label> &emsp; <label> <input
@@ -1402,11 +1402,11 @@ li.list-group-item:first-child {
 		}
 	
 	//上傳多張圖片
-var result=document.getElementById("result");  
-var file=document.getElementById("file");  
+// var result=document.getElementById("result");  
+// var file=document.getElementById("file");  
   
 function readAsDataURL(){  
-
+	console.log("readAsDataURL()");
     var file = document.getElementById("file").files;
     var result=document.getElementById("result");  
 
@@ -1416,6 +1416,25 @@ function readAsDataURL(){
         reader.onload=function(e){  
             //多圖預覽
             result.innerHTML = result.innerHTML + '<img src="' + this.result +'" alt=""  width="auto" height="100"/>';  
+        }
+
+    }
+    
+}  
+
+function readAsDataURLEdit(){  
+	console.log("readAsDataURLEdit()");
+    var fileEdit = document.getElementById("fileEdit").files;
+    var resultEdit=document.getElementById("resultEdit");  
+
+    for(i = 0; i< fileEdit.length; i ++) {
+    	
+        var reader    = new FileReader();    
+        reader.readAsDataURL(fileEdit[i]);  
+        reader.onload=function(e){  
+            //多圖預覽
+            console.log("reader.onload");
+            resultEdit.innerHTML = resultEdit.innerHTML + '<img src="' + this.result +'" alt=""  width="auto" height="100"/>';  
         }
 
     }
