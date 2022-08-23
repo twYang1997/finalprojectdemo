@@ -81,7 +81,7 @@
 
 			
 			<c:if test="${empty user}">
-				<form method="GET" action="${contextRoot}/phoebe/signUp">
+				<form method="GET" action="${contextRoot}/timmy/signUp">
 					<button type="submit" class="btn btn-info">Sign Up</button>
 				</form>
 			</c:if>

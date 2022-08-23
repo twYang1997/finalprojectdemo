@@ -11,8 +11,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
 	<form action="${contextRoot}/timmy/buildEmailCertification.controller" method="get">
-		Your email:<input name="email" required>
+		Your email:<input name="email" required>${error}
 		<button>submit</button>
 	</form>
 	<button>back</button>

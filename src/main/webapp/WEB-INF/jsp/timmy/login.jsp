@@ -45,20 +45,112 @@
 											</div>
 										</div>
 										<div><span>Remember Me </span><input type="checkbox" name="rememberMe" value="on"></div>
-										<div><a href="${contextRoot}/timmy/buildEmailCertificationRP.controller"><span>forget password?</span></a></div>
 										<div>&emsp;</div>
-										<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+										<div class="d-flex justify-content-center mx-6 mb-3 mb-lg-4">
 											<button type="submit" class="btn btn-primary btn-lg">Login</button>
 												<div style="color:red">&emsp;${errors.failed }</div>
+											<button type="button" class="btn btn-outline-success btn-lg" id="forgetPwdBtn">Forgot password</button>
 										</div>
 									</form>
+									<c:if test="${!empty verifyingEmail}">
+										<button id="buildNewPwdBtn" style="display:none">buildNewPwdBtn</button>
+										<script>
+											$(function(){
+												$("#buildNewPwdBtn").click(function(){
+													var contextRoot = "/demo";
+													Swal.fire({
+													  title: 'New Password',
+													  html:
+														    'New Pwd  :<input id="swal-input1" type="password" class="swal2-input">' +
+														    'Check Pwd:<input id="swal-input2" type="password" class="swal2-input">',
+													  showCancelButton: true,
+													  confirmButtonText: 'Submit',
+													  showLoaderOnConfirm: true,
+													  backdrop: true,
+													  preConfirm: () => {
+// 													    	 console.log(document.getElementById('swal-input1').value)
+// 													         console.log(document.getElementById('swal-input2').value)
+// 													         console.log("${verifyingEmail}");
+													         let newPwd = document.getElementById('swal-input1').value;
+													    	 let checkPwd = document.getElementById('swal-input2').value;
+													    	 if (newPwd != checkPwd){
+													    		 Swal.showValidationMessage("Please enter the correct password!");
+													    	 } else {
+													    		 let datas = {
+													    				 "postId":"${verifyingEmail}",
+													    				 "commentText":checkPwd
+													    		 };
+													    		 let datao = JSON.stringify(datas);
+													    		 $.ajax({
+													    			 url: contextRoot + "/timmy/updateForgottenPwdAjax",
+													    			 method: 'post',
+													    			 contentType: "application/json",
+																	 dataType: 'text',
+																	 data: datao,
+																	 success: function(result){
+																		 console.log("ajax: " + result);
+																	 },
+																	 error: function(error){
+																		 console.log(result);
+																	 }
+													    		 })
+													    	 }
+													  },
+													  allowOutsideClick: () => !Swal.isLoading()
+													}).then((result) => {
+													  if (result.isConfirmed) {
+													    Swal.fire({
+													      title: 'Updated Success!',
+													    })
+													  }
+													})
+												});
+												$("#buildNewPwdBtn").click();
+												
+											});
+										</script>
+									</c:if>
 									<script type="text/javascript">
 										$(document).ready(function() {
+											var contextRoot = "/demo";
 											const acco = $('input[name="email"]');
 											acco[0].setAttribute("value", "${cookie.userCookie.value}");
 											if (acco[0].value != "") {
 												$('input[name="rememberMe"]')[0].setAttribute("checked", "")
 											}
+											$("#forgetPwdBtn").click(function(){
+												Swal.fire({
+													  title: 'Enter your email',
+													  text: 'We will send you an email to verify your account',
+													  input: 'text',
+													  inputAttributes: {
+													    autocapitalize: 'off'
+													  },
+													  showCancelButton: true,
+													  confirmButtonText: 'Submit',
+													  showLoaderOnConfirm: true,
+													  backdrop: true,
+													  preConfirm: (login) => {
+													    return $.ajax({
+													    	url: contextRoot + "/timmy/checkEmailAjax?email=" + login,
+													    	success: function(result){
+													    		if (result == 'emailNotFound'){
+													    			Swal.showValidationMessage("Email was not found!");
+													    		}
+													    		console.log("ajax success:" + result);
+													    	}
+													    })
+													  },
+													  allowOutsideClick: () => !Swal.isLoading()
+													}).then((result) => {
+													  if (result.isConfirmed) {
+													    Swal.fire({
+													      title: 'Check your email to verify your account',
+													    })
+													  }
+													})
+												
+											});
 										});
 									</script>
 								</div>
@@ -80,5 +172,7 @@
 
 	<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 	<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>
+	
 </body>
 </html>

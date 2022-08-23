@@ -41,44 +41,59 @@
 		</c:forEach>
 		<div class="col-lg-6">
 			<div class="ps-lg-6 ps-xl-10 w-lg-80">
-				<form action="${contextRoot}/Alan/insertShoppingCar" method="post">
+				<form  action="${contextRoot}/Alan/insertShoppingCar"
+					method="post">
 					<div class="mb-4">
-						<p class="w-90">${user.nickName}</p>
+						<!--  	<p class="w-90">${user.nickName}</p>   -->
 					</div>
-					<p class="mb-4">${user.selfIntroduction}</p>
+					<!--  <p class="mb-4">${user.selfIntroduction}</p>   -->
 					<c:forEach items='${foundationList}' var='foundation' end="0">
 						<c:forEach items='${foundation.products}' var='product'>
 							<div id="accordion" class="accordion-style">
 								<div class="card">
 									<div class="card-header" id="headingOne">
 										<h5 class="mb-0">
+											<!--  勾選需要商品進購物車 -->
 											<input type="checkbox" name="checkbox"
 												value="${product.productId}"
-												onclick="oncheck(${product.productId}})" />
+												onclick="oncheck(${product.productId})"/>
+
 											<button class="btn btn-link collapsed"
 												data-bs-toggle="collapse" data-bs-target="#collapseOne"
 												aria-expanded="false" aria-controls="collapseOne">${product.productName}</button>
-											<select>
-												<option>請選擇數量</option>
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-												<option>4</option>
-												<option>5</option>
+											請選擇數量<select name="quantity" id="quantity${product.productId}">
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
 												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+												<option>10</option>
 											</select>
+
 										</h5>
+
 									</div>
+
 								</div>
+
 							</div>
 						</c:forEach>
 					</c:forEach>
 					<button type="submit" class="btn btn-secondary mt-5">加入購物車</button>
 				</form>
+
 			</div>
-			
+
 		</div>
 	</div>
+
+
+
 	<style type="text/css">
 .wrap { /*父元素*/
 	width: 100%;
@@ -99,8 +114,16 @@
 	height: 200px;
 }
 </style>
-	<script>
+<script>
+
+	 function oncheck(id){
+		 var selected = document.getElementById("quantity"+id).value;
+		  
+			alert(selected); 
+		 }
 
 </script>
+
 </body>
+
 </html>

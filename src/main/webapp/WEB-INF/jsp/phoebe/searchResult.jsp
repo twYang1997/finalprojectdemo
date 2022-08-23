@@ -30,7 +30,7 @@
 		<div class="col-lg-8">
 		<br>
 			<!-- Rrepetitive Sstructure(user) -->
-				<div class="panel">
+				<div class="panel" style="padding-top: 2%">
 				<h3>People</h3>
 					<c:forEach items="${userList}" var="u" varStatus="vs">
 							<div class="activity__list__header">
@@ -66,10 +66,11 @@
 			<!-- Rrepetitive Sstructure(post) -->
 			<c:forEach items="${postList}" var="p" varStatus="vs">
 			<c:if test="${p.getWhoCanSeeIt() == 1}">
-				<div class="panel">
-					<ul class="panel-activity__list">
-						<li><i class="activity__list__icon fa fa-question-circle-o"></i>
-							<div class="activity__list__header">
+				<div class="panel" style="padding-top: 2%">
+<!-- 					<ul class="panel-activity__list"> -->
+<!-- 						<li> -->
+						<i class="activity__list__icon fa fa-question-circle-o"></i>
+<!-- 							<div class="activity__list__header"> -->
 							<a href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
 								<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
 									alt="" style="width: 45px; height: 45px; border-radius: 50%;"/> ${p.postUser.getNickName()}
@@ -83,7 +84,7 @@
 									<c:if test="${p.getWhoCanSeeIt() == 3}">
 									<i id="onlyMe" class="fa fa-lock" aria-hidden="true"></i>
 									</c:if>
-							</div>
+<!-- 							</div> -->
 							
 							<!-- 取得按讚關聯的postID -->
 							<input id="likedPostId${vs.index}" value="${p.getPostId()}" style="visibility: hidden;">
@@ -176,8 +177,9 @@
 								
 								<span> <i class="fa fa-clock"></i>${p.getPostTime()}
 								</span>
-							</div></li>
-					</ul>
+							</div>
+<!-- 							</li> -->
+<!-- 					</ul> -->
 
 					<script>
 						//按讚ajax

@@ -44,6 +44,10 @@ public class TimmyService {
 		return peDao.findById(id).get();
 	}
 	
+	public List<Users> getUsersByEmail(String email){
+		return uDao.findByEmail(email);
+	}
+	
 	public Users insertNewUser(Users user) {
 		return uDao.save(user);
 	}

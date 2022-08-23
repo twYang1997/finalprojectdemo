@@ -36,7 +36,7 @@
 	<div id="" class="container">
 		<div class="col-lg-8">
 			<br>
-			<div class="panel">
+			<div class="panel"  style="padding-top: 2%">
 
 				<!-- 新增post -->
 				<c:if test="${!empty user}">
@@ -81,15 +81,16 @@
 			</div>
 			<!-- 重複的結構 -->
 			<c:forEach items="${postsToShow}" var="p" varStatus="vs">
-				<div class="panel">
-					<ul class="panel-activity__list">
-						<li><i class="activity__list__icon fa fa-question-circle-o"></i>
-							<div class="activity__list__header">
+				<div class="panel" style="padding-top: 2%">
+<!-- 					<ul class="panel-activity__list"> -->
+<!-- 						<li> -->
+						<i class="activity__list__icon fa fa-question-circle-o"></i>
+<!-- 							<div class="activity__list__header"> -->
 								<div>
 									<a
 										href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
 										<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
-										alt="" style="width: 45px; height: 45px; border-radius: 50%;" />
+										alt="" style="width: 40px; height: 40px; border-radius: 50%;"/>
 										${p.postUser.getNickName()}
 									</a> &nbsp;
 									<!-- whoCanSeeIt圖示 -->
@@ -116,7 +117,7 @@
 										</c:if>
 									</div>
 								</div>
-							</div>
+<!-- 							</div> -->
 							<div class="activity__list__body entry-content">
 
 								<!-- post內文 -->
@@ -149,9 +150,10 @@
 								</c:if>
 								<span> <i class="fa fa-clock"></i>${p.getPostTime()}
 								</span>
-							</div></li>
-					</ul>
-					<!-- 				取得按讚關聯的postID -->
+							</div>
+<!-- 							</li> -->
+<!-- 					</ul> -->
+					<!-- 取得按讚關聯的postID -->
 					<input id="likedPostId${vs.index}" value="${p.getPostId()}"
 						style="visibility: hidden;">
 					<script>
@@ -266,7 +268,7 @@
 					<!-- 評論 -->
 					<div style="background-color: #F0F0F0; padding: 15px; border-radius: 1%">
 					<!-- 重複的結構 -->
-						<c:forEach items="${p.getComments()}" var="c">
+						<c:forEach items="${p.getComments()}" var="c" varStatus="Cvs">
 							<div id="comment" class="box-footer box-comments">
 								<div class="box-comment">
 									<div class="comment-text">
@@ -281,14 +283,14 @@
 									</a>
 									
 									<!-- 	取得評論id -->
-									<input id="commentId${vs.index}" value="${c.getCommentId()}"
+									<input id="commentId${Cvs.index}" value="${c.getCommentId()}"
 									style="visibility: hidden">
 
 										<!-- 	是作者才會顯示的修改刪除按鈕		 -->
 										<c:if test="${c.user.getUserId() == user.getUserId()}">
 											<span style="float: right; margin-left: 10px">
 											<a href="#" role="button" data-toggle="modal"
-												data-target="#myModal${vs.index}deleteCommentCheck"
+												data-target="#myModal${c.getCommentId()}deleteCommentCheck"
 												id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>
 											</a>
 											</span>
@@ -307,6 +309,68 @@
 									<hr>
 								</div>
 							</div>
+							
+					<!-- 彈出評論刪除確認 -->
+					<div class="modal fade" id="myModal${c.getCommentId()}deleteCommentCheck"
+						tabindex="-1" role="dialog"
+						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLongTitle">Delete Comment?</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">Are you sure you want to delete this comment?</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-light"
+										data-dismiss="modal">No</button>
+										<button id="deleteComment${c.getCommentId()}" type="submit" class="btn btn-info">Delete</button>
+									
+								</div>
+							</div>  
+						</div>
+					</div>
+							
+							<script type="text/javascript">
+							//刪除評論ajax
+							$(document).ready(function() {
+								var contextRoot = "/demo";
+								$("#deleteComment${c.getCommentId()}").off().click(function() {
+									var id = ${c.getCommentId()};
+									var datas = {
+										"id" : id
+									};
+									var jsonData = JSON.stringify(datas);
+									console.log(jsonData);
+									
+									$.ajax({
+										url : contextRoot + "/deleteComment.controller",
+										method : 'post',
+										contentType : 'application/json',
+										data : jsonData,
+										success : function(result) {
+											console.log(result);
+											
+	 										//局部刷新
+	 										window.location.reload();
+//	 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
+//	 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
+											//關掉modal
+											$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
+											$("body").removeClass("modal-open");
+											$( ".modal-backdrop").remove();
+										},
+										error : function(error) {
+											console.log(error);
+										}
+									})
+								})
+							});
+							</script>
+							
 						</c:forEach>
 					<!-- 重複的結構 -->
 						<div class="box-footer">
@@ -331,30 +395,6 @@
 						</div>
 					</div>
 				</div>
-				
-				<!-- 彈出評論刪除確認 -->
-					<div class="modal fade" id="myModal${vs.index}deleteCommentCheck"
-						tabindex="-1" role="dialog"
-						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">Delete Comment?</h5>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">Are you sure you want to delete this comment?</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-light"
-										data-dismiss="modal">No</button>
-										<button id="deleteComment${vs.index}" type="submit" class="btn btn-info">Delete</button>
-									
-								</div>
-							</div>  
-						</div>
-					</div>
 				
 				<script>
 						//送出評論ajax
@@ -383,7 +423,7 @@
 										console.log(result);
 										
 // 										局部刷新，讓新增的評論可以馬上顯示
-										window.location.href=window.location.href;
+										window.location.reload();
 // 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
 // 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
 
@@ -422,41 +462,6 @@
 									}
 								})
 								}})
-						});
-						
-						//刪除評論ajax
-						$(document).ready(function() {
-							var contextRoot = "/demo";
-							$("#deleteComment${vs.index}").off().click(function() {
-								var id = $("#commentId${vs.index}")[0].value;
-								var datas = {
-									"id" : id
-								};
-								var jsonData = JSON.stringify(datas);
-								console.log(jsonData);
-								
-								$.ajax({
-									url : contextRoot + "/deleteComment.controller",
-									method : 'post',
-									contentType : 'application/json',
-									data : jsonData,
-									success : function(result) {
-										console.log(result);
-										
- 										//局部刷新
- 										window.location.href=window.location.href;
-// 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
-// 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
-										//關掉modal
-										$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
-										$("body").removeClass("modal-open");
-										$( ".modal-backdrop").remove();
-									},
-									error : function(error) {
-										console.log(error);
-									}
-								})
-							})
 						});
 						
 					</script>
