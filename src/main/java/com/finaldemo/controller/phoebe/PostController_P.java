@@ -2,8 +2,10 @@ package com.finaldemo.controller.phoebe;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.finaldemo.dto.CommentDto;
 import com.finaldemo.dto.IdDto;
 import com.finaldemo.model.Comments;
+import com.finaldemo.model.Follow;
 import com.finaldemo.model.LikePost;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
@@ -36,9 +39,22 @@ public class PostController_P {
 	// 顯示登入者主頁貼文
 	@GetMapping("/getMainPagePosts.controller")
 	public String getMainPagePosts(HttpSession session, Model model) {
-		// 取得登入者發的posts
-		Integer userId = ((Users) session.getAttribute("user")).getUserId();
-		List<Posts> postsToShow = service.getPostsByUserId(userId);
+		// 取得欲顯示的貼文
+		List<Posts> postsToShow = new ArrayList<>();
+		if ((Users) session.getAttribute("user") != null) {
+			Users loginUser = (Users) session.getAttribute("user");
+			Integer userId = loginUser.getUserId();
+			postsToShow.addAll(service.getPostsByUserId(userId)); // 取得登入者發的貼文
+
+			// 取得追隨的貼文
+			List<Integer> upIds = service.findUpId(userId);
+			System.out.println(userId);
+			System.out.println(upIds.isEmpty());
+			for (Integer upId : upIds) {
+				System.out.println("------------------------------------------" + upId);
+				postsToShow.addAll(service.getPostForFansByUserId(upId));
+			}
+		}
 
 		model.addAttribute("postsToShow", postsToShow);
 		Users u = new Users();
@@ -138,8 +154,8 @@ public class PostController_P {
 		service.movePostToTrash(0, postId);
 		return "redirect:/getMainPagePosts.controller";
 	}
-	
-	//舉報post
+
+	// 舉報post
 	@PostMapping("/reportPost.controller")
 	@ResponseBody
 	public String reportPost(@RequestBody IdDto IdDto) {
@@ -175,14 +191,14 @@ public class PostController_P {
 //		return "redirect:/getMainPagePosts.controller";
 		return "add comment success";
 	}
-	
-	//刪除評論
+
+	// 刪除評論
 	@PostMapping("/deleteComment.controller")
 	@ResponseBody
 	public String deleteComment(@RequestBody IdDto IdDto) {
 		Integer commentId = Integer.parseInt(IdDto.getId());
 		service.deleteComment(commentId);
-		
+
 		return "comment deleted";
 	}
 

@@ -1394,16 +1394,14 @@ li.list-group-item:first-child {
 </style>
 	<script type="text/javascript">
 	//上傳一張圖片
-	imgInp.onchange = evt => {
-		  const [file] = imgInp.files
-		  if (file) {
-		    blah.src = URL.createObjectURL(file)
-		  }
-		}
+// 	imgInp.onchange = evt => {
+// 		  const [file] = imgInp.files
+// 		  if (file) {
+// 		    blah.src = URL.createObjectURL(file)
+// 		  }
+// 		}
 	
 	//上傳多張圖片
-// var result=document.getElementById("result");  
-// var file=document.getElementById("file");  
   
 function readAsDataURL(){  
 	console.log("readAsDataURL()");
@@ -1425,15 +1423,17 @@ function readAsDataURL(){
 function readAsDataURLEdit(){  
 	console.log("readAsDataURLEdit()");
     var fileEdit = document.getElementById("fileEdit").files;
+    console.log(fileEdit);
     var resultEdit=document.getElementById("resultEdit");  
-
+    console.log(resultEdit);
+	
     for(i = 0; i< fileEdit.length; i ++) {
-    	
-        var reader    = new FileReader();    
-        reader.readAsDataURL(fileEdit[i]);  
+    	console.log("未進入多圖預覽");
+        var reader    = new FileReader();  
+        reader.readAsDataURL(fileEdit[i]);
         reader.onload=function(e){  
             //多圖預覽
-            console.log("reader.onload");
+            console.log("進入多圖預覽");
             resultEdit.innerHTML = resultEdit.innerHTML + '<img src="' + this.result +'" alt=""  width="auto" height="100"/>';  
         }
 
