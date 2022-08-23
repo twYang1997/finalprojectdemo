@@ -3,6 +3,8 @@ package com.finaldemo.controller.phoebe;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +12,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.sql.ordering.antlr.OrderingSpecification.Ordering;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,13 +51,13 @@ public class PostController_P {
 
 			// 取得追隨的貼文
 			List<Integer> upIds = service.findUpId(userId);
-			System.out.println(userId);
-			System.out.println(upIds.isEmpty());
 			for (Integer upId : upIds) {
 				System.out.println("------------------------------------------" + upId);
 				postsToShow.addAll(service.getPostForFansByUserId(upId));
 			}
 		}
+
+		postsToShow.sort(Comparator.comparing(Posts::getPostId).reversed());
 
 		model.addAttribute("postsToShow", postsToShow);
 		Users u = new Users();
@@ -120,7 +123,7 @@ public class PostController_P {
 //		Users u = (Users) session.getAttribute("user");
 //		Users author = TimmyService.getUserById(u.getUserId());
 		p.setPostText(postText);
-		p.setPostTime(new Date());
+//		p.setPostTime(new Date());
 		p.setPostVideoSrc(postVideo.getOriginalFilename());
 		p.setWhoCanSeeIt(whoCanSeeIt);
 //		p.setPostUser(author);

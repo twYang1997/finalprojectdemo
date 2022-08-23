@@ -1,5 +1,6 @@
 package com.finaldemo.controller.phoebe;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -50,6 +51,7 @@ public class PageController_P {
 		model.addAttribute("userList", userList);
 		
 		List<Posts> postList = service.searchPost(search);
+		postList.sort(Comparator.comparing(Posts::getPostId).reversed());
 		model.addAttribute("postList", postList);
 		
 		return "phoebe/searchResult";
