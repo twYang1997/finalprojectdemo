@@ -36,7 +36,7 @@
 	<div id="" class="container">
 		<div class="col-lg-8">
 			<br>
-			<div class="panel">
+			<div class="panel"  style="padding-top: 2%">
 
 				<!-- 新增post -->
 				<c:if test="${!empty user}">
@@ -81,15 +81,16 @@
 			</div>
 			<!-- 重複的結構 -->
 			<c:forEach items="${postsToShow}" var="p" varStatus="vs">
-				<div class="panel">
-					<ul class="panel-activity__list">
-						<li><i class="activity__list__icon fa fa-question-circle-o"></i>
-							<div class="activity__list__header">
+				<div class="panel" style="padding-top: 2%">
+<!-- 					<ul class="panel-activity__list"> -->
+<!-- 						<li> -->
+						<i class="activity__list__icon fa fa-question-circle-o"></i>
+<!-- 							<div class="activity__list__header"> -->
 								<div>
 									<a
 										href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
 										<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
-										alt="" style="width: 45px; height: 45px; border-radius: 50%;" />
+										alt="" style="width: 40px; height: 40px; border-radius: 50%;"/>
 										${p.postUser.getNickName()}
 									</a> &nbsp;
 									<!-- whoCanSeeIt圖示 -->
@@ -116,7 +117,7 @@
 										</c:if>
 									</div>
 								</div>
-							</div>
+<!-- 							</div> -->
 							<div class="activity__list__body entry-content">
 
 								<!-- post內文 -->
@@ -149,8 +150,9 @@
 								</c:if>
 								<span> <i class="fa fa-clock"></i>${p.getPostTime()}
 								</span>
-							</div></li>
-					</ul>
+							</div>
+<!-- 							</li> -->
+<!-- 					</ul> -->
 					<!-- 取得按讚關聯的postID -->
 					<input id="likedPostId${vs.index}" value="${p.getPostId()}"
 						style="visibility: hidden;">
@@ -353,7 +355,7 @@
 											console.log(result);
 											
 	 										//局部刷新
-	 										window.location.href=window.location.href;
+	 										window.location.reload();
 //	 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
 //	 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
 											//關掉modal
@@ -421,7 +423,7 @@
 										console.log(result);
 										
 // 										局部刷新，讓新增的評論可以馬上顯示
-										window.location.href=window.location.href;
+										window.location.reload();
 // 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
 // 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
 
