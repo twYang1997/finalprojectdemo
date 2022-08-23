@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.finaldemo.model.Comments;
 import com.finaldemo.model.CommentsRepository;
+import com.finaldemo.model.FollowRepository;
 import com.finaldemo.model.LikePost;
 import com.finaldemo.model.LikePostRepository;
 import com.finaldemo.model.PostImg;
@@ -48,6 +49,10 @@ public class PhoebeService {
 	public List<Posts> getPostsByUserId(Integer userId) {
 		return PostsRepository.findPostsByUserId(userId);
 	}
+	
+	public List<Posts> getPostForFansByUserId(Integer userId) {
+		return PostsRepository.getPostForFansByUserId(userId);
+	}
 
 	public List<PostImg> getPostImgsByPostId(Integer postId) {
 		return PostImgRepository.findPostImgsByPostId(postId);
@@ -87,6 +92,13 @@ public class PhoebeService {
 	
 	public List<Posts> searchPost(String search) {
 		return PostsRepository.searchPostsByText(search);
+	}
+	
+	@Autowired
+	private FollowRepository FollowRepository;
+	
+	public List<Integer> findUpId(Integer fanId){
+		return FollowRepository.findUpId(fanId);
 	}
 	
 	// LikeService
