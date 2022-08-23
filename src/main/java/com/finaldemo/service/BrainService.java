@@ -68,7 +68,9 @@ public class BrainService {
 		return pDao.findAll();
 	}
 	
-	
+	public void insertPosts(Posts Posts) {
+		pDao.save(Posts);
+	}
 
 	
 }

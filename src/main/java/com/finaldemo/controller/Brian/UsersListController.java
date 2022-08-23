@@ -157,11 +157,13 @@ public class UsersListController {
 		return "Brian/report";
 	}
 
-	@GetMapping("/reportPosts")
-	public String reportPosts(Model model) {
-		
-		
-		
+	@GetMapping("/removePosts")
+	public String removePosts(HttpSession session, Model model, @RequestParam("id") String id) {
+		Posts p1 = Service.BrainGetPostsById(Integer.parseInt(id));
+		p1.setWhoCanSeeIt(4);
+		p1.setIsReport(0);
+		Service.insertPosts(p1);
+		session.invalidate();
 		return "redirect:/memberReport";
 	}
 
