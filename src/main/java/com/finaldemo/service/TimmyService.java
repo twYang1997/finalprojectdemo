@@ -40,6 +40,10 @@ public class TimmyService {
 		return posts;
 	}
 	
+	public Posts getPostById(Integer id) {
+		return pDao.findById(id).get();
+	}
+	
 	public Pets getPetByPetId(Integer id) {
 		return peDao.findById(id).get();
 	}
