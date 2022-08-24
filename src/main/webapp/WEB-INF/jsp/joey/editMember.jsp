@@ -651,11 +651,46 @@ function loadXMLDoc()
 								<input type="date" id="endDate">
 								<button type="button" id="testDateChart" onclick="checkDateTest()">submit</button>
 								<script type="text/javascript">
+
 									function checkDateTest() {
 										var startDate = document.getElementById("startDate").nodeValue;
 										var endDate = document.getElementById("endDate").getAttribute("value");
 										console.log("startDate: " + startDate);
 										console.log("endDate: " + endDate);
+
+							var ctx = document.getElementById('chart').getContext('2d');
+							var dateArray = new Array();
+							var incomeArray = new Array();
+							
+							<c:forEach items="${ordersToShow}" var="o" varStatus="vs">
+								dateArray.push('${o.getOrderDate()}');
+								incomeArray.push('${o.getOrderPrice()}');
+							</c:forEach>
+							var newDateArray = new Array();
+							for (let i=0;i<dateArray.length;i++){
+								newDateArray.push(dateArray[i].substring(0,10))
+							}
+
+							var chart = new Chart(ctx, {
+							    type: 'line',
+							    data: {
+							        labels: newDateArray,
+							        datasets: [{
+							            label: '# of Votes',
+							            data: incomeArray,
+							            borderWidth: 1
+							        }]
+							    },
+								options: {
+   						 // 自訂屬性設定
+   						 
+						 
+							scales:{
+								yAxes: [{
+									ticks: {
+										min: 0,
+										stepSize: 200
+
 									}
 									
 									var ctx = document.getElementById('chart').getContext('2d');
@@ -737,58 +772,49 @@ function loadXMLDoc()
 								</script>
 							</div>
 							<div class="tab-content-4">
-							
+
 								<div class="chartMenu">
-      <p>WWW.CHARTJS3.COM (Chart JS 3.9.1)</p>
-    </div>
-    <div class="chartCard">
-      <div class="chartBox">
-        <canvas id="myChart"></canvas>
-		<button onclick="timeFrame(this)" value="day">Day</button>
-		<button onclick="timeFrame(this)" value="week">Week</button>
-		<button onclick="timeFrame(this)" value="month">Month</button>
-
-      </div>
-    </div>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-	
-    <script>
-		const day =	[
-			{x: Date.parse('2021-11-01 00:00:00 GMT+0800'), y: 18},
-			{x: Date.parse('2021-11-02 00:00:00 GMT+0800'), y: 12},
-			{x: Date.parse('2021-11-03 00:00:00 GMT+0800'), y: 6},
-			{x: Date.parse('2021-11-04 00:00:00 GMT+0800'), y: 9},
-			{x: Date.parse('2021-11-05 00:00:00 GMT+0800'), y: 3},
-			{x: Date.parse('2021-11-06 00:00:00 GMT+0800'), y: 12},
-			{x: Date.parse('2021-11-07 00:00:00 GMT+0800'), y: 3},
-		];
-
-		const week =	[
-			{x: Date.parse('2021-10-31 00:00:00 GMT+0800'), y: 50},
-			{x: Date.parse('2021-11-07 00:00:00 GMT+0800'), y: 70},
-			{x: Date.parse('2021-11-14 00:00:00 GMT+0800'), y: 100},
-			{x: Date.parse('2021-11-21 00:00:00 GMT+0800'), y: 60},
-			{x: Date.parse('2021-11-28 00:00:00 GMT+0800'), y: 30},
-		];
-
-		const month =	[
-			{x: Date.parse('2021-08-01 00:00:00 GMT+0800'), y: 500},
-			{x: Date.parse('2021-09-01 00:00:00 GMT+0800'), y: 700},
-			{x: Date.parse('2021-10-01 00:00:00 GMT+0800'), y: 500},
-			{x: Date.parse('2021-11-01 00:00:00 GMT+0800'), y: 300},
-			{x: Date.parse('2021-12-01 00:00:00 GMT+0800'), y: 700},
-			{x: Date.parse('2022-01-01 00:00:00 GMT+0800'), y: 333},
-
-		];
-
+									<p>WWW.CHARTJS3.COM (Chart JS 3.9.1)</p>
+								</div>
+								<div class="chartCard">
+									<div class="chartBox">
+										<canvas id="myChart"></canvas>
+										 <input onchange="filterData()" type="date" id="startdate" value="2022-08-20">
+										 <input onchange="filterData()" type="date" id="enddate" value="2022-08-23">
+										 
+<!-- 										<select onselect="filterData(this)"> -->
+<%-- 										<c:forEach items="${ordersToShow}" var="odate" --%>
+<%-- 														varStatus="vs"> --%>
+										
+<%-- 													<option  id="startdate"  ><fmt:formatDate pattern='YYYY-MM-dd' value='${odate.getOrderDate()}' /></option> --%>
+										
+<%-- 										</c:forEach> --%>
+<!-- 										</select> -->
+<!-- 											<select onselect="filterData(this)"> -->
+<%-- 										<c:forEach items="${ordersToShow}" var="odate" --%>
+<%-- 														varStatus="vs"> --%>
+										
+<%-- 													<option id="enddate"><fmt:formatDate pattern='YYYY-MM-dd' value='${odate.getOrderDate()}' /></option> --%>
+										
+<%-- 										</c:forEach> --%>
+<!-- 										</select> -->
+									</div>
+								</div>
+								<script type="text/javascript"
+									src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+								<script>
     // setup 
+	const dates = newDateArray;
+	// console.log('dates:'+dates);
+	// const dates = ['2021-08-25', '2021-08-26', '2021-08-27', '2021-08-28', '2021-08-29', '2021-08-30', '2021-09-01'];
+	const datapoints = incomeArray;
+	// const datapoints = [1, 2, 3, 4, 5, 6, 8];
+	// console.log('datapoints:'+datapoints);
     const data = {
-    //   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      labels: dates,
       datasets: [{
         label: 'Weekly Sales',
-        data: week,
+        data: datapoints,
         backgroundColor: [
           'rgba(255, 26, 104, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -817,12 +843,6 @@ function loadXMLDoc()
       data,
       options: {
         scales: {
-			x:{
-				type:'time',
-				time:{
-					unit:'day'
-				}
-			},
           y: {
             beginAtZero: true
           }
@@ -836,29 +856,40 @@ function loadXMLDoc()
       config
     );
 
-	function timeFrame(peroid){
-		if(peroid.value == 'day') {
-			myChart.config.options.scales.x.time.unit = peroid.value;
-			myChart.config.data.datasets[0].data = day;
-		}	
-		if(peroid.value == 'week') {
-			myChart.config.options.scales.x.time.unit = peroid.value;
-			myChart.config.data.datasets[0].data = week;
-		}
-		if(peroid.value == 'month') {
-			myChart.config.options.scales.x.time.unit = peroid.value;
-			myChart.config.data.datasets[0].data = month;
-		}
+	function filterData(){
+		const dates2=[...dates];
+		console.log('dates2:'+dates2);
+		const startdate = document.getElementById('startdate');
+		const enddate = document.getElementById('enddate');
+		console.log('startdate:'+startdate);
+		// get index number in array
+		const indexstartdate = dates2.indexOf(startdate.value);
+		const indexenddate = dates2.indexOf(enddate.value);
+		// console.log(indexstartdate);
+
+		//slice the array only showing the selected section / slice
+		const filterDate = dates2.slice(indexstartdate, indexenddate + 1);
+
+		// replace the labels in the chart
+		myChart.config.data.labels = filterDate;
+
+		// datapoints
+		const datapoints2 = [...datapoints];
+		const filterDatapoints = datapoints2.slice(indexstartdate, indexenddate + 1)
+
+		myChart.config.data.datasets[0].data = filterDatapoints;
+
 		myChart.update();
 	}
+
     </script>
 
-    
-    
-    
-    
-    
-	
+
+
+
+
+
+
 							</div>
 
 
