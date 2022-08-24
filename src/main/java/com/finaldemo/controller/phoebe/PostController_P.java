@@ -71,11 +71,21 @@ public class PostController_P {
 	// 分享貼文
 	@PostMapping("/sharePost.controller")
 	@ResponseBody
-	public String sharePost(@RequestBody SharePostDto SharePostDto) {
+	public String sharePost(@RequestBody SharePostDto SharePostDto, HttpSession session) {
 		Integer postIdBeShared = Integer.parseInt(SharePostDto.getId());
-		Integer whoShare = Integer.parseInt(SharePostDto.getWhoShare());
 		String saySomeThing = SharePostDto.getSaySomeThing();
-		
+		Posts p = new Posts();
+		Users u = (Users) session.getAttribute("user");
+		Users author = service.getUserById(u.getUserId());
+		p.setIsReport(0);
+		p.setPostLike(0);
+		p.setPostText(saySomeThing);
+		p.setPostTime(new Date());
+		p.setWhoCanSeeIt(1);
+		p.setPostUser(author);
+		p.setIsBanned(0);
+		p.setPostBeShared(service.getPostByPostId(postIdBeShared));
+		service.addPost(p);
 		
 		return("share success");
 	}
