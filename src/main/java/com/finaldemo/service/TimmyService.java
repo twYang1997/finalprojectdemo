@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.finaldemo.model.FollowRepository;
 import com.finaldemo.model.Pets;
 import com.finaldemo.model.PetsRepository;
+import com.finaldemo.model.PostImg;
+import com.finaldemo.model.PostImgRepository;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.PostsRepository;
 import com.finaldemo.model.Users;
@@ -30,6 +32,9 @@ public class TimmyService {
 	@Autowired
 	private FollowRepository fDao;
 	
+	@Autowired
+	private PostImgRepository piDao;
+	
 	public Users getUserById(Integer id) {
 		return uDao.findById(id).get();
 	}
@@ -42,6 +47,22 @@ public class TimmyService {
 	
 	public Posts getPostById(Integer id) {
 		return pDao.findById(id).get();
+	}
+	
+	public PostImg getPostImgById(Integer id) {
+		return piDao.findById(id).get();
+	}
+	
+	public List<PostImg> getAllPostImg(){
+		return piDao.findAll();
+	}
+	
+	public List<PostImg> getPostImgListByPostId(Integer id){
+		return piDao.findPostImgsByPostId(id);
+	}
+	
+	public List<PostImg> getPostImgListByPostIdOrderById(Integer amount, Integer postId){
+		return piDao.findByFk_post_idOrderByPostImgIdDesc(amount, postId);
 	}
 	
 	public Pets getPetByPetId(Integer id) {
@@ -92,5 +113,9 @@ public class TimmyService {
 	
 	public void deleteFollowRelation(Integer fansId, Integer followId) {
 		fDao.deleteFollowByFansIdAndFollowsId(fansId, followId);
+	}
+	
+	public void deletePostImgById(Integer id) {
+		piDao.deleteById(id);
 	}
 }

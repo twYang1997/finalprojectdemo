@@ -179,26 +179,16 @@
 												<tbody>
 													<tr>
 														<c:forEach items="${p.getPostImg()}" var="pImg" varStatus="loop">
-															<td><img src="${contextRoot}${pImg.getPostImgPath()}" width="100px"></td>
+															<td id="showPostImg${pImg.postImgId}"><img name="${pImg.postImgId}o" src="${contextRoot}${pImg.getPostImgPath()}" width="100px"></td>
 														</c:forEach>
 													</tr>
-													<tr>
+													<tr id="testEvent${p.getPostId()}">
 														<c:forEach items="${p.getPostImg()}" var="pImg" varStatus="loop">
-															<td>
-																<button type="button" class="btn btn-outline-secondary icon smallIcon" id="deletePostImgBtn${pImg.postImgId}">
-																	<img src="${contextRoot}/img/userimg/delete.png" width="30" class="smallIcon">
+															<td id="td${pImg.postImgId}">
+																<button type="button" class="btn btn-outline-secondary icon smallIcon delPostImgBtn" name="${pImg.postImgId}">
+																	<img src="${contextRoot}/img/userimg/delete.png" width="30" class="smallIcon delPostImgBtn" name="${pImg.postImgId}">
 																</button>
 															</td>
-															<script>
-															$(function(){
-//			 													以下是刪除圖片的方法---------------------------------------------
-																$("#deletePostImgBtn${pImg.postImgId}").click(function(e){
-																	console.log("${pImg.postImgId}")
-																	
-																	window.location.reload();
-																})
-															})
-															</script>
 														</c:forEach>
 													</tr>
 												</tbody>
@@ -218,10 +208,12 @@
 													class="fa fa-video-camera"></i>
 												</label>
 											</div>
-											<button type="submit" class="btn btn-sm btn-rounded btn-info">Save</button>
-											<script>
+											<button type="button" class="btn btn-sm btn-rounded btn-info" onclick="window.location.reload()">close</button>
+											<script type="text/javascript">
 												$(function(){
 													var contextRoot = "/demo";
+													var add = 1;
+													onceAdd = 0;
 // 													以下是上傳圖片的方法---------------------------------------------
 													$("#file${p.postId}").change(function(e){
 														showPhoto(this);
@@ -230,6 +222,7 @@
 													function showPhoto(input){
 														var datas;
 														var photoJsonArray = [];
+														onceAdd = 0;
 														for (let i=0; i<input.files.length; i++){
 															if (input.files && input.files[0]){
 																var reader = new FileReader();
@@ -239,15 +232,20 @@
 																	let postImg = $("#editPhotoTable${p.postId}").children().children()[0];
 																	let postImgDel = $("#editPhotoTable${p.postId}").children().children()[1];
 																	// 預覽圖片
-																	postImg.innerHTML = postImg.innerHTML + "<td><img src='"+ e.target.result +"' width='100px'></td>";
-																	postImgDel.innerHTML = postImgDel.innerHTML + "<td><button type='button' class='btn btn-outline-secondary icon smallIcon ' ><img src='${contextRoot}/img/userimg/delete.png' width='30' class='smallIcon'></button></td>";
-																	// ajax直接更新資料庫
+																	postImg.innerHTML = postImg.innerHTML + "<td><img name='add" + add + "o' src='"+ e.target.result +"' width='100px'></td>";
+																	postImgDel.innerHTML = postImgDel.innerHTML + "<td><button type='button' name='add" + add + "' class='btn btn-outline-secondary icon smallIcon delPostImgBtn' ><img name='add" + add + "' src='${contextRoot}/img/userimg/delete.png' width='30' class='smallIcon delPostImgBtn'></button></td>";
+																	add += 1;
+																	onceAdd += 1;
+																	// 整理要傳送的單筆資料
+																	<c:forEach items="${p.getPostImg()}" var="pImg">
+																		console.log("${pImg.getPostImgId()}")
+																	</c:forEach>
 																	var datao = {
 																			"img64": e.target.result,   // 讀取圖片完的Bytes
 																			"type": input.files[i].type,   // 該圖片的type
 																			"id": "${p.postId}"   // 該貼文的ID
 																	};
-																	// 把每一張圖片存進JSON陣列
+																	// 把每一筆資料存進JSON陣列
 																	photoJsonArray.push(datao);
 																	// 轉換一下格式
 																	datas = JSON.stringify(photoJsonArray);
@@ -261,6 +259,7 @@
 																			data: datas,
 																			success: function(result){
 																				console.log("result:" + result);
+																				add = 1;
 																			},
 																			error: function(result){
 																				console.log(result);
@@ -273,6 +272,50 @@
 																}
 														}
 													}
+// 													以下是刪除圖片的方法---------------------------------------------
+													// 由於動態新增的元素無法增添事件處理，所以使用父元素代替，因事件會傳遞
+													var postID = '${p.postId}';
+													$("#testEvent${p.getPostId()}").on("click", function(e){
+														if (e.target.classList.contains('delPostImgBtn')){
+															console.log("aaa")
+															let iD = e.target.getAttribute("name") // ${pImg.postImgId}
+	//															跳出彈出視窗
+															console.log(iD);
+															Swal.fire({
+															  title: 'Are you sure?',
+															  icon: 'warning',
+															  showCancelButton: true,
+															  confirmButtonColor: '#3085d6',
+															  cancelButtonColor: '#d33',
+															  confirmButtonText: 'Remove'
+															}).then((result) => {
+															  if (result.isConfirmed) {
+															    Swal.fire(
+															      'Success!',
+															      'Your photo has been removed.',
+															      'success'
+															    ).then((result) => {
+																	  if (result.isConfirmed) {
+	//																			刪掉資料庫的資料
+																			$.ajax({
+																				url: contextRoot + "/timmy/deletePostImgAjax?imgId=" + iD + "&postId=" + postID +"&onceAdd=" + onceAdd,
+																				method: 'get',
+																				success: function(result){
+																					// 刪掉該圖片有關的html
+																					$("button[name='" +iD +"']").parent('td')[0].remove();
+																					$("img[name='" + iD + "o']").parent('td')[0].remove();
+																					console.log("result:" + result);
+																				},
+																				error: function(result){
+																					console.log(result);
+																				}
+																			})
+																		  }
+																		})
+															  }
+															})
+														}
+													})
 												});
 											</script>
 										</div>
@@ -544,4 +587,6 @@ for(i = 0; i< file.length; i ++) {
 }  
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>
+
 </html>
