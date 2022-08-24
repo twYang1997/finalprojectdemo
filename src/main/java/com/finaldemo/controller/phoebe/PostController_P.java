@@ -96,6 +96,7 @@ public class PostController_P {
 		p.setPostVideoSrc(postVideo.getOriginalFilename());
 		p.setWhoCanSeeIt(whoCanSeeIt);
 		p.setPostUser(author);
+		p.setIsBanned(0);
 //		posts.add(p);
 //		author.setPosts(posts);
 //		TimmyService.insertNewUser(author);
