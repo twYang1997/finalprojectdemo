@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.dto.CommentDto;
 import com.finaldemo.dto.IdDto;
+import com.finaldemo.dto.SharePostDto;
 import com.finaldemo.model.Comments;
 import com.finaldemo.model.Follow;
 import com.finaldemo.model.LikePost;
@@ -52,9 +53,10 @@ public class PostController_P {
 			// 取得追隨的貼文
 			List<Integer> upIds = service.findUpId(userId);
 			for (Integer upId : upIds) {
-				System.out.println("------------------------------------------" + upId);
 				postsToShow.addAll(service.getPostForFansByUserId(upId));
 			}
+		}else {
+			postsToShow.addAll(service.getPostsByWhoCanSeeIt(1));
 		}
 
 		postsToShow.sort(Comparator.comparing(Posts::getPostId).reversed());
@@ -65,8 +67,20 @@ public class PostController_P {
 
 		return "phoebe/index";
 	}
+	
+	// 分享貼文
+	@PostMapping("/sharePost.controller")
+	@ResponseBody
+	public String sharePost(@RequestBody SharePostDto SharePostDto) {
+		Integer postIdBeShared = Integer.parseInt(SharePostDto.getId());
+		Integer whoShare = Integer.parseInt(SharePostDto.getWhoShare());
+		String saySomeThing = SharePostDto.getSaySomeThing();
+		
+		
+		return("share success");
+	}
 
-	// 新增post
+	// 新增貼文
 	@PostMapping("/addPost.controller")
 	public String addPost(@RequestParam String postText, @RequestParam MultipartFile[] postImg,
 			@RequestParam MultipartFile postVideo, @RequestParam Integer whoCanSeeIt, HttpSession session,
@@ -158,7 +172,7 @@ public class PostController_P {
 		return "redirect:/getMainPagePosts.controller";
 	}
 
-	// 舉報post
+	// 檢舉貼文
 	@PostMapping("/reportPost.controller")
 	@ResponseBody
 	public String reportPost(@RequestBody IdDto IdDto) {

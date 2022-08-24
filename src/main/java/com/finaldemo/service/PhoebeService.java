@@ -53,6 +53,10 @@ public class PhoebeService {
 	public List<Posts> getPostForFansByUserId(Integer userId) {
 		return PostsRepository.getPostForFansByUserId(userId);
 	}
+	
+	public List<Posts> getPostsByWhoCanSeeIt(Integer whoCanSeeIt) {
+		return PostsRepository.getPostsByWhoCanSeeIt(whoCanSeeIt);
+	}
 
 	public List<PostImg> getPostImgsByPostId(Integer postId) {
 		return PostImgRepository.findPostImgsByPostId(postId);
