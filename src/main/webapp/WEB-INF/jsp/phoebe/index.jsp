@@ -110,14 +110,49 @@
 									<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
 									<i class="fa fa-ellipsis-h" style="font-size: 22px"></i>
 									<div class="dropdown-content">
+										
 										<c:if test="${p.postUser.getUserId() != user.getUserId()}">
-										<form method="post" action="${contextRoot}/reportPost.controller?postId=${p.getPostId()}">
-										<a><button type="submit" class="btn btn-light">report</button></a>
-										</form>
+<%-- 										<form method="post" action="${contextRoot}/reportPost.controller?postId=${p.getPostId()}"> --%>
+										<a><button id="report${vs.index}" type="submit" class="btn btn-light">report</button></a>
+<%-- 										</form> --%>
 										</c:if>
 									</div>
 								</div>
-<!-- 							</div> -->
+							
+						<script>	
+						//檢舉貼文ajax
+						$(document).ready(function() {
+							var contextRoot = "/demo";
+							$("#report${vs.index}").off().click(function() {
+								var id = $("#likedPostId${vs.index}")[0].value;
+								var datas = {
+									"id" : id
+								};
+								var jsonData = JSON.stringify(datas);
+								console.log(jsonData);
+								
+								$.ajax({
+									url : contextRoot + "/reportPost.controller",
+									method : 'post',
+									contentType : 'application/json',
+									data : jsonData,
+									success : function(result) {
+										console.log(result);
+										
+ 										//刷新
+ 										window.location.reload();
+										//關掉modal
+// 										$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
+// 										$("body").removeClass("modal-open");
+// 										$( ".modal-backdrop").remove();
+									},
+									error : function(error) {
+										console.log(error);
+									}
+								})
+							})
+						});
+					</script>
 							<div class="activity__list__body entry-content">
 
 								<!-- post內文 -->
@@ -132,7 +167,7 @@
 								</c:forEach>
 
 							</div> 
-							<!-- 按讚/評論/修改/刪除 按鈕 -->
+							<!-- 	按讚/評論/修改/刪除/分享 按鈕 -->
 							<div class="activity__list__footer">
 								<a id="like${vs.index}"> <i onclick="likeIconFunction(this)"
 									class="fa fa-thumbs-up"></i>${p.getPostLike()}</a> <a
@@ -146,6 +181,13 @@
 									<a href="#" role="button" data-toggle="modal"
 										data-target="#myModal${vs.index}deleteCheck"
 										id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>Delete
+									</a>
+								</c:if>
+								<!--分享 -->
+								<c:if test="${p.postUser.getUserId() != user.getUserId()}">
+									<a href="#" role="button" data-toggle="modal"
+										data-target="#myModal${vs.index}Share"
+										id="viewDetailButton${vs.index}"> <i class="fa fa-share" aria-hidden="true"></i>Share
 									</a>
 								</c:if>
 								<span> <i class="fa fa-clock"></i>${p.getPostTime()}
@@ -236,6 +278,90 @@
 							</div>
 						</div>
 					</div>
+
+					<!-- 分享貼文Modal -->
+					<div class="modal fade" id="myModal${vs.index}Share" role="dialog">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<!-- head -->
+								<div class="modal-header">
+									<h4 class="modal-title">Share post</h4>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+								<!-- body -->
+								<div class="modal-body">
+<%-- 									<form --%>
+<%-- 										action="${contextRoot}/sharePost.controller?postId=${p.getPostId()}" --%>
+<%-- 										class="panel-activity__status" method="post" --%>
+<%-- 										enctype="multipart/form-data"> --%>
+										
+										<!-- 登入者輸入區 -->
+										<img src="${contextRoot}/${user.getPhotoPath()}"
+										style="width: 40px; height: 40px; border-radius: 50%;float: none;">
+										<textarea id="saySomeThing${p.getPostId()}" name="postText" class="form-control"style="border-style: none; overflow: hidden;"  placeholder="Add a comment"></textarea>
+										
+										<!-- 被分享貼文區 -->
+										<div id="postBeShared" style="border: solid; border-width: 1px; border-color: #E0E0E0; padding: 3%; margin: 3%; height: 50%; overflow: auto;">
+										<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
+											style="width: 40px; height: 40px; border-radius: 50%;">
+										${p.postUser.getNickName()}
+										<p>${p.getPostText()}</p>
+										<c:forEach items="${p.getPostImg()}" var="pImg" varStatus="loop">
+										<ul class="gallery" style="list-style:none;">
+											<li><img src="${contextRoot}/${pImg.getPostImgPath()}">
+											</li>
+										</ul>
+										</c:forEach>
+										</div>
+										
+										<!-- footer -->
+										<div>
+											<button id="sharePost${p.getPostId()}" type="submit" class="btn btn-sm btn-rounded btn-info">Share</button>
+										</div>
+<%-- 									</form> --%>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<script type="text/javascript">
+							//分享貼文ajax
+							$(document).ready(function() {
+								var contextRoot = "/demo";
+								$("#sharePost${p.getPostId()}").off().click(function() {
+									var id = ${p.getPostId()};
+									var whoShare = ${user.getUserId()};
+									var saySomeThing = $("#saySomeThing${p.getPostId()}")[0].value;
+									var datas = {
+										"id" : id,
+										"whoShare" : whoShare,
+										"saySomeThing" : saySomeThing
+									};
+									var jsonData = JSON.stringify(datas);
+									console.log(jsonData);
+									
+									$.ajax({
+										url : contextRoot + "/sharePost.controller",
+										method : 'post',
+										contentType : 'application/json',
+										data : jsonData,
+										success : function(result) {
+											console.log(result);
+											
+	 										//局部刷新
+	 										window.location.reload();
+											//關掉modal
+											$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
+											$("body").removeClass("modal-open");
+											$( ".modal-backdrop").remove();
+										},
+										error : function(error) {
+											console.log(error);
+										}
+									})
+								})
+							});
+							</script>
 
 					<!-- 彈出貼文刪除確認 -->
 					<div class="modal fade" id="myModal${vs.index}deleteCheck"
@@ -373,6 +499,7 @@
 							
 						</c:forEach>
 					<!-- 重複的結構 -->
+					<c:if test="${!empty user}">
 						<div class="box-footer">
 							<img class="img-responsive img-circle img-sm"
 								src="${contextRoot}/${user.getPhotoPath()}" alt="Alt Text"
@@ -389,10 +516,8 @@
 								<input id="postId${vs.index}" value="${p.getPostId()}"
 									style="visibility: hidden;">
 							</div>
-
-							<script type="text/javascript">
- 									</script>
 						</div>
+						</c:if>
 					</div>
 				</div>
 				
@@ -426,36 +551,6 @@
 										window.location.reload();
 // 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
 // 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
-
-										//新增HTML，創建元素後塞入目標元素
-// 							            let tempdiv1 = document.createElement('div');
-// 							            let tempdiv2 = document.createElement('div');
-// 							            let tempdiv3 = document.createElement('div');
-// 							            let tempa1 = document.createElement('a');
-// 							            let tempimg = document.createElement('img');
-// 							            let tempspan1 = document.createElement('span');
-// 							            let tempspan2 = document.createElement('span');
-// 							            let tempa2 = document.createElement('a');
-
-// 							            let tempInput = document.createElement('input');
-// 							            tempInput.type = 'checkbox';
-
-// 							            let tempSpan = document.createElement('span');
-// 							            tempSpan.innerHTML = newTodoString;
-
-// 							            let tempBTN = document.createElement('button');
-// 							            tempBTN.classList.add('btn');
-// 							            tempBTN.classList.add('btn-danger');
-// 							            tempBTN.innerHTML = '刪除';
-
-// 							            tempLabel.appendChild(tempInput);
-// 							            tempLabel.appendChild(tempSpan);
-
-// 							            tempLi.appendChild(tempLabel);
-// 							            tempLi.appendChild(tempBTN);
-
-// 							            todoMain.appendChild(tempLi);
-
 									},
 									error : function(error) {
 										console.log(error);

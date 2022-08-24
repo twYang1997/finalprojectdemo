@@ -22,6 +22,9 @@ public interface PostsRepository extends JpaRepository<Posts, Integer> {
 	
 	@Query(value="Select * from Posts where fk_user_id = :id and whoCanSeeIt = 1 or whoCanSeeIt = 2", nativeQuery = true)
 	public List<Posts> getPostForFansByUserId(@Param("id") Integer userId);
+	
+	@Query(value="Select * from Posts where whoCanSeeIt = :whoCanSeeIt", nativeQuery = true)
+	public List<Posts> getPostsByWhoCanSeeIt(@Param("whoCanSeeIt") Integer whoCanSeeIt);
 
 	@Transactional
 	@Modifying
