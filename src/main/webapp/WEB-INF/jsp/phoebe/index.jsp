@@ -165,7 +165,38 @@
 										</li>
 									</ul>
 								</c:forEach>
-
+								
+								<!-- 被分享貼文顯示 -->
+								<c:if test="${!empty p.getPostBeShared()}">
+								<div id="postBeShared" style="border: solid; border-width: 1px; border-color: #E0E0E0; padding: 3%; margin: 3%; height: 50%; overflow: auto;">
+								<!--原作者資訊 -->
+									<a
+										href="${contextRoot}/timmy/readUserById/${p.getPostBeShared().getPostUser().getUserId()}">
+										<img src="${contextRoot}/${p.getPostBeShared().getPostUser().getPhotoPath()}"
+										alt="" style="width: 40px; height: 40px; border-radius: 50%;"/>
+										${p.getPostBeShared().postUser.getNickName()}
+									</a> &nbsp;
+									<!-- whoCanSeeIt圖示 -->
+									<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 1}">
+									<i id="public" class="fa fa-globe" aria-hidden="true"></i>
+									</c:if>
+									<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 2}">
+									<i id="followers" class="fa fa-users" aria-hidden="true"></i>
+									</c:if>
+									<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 3}">
+									<i id="onlyMe" class="fa fa-lock" aria-hidden="true"></i>
+									</c:if>
+									<!--被分享貼文內容 -->
+								<p>${p.getPostBeShared().getPostText()}</p>
+								<c:forEach items="${p.getPostBeShared().getPostImg()}" var="sharedPostImg" varStatus="loop">
+									<ul class="gallery">
+										<li><img src="${contextRoot}/${sharedPostImg.getPostImgPath()}">
+										</li>
+									</ul>
+								</c:forEach>
+								</div>
+								</c:if>
+								
 							</div> 
 							<!-- 	按讚/評論/修改/刪除/分享 按鈕 -->
 							<div class="activity__list__footer">
@@ -290,10 +321,6 @@
 								</div>
 								<!-- body -->
 								<div class="modal-body">
-<%-- 									<form --%>
-<%-- 										action="${contextRoot}/sharePost.controller?postId=${p.getPostId()}" --%>
-<%-- 										class="panel-activity__status" method="post" --%>
-<%-- 										enctype="multipart/form-data"> --%>
 										
 										<!-- 登入者輸入區 -->
 										<img src="${contextRoot}/${user.getPhotoPath()}"
@@ -318,7 +345,6 @@
 										<div>
 											<button id="sharePost${p.getPostId()}" type="submit" class="btn btn-sm btn-rounded btn-info">Share</button>
 										</div>
-<%-- 									</form> --%>
 								</div>
 							</div>
 						</div>
@@ -330,11 +356,9 @@
 								var contextRoot = "/demo";
 								$("#sharePost${p.getPostId()}").off().click(function() {
 									var id = ${p.getPostId()};
-									var whoShare = ${user.getUserId()};
 									var saySomeThing = $("#saySomeThing${p.getPostId()}")[0].value;
 									var datas = {
 										"id" : id,
-										"whoShare" : whoShare,
 										"saySomeThing" : saySomeThing
 									};
 									var jsonData = JSON.stringify(datas);

@@ -43,6 +43,10 @@ public class Posts {
 	@JoinColumn(name = "fk_user_id", referencedColumnName = "userId")
 	private Users postUser;
 	
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Posts.class)
+	@JoinColumn(name = "fk_post_id", referencedColumnName = "postId")
+	private Posts postBeShared;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post",cascade = CascadeType.ALL)
 	private Set<Comments> Comments = new LinkedHashSet<Comments>();
 	
@@ -169,9 +173,13 @@ public class Posts {
 	public void setLikePost(Set<LikePost> likePost) {
 		LikePost = likePost;
 	}
-	
-//	public String getNickName() {
-//		return this.getNickName();
-//	}
+
+	public Posts getPostBeShared() {
+		return postBeShared;
+	}
+
+	public void setPostBeShared(Posts postBeShared) {
+		this.postBeShared = postBeShared;
+	}
 	
 }

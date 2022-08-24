@@ -17,10 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface PostsRepository extends JpaRepository<Posts, Integer> {
 	
-	@Query(value="Select * from Posts where fk_user_id = :id and whoCanSeeIt != 0 and whoCanSeeIt != 4", nativeQuery = true)
+	@Query(value="Select * from Posts where fk_user_id = :id and whoCanSeeIt != 0 and isBanned != 1", nativeQuery = true)
 	public List<Posts> findPostsByUserId(@Param("id") Integer userId);
 	
-	@Query(value="Select * from Posts where fk_user_id = :id and whoCanSeeIt = 1 or whoCanSeeIt = 2", nativeQuery = true)
+	@Query(value="Select * from Posts where fk_user_id = :id and (whoCanSeeIt = 1 or whoCanSeeIt = 2) and isBanned != 1", nativeQuery = true)
 	public List<Posts> getPostForFansByUserId(@Param("id") Integer userId);
 	
 	@Query(value="Select * from Posts where whoCanSeeIt = :whoCanSeeIt", nativeQuery = true)
