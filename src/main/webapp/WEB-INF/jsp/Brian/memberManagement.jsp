@@ -207,6 +207,18 @@
 																	<label for="inputAddress">Birthday</label>
 																	<form:input id="myDate${vs.index}" path="birthday"
 																		type="date" class="form-control" />
+																		<script type="text/javascript">
+																		var date = new Date();
+																		var year = date.getFullYear();
+																		var month = ('0'+ (date.getMonth() + 1)).slice(-2);
+																		var day = ('0' + date.getDate()).slice(-2);
+																		// var day = date.getDay();
+																		var time = year +'-'+ month +'-'+ day;
+																		console.log(time);
+																		document.getElementById("myDate${vs.index}").value = time;
+																		//限制不能选择今天之后的日期（加上属性max）
+																		document.getElementById("myDate${vs.index}").setAttribute('max', time);
+																		</script>
 																	<!--取得生日-->
 																	<div id="hideDate${vs.index}" hidden="true">
 																		<fmt:formatDate pattern='yyyy-MM-dd'
@@ -576,6 +588,18 @@
 																	<label for="inputAddress">Birthday</label>
 																	<form:input id="myDate${vs.index}" path="birthday"
 																		type="date" class="form-control" />
+																		<script type="text/javascript">
+																		var date = new Date();
+																		var year = date.getFullYear();
+																		var month = ('0'+ (date.getMonth() + 1)).slice(-2);
+																		var day = ('0' + date.getDate()).slice(-2);
+																		// var day = date.getDay();
+																		var time = year +'-'+ month +'-'+ day;
+																		console.log(time);
+																		document.getElementById("myDate${vs.index}").value = time;
+																		//限制不能选择今天之后的日期（加上属性max）
+																		document.getElementById("myDate${vs.index}").setAttribute('max', time);
+																		</script>
 																	<!--取得生日-->
 																	<div id="hideDate${vs.index}" hidden="true">
 																		<fmt:formatDate pattern='yyyy-MM-dd'
