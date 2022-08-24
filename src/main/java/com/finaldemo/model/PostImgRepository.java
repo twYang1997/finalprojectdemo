@@ -26,6 +26,6 @@ public interface PostImgRepository extends JpaRepository<PostImg, Integer> {
 	@Query(value = "delete from PostImg where fk_post_id = :postId", nativeQuery = true)
 	public void deleteImgByPostId(@Param("postId") Integer postId);
 	
-	@Query(value = "select top(:amount) * from PostImg  where fk_post_id = :postId order by postImgId Desc", nativeQuery = true)
-	public List<PostImg> findByFk_post_idOrderByPostImgIdDesc(@Param("amount") Integer amount, @Param("postId") Integer postId);
+	@Query(value = "select * from PostImg  where fk_post_id = :postId order by postImgId Desc", nativeQuery = true)
+	public List<PostImg> findByFk_post_idOrderByPostImgIdDesc(@Param("postId") Integer postId);
 }
