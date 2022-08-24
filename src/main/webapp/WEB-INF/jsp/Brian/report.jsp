@@ -29,8 +29,8 @@
 <link rel="stylesheet" type="text/css"
 	href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
-<link rel="stylesheet" href="${contextRoot}/css/index.css">
-<link rel="stylesheet" href="${contextRoot}/css/navs.css">
+<link rel="stylesheet" href="${contextRoot}/css/report_index.css">
+<link rel="stylesheet" href="${contextRoot}/css/report_navs.css">
 </head>
 <body>
 	<!-- 頁簽開始 -->
@@ -50,17 +50,17 @@
 				<table id="testTable" class="table">
 					<thead>
 						<tr>
-							<th class="col-md-6" style="font-weight: bold;">Email</th>
+							<th class="col-md-3" style="font-weight: bold;">Email</th>
 							<th class="col-md-6">Posts</th>
-							<th class="col-md-6">&nbsp;</th>
+							<th class="col-md-3">&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="users" items="${posts}" varStatus="vs">
 							<c:if test="${users.isReport==1}">
 								<tr>
-									<td class="col-md-8">${users.postUser.email}</td>
-									<td class="col-md-4"><c:forEach items="${posts}" var="p"
+									<td class="col-md-3">${users.postUser.email}</td>
+									<td class="col-md-6"><c:forEach items="${posts}" var="p"
 											varStatus="vs">
 											<c:if test="${p.isReport==1}">
 												<a href="#">${p.postUser.getNickName()}</a>
@@ -112,10 +112,16 @@
 												</script>
 											</c:if>
 										</c:forEach></td>
-									<td class="col-md-4"><a
+ 									<!--移除 -->
+									<td class="col-md-3"><a
 										class="rounded-pill btn btn-outline-success font-weight-bold"
 										href="${contextRoot}/removePosts?id=${users.postId}"
-										role="button">移除</a></td>
+										role="button">移除</a>
+									<!--取消移除 -->
+									<a
+										class="rounded-pill btn btn-outline-success font-weight-bold"
+										href="${contextRoot}/cancelRemovePosts?id=${users.postId}"
+										role="button">取消移除</a></td>
 								</tr>
 							</c:if>
 						</c:forEach>
@@ -138,6 +144,7 @@
 												});
 							});
 		</script>
+<!------------------------------------------------------------------------------------------------------------------------------->
 		<!-- 		移除文章 -->
 		<div class="tab-content-2">
 			<br>
@@ -146,18 +153,19 @@
 				<table id="test2Table" class="table">
 					<thead>
 						<tr>
-							<th class="col-md-6">Email</th>
-							<th class="col-md-6">Edit</th>
+							<th class="col-md-3">Email</th>
+							<th class="col-md-6">Posts</th>
+							<th class="col-md-3">&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="users" items="${posts}" varStatus="vs">
-							<c:if test="${users.whoCanSeeIt==4}">
+							<c:if test="${users.isBanned==1}">
 								<tr>
-									<td class="col-md-8">${users.postUser.email}</td>
-									<td class="col-md-4"><c:forEach items="${posts}" var="p"
+									<td class="col-md-3">${users.postUser.email}</td>
+									<td class="col-md-6"><c:forEach items="${posts}" var="p"
 											varStatus="vs">
-											<c:if test="${p.whoCanSeeIt==4}">
+											<c:if test="${p.isBanned==1}">
 												<a href="#">${p.postUser.getNickName()}</a>
 												<span><i class="fa fa-clock">${p.getPostTime()}</i> </span>
 												<!-- post內文 -->
@@ -207,9 +215,9 @@
 												</script>
 											</c:if>
 										</c:forEach></td>
-									<td class="col-md-4"><a
+									<td class="col-md-3"><a
 										class="rounded-pill btn btn-outline-success font-weight-bold"
-										href="${contextRoot}/removePosts?id=${users.postId}"
+										href="${contextRoot}/removePostsRestoration?id=${users.postId}"
 										role="button">回復</a></td>
 								</tr>
 							</c:if>

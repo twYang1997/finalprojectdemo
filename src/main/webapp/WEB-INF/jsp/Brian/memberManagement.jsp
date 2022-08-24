@@ -359,7 +359,9 @@
 													class="rounded-pill btn btn-outline-success font-weight-bold"
 													href="${contextRoot}/rebirthUser?id=${users.userId}"
 													role="button">恢復</a>
-											</c:if> <!-- 										-------------------- --> <!--貼文記錄按鈕 --> <a
+											</c:if> <!-- 										-------------------- -->
+											 <!--貼文記錄按鈕 -->
+										 <a
 											class="rounded-pill btn btn-outline-info font-weight-bold"
 											role="button" data-toggle="modal"
 											data-target="#myRecordModal${vs.index}">貼文記錄</a>
@@ -372,14 +374,14 @@
 																<div class="card">
 																	<div class="card-body" style="text-align: left;">
 																		<a href="#">${p.postUser.getNickName()}</a>
-
+																		
 																		<!-- post內文 -->
 																		<p>${p.getPostText()}</p>
 
 																		<!-- post圖片 -->
 																		<c:forEach items="${p.getPostImg()}" var="pImg"
 																			varStatus="loop">
-																			<ul class="gallery">
+																			<ul class="gallery" style="list-style: none;">
 																				<li><img
 																					src="${contextRoot}/${pImg.getPostImgPath()}">
 																				</li>

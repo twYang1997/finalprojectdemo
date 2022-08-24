@@ -157,15 +157,38 @@ public class UsersListController {
 		return "Brian/report";
 	}
 
+//	移除文章
 	@GetMapping("/removePosts")
 	public String removePosts(HttpSession session, Model model, @RequestParam("id") String id) {
 		Posts p1 = Service.BrainGetPostsById(Integer.parseInt(id));
-		p1.setWhoCanSeeIt(4);
+		p1.setIsBanned(1);
 		p1.setIsReport(0);
 		Service.insertPosts(p1);
 		session.invalidate();
 		return "redirect:/memberReport";
 	}
+	
+//	回復移除文章
+	@GetMapping("/removePostsRestoration")
+	public String removePostsRestoration(HttpSession session, Model model, @RequestParam("id") String id) {
+		Posts p1 = Service.BrainGetPostsById(Integer.parseInt(id));
+		p1.setIsBanned(null);
+		p1.setIsReport(1);
+		Service.insertPosts(p1);
+		session.invalidate();
+		return "redirect:/memberReport";
+	}
+//	回復移除文章
+	@GetMapping("/cancelRemovePosts")
+	public String cancelRemovePosts(HttpSession session, Model model, @RequestParam("id") String id) {
+		Posts p1 = Service.BrainGetPostsById(Integer.parseInt(id));
+		p1.setIsReport(0);
+		Service.insertPosts(p1);
+		session.invalidate();
+		return "redirect:/memberReport";
+	}
+
+	
 
 }
 //	@PostMapping("/Brian/uploadImgAjax")

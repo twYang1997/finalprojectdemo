@@ -69,7 +69,7 @@ public class LoginController {
 		Users u = service.checkLogin(email, password);
 //		cookie 設置
 		
-		if (u != null) {
+		if (u != null && u.getCategory()!=0) {
 			if (rememberMe.equals("on")) {
 				Cookie cookie = new Cookie("userCookie", u.getEmail());
 				cookie.setMaxAge(7*24*60*60);
