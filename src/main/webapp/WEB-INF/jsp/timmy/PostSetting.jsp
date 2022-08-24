@@ -185,10 +185,20 @@
 													<tr>
 														<c:forEach items="${p.getPostImg()}" var="pImg" varStatus="loop">
 															<td>
-																<button type="button" class="btn btn-outline-secondary icon smallIcon " >
+																<button type="button" class="btn btn-outline-secondary icon smallIcon" id="deletePostImgBtn${pImg.postImgId}">
 																	<img src="${contextRoot}/img/userimg/delete.png" width="30" class="smallIcon">
 																</button>
 															</td>
+															<script>
+															$(function(){
+//			 													以下是刪除圖片的方法---------------------------------------------
+																$("#deletePostImgBtn${pImg.postImgId}").click(function(e){
+																	console.log("${pImg.postImgId}")
+																	
+																	window.location.reload();
+																})
+															})
+															</script>
 														</c:forEach>
 													</tr>
 												</tbody>
@@ -212,11 +222,14 @@
 											<script>
 												$(function(){
 													var contextRoot = "/demo";
+// 													以下是上傳圖片的方法---------------------------------------------
 													$("#file${p.postId}").change(function(e){
 														showPhoto(this);
 													})
 													// 更改input 就會執行以下方法
 													function showPhoto(input){
+														var datas;
+														var photoJsonArray = [];
 														for (let i=0; i<input.files.length; i++){
 															if (input.files && input.files[0]){
 																var reader = new FileReader();
@@ -234,23 +247,29 @@
 																			"type": input.files[i].type,   // 該圖片的type
 																			"id": "${p.postId}"   // 該貼文的ID
 																	};
-																	var datas = JSON.stringify(datao);
-																	$.ajax({
-																		url: contextRoot + '/timmy/uploadPostImgAjax',  // 該controller在PostSettingController
-																		contentType: 'application/json',
-																		dataType: 'text',
-																		method: 'post',
-																		data: datas,
-																		success: function(result){
-																			console.log(result);
-																		},
-																		error: function(result){
-																			console.log(result);
-																		}
-																	});
+																	// 把每一張圖片存進JSON陣列
+																	photoJsonArray.push(datao);
+																	// 轉換一下格式
+																	datas = JSON.stringify(photoJsonArray);
+																	// 當所有圖片讀取完之後，傳回後端
+																	if (i == input.files.length - 1){
+																		$.ajax({
+																			url: contextRoot + '/timmy/uploadPostImgAjax',  // 該controller在PostSettingController
+																			contentType: 'application/json; charset=utf-8',
+																			dataType: 'text',
+																			method: 'post',
+																			data: datas,
+																			success: function(result){
+																				console.log("result:" + result);
+																			},
+																			error: function(result){
+																				console.log(result);
+																			}
+																		});
+																	}
 																}
-																	// 圖片開始讀取
-																	reader.readAsDataURL(input.files[i]);
+																// 圖片開始讀取
+																reader.readAsDataURL(input.files[i]);
 																}
 														}
 													}
