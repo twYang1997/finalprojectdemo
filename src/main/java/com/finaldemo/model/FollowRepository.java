@@ -19,4 +19,8 @@ public interface FollowRepository extends JpaRepository<Follow, Integer> {
 	
 	@Query(value="select fk_user_fans_id from Follow where fk_user_follow_id = :fanId", nativeQuery = true)
 	public List<Integer> findUpId(@Param("fanId") Integer fanId);
+	
+	@Query(value="select fk_user_follow_id from Follow where fk_user_fans_id = :upId", nativeQuery = true)
+	public List<Integer> findfans(@Param("upId") Integer upId);
+	
 }

@@ -3,16 +3,13 @@ package com.finaldemo.controller.phoebe;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.sql.ordering.antlr.OrderingSpecification.Ordering;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +24,8 @@ import com.finaldemo.dto.CommentDto;
 import com.finaldemo.dto.IdDto;
 import com.finaldemo.dto.SharePostDto;
 import com.finaldemo.model.Comments;
-import com.finaldemo.model.Follow;
 import com.finaldemo.model.LikePost;
+import com.finaldemo.model.Notification;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Users;
@@ -55,7 +52,7 @@ public class PostController_P {
 			for (Integer upId : upIds) {
 				postsToShow.addAll(service.getPostForFansByUserId(upId));
 			}
-		}else {
+		} else {
 			postsToShow.addAll(service.getPostsByWhoCanSeeIt(1));
 		}
 
@@ -67,7 +64,7 @@ public class PostController_P {
 
 		return "phoebe/index";
 	}
-	
+
 	// 分享貼文
 	@PostMapping("/sharePost.controller")
 	@ResponseBody
@@ -86,8 +83,8 @@ public class PostController_P {
 		p.setIsBanned(0);
 		p.setPostBeShared(service.getPostByPostId(postIdBeShared));
 		service.addPost(p);
-		
-		return("share success");
+
+		return ("share success");
 	}
 
 	// 新增貼文
@@ -135,6 +132,20 @@ public class PostController_P {
 			String fileName = postVideo.getOriginalFilename();
 			String videoPath = System.getProperty("user.dir") + "\\src\\main\\webapp\\video\\" + fileName;
 			postVideo.transferTo(new File(videoPath));
+		}
+
+		// 如果此人有粉絲，需通知
+		if (!(service.findfans(author.getUserId()).isEmpty())) {
+			if (whoCanSeeIt == 1 || whoCanSeeIt == 2) {
+				List<Integer> fansIds = service.findfans(author.getUserId());
+				for (Integer fanId : fansIds) {
+					Notification newNotification = new Notification();
+					newNotification.setNotificationTime(new Date());
+					newNotification.setUser(service.getUserById(fanId));
+					newNotification.setPost(newPost);
+					service.addNotification(newNotification);
+				}
+			}
 		}
 		return "redirect:/getMainPagePosts.controller";
 	}

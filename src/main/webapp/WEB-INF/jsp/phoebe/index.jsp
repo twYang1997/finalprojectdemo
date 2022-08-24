@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <jsp:include page="../timmy/layout/navbar.jsp" />
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +29,8 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js">
-	</script>
+	
+</script>
 
 </head>
 <body>
@@ -36,8 +38,20 @@
 	<div id="" class="container">
 		<div class="col-lg-8">
 			<br>
-			<div class="panel"  style="padding-top: 2%">
+				<!-- 通知 -->
+				<div class="dropdown" style="float: right; margin-right: 5%;">
+						<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
+						<i class="fa fa-bell-o" aria-hidden="true"><span class="badge badge-danger">4</span></i>
+						<div class="dropdown-content">
 
+							<c:if test="${p.postUser.getUserId() != user.getUserId()}">
+								<a>123&emsp;<button id="" type="submit"
+										class="btn btn-light">read</button></a>
+							</c:if>
+						</div>
+					</div>
+				<!-- 通知 -->
+				<div class="panel" style="padding-top: 2%">
 				<!-- 新增post -->
 				<c:if test="${!empty user}">
 					<form action="${contextRoot}/addPost.controller"
@@ -82,182 +96,219 @@
 			<!-- 重複的結構 -->
 			<c:forEach items="${postsToShow}" var="p" varStatus="vs">
 				<div class="panel" style="padding-top: 2%">
-<!-- 					<ul class="panel-activity__list"> -->
-<!-- 						<li> -->
-						<i class="activity__list__icon fa fa-question-circle-o"></i>
-<!-- 							<div class="activity__list__header"> -->
-								<div>
-									<a
-										href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
-										<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
-										alt="" style="width: 40px; height: 40px; border-radius: 50%;"/>
-										${p.postUser.getNickName()}
-									</a> &nbsp;
-									<!-- whoCanSeeIt圖示 -->
-									<c:if test="${p.getWhoCanSeeIt() == 1}">
-									<i id="public" class="fa fa-globe" aria-hidden="true"></i>
-									</c:if>
-									<c:if test="${p.getWhoCanSeeIt() == 2}">
-									<i id="followers" class="fa fa-users" aria-hidden="true"></i>
-									</c:if>
-									<c:if test="${p.getWhoCanSeeIt() == 3}">
-									<i id="onlyMe" class="fa fa-lock" aria-hidden="true"></i>
-									</c:if>
-								</div>
+					<!-- 					<ul class="panel-activity__list"> -->
+					<!-- 						<li> -->
+					<i class="activity__list__icon fa fa-question-circle-o"></i>
+					<!-- 							<div class="activity__list__header"> -->
+					<div>
+						<a
+							href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
+							<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
+							alt="" style="width: 40px; height: 40px; border-radius: 50%;" />
+							${p.postUser.getNickName()}
+						</a> &nbsp;
+						<!-- whoCanSeeIt圖示 -->
+						<c:if test="${p.getWhoCanSeeIt() == 1}">
+							<i id="public" class="fa fa-globe" aria-hidden="true"></i>
+						</c:if>
+						<c:if test="${p.getWhoCanSeeIt() == 2}">
+							<i id="followers" class="fa fa-users" aria-hidden="true"></i>
+						</c:if>
+						<c:if test="${p.getWhoCanSeeIt() == 3}">
+							<i id="onlyMe" class="fa fa-lock" aria-hidden="true"></i>
+						</c:if>
+					</div>
 
-								<!-- 下拉式menu -->
-								<div class="dropdown" style="float: right; margin-right: 5%;">
-									<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
-									<i class="fa fa-ellipsis-h" style="font-size: 22px"></i>
-									<div class="dropdown-content">
-										
-										<c:if test="${p.postUser.getUserId() != user.getUserId()}">
-<%-- 										<form method="post" action="${contextRoot}/reportPost.controller?postId=${p.getPostId()}"> --%>
-										<a><button id="report${vs.index}" type="submit" class="btn btn-light">report</button></a>
-<%-- 										</form> --%>
-										</c:if>
-									</div>
-								</div>
-							
-						<script>	
+					<!-- 下拉式menu -->
+					<div class="dropdown" style="float: right; margin-right: 5%;">
+						<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
+						<i class="fa fa-ellipsis-h" style="font-size: 22px"></i>
+						<div class="dropdown-content">
+
+							<c:if test="${p.postUser.getUserId() != user.getUserId()}">
+								<a><button id="report${vs.index}" type="submit"
+										class="btn btn-light">report</button></a>
+							</c:if>
+						</div>
+					</div>
+
+					<script>
 						//檢舉貼文ajax
-						$(document).ready(function() {
-							var contextRoot = "/demo";
-							$("#report${vs.index}").off().click(function() {
-								var id = $("#likedPostId${vs.index}")[0].value;
-								var datas = {
-									"id" : id
-								};
-								var jsonData = JSON.stringify(datas);
-								console.log(jsonData);
-								
-								$.ajax({
-									url : contextRoot + "/reportPost.controller",
-									method : 'post',
-									contentType : 'application/json',
-									data : jsonData,
-									success : function(result) {
-										console.log(result);
-										
- 										//刷新
- 										window.location.reload();
-										//關掉modal
-// 										$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
-// 										$("body").removeClass("modal-open");
-// 										$( ".modal-backdrop").remove();
-									},
-									error : function(error) {
-										console.log(error);
-									}
-								})
-							})
-						});
+						$(document)
+								.ready(
+										function() {
+											var contextRoot = "/demo";
+											$("#report${vs.index}")
+													.off()
+													.click(
+															function() {
+																var id = $("#likedPostId${vs.index}")[0].value;
+																var datas = {
+																	"id" : id
+																};
+																var jsonData = JSON
+																		.stringify(datas);
+																console
+																		.log(jsonData);
+
+																$
+																		.ajax({
+																			url : contextRoot
+																					+ "/reportPost.controller",
+																			method : 'post',
+																			contentType : 'application/json',
+																			data : jsonData,
+																			success : function(
+																					result) {
+																				console
+																						.log(result);
+
+																				//刷新
+																				window.location
+																						.reload();
+																				//關掉modal
+																				// 										$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
+																				// 										$("body").removeClass("modal-open");
+																				// 										$( ".modal-backdrop").remove();
+																			},
+																			error : function(
+																					error) {
+																				console
+																						.log(error);
+																			}
+																		})
+															})
+										});
 					</script>
-							<div class="activity__list__body entry-content">
+					<div class="activity__list__body entry-content">
 
-								<!-- post內文 -->
-								<p>${p.getPostText()}</p>
+						<!-- post內文 -->
+						<p>${p.getPostText()}</p>
 
-								<!-- post圖片 -->
-								<c:forEach items="${p.getPostImg()}" var="pImg" varStatus="loop">
-									<ul class="gallery">
-										<li><img src="${contextRoot}/${pImg.getPostImgPath()}">
-										</li>
-									</ul>
-								</c:forEach>
-								
-								<!-- 被分享貼文顯示 -->
-								<c:if test="${!empty p.getPostBeShared()}">
-								<div id="postBeShared" style="border: solid; border-width: 1px; border-color: #E0E0E0; padding: 3%; margin: 3%; height: 50%; overflow: auto;">
+						<!-- post圖片 -->
+						<c:forEach items="${p.getPostImg()}" var="pImg" varStatus="loop">
+							<ul class="gallery">
+								<li><img src="${contextRoot}/${pImg.getPostImgPath()}">
+								</li>
+							</ul>
+						</c:forEach>
+
+						<!-- 被分享貼文顯示 -->
+						<c:if test="${!empty p.getPostBeShared()}">
+							<div id="postBeShared"
+								style="border: solid; border-width: 1px; border-color: #E0E0E0; padding: 3%; margin: 3%; height: 50%; overflow: auto;">
 								<!--原作者資訊 -->
-									<a
-										href="${contextRoot}/timmy/readUserById/${p.getPostBeShared().getPostUser().getUserId()}">
-										<img src="${contextRoot}/${p.getPostBeShared().getPostUser().getPhotoPath()}"
-										alt="" style="width: 40px; height: 40px; border-radius: 50%;"/>
-										${p.getPostBeShared().postUser.getNickName()}
-									</a> &nbsp;
-									<!-- whoCanSeeIt圖示 -->
-									<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 1}">
+								<a
+									href="${contextRoot}/timmy/readUserById/${p.getPostBeShared().getPostUser().getUserId()}">
+									<img
+									src="${contextRoot}/${p.getPostBeShared().getPostUser().getPhotoPath()}"
+									alt="" style="width: 40px; height: 40px; border-radius: 50%;" />
+									${p.getPostBeShared().postUser.getNickName()}
+								</a> &nbsp;
+								<!-- whoCanSeeIt圖示 -->
+								<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 1}">
 									<i id="public" class="fa fa-globe" aria-hidden="true"></i>
-									</c:if>
-									<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 2}">
+								</c:if>
+								<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 2}">
 									<i id="followers" class="fa fa-users" aria-hidden="true"></i>
-									</c:if>
-									<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 3}">
+								</c:if>
+								<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 3}">
 									<i id="onlyMe" class="fa fa-lock" aria-hidden="true"></i>
-									</c:if>
-									<!--被分享貼文內容 -->
+								</c:if>
+								<!--被分享貼文內容 -->
 								<p>${p.getPostBeShared().getPostText()}</p>
-								<c:forEach items="${p.getPostBeShared().getPostImg()}" var="sharedPostImg" varStatus="loop">
+								<c:forEach items="${p.getPostBeShared().getPostImg()}"
+									var="sharedPostImg" varStatus="loop">
 									<ul class="gallery">
-										<li><img src="${contextRoot}/${sharedPostImg.getPostImgPath()}">
+										<li><img
+											src="${contextRoot}/${sharedPostImg.getPostImgPath()}">
 										</li>
 									</ul>
 								</c:forEach>
-								</div>
-								</c:if>
-								
-							</div> 
-							<!-- 	按讚/評論/修改/刪除/分享 按鈕 -->
-							<div class="activity__list__footer">
-								<a id="like${vs.index}"> <i onclick="likeIconFunction(this)"
-									class="fa fa-thumbs-up"></i>${p.getPostLike()}</a> <a
-									id="commentCount${vs.index}"> <i class="fa fa-comments"></i>${p.getComments().size()}</a>
-
-								<c:if test="${p.postUser.getUserId() == user.getUserId()}">
-									<a href="#" role="button" data-toggle="modal"
-										data-target="#myModal${vs.index}"
-										id="viewDetailButton${vs.index}"> <i class="fa fa-pencil"></i>Edit
-									</a>
-									<a href="#" role="button" data-toggle="modal"
-										data-target="#myModal${vs.index}deleteCheck"
-										id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>Delete
-									</a>
-								</c:if>
-								<!--分享 -->
-								<c:if test="${p.postUser.getUserId() != user.getUserId()}">
-									<a href="#" role="button" data-toggle="modal"
-										data-target="#myModal${vs.index}Share"
-										id="viewDetailButton${vs.index}"> <i class="fa fa-share" aria-hidden="true"></i>Share
-									</a>
-								</c:if>
-								<span> <i class="fa fa-clock"></i>${p.getPostTime()}
-								</span>
 							</div>
-<!-- 							</li> -->
-<!-- 					</ul> -->
+						</c:if>
+
+					</div>
+					<!-- 	按讚/評論/修改/刪除/分享 按鈕 -->
+					<div class="activity__list__footer">
+						<a id="like${vs.index}"> <i onclick="likeIconFunction(this)"
+							class="fa fa-thumbs-up"></i>${p.getPostLike()}</a> <a
+							id="commentCount${vs.index}"> <i class="fa fa-comments"></i>${p.getComments().size()}</a>
+
+						<c:if test="${p.postUser.getUserId() == user.getUserId()}">
+							<a href="#" role="button" data-toggle="modal"
+								data-target="#myModal${vs.index}"
+								id="viewDetailButton${vs.index}"> <i class="fa fa-pencil"></i>Edit
+							</a>
+							<a href="#" role="button" data-toggle="modal"
+								data-target="#myModal${vs.index}deleteCheck"
+								id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>Delete
+							</a>
+						</c:if>
+						<!--分享 -->
+						<c:if test="${p.postUser.getUserId() != user.getUserId()}">
+							<a href="#" role="button" data-toggle="modal"
+								data-target="#myModal${vs.index}Share"
+								id="viewDetailButton${vs.index}"> <i class="fa fa-share"
+								aria-hidden="true"></i>Share
+							</a>
+						</c:if>
+						<span> <i class="fa fa-clock"></i>
+						<fmt:formatDate value="${p.getPostTime()}"
+								pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+						</span>
+					</div>
+					<!-- 							</li> -->
+					<!-- 					</ul> -->
 					<!-- 取得按讚關聯的postID -->
 					<input id="likedPostId${vs.index}" value="${p.getPostId()}"
 						style="visibility: hidden;">
 					<script>
 						//按讚ajax
-						$(document).ready(function() {
-							var contextRoot = "/demo";
-							$("#like${vs.index}").off().click(function() {
-								var id = $("#likedPostId${vs.index}")[0].value;
-								var datas = {
-									"id" : id
-								};
-								var jsonData = JSON.stringify(datas);
-								console.log(jsonData);
-								
-								$.ajax({
-									url : contextRoot + "/postLike.controller",
-									method : 'post',
-									contentType : 'application/json',
-									data : jsonData,
-									success : function(result) {
-										console.log(result);
-										
-// 										局部刷新，讓按讚數可以馬上顯示
-										$( "#like${vs.index}" ).load(window.location.href + " #like${vs.index}" );
-									},
-									error : function(error) {
-										console.log(error);
-									}
-								})
-							})
-						});
+						$(document)
+								.ready(
+										function() {
+											var contextRoot = "/demo";
+											$("#like${vs.index}")
+													.off()
+													.click(
+															function() {
+																var id = $("#likedPostId${vs.index}")[0].value;
+																var datas = {
+																	"id" : id
+																};
+																var jsonData = JSON
+																		.stringify(datas);
+																console
+																		.log(jsonData);
+
+																$
+																		.ajax({
+																			url : contextRoot
+																					+ "/postLike.controller",
+																			method : 'post',
+																			contentType : 'application/json',
+																			data : jsonData,
+																			success : function(
+																					result) {
+																				console
+																						.log(result);
+
+																				// 										局部刷新，讓按讚數可以馬上顯示
+																				$(
+																						"#like${vs.index}")
+																						.load(
+																								window.location.href
+																										+ " #like${vs.index}");
+																			},
+																			error : function(
+																					error) {
+																				console
+																						.log(error);
+																			}
+																		})
+															})
+										});
 					</script>
 
 					<!-- 彈出貼文修改框 -->
@@ -321,71 +372,104 @@
 								</div>
 								<!-- body -->
 								<div class="modal-body">
-										
-										<!-- 登入者輸入區 -->
-										<img src="${contextRoot}/${user.getPhotoPath()}"
-										style="width: 40px; height: 40px; border-radius: 50%;float: none;">
-										<textarea id="saySomeThing${p.getPostId()}" name="postText" class="form-control"style="border-style: none; overflow: hidden;"  placeholder="Add a comment"></textarea>
-										
-										<!-- 被分享貼文區 -->
-										<div id="postBeShared" style="border: solid; border-width: 1px; border-color: #E0E0E0; padding: 3%; margin: 3%; height: 50%; overflow: auto;">
+
+									<!-- 登入者輸入區 -->
+									<img src="${contextRoot}/${user.getPhotoPath()}"
+										style="width: 40px; height: 40px; border-radius: 50%; float: none;">
+									<textarea id="saySomeThing${p.getPostId()}" name="postText"
+										class="form-control"
+										style="border-style: none; overflow: hidden;"
+										placeholder="Add a comment"></textarea>
+
+									<!-- 被分享貼文區 -->
+									<div id="postBeShared"
+										style="border: solid; border-width: 1px; border-color: #E0E0E0; padding: 3%; margin: 3%; height: 50%; overflow: auto;">
 										<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
 											style="width: 40px; height: 40px; border-radius: 50%;">
 										${p.postUser.getNickName()}
 										<p>${p.getPostText()}</p>
-										<c:forEach items="${p.getPostImg()}" var="pImg" varStatus="loop">
-										<ul class="gallery" style="list-style:none;">
-											<li><img src="${contextRoot}/${pImg.getPostImgPath()}">
-											</li>
-										</ul>
+										<c:forEach items="${p.getPostImg()}" var="pImg"
+											varStatus="loop">
+											<ul class="gallery" style="list-style: none;">
+												<li><img src="${contextRoot}/${pImg.getPostImgPath()}">
+												</li>
+											</ul>
 										</c:forEach>
-										</div>
-										
-										<!-- footer -->
-										<div>
-											<button id="sharePost${p.getPostId()}" type="submit" class="btn btn-sm btn-rounded btn-info">Share</button>
-										</div>
+									</div>
+
+									<!-- footer -->
+									<div>
+										<button id="sharePost${p.getPostId()}" type="submit"
+											class="btn btn-sm btn-rounded btn-info">Share</button>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					
+
 					<script type="text/javascript">
-							//分享貼文ajax
-							$(document).ready(function() {
-								var contextRoot = "/demo";
-								$("#sharePost${p.getPostId()}").off().click(function() {
-									var id = ${p.getPostId()};
-									var saySomeThing = $("#saySomeThing${p.getPostId()}")[0].value;
-									var datas = {
-										"id" : id,
-										"saySomeThing" : saySomeThing
-									};
-									var jsonData = JSON.stringify(datas);
-									console.log(jsonData);
-									
-									$.ajax({
-										url : contextRoot + "/sharePost.controller",
-										method : 'post',
-										contentType : 'application/json',
-										data : jsonData,
-										success : function(result) {
-											console.log(result);
-											
-	 										//局部刷新
-	 										window.location.reload();
-											//關掉modal
-											$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
-											$("body").removeClass("modal-open");
-											$( ".modal-backdrop").remove();
-										},
-										error : function(error) {
-											console.log(error);
-										}
-									})
-								})
-							});
-							</script>
+						//分享貼文ajax
+						$(document)
+								.ready(
+										function() {
+											var contextRoot = "/demo";
+											$("#sharePost${p.getPostId()}")
+													.off()
+													.click(
+															function() {
+																var id = $
+																{
+																	p
+																			.getPostId()
+																}
+																;
+																var saySomeThing = $("#saySomeThing${p.getPostId()}")[0].value;
+																var datas = {
+																	"id" : id,
+																	"saySomeThing" : saySomeThing
+																};
+																var jsonData = JSON
+																		.stringify(datas);
+																console
+																		.log(jsonData);
+
+																$
+																		.ajax({
+																			url : contextRoot
+																					+ "/sharePost.controller",
+																			method : 'post',
+																			contentType : 'application/json',
+																			data : jsonData,
+																			success : function(
+																					result) {
+																				console
+																						.log(result);
+
+																				//局部刷新
+																				window.location
+																						.reload();
+																				//關掉modal
+																				$(
+																						"#myModal${vs.index}deleteCommentCheck")
+																						.modal(
+																								'hide');
+																				$(
+																						"body")
+																						.removeClass(
+																								"modal-open");
+																				$(
+																						".modal-backdrop")
+																						.remove();
+																			},
+																			error : function(
+																					error) {
+																				console
+																						.log(error);
+																			}
+																		})
+															})
+										});
+					</script>
 
 					<!-- 彈出貼文刪除確認 -->
 					<div class="modal fade" id="myModal${vs.index}deleteCheck"
@@ -416,174 +500,224 @@
 					</div>
 
 					<!-- 評論 -->
-					<div style="background-color: #F0F0F0; padding: 15px; border-radius: 1%">
-					<!-- 重複的結構 -->
+					<div
+						style="background-color: #F0F0F0; padding: 15px; border-radius: 1%">
+						<!-- 重複的結構 -->
 						<c:forEach items="${p.getComments()}" var="c" varStatus="Cvs">
 							<div id="comment" class="box-footer box-comments">
 								<div class="box-comment">
 									<div class="comment-text">
-									
-									<a href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
-										<img class="img-circle img-sm"
+
+										<a
+											href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
+											<img class="img-circle img-sm"
 											src="${contextRoot}/${c.getUser().getPhotoPath()}"
 											alt="User Image"
 											style="width: 40px; height: 40px; border-radius: 50%">
-										<span class="username" style="font-weight: bold;">
-											${c.getUser().getNickName()} </span>
-									</a>
-									
-									<!-- 	取得評論id -->
-									<input id="commentId${Cvs.index}" value="${c.getCommentId()}"
-									style="visibility: hidden">
+											<span class="username" style="font-weight: bold;">
+												${c.getUser().getNickName()} </span>
+										</a>
+
+										<!-- 	取得評論id -->
+										<input id="commentId${Cvs.index}" value="${c.getCommentId()}"
+											style="visibility: hidden">
 
 										<!-- 	是作者才會顯示的修改刪除按鈕		 -->
 										<c:if test="${c.user.getUserId() == user.getUserId()}">
-											<span style="float: right; margin-left: 10px">
-											<a href="#" role="button" data-toggle="modal"
+											<span style="float: right; margin-left: 10px"> <a
+												href="#" role="button" data-toggle="modal"
 												data-target="#myModal${c.getCommentId()}deleteCommentCheck"
 												id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>
 											</a>
 											</span>
-											<span style="float: right">
-											<a href="#" role="button" data-toggle="modal"
-												data-target="#myModal${vs.index}"
+											<span style="float: right"> <a href="#" role="button"
+												data-toggle="modal" data-target="#myModal${vs.index}"
 												id="viewDetailButton${vs.index}"> <i
-												class="fa fa-pencil" ></i>
+													class="fa fa-pencil"></i>
 											</a>
 											</span>
 
 										</c:if>
 									</div>
-									<span class="text-muted pull-right">${c.getCommentTime()}</span>
+									<span class="text-muted pull-right"><fmt:formatDate
+											value="${c.getCommentTime()}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></span>
 									&emsp; &emsp; ${c.getCommentText()}
 									<hr>
 								</div>
 							</div>
-							
-					<!-- 彈出評論刪除確認 -->
-					<div class="modal fade" id="myModal${c.getCommentId()}deleteCommentCheck"
-						tabindex="-1" role="dialog"
-						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">Delete Comment?</h5>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">Are you sure you want to delete this comment?</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-light"
-										data-dismiss="modal">No</button>
-										<button id="deleteComment${c.getCommentId()}" type="submit" class="btn btn-info">Delete</button>
-									
-								</div>
-							</div>  
-						</div>
-					</div>
-							
-							<script type="text/javascript">
-							//刪除評論ajax
-							$(document).ready(function() {
-								var contextRoot = "/demo";
-								$("#deleteComment${c.getCommentId()}").off().click(function() {
-									var id = ${c.getCommentId()};
-									var datas = {
-										"id" : id
-									};
-									var jsonData = JSON.stringify(datas);
-									console.log(jsonData);
-									
-									$.ajax({
-										url : contextRoot + "/deleteComment.controller",
-										method : 'post',
-										contentType : 'application/json',
-										data : jsonData,
-										success : function(result) {
-											console.log(result);
-											
-	 										//局部刷新
-	 										window.location.reload();
-//	 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
-//	 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
-											//關掉modal
-											$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
-											$("body").removeClass("modal-open");
-											$( ".modal-backdrop").remove();
-										},
-										error : function(error) {
-											console.log(error);
-										}
-									})
-								})
-							});
-							</script>
-							
-						</c:forEach>
-					<!-- 重複的結構 -->
-					<c:if test="${!empty user}">
-						<div class="box-footer">
-							<img class="img-responsive img-circle img-sm"
-								src="${contextRoot}/${user.getPhotoPath()}" alt="Alt Text"
-								style="width: 40px; height: 40px; border-radius: 50%">
 
-							<div class="img-push">
-								<input type="text" class="form-control input-sm" required
-									id="commentText${vs.index}"
-									placeholder="Press enter to post comment" name="commentText">
-<!-- 								<button type="button" class="btn btn-info" data-dismiss="modal" -->
-<%-- 									id="sub${vs.index}">Submit</button> --%>
+							<!-- 彈出評論刪除確認 -->
+							<div class="modal fade"
+								id="myModal${c.getCommentId()}deleteCommentCheck" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalCenterTitle"
+								aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLongTitle">Delete
+												Comment?</h5>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">Are you sure you want to delete
+											this comment?</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-light"
+												data-dismiss="modal">No</button>
+											<button id="deleteComment${c.getCommentId()}" type="submit"
+												class="btn btn-info">Delete</button>
 
-								<!-- 取得評論關聯的postID -->
-								<input id="postId${vs.index}" value="${p.getPostId()}"
-									style="visibility: hidden;">
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
+
+							<script type="text/javascript">
+								//刪除評論ajax
+								$(document)
+										.ready(
+												function() {
+													var contextRoot = "/demo";
+													$(
+															"#deleteComment${c.getCommentId()}")
+															.off()
+															.click(
+																	function() {
+																		var id = $
+																		{
+																			c
+																					.getCommentId()
+																		}
+																		;
+																		var datas = {
+																			"id" : id
+																		};
+																		var jsonData = JSON
+																				.stringify(datas);
+																		console
+																				.log(jsonData);
+
+																		$
+																				.ajax({
+																					url : contextRoot
+																							+ "/deleteComment.controller",
+																					method : 'post',
+																					contentType : 'application/json',
+																					data : jsonData,
+																					success : function(
+																							result) {
+																						console
+																								.log(result);
+
+																						//局部刷新
+																						window.location
+																								.reload();
+																						//	 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
+																						//	 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
+																						//關掉modal
+																						$(
+																								"#myModal${vs.index}deleteCommentCheck")
+																								.modal(
+																										'hide');
+																						$(
+																								"body")
+																								.removeClass(
+																										"modal-open");
+																						$(
+																								".modal-backdrop")
+																								.remove();
+																					},
+																					error : function(
+																							error) {
+																						console
+																								.log(error);
+																					}
+																				})
+																	})
+												});
+							</script>
+
+						</c:forEach>
+						<!-- 重複的結構 -->
+						<c:if test="${!empty user}">
+							<div class="box-footer">
+								<img class="img-responsive img-circle img-sm"
+									src="${contextRoot}/${user.getPhotoPath()}" alt="Alt Text"
+									style="width: 40px; height: 40px; border-radius: 50%">
+
+								<div class="img-push">
+									<input type="text" class="form-control input-sm" required
+										id="commentText${vs.index}"
+										placeholder="Press enter to post comment" name="commentText">
+									<!-- 								<button type="button" class="btn btn-info" data-dismiss="modal" -->
+									<%-- 									id="sub${vs.index}">Submit</button> --%>
+
+									<!-- 取得評論關聯的postID -->
+									<input id="postId${vs.index}" value="${p.getPostId()}"
+										style="visibility: hidden;">
+								</div>
+							</div>
 						</c:if>
 					</div>
 				</div>
-				
+
 				<script>
-						//送出評論ajax
-						$(document).ready(function() {
-							var contextRoot = "/demo";
-// 							$("#sub${vs.index}").off().click(function() {
-							document.querySelector('#commentText${vs.index}').addEventListener('keypress', function (event) {
-								if (event.key === 'Enter') {  //監聽鍵盤輸入事件，當事件為「Eenter」時執行程式
-								var postId = $("#postId${vs.index}")[0].value;
-								var commentText = $("#commentText${vs.index}")[0].value;
-								var datas = {
-									"postId" : postId,
-									"commentText" : commentText
-								};
-								var jsonData = JSON.stringify(datas);
-								console.log(jsonData);
-								event.target.value = '';  //清除input內容
-								
-								$.ajax({
- 									
-									url : contextRoot + "/addComment.controller",
-									method : 'post',
-									contentType : 'application/json',
-									data : jsonData,
-									success : function(result) {
-										console.log(result);
-										
-// 										局部刷新，讓新增的評論可以馬上顯示
-										window.location.reload();
-// 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
-// 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
-									},
-									error : function(error) {
-										console.log(error);
-									}
-								})
-								}})
-						});
-						
-					</script>
+					//送出評論ajax
+					$(document)
+							.ready(
+									function() {
+										var contextRoot = "/demo";
+										// 							$("#sub${vs.index}").off().click(function() {
+										document
+												.querySelector(
+														'#commentText${vs.index}')
+												.addEventListener(
+														'keypress',
+														function(event) {
+															if (event.key === 'Enter') { //監聽鍵盤輸入事件，當事件為「Eenter」時執行程式
+																var postId = $("#postId${vs.index}")[0].value;
+																var commentText = $("#commentText${vs.index}")[0].value;
+																var datas = {
+																	"postId" : postId,
+																	"commentText" : commentText
+																};
+																var jsonData = JSON
+																		.stringify(datas);
+																console
+																		.log(jsonData);
+																event.target.value = ''; //清除input內容
+
+																$
+																		.ajax({
+
+																			url : contextRoot
+																					+ "/addComment.controller",
+																			method : 'post',
+																			contentType : 'application/json',
+																			data : jsonData,
+																			success : function(
+																					result) {
+																				console
+																						.log(result);
+
+																				// 										局部刷新，讓新增的評論可以馬上顯示
+																				window.location
+																						.reload();
+																				// 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
+																				// 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
+																			},
+																			error : function(
+																					error) {
+																				console
+																						.log(error);
+																			}
+																		})
+															}
+														})
+									});
+				</script>
 
 			</c:forEach>
 			<!--重複的結構 -->
@@ -1498,73 +1632,74 @@ li.list-group-item:first-child {
 }
 
 /* 超連結樣式 */
- a:visited { 
- color:#8E8E8E; 
- text-decoration:none; 
- } 
- a:hover { 
- color:#000000; 
- text-decoration:underline; 
- } 
- 
-/*  按讚樣式 */
+a:visited {
+	color: #8E8E8E;
+	text-decoration: none;
+}
 
+a:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+
+/*  按讚樣式 */
 }
 </style>
 	<script type="text/javascript">
-	//上傳一張圖片
-// 	imgInp.onchange = evt => {
-// 		  const [file] = imgInp.files
-// 		  if (file) {
-// 		    blah.src = URL.createObjectURL(file)
-// 		  }
-// 		}
-	
-	//上傳多張圖片
-  
-function readAsDataURL(){  
-	console.log("readAsDataURL()");
-    var file = document.getElementById("file").files;
-    var result=document.getElementById("result");  
+		//上傳一張圖片
+		// 	imgInp.onchange = evt => {
+		// 		  const [file] = imgInp.files
+		// 		  if (file) {
+		// 		    blah.src = URL.createObjectURL(file)
+		// 		  }
+		// 		}
 
-    for(i = 0; i< file.length; i ++) {
-        var reader    = new FileReader();    
-        reader.readAsDataURL(file[i]);  
-        reader.onload=function(e){  
-            //多圖預覽
-            result.innerHTML = result.innerHTML + '<img src="' + this.result +'" alt=""  width="auto" height="100"/>';  
-        }
+		//上傳多張圖片
 
-    }
-    
-}  
+		function readAsDataURL() {
+			console.log("readAsDataURL()");
+			var file = document.getElementById("file").files;
+			var result = document.getElementById("result");
 
-function readAsDataURLEdit(){  
-	console.log("readAsDataURLEdit()");
-    var fileEdit = document.getElementById("fileEdit").files;
-    console.log(fileEdit);
-    var resultEdit=document.getElementById("resultEdit");  
-    console.log(resultEdit);
-	
-    for(i = 0; i< fileEdit.length; i ++) {
-    	console.log("未進入多圖預覽");
-        var reader    = new FileReader();  
-        reader.readAsDataURL(fileEdit[i]);
-        reader.onload=function(e){  
-            //多圖預覽
-            console.log("進入多圖預覽");
-            resultEdit.innerHTML = resultEdit.innerHTML + '<img src="' + this.result +'" alt=""  width="auto" height="100"/>';  
-        }
+			for (i = 0; i < file.length; i++) {
+				var reader = new FileReader();
+				reader.readAsDataURL(file[i]);
+				reader.onload = function(e) {
+					//多圖預覽
+					result.innerHTML = result.innerHTML
+							+ '<img src="' + this.result +'" alt=""  width="auto" height="100"/>';
+				}
 
-    }
-    
-}  
+			}
 
-	//按讚icon變化
-function likeIconFunction(x) {
-// 	  x.classList.toggle("fa fa-thumbs-up");
-	}
+		}
 
+		function readAsDataURLEdit() {
+			console.log("readAsDataURLEdit()");
+			var fileEdit = document.getElementById("fileEdit").files;
+			console.log(fileEdit);
+			var resultEdit = document.getElementById("resultEdit");
+			console.log(resultEdit);
+
+			for (i = 0; i < fileEdit.length; i++) {
+				console.log("未進入多圖預覽");
+				var reader = new FileReader();
+				reader.readAsDataURL(fileEdit[i]);
+				reader.onload = function(e) {
+					//多圖預覽
+					console.log("進入多圖預覽");
+					resultEdit.innerHTML = resultEdit.innerHTML
+							+ '<img src="' + this.result +'" alt=""  width="auto" height="100"/>';
+				}
+
+			}
+
+		}
+
+		//按讚icon變化
+		function likeIconFunction(x) {
+			// 	  x.classList.toggle("fa fa-thumbs-up");
+		}
 	</script>
 </body>
 </html>

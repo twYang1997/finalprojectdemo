@@ -11,6 +11,8 @@ import com.finaldemo.model.CommentsRepository;
 import com.finaldemo.model.FollowRepository;
 import com.finaldemo.model.LikePost;
 import com.finaldemo.model.LikePostRepository;
+import com.finaldemo.model.Notification;
+import com.finaldemo.model.NotificationRepository;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.PostImgRepository;
 import com.finaldemo.model.Posts;
@@ -98,11 +100,23 @@ public class PhoebeService {
 		return PostsRepository.searchPostsByText(search);
 	}
 	
+	// Follow
 	@Autowired
 	private FollowRepository FollowRepository;
 	
 	public List<Integer> findUpId(Integer fanId){
 		return FollowRepository.findUpId(fanId);
+	}
+	
+	public List<Integer> findfans(Integer upId){
+		return FollowRepository.findfans(upId);
+	}
+	
+	// Notification
+	@Autowired
+	private NotificationRepository NotificationRepository;
+	public void addNotification(Notification newNotification) {
+		NotificationRepository.save(newNotification);
 	}
 	
 	// LikeService
