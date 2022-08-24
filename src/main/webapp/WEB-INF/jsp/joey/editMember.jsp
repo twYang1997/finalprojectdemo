@@ -647,17 +647,7 @@ function loadXMLDoc()
 							</div>
 							<div class="tab-content-3">
 								<canvas id="chart" width="800" height="600"></canvas>
-								<input type="date" id="startDate">
-								<input type="date" id="endDate">
-								<button type="button" id="testDateChart" onclick="checkDateTest()">submit</button>
 								<script type="text/javascript">
-
-									function checkDateTest() {
-										var startDate = document.getElementById("startDate").nodeValue;
-										var endDate = document.getElementById("endDate").getAttribute("value");
-										console.log("startDate: " + startDate);
-										console.log("endDate: " + endDate);
-
 							var ctx = document.getElementById('chart').getContext('2d');
 							var dateArray = new Array();
 							var incomeArray = new Array();
@@ -690,53 +680,12 @@ function loadXMLDoc()
 									ticks: {
 										min: 0,
 										stepSize: 200
-
 									}
-									
-									var ctx = document.getElementById('chart').getContext('2d');
-									var dateArray = new Array();
-									var incomeArray = new Array();
-									
-									<c:forEach items="${ordersToShow}" var="o" varStatus="vs">
-										dateArray.push('${o.getOrderDate()}');
-										console.log(typeof '${o.getOrderDate()}')
-										console.log('${o.getOrderDate()}')
-										console.log(Date.parse('${o.getOrderDate()}'))
-										console.log(typeof Date.parse('${o.getOrderDate()}'))
-										incomeArray.push('${o.getOrderPrice()}');
-									</c:forEach>
-									var newDateArray = new Array();
-									for (let i=0;i<dateArray.length;i++){
-										newDateArray.push('日期:'+dateArray[i].substring(0,11))
-									}
-									var chart = new Chart(ctx, {
-									    type: 'line',
-									    data: {
-									        labels: newDateArray,
-									        datasets: [{
-									            label: '# of Votes',
-									            data: incomeArray,
-									            borderWidth: 1
-									        }]
-									    },
-										options: {
-		   						 // 自訂屬性設定
-		   						 
-								 
-									scales:{
-										yAxes: [{
-											ticks: {
-												min: 0,
-												stepSize: 200
-											}
-										}]
-									}
-		  								}
-									
-									});
-								
-								
+								}]
+							}
+  								}
 							
+							});
 							</script>
 
 
