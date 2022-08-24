@@ -61,8 +61,8 @@ public class TimmyService {
 		return piDao.findPostImgsByPostId(id);
 	}
 	
-	public List<PostImg> getPostImgListByPostIdOrderById(Integer amount, Integer postId){
-		return piDao.findByFk_post_idOrderByPostImgIdDesc(amount, postId);
+	public List<PostImg> getPostImgListByPostIdOrderById(Integer postId){
+		return piDao.findByFk_post_idOrderByPostImgIdDesc(postId);
 	}
 	
 	public Pets getPetByPetId(Integer id) {
@@ -79,6 +79,10 @@ public class TimmyService {
 	
 	public Posts insertNewPost(Posts post) {
 		return pDao.save(post);
+	}
+	
+	public PostImg savePostImg(PostImg postImg) {
+		return piDao.save(postImg);
 	}
 	
 	public Pets savePet(Pets pet) {

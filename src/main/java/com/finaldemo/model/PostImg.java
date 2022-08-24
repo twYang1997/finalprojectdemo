@@ -1,5 +1,4 @@
 package com.finaldemo.model;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,6 +16,8 @@ public class PostImg {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer postImgId;
+	
+	private Integer numberForAdd;
 	
 	private String postImgPath;
 	
@@ -49,6 +50,14 @@ public class PostImg {
 
 	public void setPost(Posts post) {
 		this.post = post;
+	}
+
+	public Integer getNumberForAdd() {
+		return numberForAdd;
+	}
+
+	public void setNumberForAdd(Integer numberForAdd) {
+		this.numberForAdd = numberForAdd;
 	}
 	
 }

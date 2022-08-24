@@ -208,21 +208,29 @@
 													class="fa fa-video-camera"></i>
 												</label>
 											</div>
-											<button type="button" class="btn btn-sm btn-rounded btn-info" onclick="window.location.reload()">close</button>
+											<button type="button" id="closeBTN${p.postId}" class="btn btn-sm btn-rounded btn-info">close</button>
+											<div id="deleteTimesRecord${p.postId}" style="display:none">0</div>
 											<script type="text/javascript">
 												$(function(){
 													var contextRoot = "/demo";
 													var add = 1;
 													onceAdd = 0;
+													var delTimes = 0;
 // 													以下是上傳圖片的方法---------------------------------------------
 													$("#file${p.postId}").change(function(e){
 														showPhoto(this);
+													})
+													$("#closeBTN${p.postId}").click(function(){
+														add = 0;
+														onceAdd = 0;
+														delTimes = 0;
+														$("#deleteTimesRecord${p.postId}")[0].innerHTML = 0;
+														window.location.reload();
 													})
 													// 更改input 就會執行以下方法
 													function showPhoto(input){
 														var datas;
 														var photoJsonArray = [];
-														onceAdd = 0;
 														for (let i=0; i<input.files.length; i++){
 															if (input.files && input.files[0]){
 																var reader = new FileReader();
@@ -232,17 +240,14 @@
 																	let postImg = $("#editPhotoTable${p.postId}").children().children()[0];
 																	let postImgDel = $("#editPhotoTable${p.postId}").children().children()[1];
 																	// 預覽圖片
-																	postImg.innerHTML = postImg.innerHTML + "<td><img name='add" + add + "o' src='"+ e.target.result +"' width='100px'></td>";
-																	postImgDel.innerHTML = postImgDel.innerHTML + "<td><button type='button' name='add" + add + "' class='btn btn-outline-secondary icon smallIcon delPostImgBtn' ><img name='add" + add + "' src='${contextRoot}/img/userimg/delete.png' width='30' class='smallIcon delPostImgBtn'></button></td>";
+																	let deleteTime = parseInt($("#deleteTimesRecord${p.postId}")[0].innerHTML);
+																	postImg.innerHTML = postImg.innerHTML + "<td><img name='add" + add  + "o' src='"+ e.target.result +"' width='100px'></td>";
+																	postImgDel.innerHTML = postImgDel.innerHTML + "<td><button type='button' name='add" + (add) + "' class='btn btn-outline-secondary icon smallIcon delPostImgBtn' ><img name='add" + (add) + "' src='${contextRoot}/img/userimg/delete.png' width='30' class='smallIcon delPostImgBtn'></button></td>";
 																	add += 1;
-																	onceAdd += 1;
 																	// 整理要傳送的單筆資料
-																	<c:forEach items="${p.getPostImg()}" var="pImg">
-																		console.log("${pImg.getPostImgId()}")
-																	</c:forEach>
 																	var datao = {
 																			"img64": e.target.result,   // 讀取圖片完的Bytes
-																			"type": input.files[i].type,   // 該圖片的type
+																			"type": input.files[i].type + deleteTime,   // 該圖片的type
 																			"id": "${p.postId}"   // 該貼文的ID
 																	};
 																	// 把每一筆資料存進JSON陣列
@@ -259,7 +264,6 @@
 																			data: datas,
 																			success: function(result){
 																				console.log("result:" + result);
-																				add = 1;
 																			},
 																			error: function(result){
 																				console.log(result);
@@ -277,7 +281,6 @@
 													var postID = '${p.postId}';
 													$("#testEvent${p.getPostId()}").on("click", function(e){
 														if (e.target.classList.contains('delPostImgBtn')){
-															console.log("aaa")
 															let iD = e.target.getAttribute("name") // ${pImg.postImgId}
 	//															跳出彈出視窗
 															console.log(iD);
@@ -304,7 +307,12 @@
 																					// 刪掉該圖片有關的html
 																					$("button[name='" +iD +"']").parent('td')[0].remove();
 																					$("img[name='" + iD + "o']").parent('td')[0].remove();
-																					console.log("result:" + result);
+																					onceAdd += 1;
+																					if (iD.includes("add")){
+																						delTimes += 1;
+																					}
+																					
+																					$("#deleteTimesRecord${p.postId}")[0].innerHTML = delTimes;
 																				},
 																				error: function(result){
 																					console.log(result);
