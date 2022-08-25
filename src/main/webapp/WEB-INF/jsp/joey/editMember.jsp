@@ -822,23 +822,43 @@ function loadXMLDoc()
 		console.log('enddate:'+enddate);
 		// get index number in array
 		let indexstartdate = dates2.indexOf(startdate.value);
-		const indexenddate = dates2.indexOf(enddate.value);
+		
 		console.log('indexstartdate:'+indexstartdate);
-		console.log('indexenddate:'+indexenddate);
-
+		
 		if(	!dates2.includes(startdate.value)){
 			
 			let newIndex=0;
 			for(item of dates2){
+				
+						
 				if(	new Date(startdate.value)	> new Date(item)){
-					
-				console.log(	new Date(startdate.value),new Date(item),new Date(startdate.value)	> new Date(item))
+								
+				//console.log(	new Date(startdate.value),new Date(item),new Date(startdate.value)	> new Date(item))
 					newIndex++;
 				}
 			}
 			indexstartdate=newIndex
+			
+		} 
+		
+		let indexenddate = dates2.indexOf(enddate.value);
+		console.log('indexenddate:'+indexenddate);
+
+		if (!dates2.includes(enddate.value)) {
+			
+		
+			let newIndex=0;
+			for(item of dates2){
+				
+							
+				if(	new Date(enddate.value)	> new Date(item)){
+					
+				//console.log(	new Date(enddate.value),new Date(item),new Date(enddate.value)	< new Date(item))
+					newIndex++;
+				}
+			}
+			indexenddate=newIndex
 		}
-	
 		
 		
 		//slice the array only showing the selected section / slice
