@@ -34,9 +34,9 @@ public class Notification {
 	@JoinColumn(name="fk_user_id", referencedColumnName = "userId")
 	private Users user;
 	
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Posts.class)
-	@JoinColumn(name="fk_post_id", referencedColumnName = "postId")
-	private Posts post;
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class)
+	@JoinColumn(name="fk_author_id", referencedColumnName = "userId")
+	private Users author;
 	
 	public Notification() {
 	}
@@ -65,13 +65,12 @@ public class Notification {
 		this.user = user;
 	}
 
-	public Posts getPost() {
-		return post;
+	public Users getAuthor() {
+		return author;
 	}
 
-	public void setPost(Posts post) {
-		this.post = post;
+	public void setAuthor(Users author) {
+		this.author = author;
 	}
-	
 	
 }

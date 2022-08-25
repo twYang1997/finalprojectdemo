@@ -53,9 +53,6 @@ public class Posts {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post",cascade = CascadeType.ALL)
 	private Set<PostImg> PostImg = new LinkedHashSet<PostImg>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post",cascade = CascadeType.ALL)
-	private Set<Notification> Notification = new LinkedHashSet<Notification>();
-	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "likedPost",cascade = CascadeType.ALL)
 	private Set<LikePost> LikePost = new LinkedHashSet<LikePost>();
 	
@@ -148,14 +145,6 @@ public class Posts {
 
 	public void setPostImg(Set<PostImg> postImg) {
 		PostImg = postImg;
-	}
-
-	public Set<Notification> getNotification() {
-		return Notification;
-	}
-
-	public void setNotification(Set<Notification> notification) {
-		Notification = notification;
 	}
 
 	public Integer getIsBanned() {
