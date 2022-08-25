@@ -38,20 +38,22 @@
 	<div id="" class="container">
 		<div class="col-lg-8">
 			<br>
-				<!-- 通知 -->
-				<div class="dropdown" style="float: right; margin-right: 5%;">
-						<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
-						<i class="fa fa-bell-o" aria-hidden="true"><span class="badge badge-danger">4</span></i>
-						<div class="dropdown-content">
+			<!-- 通知 -->
+			<div class="dropdown" style="float: right; margin-right: 5%;">
+				<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
+				<i class="fa fa-bell-o" aria-hidden="true"><span
+					class="badge badge-danger">4</span></i>
+				<div class="dropdown-content">
 
-							<c:if test="${p.postUser.getUserId() != user.getUserId()}">
-								<a>123&emsp;<button id="" type="submit"
-										class="btn btn-light">read</button></a>
-							</c:if>
-						</div>
-					</div>
-				<!-- 通知 -->
-				<div class="panel" style="padding-top: 2%">
+					<c:if test="${p.postUser.getUserId() != user.getUserId()}">
+						<a>123&emsp;
+							<button id="" type="submit" class="btn btn-light">read</button>
+						</a>
+					</c:if>
+				</div>
+			</div>
+			<!-- 通知 -->
+			<div class="panel" style="padding-top: 2%">
 				<!-- 新增post -->
 				<c:if test="${!empty user}">
 					<form action="${contextRoot}/addPost.controller"
@@ -134,51 +136,44 @@
 
 					<script>
 						//檢舉貼文ajax
-						$(document)
-								.ready(
-										function() {
-											var contextRoot = "/demo";
-											$("#report${vs.index}")
-													.off()
-													.click(
-															function() {
-																var id = $("#likedPostId${vs.index}")[0].value;
-																var datas = {
-																	"id" : id
-																};
-																var jsonData = JSON
-																		.stringify(datas);
-																console
-																		.log(jsonData);
+						$(document) .ready(function() {
+		var contextRoot="/demo";
 
-																$
-																		.ajax({
-																			url : contextRoot
-																					+ "/reportPost.controller",
-																			method : 'post',
-																			contentType : 'application/json',
-																			data : jsonData,
-																			success : function(
-																					result) {
-																				console
-																						.log(result);
+		$("#report${vs.index}") .off() .click(function() {
+				var id=$("#likedPostId${vs.index}")[0].value;
 
-																				//刷新
-																				window.location
-																						.reload();
-																				//關掉modal
-																				// 										$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
-																				// 										$("body").removeClass("modal-open");
-																				// 										$( ".modal-backdrop").remove();
-																			},
-																			error : function(
-																					error) {
-																				console
-																						.log(error);
-																			}
-																		})
-															})
-										});
+				var datas= {
+					"id" : id
+				}
+
+				;
+				var jsonData=JSON .stringify(datas);
+				console .log(jsonData);
+
+				$ .ajax({
+
+					url : contextRoot + "/reportPost.controller",
+					method : 'post',
+					contentType : 'application/json',
+					data : jsonData,
+					success : function(result) {
+						console .log(result);
+
+						//刷新
+						window.location .reload();
+						//關掉modal
+						// 										$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
+						// 										$("body").removeClass("modal-open");
+						// 										$( ".modal-backdrop").remove();
+					}
+
+					,
+					error : function(error) {
+						console .log(error);
+					}
+				})
+		})
+});
 					</script>
 					<div class="activity__list__body entry-content">
 
@@ -253,9 +248,8 @@
 								aria-hidden="true"></i>Share
 							</a>
 						</c:if>
-						<span> <i class="fa fa-clock"></i>
-						<fmt:formatDate value="${p.getPostTime()}"
-								pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+						<span> <i class="fa fa-clock"></i> <fmt:formatDate
+								value="${p.getPostTime()}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
 						</span>
 					</div>
 					<!-- 							</li> -->
@@ -265,50 +259,40 @@
 						style="visibility: hidden;">
 					<script>
 						//按讚ajax
-						$(document)
-								.ready(
-										function() {
-											var contextRoot = "/demo";
-											$("#like${vs.index}")
-													.off()
-													.click(
-															function() {
-																var id = $("#likedPostId${vs.index}")[0].value;
-																var datas = {
-																	"id" : id
-																};
-																var jsonData = JSON
-																		.stringify(datas);
-																console
-																		.log(jsonData);
+						$(document) .ready(function() {
+		var contextRoot="/demo";
 
-																$
-																		.ajax({
-																			url : contextRoot
-																					+ "/postLike.controller",
-																			method : 'post',
-																			contentType : 'application/json',
-																			data : jsonData,
-																			success : function(
-																					result) {
-																				console
-																						.log(result);
+		$("#like${vs.index}") .off() .click(function() {
+				var id=$("#likedPostId${vs.index}")[0].value;
 
-																				// 										局部刷新，讓按讚數可以馬上顯示
-																				$(
-																						"#like${vs.index}")
-																						.load(
-																								window.location.href
-																										+ " #like${vs.index}");
-																			},
-																			error : function(
-																					error) {
-																				console
-																						.log(error);
-																			}
-																		})
-															})
-										});
+				var datas= {
+					"id" : id
+				}
+
+				;
+				var jsonData=JSON .stringify(datas);
+				console .log(jsonData);
+
+				$ .ajax({
+
+					url : contextRoot + "/postLike.controller",
+					method : 'post',
+					contentType : 'application/json',
+					data : jsonData,
+					success : function(result) {
+						console .log(result);
+
+						// 										局部刷新，讓按讚數可以馬上顯示
+						$("#like${vs.index}") .load(window.location.href + " #like${vs.index}");
+					}
+
+					,
+					error : function(error) {
+						console .log(error);
+					}
+				})
+		})
+});
 					</script>
 
 					<!-- 彈出貼文修改框 -->
@@ -409,66 +393,48 @@
 
 					<script type="text/javascript">
 						//分享貼文ajax
-						$(document)
-								.ready(
-										function() {
-											var contextRoot = "/demo";
-											$("#sharePost${p.getPostId()}")
-													.off()
-													.click(
-															function() {
-																var id = $
-																{
-																	p
-																			.getPostId()
-																}
-																;
-																var saySomeThing = $("#saySomeThing${p.getPostId()}")[0].value;
-																var datas = {
-																	"id" : id,
-																	"saySomeThing" : saySomeThing
-																};
-																var jsonData = JSON
-																		.stringify(datas);
-																console
-																		.log(jsonData);
+						$(document) .ready(function() {
+		var contextRoot="/demo";
 
-																$
-																		.ajax({
-																			url : contextRoot
-																					+ "/sharePost.controller",
-																			method : 'post',
-																			contentType : 'application/json',
-																			data : jsonData,
-																			success : function(
-																					result) {
-																				console
-																						.log(result);
+		$("#sharePost${p.getPostId()}") .off() .click(function() {
+				var id=${p .getPostId()}
 
-																				//局部刷新
-																				window.location
-																						.reload();
-																				//關掉modal
-																				$(
-																						"#myModal${vs.index}deleteCommentCheck")
-																						.modal(
-																								'hide');
-																				$(
-																						"body")
-																						.removeClass(
-																								"modal-open");
-																				$(
-																						".modal-backdrop")
-																						.remove();
-																			},
-																			error : function(
-																					error) {
-																				console
-																						.log(error);
-																			}
-																		})
-															})
-										});
+				;
+				var saySomeThing=$("#saySomeThing${p.getPostId()}")[0].value;
+
+				var datas= {
+					"id" : id,
+					"saySomeThing" : saySomeThing
+				}
+
+				;
+				var jsonData=JSON .stringify(datas);
+				console .log(jsonData);
+
+				$ .ajax({
+
+					url : contextRoot + "/sharePost.controller",
+					method : 'post',
+					contentType : 'application/json',
+					data : jsonData,
+					success : function(result) {
+						console .log(result);
+
+						//局部刷新
+						window.location .reload();
+						//關掉modal
+						$("#myModal${vs.index}deleteCommentCheck") .modal('hide');
+						$("body") .removeClass("modal-open");
+						$(".modal-backdrop") .remove();
+					}
+
+					,
+					error : function(error) {
+						console .log(error);
+					}
+				})
+		})
+});
 					</script>
 
 					<!-- 彈出貼文刪除確認 -->
@@ -576,67 +542,46 @@
 
 							<script type="text/javascript">
 								//刪除評論ajax
-								$(document)
-										.ready(
-												function() {
-													var contextRoot = "/demo";
-													$(
-															"#deleteComment${c.getCommentId()}")
-															.off()
-															.click(
-																	function() {
-																		var id = $
-																		{
-																			c
-																					.getCommentId()
-																		}
-																		;
-																		var datas = {
-																			"id" : id
-																		};
-																		var jsonData = JSON
-																				.stringify(datas);
-																		console
-																				.log(jsonData);
+								$(document) .ready(function() {
+	var contextRoot="/demo";
 
-																		$
-																				.ajax({
-																					url : contextRoot
-																							+ "/deleteComment.controller",
-																					method : 'post',
-																					contentType : 'application/json',
-																					data : jsonData,
-																					success : function(
-																							result) {
-																						console
-																								.log(result);
+	$("#deleteComment${c.getCommentId()}") .off() .click(function() {
+			var id=${c .getCommentId()};
 
-																						//局部刷新
-																						window.location
-																								.reload();
-																						//	 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
-																						//	 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
-																						//關掉modal
-																						$(
-																								"#myModal${vs.index}deleteCommentCheck")
-																								.modal(
-																										'hide');
-																						$(
-																								"body")
-																								.removeClass(
-																										"modal-open");
-																						$(
-																								".modal-backdrop")
-																								.remove();
-																					},
-																					error : function(
-																							error) {
-																						console
-																								.log(error);
-																					}
-																				})
-																	})
-												});
+			var datas= {
+				"id" : id
+			}
+
+			;
+			var jsonData=JSON .stringify(datas);
+			console .log(jsonData);
+
+			$ .ajax({
+
+				url : contextRoot + "/deleteComment.controller",
+				method : 'post',
+				contentType : 'application/json',
+				data : jsonData,
+				success : function(result) {
+					console .log(result);
+
+					//局部刷新
+					window.location .reload();
+					//	 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
+					//	 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
+					//關掉modal
+					$("#myModal${vs.index}deleteCommentCheck") .modal('hide');
+					$("body") .removeClass("modal-open");
+					$(".modal-backdrop") .remove();
+				}
+
+				,
+				error : function(error) {
+					console .log(error);
+				}
+			})
+	})
+});
 							</script>
 
 						</c:forEach>
@@ -665,58 +610,50 @@
 
 				<script>
 					//送出評論ajax
-					$(document)
-							.ready(
-									function() {
-										var contextRoot = "/demo";
-										// 							$("#sub${vs.index}").off().click(function() {
-										document
-												.querySelector(
-														'#commentText${vs.index}')
-												.addEventListener(
-														'keypress',
-														function(event) {
-															if (event.key === 'Enter') { //監聽鍵盤輸入事件，當事件為「Eenter」時執行程式
-																var postId = $("#postId${vs.index}")[0].value;
-																var commentText = $("#commentText${vs.index}")[0].value;
-																var datas = {
-																	"postId" : postId,
-																	"commentText" : commentText
-																};
-																var jsonData = JSON
-																		.stringify(datas);
-																console
-																		.log(jsonData);
-																event.target.value = ''; //清除input內容
+					$(document) .ready(function() {
+		var contextRoot="/demo";
 
-																$
-																		.ajax({
+		// 							$("#sub${vs.index}").off().click(function() {
+		document .querySelector('#commentText${vs.index}') .addEventListener('keypress',
+			function(event) {
+				if (event.key==='Enter') {
+					//監聽鍵盤輸入事件，當事件為「Eenter」時執行程式
+					var postId=$("#postId${vs.index}")[0].value;
+					var commentText=$("#commentText${vs.index}")[0].value;
 
-																			url : contextRoot
-																					+ "/addComment.controller",
-																			method : 'post',
-																			contentType : 'application/json',
-																			data : jsonData,
-																			success : function(
-																					result) {
-																				console
-																						.log(result);
+					var datas= {
+						"postId" : postId,
+						"commentText" : commentText
+					}
 
-																				// 										局部刷新，讓新增的評論可以馬上顯示
-																				window.location
-																						.reload();
-																				// 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
-																				// 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
-																			},
-																			error : function(
-																					error) {
-																				console
-																						.log(error);
-																			}
-																		})
-															}
-														})
-									});
+					;
+					var jsonData=JSON .stringify(datas);
+					console .log(jsonData);
+					event.target.value=''; //清除input內容
+
+					$ .ajax({
+
+						url : contextRoot + "/addComment.controller",
+						method : 'post',
+						contentType : 'application/json',
+						data : jsonData,
+						success : function(result) {
+							console .log(result);
+
+							// 										局部刷新，讓新增的評論可以馬上顯示
+							window.location .reload();
+							// 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
+							// 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
+						}
+
+						,
+						error : function(error) {
+							console .log(error);
+						}
+					})
+			}
+		})
+});
 				</script>
 
 			</c:forEach>
