@@ -42,16 +42,56 @@
 			<div class="dropdown" style="float: right; margin-right: 5%;">
 				<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
 				<i class="fa fa-bell-o" aria-hidden="true"><span
-					class="badge badge-danger">4</span></i>
-				<div class="dropdown-content">
-
-					<c:if test="${p.postUser.getUserId() != user.getUserId()}">
-						<a>123&emsp;
-							<button id="" type="submit" class="btn btn-light">read</button>
-						</a>
-					</c:if>
+					class="badge badge-danger"><c:out value="${fn:length(notificationList)}"></c:out></span></i>
+				<div id="notification" class="dropdown-content" style="min-width: 350px">
+						<c:forEach items="${notificationList}" var="n">
+						<span id="noti01" style="font-weight: bold; margin: 3%;">
+						<a style="display: inline;" href="${contextRoot}/timmy/readUserById/${n.getAuthor().getUserId()}">
+						<img src="${contextRoot}/${n.getAuthor().getPhotoPath()}"
+							style="width: 40px; height: 40px; border-radius: 50%; margin-top: 3%	">
+							 ${n.getAuthor().getNickName()} </a></span>
+						 updated a new post.
+							<button id="read${n.getNotificationId()}" type="submit" class="btn btn-light">read</button>
+						<div id="noti02" style="margin-left: 37%; color: #2894FF; "><fmt:formatDate value="${n.getNotificationTime()}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></div>
+						</c:forEach>
 				</div>
 			</div>
+			
+			<script type="text/javascript">
+			//每五秒撈一次通知資料
+// 			setInterval(function () { 
+// 					var contextRoot="/demo";
+// 							var id=${user.getUserId()};
+
+// 							var datas= {
+// 								"id" : id
+// 							};
+// 							var jsonData=JSON .stringify(datas);
+// 							console.log(jsonData);
+
+// 							$.ajax({
+// 								url : contextRoot + "/getNotification.controller",
+// 								method : 'post',
+// 								contentType : 'application/json',
+// 								data : jsonData,
+// 								success : function(result) {
+// 									console .log(result);
+
+// 									//局部刷新
+// 									window.location .reload();
+// // 									$("#noti01") .load(window.location.href + "#noti01");
+// // 									$("#noti02") .load(window.location.href + "#noti02");
+// // 									$("#notification") .load(window.location.href + "#noti02");
+// 								}
+
+// 								,
+// 								error : function(error) {
+// 									console .log(error);
+// 								}
+// 							})
+// 		    }, 5000);
+			</script>
+			
 			<!-- 通知 -->
 			<div class="panel" style="padding-top: 2%">
 				<!-- 新增post -->
@@ -161,10 +201,8 @@
 
 						//刷新
 						window.location .reload();
-						//關掉modal
-						// 										$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
-						// 										$("body").removeClass("modal-open");
-						// 										$( ".modal-backdrop").remove();
+						//alert
+						alert("Post has been reported.")
 					}
 
 					,
@@ -282,7 +320,7 @@
 					success : function(result) {
 						console .log(result);
 
-						// 										局部刷新，讓按讚數可以馬上顯示
+						// 局部刷新，讓按讚數可以馬上顯示
 						$("#like${vs.index}") .load(window.location.href + " #like${vs.index}");
 					}
 
@@ -337,7 +375,9 @@
 													class="fa fa-video-camera"></i>
 												</label>
 											</div>
+											<div class="modal-footer">
 											<button type="submit" class="btn btn-sm btn-rounded btn-info">Save</button>
+											</div>
 										</div>
 									</form>
 								</div>
@@ -382,7 +422,7 @@
 									</div>
 
 									<!-- footer -->
-									<div>
+									<div class="modal-footer">
 										<button id="sharePost${p.getPostId()}" type="submit"
 											class="btn btn-sm btn-rounded btn-info">Share</button>
 									</div>
@@ -1538,7 +1578,7 @@ li.list-group-item:first-child {
 	display: none;
 	position: absolute;
 	background-color: #f1f1f1;
-	min-width: 160px;
+	min-width: 160px; 
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 }

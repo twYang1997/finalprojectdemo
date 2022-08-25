@@ -51,11 +51,14 @@ public class PostController_P {
 			List<Integer> upIds = service.findUpId(userId);
 			for (Integer upId : upIds) {
 				postsToShow.addAll(service.getPostForFansByUserId(upId));
+			// 取得通知
+			List<Notification> notificationList = service.findNotificationByUserId(userId);
+			model.addAttribute("notificationList", notificationList);
 			}
 		} else {
 			postsToShow.addAll(service.getPostsByWhoCanSeeIt(1));
 		}
-
+		
 		postsToShow.sort(Comparator.comparing(Posts::getPostId).reversed());
 
 		model.addAttribute("postsToShow", postsToShow);
@@ -85,6 +88,17 @@ public class PostController_P {
 		service.addPost(p);
 
 		return ("share success");
+	}
+	
+	// 取得通知
+	@PostMapping("/getNotification.controller")
+	@ResponseBody
+	public String getNotification(@RequestBody IdDto IdDto, Model model) {
+		Integer userId = Integer.parseInt(IdDto.getId());
+		List<Notification> notificationList = service.findNotificationByUserId(userId);
+		model.addAttribute("notificationList", notificationList);
+		
+		return ("get notification");
 	}
 
 	// 新增貼文
@@ -142,7 +156,7 @@ public class PostController_P {
 					Notification newNotification = new Notification();
 					newNotification.setNotificationTime(new Date());
 					newNotification.setUser(service.getUserById(fanId));
-					newNotification.setPost(newPost);
+					newNotification.setAuthor(author);
 					service.addNotification(newNotification);
 				}
 			}

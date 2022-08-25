@@ -115,8 +115,13 @@ public class PhoebeService {
 	// Notification
 	@Autowired
 	private NotificationRepository NotificationRepository;
+	
 	public void addNotification(Notification newNotification) {
 		NotificationRepository.save(newNotification);
+	}
+	
+	public List<Notification> findNotificationByUserId(Integer loginUserId){
+		return NotificationRepository.findNotificationByUserId(loginUserId);
 	}
 	
 	// LikeService
