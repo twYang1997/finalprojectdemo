@@ -121,7 +121,7 @@
 									<a
 										class="rounded-pill btn btn-outline-success font-weight-bold"
 										href="${contextRoot}/cancelRemovePosts?id=${users.postId}"
-										role="button">取消移除</a></td>
+										role="button">取消檢舉</a></td>
 								</tr>
 							</c:if>
 						</c:forEach>
