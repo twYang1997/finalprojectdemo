@@ -728,33 +728,13 @@ function loadXMLDoc()
 								<div class="chartCard">
 									<div class="chartBox">
 										<canvas id="myChart"></canvas>
+										
 										<input onchange="filterData()" type="date" id="startdate"
-											value="2022-08-20"> <input onchange="filterData()"
-											type="date" id="enddate" value="2022-08-23">
-										<!-- 										 <select type="date" onchange="filterData()"> -->
-										<!-- 										 	<option id="startdate" value='2022-06-20'>2022-06-20</option> -->
-										<!-- 										 	<option id="startdate" value='2022-06-30'>2022-06-30</option> -->
-										<!-- 										 	<option id="startdate" value='2022-07-15'>2022-07-15</option> -->
-										<!-- 										 	<option id="startdate" value='2022-07-21'>2022-07-21</option> -->
-										<!-- 										 	<option id="startdate" value='2022-08-20'>2022-08-20</option> -->
-										<!-- 										 	<option id="startdate" value='2022-08-21'>2022-08-21</option> -->
-										<!-- 										 	<option id="startdate" value='2022-08-22'>2022-08-22</option> -->
-										<!-- 										 	<option id="startdate" value='2022-08-23'>2022-08-23</option> -->
-										<!-- 										 </select> -->
-										<!-- 										 <select onchange="filterData()"> -->
-										<!-- 										 </select> -->
+											> 
+										<input onchange="filterData()" type="date" id="enddate" 
+											>
+																		
 
-										<select onchange="filterData()">
-											<c:forEach items="${ordersToShow}" var="odate" varStatus="vs">
-												<option id="startdate"><fmt:formatDate
-														pattern='YYYY-MM-dd' value='${odate.getOrderDate()}' /></option>
-											</c:forEach>
-										</select> <select onchange="filterData()">
-											<c:forEach items="${ordersToShow}" var="odate" varStatus="vs">
-												<option id="enddate"><fmt:formatDate
-														pattern='YYYY-MM-dd' value='${odate.getOrderDate()}' /></option>
-											</c:forEach>
-										</select>
 									</div>
 								</div>
 								<script type="text/javascript"
