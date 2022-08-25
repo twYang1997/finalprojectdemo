@@ -728,33 +728,13 @@ function loadXMLDoc()
 								<div class="chartCard">
 									<div class="chartBox">
 										<canvas id="myChart"></canvas>
+										
 										<input onchange="filterData()" type="date" id="startdate"
-											value="2022-08-20"> <input onchange="filterData()"
-											type="date" id="enddate" value="2022-08-23">
-										<!-- 										 <select type="date" onchange="filterData()"> -->
-										<!-- 										 	<option id="startdate" value='2022-06-20'>2022-06-20</option> -->
-										<!-- 										 	<option id="startdate" value='2022-06-30'>2022-06-30</option> -->
-										<!-- 										 	<option id="startdate" value='2022-07-15'>2022-07-15</option> -->
-										<!-- 										 	<option id="startdate" value='2022-07-21'>2022-07-21</option> -->
-										<!-- 										 	<option id="startdate" value='2022-08-20'>2022-08-20</option> -->
-										<!-- 										 	<option id="startdate" value='2022-08-21'>2022-08-21</option> -->
-										<!-- 										 	<option id="startdate" value='2022-08-22'>2022-08-22</option> -->
-										<!-- 										 	<option id="startdate" value='2022-08-23'>2022-08-23</option> -->
-										<!-- 										 </select> -->
-										<!-- 										 <select onchange="filterData()"> -->
-										<!-- 										 </select> -->
+											> 
+										<input onchange="filterData()" type="date" id="enddate" 
+											>
+																		
 
-										<select onchange="filterData()">
-											<c:forEach items="${ordersToShow}" var="odate" varStatus="vs">
-												<option id="startdate"><fmt:formatDate
-														pattern='YYYY-MM-dd' value='${odate.getOrderDate()}' /></option>
-											</c:forEach>
-										</select> <select onchange="filterData()">
-											<c:forEach items="${ordersToShow}" var="odate" varStatus="vs">
-												<option id="enddate"><fmt:formatDate
-														pattern='YYYY-MM-dd' value='${odate.getOrderDate()}' /></option>
-											</c:forEach>
-										</select>
 									</div>
 								</div>
 								<script type="text/javascript"
@@ -822,23 +802,43 @@ function loadXMLDoc()
 		console.log('enddate:'+enddate);
 		// get index number in array
 		let indexstartdate = dates2.indexOf(startdate.value);
-		const indexenddate = dates2.indexOf(enddate.value);
+		
 		console.log('indexstartdate:'+indexstartdate);
-		console.log('indexenddate:'+indexenddate);
-
+		
 		if(	!dates2.includes(startdate.value)){
 			
 			let newIndex=0;
 			for(item of dates2){
+				
+						
 				if(	new Date(startdate.value)	> new Date(item)){
-					
-				console.log(	new Date(startdate.value),new Date(item),new Date(startdate.value)	> new Date(item))
+								
+				//console.log(	new Date(startdate.value),new Date(item),new Date(startdate.value)	> new Date(item))
 					newIndex++;
 				}
 			}
 			indexstartdate=newIndex
+			
+		} 
+		
+		let indexenddate = dates2.indexOf(enddate.value);
+		console.log('indexenddate:'+indexenddate);
+
+		if (!dates2.includes(enddate.value)) {
+			
+		
+			let newIndex=0;
+			for(item of dates2){
+				
+							
+				if(	new Date(enddate.value)	> new Date(item)){
+					
+				//console.log(	new Date(enddate.value),new Date(item),new Date(enddate.value)	< new Date(item))
+					newIndex++;
+				}
+			}
+			indexenddate=newIndex
 		}
-	
 		
 		
 		//slice the array only showing the selected section / slice
