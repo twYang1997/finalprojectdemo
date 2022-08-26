@@ -9,19 +9,12 @@
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
 <html>
-
 <head>
 <link href="${contextRoot}/css/shoppingcar.css" rel="stylesheet" />
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-
-
 </head>
 <body>
-
-
-
 	<div class="container">
 		<c:forEach items='${usersList}' var='user'>
 			<div class="row align-items-center">
@@ -41,12 +34,9 @@
 		</c:forEach>
 		<div class="col-lg-6">
 			<div class="ps-lg-6 ps-xl-10 w-lg-80">
-				<form  action="${contextRoot}/Alan/insertShoppingCar"
-					method="post">
-					<div class="mb-4">
-						<!--  	<p class="w-90">${user.nickName}</p>   -->
-					</div>
-					<!--  <p class="mb-4">${user.selfIntroduction}</p>   -->
+				<form action="${contextRoot}/Alan/insertShoppingCar" method="post">
+					<!-- 這個form 回傳的Controller -->
+					<div class="mb-4"></div>
 					<c:forEach items='${foundationList}' var='foundation' end="0">
 						<c:forEach items='${foundation.products}' var='product'>
 							<div id="accordion" class="accordion-style">
@@ -56,25 +46,30 @@
 											<!--  勾選需要商品進購物車 -->
 											<input type="checkbox" name="checkbox"
 												value="${product.productId}"
-												onclick="oncheck(${product.productId})"/>
+												onclick="oncheck(${product.productId})" />
+											<!-- 利用script 功能 oncheck 使用函式 把 商品與數量的值一起傳入後端 -->
 
 											<button class="btn btn-link collapsed"
 												data-bs-toggle="collapse" data-bs-target="#collapseOne"
 												aria-expanded="false" aria-controls="collapseOne">${product.productName}</button>
-											請選擇數量<select name="quantity" id="quantity${product.productId}">
-												<option value="0">0</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option>6</option>
-												<option>7</option>
-												<option>8</option>
-												<option>9</option>
-												<option>10</option>
+											請選擇數量<select name="quantity"
+												id="quantity${product.productId}">
+												<!-- quantity回傳後端/Alan/insertShoppingCar的名字 -->
+												<option >0</option>
+												<option >1</option>
+												<!-- 數字或英文的話可以不用給value 做回傳  會自動回傳值 -->
+												<option >2</option>
+												<option >3</option>
+												<option >4</option>
+												<option >5</option>
+												<option >6</option>
+												<option >7</option>
+												<option >8</option>
+												<option >9</option>
+												<option >10</option>
 											</select>
-
+											<div>單價${product.productPrice}</div>
+											
 										</h5>
 
 									</div>
@@ -114,13 +109,13 @@
 	height: 200px;
 }
 </style>
-<script>
+	<script>    <!-- 上方oncheck用的函式 -->
 
-	 function oncheck(id){
-		 var selected = document.getElementById("quantity"+id).value;
-		  
-			alert(selected); 
-		 }
+	 <!-- function oncheck(id){
+	 var selected = document.getElementById("quantity"+id).value;
+	  
+		alert(selected); 
+	 } -->
 
 </script>
 

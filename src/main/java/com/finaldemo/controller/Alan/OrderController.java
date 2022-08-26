@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.finaldemo.model.Foundation;
+import com.finaldemo.model.Orders;
 import com.finaldemo.model.Products;
 import com.finaldemo.model.ShoppingCar;
 import com.finaldemo.model.Users;
@@ -28,5 +29,32 @@ public class OrderController {
 	
 	@Autowired
 	private HttpSession session;
+
+	/***
+	 * 將確認訂單畫面新增進結帳頁面
+	 */
+	@PostMapping(path = "/Alan/Orders")
+	public String insertOrders(Model model, @RequestParam("Q") List<Integer> strQ ,@RequestParam("Id") List<Integer> Id,@RequestParam("orderSubtotal") List<Integer> orderSubtotal) {
+		Integer usersId = ((Users) session.getAttribute("user")).getUserId();
+		System.out.print("OrderQ="+ strQ);
+		System.out.print("fk_product_id="+ Id);
+		System.out.print("orderSubtotal="+ orderSubtotal);
+		
+		for (int i = 0; i < strQ.size(); i++) { 
+			
+			System.out.println("strQstrQstrQ= " + strQ);
+			
+//			alanService.insertOrders(strQ);
+		}
+		
+//	 	 List<ShoppingCar> shoppingCarList  = alanService.findShoppingCarProductsToOrders(strQ);
+	 	 
+//		System.out.print("購物車新增進結帳畫面="+ shoppingCarList);
+//		
+//		model.addAttribute("shoppingCarList", shoppingCarList);
+//		
+		
+        return "Alan/foundOrder";
+    }
 
 }

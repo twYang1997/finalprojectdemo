@@ -1,6 +1,7 @@
 package com.finaldemo.controller.Alan;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,19 +40,23 @@ public class ShoppingCarController {
 	private AlanService alanService;
 
 	@Autowired
-	private HttpSession session;
+	private HttpSession session; // 宣告session 出現兩次以上不用重複宣告
 
 	/***
 	 * 取得目前購物車商品資料
 	 */
 	@RequestMapping(path = "/Alan/shoppingCar")
-	public String getShoppingCarProduct(Model model) {
-//		Users users = (Users) session.getAttribute("login");
-		Integer usersId = ((Users) session.getAttribute("user")).getUserId(); // 取得users session
-		System.out.println(usersId);
-		List<ShoppingCar> ShoppingCarList = alanService.findShoppingCarProducts(Integer.toString(usersId));   //
-		model.addAttribute("ShoppingCarProducts", ShoppingCarList);
-		System.out.println("ShoppingCarProducts:" + ShoppingCarList);
+	public String getShoppingCarProduct(Model model) { // 取得值的話使用Model
+		Integer usersId = ((Users) session.getAttribute("user")).getUserId(); // 取得Users session 用來維持登入會員資料 有Users
+																				// Bean裡面的資料
+		System.out.println(usersId); // 列印usersId確認是否取得資料
+		List<ShoppingCar> ShoppingCarList = alanService.findAllShoppingCarProducts(Integer.toString(usersId)); // 啟動Service
+																											// 使用前面取得session
+																											// usersId
+																											// 來抓取該會員底下的購物車
+		model.addAttribute("ShoppingCarProducts", ShoppingCarList); // 建立ShoppingCarProducts Model 來裝ShoppingCarList
+																	// 裡面的資料方便前端JSP取得
+		System.out.println("ShoppingCarProducts:" + ShoppingCarList); // 列印出ShoppingCarList 裡面的值 來確認是否為購物車所需
 		return "Alan/shoppingCar";
 	}
 
@@ -61,13 +66,14 @@ public class ShoppingCarController {
 	 * @param checkbox
 	 */
 	@PostMapping(path = "/Alan/insertShoppingCar")
-//	@RequestParam("quantity") Integer quantity
-	public String insertShoppingCarProduct(Model model, @RequestParam("checkbox") List<String> productIdList,
-			@RequestParam("quantity") List<Integer> quantityList) {
-		Integer usersId = ((Users) session.getAttribute("user")).getUserId(); // 取得users session
-		for (int i = 0; i < productIdList.size(); i++) {
-			Users usBean = alanService.usersfindById(usersId);
-			ShoppingCar shBean = new ShoppingCar();
+	 public String insertShoppingCarProduct(Model model, @RequestParam("checkbox") List<String> productIdList,
+	            @RequestParam("quantity") List<Integer> quantityList) {  
+		 System.out.println("----------" + productIdList);
+		 
+		Integer usersId = ((Users) session.getAttribute("user")).getUserId(); 
+		for (int i = 0; i < productIdList.size(); i++) {                      
+			Users usBean = alanService.usersfindById(usersId); 
+			ShoppingCar shBean = new ShoppingCar(); 
 			Products pdBean = alanService.productsfindById(Integer.parseInt(productIdList.get(i)));
 			shBean.setProducts(pdBean);
 			shBean.setShopUser(usBean);
@@ -84,24 +90,57 @@ public class ShoppingCarController {
 	 */
 	@RequestMapping(path = "/Alan/order")
 	public String getOrderShoppingCarProduct(Model model) {
-//		Users users = (Users) session.getAttribute("login");
-
-		List<ShoppingCar> ShoppingCarList = alanService.findShoppingCarProducts("1");
-
-		model.addAttribute("ShoppingCarProducts", ShoppingCarList);
-
-		System.out.println("ShoppingCarProducts:" + ShoppingCarList);
+		Integer usersId = ((Users) session.getAttribute("user")).getUserId(); // 取得session 資料
+		List<ShoppingCar> shoppingCarList = alanService.findAllShoppingCarProducts(Integer.toString(usersId));
+		model.addAttribute("ShoppingCarProducts", shoppingCarList);
+		System.out.println("ShoppingCarProducts:" + shoppingCarList);
 		return "Alan/foundOrder";
 	}
-	
+
 	/***
 	 * 刪除購物車商品
 	 */
-	@PostMapping(path = "/Alan/deleteShoppingCarProduct")
-	public String deleteComment(Model model,@RequestParam("deleteShoppingCarProducts") Integer shoppingCarId) {
-		System.out.println("shoppingCarId:" + shoppingCarId);
-		alanService.deleteShoppingCarProducts(shoppingCarId);		
+	@GetMapping(path = "/Alan/deleteShoppingCarProduct")
+	public String deleteShoppingCarProducts(Model model,
+			@RequestParam("deleteShoppingCarProducts") Integer shoppingCarId) {
+		alanService.deleteShoppingCarProducts(shoppingCarId);
 		return this.getShoppingCarProduct(model);
 	}
+
+	/***
+	 * 修改購物車商品+1
+	 */
+	@GetMapping(path = "/Alan/newShoppingCarProduct")
+	public String editShoppingCarProducts(Model model, @RequestParam("add") String add,
+			@RequestParam("updateShoppingCarProducts") String updateShoppingCarProducts) {
+		if (add.equals("1")) {
+			ShoppingCar shoppingCar = alanService.findShoppingCarProducts(Integer.parseInt(updateShoppingCarProducts));
+			int quantity = shoppingCar.getQuantity() - 1;
+			alanService.updatequantityShoppingCarProducts(quantity, Integer.parseInt(updateShoppingCarProducts));
+		} else {
+			ShoppingCar ShoppingCar = alanService.findShoppingCarProducts(Integer.parseInt(updateShoppingCarProducts));
+			int quantity = ShoppingCar.getQuantity() + 1;
+			alanService.updatequantityShoppingCarProducts(quantity, Integer.parseInt(updateShoppingCarProducts));
+		}
+
+		return "redirect:/Alan/shoppingCar";
+	}
+	/***
+	 * 將購物車畫面新增進結帳頁面
+	 */
+	@RequestMapping(path = "/Alan/ShoppingCarcheckbox")
+	public String insertOeders(Model model, @RequestParam("oldchange") List<String> strId) {
+		Integer usersId = ((Users) session.getAttribute("user")).getUserId();
+	 	 List<ShoppingCar> shoppingCarList  = alanService.findShoppingCarProductsToOrders(strId);
+	 	 
+		System.out.print("購物車新增進結帳畫面="+ shoppingCarList);
+		
+		model.addAttribute("shoppingCarList", shoppingCarList);
+		
+		
+        return "Alan/foundOrder";
+    }
+	
+	
 
 }
