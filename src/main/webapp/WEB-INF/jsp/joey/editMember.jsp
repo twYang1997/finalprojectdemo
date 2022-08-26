@@ -762,6 +762,7 @@ function loadXMLDoc()
 											<th scope="col">訂單日期</th>
 											<th scope="col">訂單金額</th>
 											<th scope="col">施主大名</th>
+											<th scope="col">商品名稱</th>
 											<th scope="col">付款方式</th>
 										</tr>
 									</thead>
@@ -769,9 +770,15 @@ function loadXMLDoc()
 									<tbody>
 										<c:forEach items="${ordersToShow}" var="o" varStatus="vs">
 											<tr>
-												<th id="aaa" scope="row">${o.getOrderDate()}</th>
+												<td id="aaa" scope="row">${o.getOrderDate()}</td>
 												<td>${o.getOrderPrice()}</td>
 												<td>${o.getOrderUser().getNickName()}</td>
+												
+													<c:forEach items="${o.orderDetails}" var="od">
+														<td>${od.products.productName}</td>
+														
+													</c:forEach>
+												
 												<td>${o.getPayment()}</td>
 
 											</tr>
