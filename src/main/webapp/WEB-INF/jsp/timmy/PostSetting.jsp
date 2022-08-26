@@ -31,18 +31,10 @@
 		<c:set var="userOrigin" value="${user}" />
 		<c:set var="user" value="${guest}" />
 	</c:if>
-			<c:forEach items="${user.posts}" var="p" varStatus="vs">
-<%-- 				<c:if test="${!empty guest && (p.whoCanSeeIt == 1)}"> --%>
-<%-- 					<c:set value="1" var="canSee"/> --%>
-<%-- 				</c:if> --%>
-<%-- 				<c:if test="${empty guest && }"> --%>
-<%-- 					<c:set value="1" var="canSee"/> --%>
-<%-- 				</c:if> --%>
+			<c:forEach items="${postsToShow}" var="p" varStatus="vs">
+				<c:if test="${p.whoCanSeeIt != 0 }" >
 				<div class="panel" style="padding:2%">
-<!-- 					<ul class="panel-activity__list"> -->
-<!-- 						<li> -->
 						<i class="activity__list__icon fa fa-question-circle-o"></i>
-<!-- 							<div class="activity__list__header"> -->
 								<div>
 									<a
 										href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
@@ -74,7 +66,6 @@
 										</c:if>
 									</div>
 								</div>
-<!-- 							</div> -->
 							<div class="activity__list__body entry-content">
 
 								<!-- post內文 -->
@@ -127,7 +118,7 @@
 									class="fa fa-thumbs-up"></i>${p.getPostLike()}</a> <a
 									id="commentCount${vs.index}"> <i class="fa fa-comments"></i>${p.getComments().size()}</a>
 
-								<c:if test="${p.postUser.getUserId() == user.getUserId()}">
+								<c:if test="${p.postUser.getUserId() == userOrigin.getUserId()}">
 									<a href="#" role="button" data-toggle="modal"
 										data-target="#myModal${vs.index}"
 										id="viewDetailButton${vs.index}"> <i class="fa fa-pencil"></i>Edit
@@ -197,8 +188,21 @@
 											<option value="2">Follower</option>
 											<option value="3">Only me</option>
 										</select>
-										<textarea name="postText" class="form-control"
+										<textarea id="postText${p.postId}" name="postText" class="form-control"
 											style="border-style:; overflow: hidden;margin: 20px 0;">${p.getPostText()}</textarea>
+											<script>
+												$(function(){
+													$("#postText${p.postId}").change(function(e){
+														var contextRoot = "/demo";
+														let id = "${p.postId}";
+														$.ajax({
+															url: contextRoot + "/timmy/updatePostTextAjax?text=" + e.target.value + "&id=" + id  ,
+															method: "get",
+															success: console.log("success"),
+														})
+													})
+												})
+											</script>
 										<div style="margin:20px 10px ;">
 											<table class="table" id="editPhotoTable${p.postId}">
 												<tbody>
@@ -407,7 +411,7 @@
 									style="visibility: hidden">
 
 										<!-- 	是作者才會顯示的修改刪除按鈕		 -->
-										<c:if test="${c.user.getUserId() == user.getUserId()}">
+										<c:if test="${c.user.getUserId() == userOrigin.getUserId()}">
 											<p style="float: right; margin-left: 10px">
 											<a href="#" role="button" data-toggle="modal"
 												data-target="#myModal${c.getCommentId()}deleteCommentCheck"
@@ -494,9 +498,16 @@
 						</c:forEach>
 					<!-- 重複的結構 -->
 						<div class="box-footer">
+						<c:if test="${!empty guest}">
+							<img class="img-responsive img-circle img-sm"
+								src="${contextRoot}/${userOrigin.getPhotoPath()}" alt="Alt Text"
+								style="width: 40px; height: 40px; border-radius: 50%">
+						</c:if>
+						<c:if test="${empty guest}">
 							<img class="img-responsive img-circle img-sm"
 								src="${contextRoot}/${user.getPhotoPath()}" alt="Alt Text"
 								style="width: 40px; height: 40px; border-radius: 50%">
+						</c:if>
 							<div class="img-push" style="margin-top:15px">
 								<input type="text" class="form-control input-sm" required
 									id="commentText${vs.index}"
@@ -510,7 +521,34 @@
 							</div>
 
 							<script type="text/javascript">
- 									</script>
+							$(document) .ready(function() {
+								var contextRoot="/demo";
+
+								$("#like${vs.index}") .off() .click(function() {
+										var id=$("#likedPostId${vs.index}")[0].value;
+										var datas= {
+											"id" : id
+										}
+										var jsonData=JSON .stringify(datas);
+										console .log(jsonData);
+										$ .ajax({
+											url : contextRoot + "/postLike.controller",
+											method : 'post',
+											contentType : 'application/json',
+											data : jsonData,
+											success : function(result) {
+												console .log(result);
+												// 局部刷新，讓按讚數可以馬上顯示
+												$("#like${vs.index}") .load(window.location.href + " #like${vs.index}");
+											}
+											,
+											error : function(error) {
+												console .log(error);
+											}
+										})
+								})
+						});
+ 							</script>
 						</div>
 					</div>
 				</div>
@@ -584,7 +622,7 @@
 						});
 						
 					</script>
-
+				</c:if>
 			</c:forEach>
 </body>
 <script type="text/javascript">

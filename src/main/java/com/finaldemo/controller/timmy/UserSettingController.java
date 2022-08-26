@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +35,7 @@ import com.finaldemo.dto.CommentDto;
 import com.finaldemo.dto.ImageDto;
 import com.finaldemo.dto.UserDataDto;
 import com.finaldemo.model.Pets;
+import com.finaldemo.model.Posts;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.TimmyService;
 
@@ -161,7 +164,12 @@ public class UserSettingController {
 	public String readUserById(@PathVariable Integer id, Model m, HttpSession session) {
 		Users guest = service.getUserById(id);
 		m.addAttribute("guest", guest);
-		
+		List<Posts> postsToShow = new ArrayList<>();
+		if ((Users) session.getAttribute("user") != null) {
+			postsToShow.addAll(service.getPostsByUserId(guest.getUserId())); // 取得登入者發的貼文
+		}
+		postsToShow.sort(Comparator.comparing(Posts::getPostId).reversed());
+		m.addAttribute("postsToShow", postsToShow);
 		Users user = (Users) session.getAttribute("user");
 		Users u1 = service.getUserById(user.getUserId());
 		session.setAttribute("user", u1);

@@ -97,4 +97,13 @@ public class PostSettingController {
 		System.out.println("---------------------------------------");
 		return imgId;
 	}
+	
+	@GetMapping("/timmy/updatePostTextAjax")
+	@ResponseBody
+	public String updatePostTextAjax(@RequestParam("text") String text, @RequestParam("id") Integer id) {
+		Posts p1 = service.getPostById(id);
+		p1.setPostText(text);
+		service.insertNewPost(p1);
+		return "success";
+	}
 }	
