@@ -1,8 +1,11 @@
 package com.finaldemo.controller.timmy;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -116,6 +119,13 @@ public class ActionController {
 		Users userAfter = service.getUserById(userBefore.getUserId());
 		session.setAttribute("user", userAfter);
 		m.addAttribute("newPet", new Pets());
+		List<Posts> postsToShow = new ArrayList<>();
+		if ((Users) session.getAttribute("user") != null) {
+			postsToShow.addAll(service.getPostsByUserId(userAfter.getUserId())); // 取得登入者發的貼文
+		}
+		postsToShow.sort(Comparator.comparing(Posts::getPostId).reversed());
+
+		m.addAttribute("postsToShow", postsToShow);
 		return "timmy/NormalMember";
 	}
 

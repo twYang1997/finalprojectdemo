@@ -27,24 +27,17 @@
 </style>
 </head>
 <body>
-	<%-- 	<c:forEach var="post" items="${user.posts}"> --%>
-	<!-- 		<table class="table"> -->
-	<!-- 			<tr> -->
-	<%-- 				<td class="postUserName">${user.nickName}</td> --%>
-	<!-- 			</tr> -->
-	<!-- 			<tr> -->
-	<%-- 				<td>${post.postVideoSrc}</td> --%>
-	<!-- 			</tr> -->
-	<!-- 			<tr> -->
-	<%-- 				<td>${post.postText}</td> --%>
-	<!-- 			</tr> -->
-	<!-- 		</table> -->
-	<%-- 	</c:forEach> --%>
 	<c:if test="${!empty guest}">
 		<c:set var="userOrigin" value="${user}" />
 		<c:set var="user" value="${guest}" />
 	</c:if>
 			<c:forEach items="${user.posts}" var="p" varStatus="vs">
+<%-- 				<c:if test="${!empty guest && (p.whoCanSeeIt == 1)}"> --%>
+<%-- 					<c:set value="1" var="canSee"/> --%>
+<%-- 				</c:if> --%>
+<%-- 				<c:if test="${empty guest && }"> --%>
+<%-- 					<c:set value="1" var="canSee"/> --%>
+<%-- 				</c:if> --%>
 				<div class="panel" style="padding:2%">
 <!-- 					<ul class="panel-activity__list"> -->
 <!-- 						<li> -->
@@ -401,7 +394,7 @@
 								<div class="box-comment">
 									<div class="comment-text">
 									
-									<a href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}" style="color:black">
+									<a href="${contextRoot}/timmy/readUserById/${c.getUser().getUserId()}" style="color:black">
 										<img class="img-circle img-sm"
 											src="${contextRoot}/${c.getUser().getPhotoPath()}"
 											alt="User Image"
@@ -504,8 +497,7 @@
 							<img class="img-responsive img-circle img-sm"
 								src="${contextRoot}/${user.getPhotoPath()}" alt="Alt Text"
 								style="width: 40px; height: 40px; border-radius: 50%">
-
-							<div class="img-push">
+							<div class="img-push" style="margin-top:15px">
 								<input type="text" class="form-control input-sm" required
 									id="commentText${vs.index}"
 									placeholder="Press enter to post comment" name="commentText">
