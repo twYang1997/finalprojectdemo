@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finaldemo.model.Pets;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.BrainService;
@@ -151,7 +153,7 @@ public class UsersListController {
 
 	@GetMapping("/memberReport")
 	public String memberReport(Model model) {
-		
+
 		model.addAttribute("usersreport", Service.findAllUsers());
 		model.addAttribute("posts", Service.findAllPosts());
 		return "Brian/report";
@@ -167,7 +169,7 @@ public class UsersListController {
 		session.invalidate();
 		return "redirect:/memberReport";
 	}
-	
+
 //	回復移除文章
 	@GetMapping("/removePostsRestoration")
 	public String removePostsRestoration(HttpSession session, Model model, @RequestParam("id") String id) {
@@ -178,7 +180,7 @@ public class UsersListController {
 		session.invalidate();
 		return "redirect:/memberReport";
 	}
-//	回復移除文章
+
 	@GetMapping("/cancelRemovePosts")
 	public String cancelRemovePosts(HttpSession session, Model model, @RequestParam("id") String id) {
 		Posts p1 = Service.BrainGetPostsById(Integer.parseInt(id));
@@ -188,7 +190,15 @@ public class UsersListController {
 		return "redirect:/memberReport";
 	}
 
-	
+	@GetMapping("/chartManagement")
+	public String chartManagement(Model model, @RequestParam("id") String id) {
+		
+		
+		model.addAttribute("pets", Service.findAllPets());
+		
+		
+		return "redirect:/report";
+	}
 
 }
 //	@PostMapping("/Brian/uploadImgAjax")

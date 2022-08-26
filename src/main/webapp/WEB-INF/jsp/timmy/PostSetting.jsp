@@ -411,21 +411,23 @@
 									style="visibility: hidden">
 
 										<!-- 	是作者才會顯示的修改刪除按鈕		 -->
-										<c:if test="${c.user.getUserId() == userOrigin.getUserId()}">
-											<p style="float: right; margin-left: 10px">
-											<a href="#" role="button" data-toggle="modal"
-												data-target="#myModal${c.getCommentId()}deleteCommentCheck"
-												id="viewDetailButton${Cvs.index}"> <i class="fa fa-trash"></i>
-											</a>
-											</p>
-											<p style="float: right">
-											<a href="#" role="button" data-toggle="modal"
-												data-target="#myModal${Cvs.index}"
-												id="viewDetailButton${Cvs.index}"> <i
-												class="fa fa-pencil" ></i>
-											</a>
-											</p>
-
+<!-- 										Todo: 修正會員管理趣無法修改貼文的問題 -->
+										<c:if test=""> 
+											<c:if test="${c.user.getUserId() == userOrigin.getUserId()}">
+												<p style="float: right; margin-left: 10px">
+												<a href="#" role="button" data-toggle="modal"
+													data-target="#myModal${c.getCommentId()}deleteCommentCheck"
+													id="viewDetailButton${Cvs.index}"> <i class="fa fa-trash"></i>
+												</a>
+												</p>
+												<p style="float: right">
+												<a href="#" role="button" data-toggle="modal"
+													data-target="#myModal${Cvs.index}"
+													id="viewDetailButton${Cvs.index}"> <i
+													class="fa fa-pencil" ></i>
+												</a>
+												</p>
+											</c:if>
 										</c:if>
 									</div>
 									<p class="text-muted pull-right">${c.getCommentTime()}</p>
