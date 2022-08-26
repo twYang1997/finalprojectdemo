@@ -21,59 +21,82 @@
 			<h3>購物車</h3>
 			<p class="lead">您購買的的東西</p>
 		</div>
+
 		<div class="card mb-3">
-			<c:forEach items='${ShoppingCarProducts}' var='Products'>
-				<div class="card-body">
-					<div class="d-flex flex-column flex-lg-row">
-						<span class="avatar avatar-text rounded-3 me-4 mb-2">FD</span>
-						<div class="row flex-fill">
-							<div class="col-sm-5">
-								<h4 class="h5">${Products.products.productName}</h4>
+			<form action="${contextRoot}/Alan/ShoppingCarcheckbox" method="post">
+				<c:forEach items='${ShoppingCarProducts}' var='Products'>
+					<div class="card-body">
+						<div class="d-flex flex-column flex-lg-row">
+							<span class="avatar avatar-text rounded-3 me-4 mb-2">FD</span>
+							<div class="row flex-fill">
+								<div class="col-sm-5">
+									<h4 class="h5">${Products.products.productName}</h4>
+								</div>
+								<div class="col-sm-4 py-2">
+
+									<input type="checkbox" id="check${Products.shoppingCarId}"
+										 value="${Products.shoppingCarId}"
+										onclick="oncheck(${Products.shoppingCarId})" /> 
+
+									<!-- -1按鈕 -->
+									<a
+										href='${contextRoot}/Alan/newShoppingCarProduct?add=1&updateShoppingCarProducts=${Products.shoppingCarId}'>
+										<!-- +1按鈕--> -
+									</a> <input type='text' name='quantity'
+										value="${Products.quantity}" class='qty' /> <a
+										href='${contextRoot}/Alan/newShoppingCarProduct?add=2&updateShoppingCarProducts=${Products.shoppingCarId}'>
+										<!-- +1按鈕--> +
+									</a> 
+									<div>單價:${Products.products.productPrice}</div>
+									<div>總計:${Products.totalPrice}</div>
+
+								</div>
+								<a
+									href="${contextRoot}/Alan/deleteShoppingCarProduct?deleteShoppingCarProducts=${Products.shoppingCarId}">
+
+									刪除 </a>
 							</div>
-							<div class="col-sm-4 py-2">
-								<!--  	<span class="counter">購買數量${Products.quantity}
-								<</span>-->
-								<form id='myform' method='POST' action='#'>
-									<label for="">數量 </label><input type='button' value='-'
-										class='qtyminus' field='quantity' />
-									<!-- -->
-									<input type='text' name='quantity' value='${Products.quantity}'
-										class='qty' />
-									<!-- -->
-									<input type='button' value='+' class='qtyplus' field='quantity' />
-								</form>
-
-								<span class="badge bg-secondary">單價:${Products.unitPrice}</span>
-								<span class="badge bg-secondary">總計${Products.totalPrice}</span>
-
-							</div>
-							<form method="post"
-								action="${contextRoot}/Alan/deleteShoppingCarProduct">
-
-								<button name="deleteShoppingCarProducts" type='submit' 
-									value="${Products.shoppingCarId}" class='qtyminus' id=''>刪除</button>
-
-							</form>
 						</div>
-					</div>
-				</div>
-			</c:forEach>
 
-		</div>
-		<div class="card mb-3">
-			<div class="card-body">
-				<div class="d-flex flex-column flex-lg-row">
-					<div class="row flex-fill">
-						<div class="col-sm-5"></div>
-						<div class="col-sm-4 py-2"></div>
-						<div class="col-sm-3 text-lg-end">
-							<a href="#" class="btn btn-primary stretched-link">確認購買</a>
-						</div>
-					</div>
-				</div>
-			</div>
+						<p>
+							<span id="change${Products.shoppingCarId}"></span>
+						</p>
 
+					</div>
+				</c:forEach>
+				<button value="Action" id="touch" type="submit" 
+					class="btn btn-secondary mt-5">前往購買</button>
+			</form>
 		</div>
 	</div>
+
+	<script>
+	<!-- 上方oncheck用的函式 -->
+
+	 function oncheck(id){
+		 var flag = $("#check"+id).prop("checked");
+		 
+		 if(flag==true){
+			 var selected = document.getElementById("check"+ id).value;
+			 $("#change"+ id).replaceWith("<input type='hidden' name ='oldchange' id='change"+selected+"' value ="+selected+" />"); 
+				var selected1 = document.getElementById("change" + id).value;
+				console.log(selected1) 
+		 } else{
+			 var selected = document.getElementById("check"+ id).value;
+			 $("#change"+ id).replaceWith("<input type='hidden' id='change"+selected+"' value ='0' />"); 
+			 var selected2 = document.getElementById("change" + id).value;
+			 console.log(selected2) 
+		 }
+		 
+		
+	 };  
+	 
+        
+         
+	 
+  
+
+	</script>
+
 </body>
 </html>
