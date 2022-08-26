@@ -94,7 +94,39 @@
 										</li>
 									</ul>
 								</c:forEach>
-
+								<c:if test="${!empty p.getPostBeShared()}">
+							<div id="postBeShared"
+								style="border: solid; border-width: 1px; border-color: #E0E0E0; padding: 3%; margin: 3%; height: 50%; overflow: auto;">
+								<!--原作者資訊 -->
+								<a
+									href="${contextRoot}/timmy/readUserById/${p.getPostBeShared().getPostUser().getUserId()}">
+									<img
+									src="${contextRoot}/${p.getPostBeShared().getPostUser().getPhotoPath()}"
+									alt="" style="width: 40px; height: 40px; border-radius: 50%;" />
+									${p.getPostBeShared().postUser.getNickName()}
+								</a> &nbsp;
+								<!-- whoCanSeeIt圖示 -->
+								<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 1}">
+									<i id="public" class="fa fa-globe" aria-hidden="true"></i>
+								</c:if>
+								<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 2}">
+									<i id="followers" class="fa fa-users" aria-hidden="true"></i>
+								</c:if>
+								<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 3}">
+									<i id="onlyMe" class="fa fa-lock" aria-hidden="true"></i>
+								</c:if>
+								<!--被分享貼文內容 -->
+								<p>${p.getPostBeShared().getPostText()}</p>
+								<c:forEach items="${p.getPostBeShared().getPostImg()}"
+									var="sharedPostImg" varStatus="loop">
+									<ul class="gallery">
+										<li><img
+											src="${contextRoot}/${sharedPostImg.getPostImgPath()}">
+										</li>
+									</ul>
+								</c:forEach>
+							</div>
+						</c:if>
 							</div> 
 							<!-- 按讚/評論/修改/刪除 按鈕 -->
 							<div class="activity__list__footer">
@@ -369,38 +401,37 @@
 								<div class="box-comment">
 									<div class="comment-text">
 									
-									<a href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
+									<a href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}" style="color:black">
 										<img class="img-circle img-sm"
 											src="${contextRoot}/${c.getUser().getPhotoPath()}"
 											alt="User Image"
 											style="width: 40px; height: 40px; border-radius: 50%">
-										<span class="username" style="font-weight: bold;">
-											${c.getUser().getNickName()} </span>
+											&nbsp;${c.getUser().getNickName()}
 									</a>
-									
+									<br>
 									<!-- 	取得評論id -->
 									<input id="commentId${Cvs.index}" value="${c.getCommentId()}"
 									style="visibility: hidden">
 
 										<!-- 	是作者才會顯示的修改刪除按鈕		 -->
 										<c:if test="${c.user.getUserId() == user.getUserId()}">
-											<span style="float: right; margin-left: 10px">
+											<p style="float: right; margin-left: 10px">
 											<a href="#" role="button" data-toggle="modal"
 												data-target="#myModal${c.getCommentId()}deleteCommentCheck"
-												id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>
+												id="viewDetailButton${Cvs.index}"> <i class="fa fa-trash"></i>
 											</a>
-											</span>
-											<span style="float: right">
+											</p>
+											<p style="float: right">
 											<a href="#" role="button" data-toggle="modal"
-												data-target="#myModal${vs.index}"
-												id="viewDetailButton${vs.index}"> <i
+												data-target="#myModal${Cvs.index}"
+												id="viewDetailButton${Cvs.index}"> <i
 												class="fa fa-pencil" ></i>
 											</a>
-											</span>
+											</p>
 
 										</c:if>
 									</div>
-									<span class="text-muted pull-right">${c.getCommentTime()}</span>
+									<p class="text-muted pull-right">${c.getCommentTime()}</p>
 									&emsp; &emsp; ${c.getCommentText()}
 									<hr>
 								</div>
@@ -416,7 +447,7 @@
 									<h5 class="modal-title" id="exampleModalLongTitle">Delete Comment?</h5>
 									<button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
+										<p aria-hidden="true">&times;</p>
 									</button>
 								</div>
 								<div class="modal-body">Are you sure you want to delete this comment?</div>
