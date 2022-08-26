@@ -67,43 +67,7 @@ function loadXMLDoc()
 <script
 	src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
-<!-- 	Getting Started with Chart JS -->
-<style>
-* {
-	margin: 0;
-	padding: 0;
-	font-family: sans-serif;
-}
 
-.chartMenu {
-	width: 100vw;
-	height: 40px;
-	background: #1A1A1A;
-	color: rgba(255, 26, 104, 1);
-}
-
-.chartMenu p {
-	padding: 10px;
-	font-size: 20px;
-}
-
-.chartCard {
-	width: 100vw;
-	height: calc(100vh - 40px);
-	background: rgba(255, 26, 104, 0.2);
-	display: flex;
-	align-items: center;
-	justify-content: left;
-}
-
-.chartBox {
-	width: 700px;
-	padding: 20px;
-	border-radius: 20px;
-	border: solid 3px rgba(255, 26, 104, 1);
-	background: white;
-}
-</style>
 
 </head>
 
@@ -285,14 +249,14 @@ function loadXMLDoc()
 						<span id="tab-1"><h3 class="panel-title">Activity Feed</h3></span>
 						<span id="tab-2"><h3 class="panel-title">Add Product</h3></span> <span
 							id="tab-3"><h3 class="panel-title">Order History</h3></span> <span
-							id="tab-4"><h3 class="panel-title">Chart Test</h3></span>
+							id="tab-4"><h3 class="panel-title">Test Area</h3></span>
 
 						<div id="tab">
 							<ul>
 								<li><a href="#tab-1">Activity Feed</a></li>
 								<li><a href="#tab-2">Add Product</a></li>
 								<li><a href="#tab-3">Order History</a></li>
-								<li><a href="#tab-4">Chart Test</a></li>
+								<li><a href="#tab-4">Test Area</a></li>
 							</ul>
 
 							<!-- 頁籤的內容區塊 -->
@@ -646,9 +610,11 @@ function loadXMLDoc()
 
 							</div>
 							<div class="tab-content-3">
-								<canvas id="chart" width="800" height="600"></canvas>
-								<script type="text/javascript">
-							var ctx = document.getElementById('chart').getContext('2d');
+								
+								
+										<canvas id="myChart"></canvas>
+										<script type="text/javascript">
+							
 							var dateArray = new Array();
 							var incomeArray = new Array();
 							
@@ -659,84 +625,13 @@ function loadXMLDoc()
 							var newDateArray = new Array();
 							for (let i=0;i<dateArray.length;i++){
 								newDateArray.push(dateArray[i].substring(0,10))
-							}
-
-							var chart = new Chart(ctx, {
-							    type: 'line',
-							    data: {
-							        labels: newDateArray,
-							        datasets: [{
-							            label: '# of Votes',
-							            data: incomeArray,
-							            borderWidth: 1
-							        }]
-							    },
-								options: {
-   						 // 自訂屬性設定
-   						 
-						 
-							scales:{
-								yAxes: [{
-									ticks: {
-										min: 0,
-										stepSize: 200
-									}
-								}]
-							}
-  								}
-							
-							});
-							</script>
-
-
-
-								<table class="table table-hover display" id="order_table">
-									<thead>
-										<tr>
-											<th scope="col">訂單日期</th>
-											<th scope="col">訂單金額</th>
-											<th scope="col">施主大名</th>
-											<th scope="col">付款方式</th>
-										</tr>
-									</thead>
-
-									<tbody>
-										<c:forEach items="${ordersToShow}" var="o" varStatus="vs">
-											<tr>
-												<th id="aaa" scope="row">${o.getOrderDate()}</th>
-												<td>${o.getOrderPrice()}</td>
-												<td>${o.getOrderUser().getNickName()}</td>
-												<td>${o.getPayment()}</td>
-
-											</tr>
-										</c:forEach>
-									</tbody>
-
-								</table>
-
-								<script type="text/javascript">
-									$(document).ready( function () {
-    								$('#order_table').DataTable(); 
-									} );
-								</script>
-							</div>
-							<div class="tab-content-4">
-
-								<div class="chartMenu">
-									<p>WWW.CHARTJS3.COM (Chart JS 3.9.1)</p>
-								</div>
-								<div class="chartCard">
-									<div class="chartBox">
-										<canvas id="myChart"></canvas>
+							}</script>
 										
-										<input onchange="filterData()" type="date" id="startdate"
-											> 
-										<input onchange="filterData()" type="date" id="enddate" 
-											>
+										<input onchange="filterData()" type="date" id="startdate" value="2022-08-20"> 
+										<input onchange="filterData()" type="date" id="enddate" value="2022-08-23">
 																		
 
-									</div>
-								</div>
+								
 								<script type="text/javascript"
 									src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 								<script>
@@ -752,24 +647,24 @@ function loadXMLDoc()
       datasets: [{
         label: 'Weekly Sales',
         data: datapoints,
-        backgroundColor: [
-          'rgba(255, 26, 104, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(0, 0, 0, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 26, 104, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(0, 0, 0, 1)'
-        ],
+//         backgroundColor: [
+//           'rgba(255, 26, 104, 0.2)',
+//           'rgba(54, 162, 235, 0.2)',
+//           'rgba(255, 206, 86, 0.2)',
+//           'rgba(75, 192, 192, 0.2)',
+//           'rgba(153, 102, 255, 0.2)',
+//           'rgba(255, 159, 64, 0.2)',
+//           'rgba(0, 0, 0, 0.2)'
+//         ],
+//         borderColor: [
+//           'rgba(255, 26, 104, 1)',
+//           'rgba(54, 162, 235, 1)',
+//           'rgba(255, 206, 86, 1)',
+//           'rgba(75, 192, 192, 1)',
+//           'rgba(153, 102, 255, 1)',
+//           'rgba(255, 159, 64, 1)',
+//           'rgba(0, 0, 0, 1)'
+//         ],
         borderWidth: 1
       }]
     };
@@ -857,14 +752,43 @@ function loadXMLDoc()
 	}
 
     </script>
+								
 
 
 
+								<table class="table table-hover display" id="order_table">
+									<thead>
+										<tr>
+											<th scope="col">訂單日期</th>
+											<th scope="col">訂單金額</th>
+											<th scope="col">施主大名</th>
+											<th scope="col">付款方式</th>
+										</tr>
+									</thead>
 
+									<tbody>
+										<c:forEach items="${ordersToShow}" var="o" varStatus="vs">
+											<tr>
+												<th id="aaa" scope="row">${o.getOrderDate()}</th>
+												<td>${o.getOrderPrice()}</td>
+												<td>${o.getOrderUser().getNickName()}</td>
+												<td>${o.getPayment()}</td>
 
+											</tr>
+										</c:forEach>
+									</tbody>
 
+								</table>
 
+								<script type="text/javascript">
+									$(document).ready( function () {
+    								$('#order_table').DataTable(); 
+									} );
+								</script>
 							</div>
+							<div class="tab-content-4">
+
+								Test Area
 
 
 						</div>
