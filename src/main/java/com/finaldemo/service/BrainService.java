@@ -9,9 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import com.finaldemo.model.Pets;
+import com.finaldemo.model.PetsRepository;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.PostImgRepository;
 import com.finaldemo.model.Posts;
@@ -72,5 +72,12 @@ public class BrainService {
 		pDao.save(Posts);
 	}
 
+	// PetsService
+	@Autowired
+	private PetsRepository ptDao;
+	
+	public List<Pets> findAllPets() {
+		  return ptDao.findAll();
+	}
 	
 }

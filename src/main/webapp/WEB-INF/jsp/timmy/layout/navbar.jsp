@@ -85,7 +85,7 @@
 					<button type="submit" class="btn btn-info">Sign Up</button>
 				</form>
 			</c:if>
-			<c:if test="${!empty user}">
+			<c:if test="${!empty user}" >
 				&emsp;${user.getNickName()}
 				<a class="nav-link" href="${contextRoot}/timmy/accountsetting.controller">
 					<img src="${contextRoot}${user.photoPath}" style="max-height:50px; border-radius:50%">
