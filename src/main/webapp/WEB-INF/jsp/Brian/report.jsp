@@ -13,6 +13,8 @@
 <head>
 <meta charset="UTF-8">
 <title>檢舉頁面</title>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -241,6 +243,36 @@
 			</script>
 		</div>
 	</div>
+	
+<!--------------------------------------------------------------------------------------------------------------------->
+<canvas id="myChart" width="400" height="400"></canvas>
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        datasets: [{
+            data: [12, 19],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+
+	<c:forEach items="${pets}" var="pets" varStatus="vs">
+		if ('${pets.petType}'==1) {
+			
+		}
+	</c:forEach>
+</script>
+
 </body>
 <script
 	src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
