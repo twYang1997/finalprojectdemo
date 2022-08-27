@@ -83,6 +83,16 @@ public class JoeyController {
 		List<Posts> postsToShow = PhoebeService.getPostsByUserId(userId);
 		List<Orders> ordersToShow = service.findOrdersByUserId(u1.getFoundation().getFoundationId());
 		
+		//把重複抓到的訂單刪掉
+		for (int i = 0; i < ordersToShow.size() - 1; i++) {
+	        for (int j = ordersToShow.size() - 1; j > i; j--) {
+	            if (ordersToShow.get(j).equals(ordersToShow.get(i))) {
+	            	ordersToShow.remove(j);
+	            }
+	        }
+	    }
+			
+		
 		System.out.println("************ordersToShow:"+ordersToShow+"************");
 		
 		
