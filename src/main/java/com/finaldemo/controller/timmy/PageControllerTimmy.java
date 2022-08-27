@@ -10,4 +10,9 @@ public class PageControllerTimmy {
 	public String returnIndex() {
 		return "timmy/index";
 	}
+	
+	@GetMapping("/eventPage")
+	public String returnEventPate() {
+		return "timmy/eventPage";
+	}
 }

@@ -77,14 +77,12 @@ ul li button {
 
 .container {
 	margin-bottom: 5%;
+	padding-bottom: 10%;
 }
 .right{
 	width: 80%;
 	margin: 0 auto 3% auto;
 	
-}
-.container{
-	padding-bottom: 10%;
 }
 .prePetPhotoImg{
 	width: 100px;
@@ -92,8 +90,6 @@ ul li button {
 #hello{
 	margin: 0 5px 0 20% ;
 }
-</style>
-<style>
 #tab {
     width: 100%;
 	background: #F0F0F0;
