@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class JoeyPageController {
 
-	@GetMapping("/")
-	public String welcomeIndex() {
+	@GetMapping("/websocket")
+	public String websocketTest() {
 		return "joey/index";
 	}
 
