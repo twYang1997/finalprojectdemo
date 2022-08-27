@@ -24,6 +24,9 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js">
 	</script>
+	
+<!-- alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -76,14 +79,14 @@
 									alt="" style="width: 45px; height: 45px; border-radius: 50%;"/> ${p.postUser.getNickName()}
 							</a>&nbsp;
 									<c:if test="${p.getWhoCanSeeIt() == 1}">
-									<i id="public" class="fa fa-globe" aria-hidden="true"></i>
-									</c:if>
-									<c:if test="${p.getWhoCanSeeIt() == 2}">
-									<i id="followers" class="fa fa-users" aria-hidden="true"></i>
-									</c:if>
-									<c:if test="${p.getWhoCanSeeIt() == 3}">
-									<i id="onlyMe" class="fa fa-lock" aria-hidden="true"></i>
-									</c:if>
+							<i id="public" class="fa fa-globe" aria-hidden="true" title="public"></i>
+						</c:if>
+						<c:if test="${p.getWhoCanSeeIt() == 2}">
+							<i id="followers" class="fa fa-users" aria-hidden="true" title="followers"></i>
+						</c:if>
+						<c:if test="${p.getWhoCanSeeIt() == 3}">
+							<i id="onlyMe" class="fa fa-lock" aria-hidden="true" title="only me"></i>
+						</c:if>
 <!-- 							</div> -->
 							
 							<!-- 取得按讚關聯的postID -->
@@ -91,7 +94,7 @@
 						
 								<!-- 下拉式menu -->
 								<div class="dropdown" style="float: right; margin-right: 5%;">
-									<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
+									<button id="demo1" class="dropbtn" style="visibility: hidden;">Dropdown</button>
 									<i class="fa fa-ellipsis-h" style="font-size: 22px"></i>
 									<div class="dropdown-content">
 										
@@ -114,7 +117,7 @@
 								};
 								var jsonData = JSON.stringify(datas);
 								console.log(jsonData);
-								
+
 								$.ajax({
 									url : contextRoot + "/reportPost.controller",
 									method : 'post',
@@ -125,10 +128,7 @@
 										
  										//刷新
  										window.location.reload();
-										//關掉modal
-// 										$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
-// 										$("body").removeClass("modal-open");
-// 										$( ".modal-backdrop").remove();
+
 									},
 									error : function(error) {
 										console.log(error);
@@ -136,6 +136,7 @@
 								})
 							})
 						});
+						
 					</script>
 								
 							<div class="activity__list__body entry-content">
@@ -273,29 +274,86 @@
 								</div>
 								<!-- body -->
 								<div class="modal-body">
-									<form
-										action="${contextRoot}/sharePost.controller?postId=${p.getPostId()}"
-										class="panel-activity__status" method="post"
-										enctype="multipart/form-data">
-										
-										<div>
+
+									<!-- 登入者輸入區 -->
+									<img src="${contextRoot}/${user.getPhotoPath()}"
+										style="width: 40px; height: 40px; border-radius: 50%; float: none;">
+									<textarea id="saySomeThing${p.getPostId()}" name="postText"
+										class="form-control"
+										style="border-style: none; overflow: hidden;"
+										placeholder="Add a comment"></textarea>
+
+									<!-- 被分享貼文區 -->
+									<div id="postBeShared"
+										style="border: solid; border-width: 1px; border-color: #E0E0E0; padding: 3%; margin: 3%; height: 50%; overflow: auto;">
 										<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
 											style="width: 40px; height: 40px; border-radius: 50%;">
-										${user.getNickName()}
+										${p.postUser.getNickName()}
 										<p>${p.getPostText()}</p>
-										</div>
+										<c:forEach items="${p.getPostImg()}" var="pImg"
+											varStatus="loop">
+											<ul class="gallery" style="list-style: none;">
+												<li><img src="${contextRoot}/${pImg.getPostImgPath()}">
+												</li>
+											</ul>
+										</c:forEach>
+									</div>
 
-										<div id="result" name="result"></div>
-
-										<!-- footer -->
-										<div>
-											<button type="submit" class="btn btn-sm btn-rounded btn-info">Save</button>
-										</div>
-									</form>
+									<!-- footer -->
+									<div class="modal-footer">
+										<button id="sharePost${p.getPostId()}" type="submit"
+											class="btn btn-sm btn-rounded btn-info">Share</button>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
+					<script type="text/javascript">
+						//分享貼文ajax
+						$(document) .ready(function() {
+		var contextRoot="/demo";
+
+		$("#sharePost${p.getPostId()}") .off() .click(function() {
+				var id=${p .getPostId()}
+
+				;
+				var saySomeThing=$("#saySomeThing${p.getPostId()}")[0].value;
+
+				var datas= {
+					"id" : id,
+					"saySomeThing" : saySomeThing
+				}
+
+				;
+				var jsonData=JSON .stringify(datas);
+				console .log(jsonData);
+
+				$ .ajax({
+
+					url : contextRoot + "/sharePost.controller",
+					method : 'post',
+					contentType : 'application/json',
+					data : jsonData,
+					success : function(result) {
+						console .log(result);
+
+						//局部刷新
+						window.location .reload();
+						//關掉modal
+						$("#myModal${vs.index}deleteCommentCheck") .modal('hide');
+						$("body") .removeClass("modal-open");
+						$(".modal-backdrop") .remove();
+					}
+
+					,
+					error : function(error) {
+						console .log(error);
+					}
+				})
+		})
+});
+					</script>
 
 					<!-- Delete Comfirm -->
 					<div class="modal fade" id="myModal${vs.index}deleteCheck"
@@ -354,13 +412,13 @@
 												id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>
 											</a>
 											</span>
-											<span style="float: right">
-											<a href="#" role="button" data-toggle="modal"
-												data-target="#myModal${vs.index}"
-												id="viewDetailButton${vs.index}"> <i
-												class="fa fa-pencil" ></i>
-											</a>
-											</span>
+<!-- 											<span style="float: right"> -->
+<!-- 											<a href="#" role="button" data-toggle="modal" -->
+<%-- 												data-target="#myModal${vs.index}" --%>
+<%-- 												id="viewDetailButton${vs.index}"> <i --%>
+<!-- 												class="fa fa-pencil" ></i> -->
+<!-- 											</a> -->
+<!-- 											</span> -->
 
 										</c:if>
 									</div>

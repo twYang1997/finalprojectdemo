@@ -43,15 +43,14 @@
 				<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
 				<i class="fa fa-bell-o" aria-hidden="true"><span
 					class="badge badge-danger"><c:out value="${fn:length(notificationList)}"></c:out></span></i>
-				<div id="notification" class="dropdown-content" style="min-width: 350px">
+				<div id="notification" class="dropdown-content" style="min-width: 300px">
 						<c:forEach items="${notificationList}" var="n">
 						<span id="noti01" style="font-weight: bold; margin: 3%;">
 						<a style="display: inline;" href="${contextRoot}/timmy/readUserById/${n.getAuthor().getUserId()}">
 						<img src="${contextRoot}/${n.getAuthor().getPhotoPath()}"
-							style="width: 40px; height: 40px; border-radius: 50%; margin-top: 3%	">
+							style="width: 40px; height: 40px; border-radius: 50%; margin-top: 3%">
 							 ${n.getAuthor().getNickName()} </a></span>
 						 updated a new post.
-							<button id="read${n.getNotificationId()}" type="submit" class="btn btn-light">read</button>
 						<div id="noti02" style="margin-left: 37%; color: #2894FF; "><fmt:formatDate value="${n.getNotificationTime()}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></div>
 						</c:forEach>
 				</div>
@@ -114,16 +113,22 @@
 
 						<div class="actions">
 							<div class="btn-group">
-								<a href="#"> <input style="position: absolute; opacity: 0;"
+								<a href="#"> <input style="position: absolute; opacity: 0; width: 18px;"
 									type="file" name="postImg" id="file" multiple
 									onchange="readAsDataURL()"
 									accept="image/gif,image/jpeg,image/x-png" /> <i
 									class="fa fa-image"></i>
-								</a> &emsp; <a href="#"> <input
-									style="position: absolute; opacity: 0;" type="file"
-									name="postVideo" id="file" accept="video/*" /><i
-									class="fa fa-video-camera"></i>
+								</a> &emsp; 
+								<a href="#"><input style="position: absolute; opacity: 0; width: 18px;"
+									type="file" name="postVideo"/>
+<!-- 									<i class="fa fa-video-camera"></i> -->
 								</a>
+<!-- 								<div class="input-group mb-3"> -->
+<!--   									<div class="input-group-prepend"> -->
+<!--     									<i class="fa fa-video-camera"></i> -->
+<!--   									</div> -->
+<!--   									<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"> -->
+<!-- 								</div> -->
 								<!-- <button type="button" class="btn-link" title="Post an Video" -->
 								<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
 								<!-- <i class="fa fa-video-camera"></i> -->
@@ -151,13 +156,13 @@
 						</a> &nbsp;
 						<!-- whoCanSeeIt圖示 -->
 						<c:if test="${p.getWhoCanSeeIt() == 1}">
-							<i id="public" class="fa fa-globe" aria-hidden="true"></i>
+							<i id="public" class="fa fa-globe" aria-hidden="true" title="public"></i>
 						</c:if>
 						<c:if test="${p.getWhoCanSeeIt() == 2}">
-							<i id="followers" class="fa fa-users" aria-hidden="true"></i>
+							<i id="followers" class="fa fa-users" aria-hidden="true" title="followers"></i>
 						</c:if>
 						<c:if test="${p.getWhoCanSeeIt() == 3}">
-							<i id="onlyMe" class="fa fa-lock" aria-hidden="true"></i>
+							<i id="onlyMe" class="fa fa-lock" aria-hidden="true" title="only me"></i>
 						</c:if>
 					</div>
 
@@ -240,13 +245,13 @@
 								</a> &nbsp;
 								<!-- whoCanSeeIt圖示 -->
 								<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 1}">
-									<i id="public" class="fa fa-globe" aria-hidden="true"></i>
+									<i id="public" class="fa fa-globe" aria-hidden="true" title="public"></i>
 								</c:if>
 								<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 2}">
-									<i id="followers" class="fa fa-users" aria-hidden="true"></i>
+									<i id="followers" class="fa fa-users" aria-hidden="true" title="followers"></i>
 								</c:if>
 								<c:if test="${p.getPostBeShared().getWhoCanSeeIt() == 3}">
-									<i id="onlyMe" class="fa fa-lock" aria-hidden="true"></i>
+									<i id="onlyMe" class="fa fa-lock" aria-hidden="true" title="only me"></i>
 								</c:if>
 								<!--被分享貼文內容 -->
 								<p>${p.getPostBeShared().getPostText()}</p>
@@ -332,7 +337,7 @@
 		})
 });
 					</script>
-
+					
 					<!-- 彈出貼文修改框 -->
 					<div class="modal fade" id="myModal${vs.index}" role="dialog">
 						<div class="modal-dialog modal-dialog-centered">
@@ -536,12 +541,12 @@
 												id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>
 											</a>
 											</span>
-											<span style="float: right"> <a href="#" role="button"
-												data-toggle="modal" data-target="#myModal${vs.index}"
-												id="viewDetailButton${vs.index}"> <i
-													class="fa fa-pencil"></i>
-											</a>
-											</span>
+<!-- 											<span style="float: right"> <a href="#" role="button" -->
+<%-- 												data-toggle="modal" data-target="#myModal${vs.index}" --%>
+<%-- 												id="viewDetailButton${vs.index}"> <i --%>
+<!-- 													class="fa fa-pencil"></i> -->
+<!-- 											</a> -->
+<!-- 											</span> -->
 
 										</c:if>
 									</div>
