@@ -521,13 +521,9 @@ function loadXMLDoc()
 											</form>
 										</c:if>
 										<!-- 重複的結構（商品）-->
-										<%
-										int count = 0;
-										%>
+										<%int count = 0;%>
 										<c:forEach items="${produtsToShow}" var="prod" varStatus="vs">
-											<%
-											count++;
-											%>
+											<%count++;%>
 											<form
 												action="${contextRoot}/editProdutjoey?productId=${prod.getProductId()}"
 												class="panel-activity__status" method="post"
@@ -538,20 +534,19 @@ function loadXMLDoc()
 													type="file" id="rfile" name="productImg"
 													onchange="photochange(event,<%=count%> )"
 													accept=".png, .jpg, .jpeg" style="display: none;" /></label>
-												<!-- 										<script type="text/javascript"> -->
+																				<script type="text/javascript"> 
+																						function photochange(event,imgid){ 
 
-												<!-- // 											function photochange(event,imgid){ -->
-
-												<!-- // 											 console.log(imgid); -->
-												<!-- // 											 console.log(imgid.id); -->
-												<!-- // 											 var img=document.getElementById(imgid); -->
-												<!-- // 											 var reader = new FileReader(); -->
-												<!-- // 											 img.src = URL.createObjectURL(event.target.files[0]); -->
-												<!-- // 											 img.onload = function() { -->
-												<!-- // 											      URL.revokeObjectURL(img.src) // free memory -->
-												<!-- // 											} -->
-												<!-- // 												} -->
-												<!-- 												</script> -->
+																						 console.log(imgid); 
+												 											 console.log(imgid.id); 
+																							 var img=document.getElementById(imgid); 
+												 											 var reader = new FileReader(); 
+												 											 img.src = URL.createObjectURL(event.target.files[0]); 
+												 											 img.onload = function() {
+												 											      URL.revokeObjectURL(img.src) // free memory
+																							} 
+																								} 
+																						</script> 
 
 
 												<%-- 												<img src="${contextRoot}${prod.getProductImg()}"> <a --%>
