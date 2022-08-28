@@ -24,99 +24,101 @@
 	<!--  放進購物車內容 -->
 	<
 	<div class="card-body">
-<form action ="${contextRoot}/Alan/Orders" method="post">
-		<div>
-			<div class="row flex-fill">
-				<div class="col-sm-5">
+		<form action="${contextRoot}/Alan/Orders" method="post">
+			<div>
+				<div class="row flex-fill">
+					<div class="col-sm-5">
 
 
-					<div class="card-body">
-						<div class="d-flex flex-column flex-lg-row">
-							<span class="avatar avatar-text rounded-3 me-4 mb-2">商品</span>
-							<div class="row flex-fill">
-								<c:forEach items='${shoppingCarList}' var='orders'>
-									<input type="hidden" name="Q" value="${orders.quantity}"></input>
-									<input type="hidden" name="Id" value="${orders.products.productId}"></input>
-									<input type="hidden" name="orderSubtotal" value="${orders.products.productPrice}"></input>
-									<div class="col-sm-5">
-										<h4>${orders.products.productName}</h4>
-									</div>
-
-									<div class="col-sm-4 py-2">
-										<span>購買數量:${orders.quantity}</span> <span>單價:${orders.products.productPrice}</span>
-										<div>
-											<span>總計:</span>
+						<div class="card-body">
+							<div class="d-flex flex-column flex-lg-row">
+								<span class="avatar avatar-text rounded-3 me-4 mb-2">商品</span>
+								<div class="row flex-fill">
+									<c:forEach items='${shoppingCarList}' var='orders'>
+										<input type="hidden" name="Q" value="${orders.quantity}"></input>
+										<input type="hidden" name="Id"
+											value="${orders.products.productId}"></input>
+										<input type="hidden" name="orderSubtotal"
+											value="${orders.products.productPrice}"></input>
+										<div class="col-sm-5">
+											<h4>${orders.products.productName}</h4>
 										</div>
-									</div>
-								</c:forEach>
+
+										<div class="col-sm-4 py-2">
+											<span>購買數量:${orders.quantity}</span> <span>單價:${orders.products.productPrice}</span>
+											<div>
+												<span>總計:</span>
+											</div>
+										</div>
+									</c:forEach>
+								</div>
 							</div>
 						</div>
+
 					</div>
+					<div class="col-sm-4 py-2"></div>
+					<div class="col-sm-3 text-lg-end"></div>
 
-				</div>
-				<div class="col-sm-4 py-2"></div>
-				<div class="col-sm-3 text-lg-end"></div>
-
-				<!-- 	</div>
+					<!-- 	</div>
 					<a href="#" type="button" style="float: right"
 						class="btn btn-primary stretched-link">確認購買</a>
 				</div> -->
-			</div>
-
-		</div>
-
-		<div class="card mb-3">
-
-			<div class="card-body">
-				<div class="">
-						
-				
-					<div class="row flex-fill">
-						<div class="col-sm-5">
-
-
-
-							<div>
-								姓名: <input type="text" size=6 maxlength=6 id="name" value="">
-							</div>
-							<p></p>
-							<div>
-								地址: <input type="text" size=6 maxlength=6 id="address" value="">
-							</div>
-							<p></p>
-							<div>
-								電話: <input type="text" size=6 maxlength=6 id="phone" value="">
-							</div>
-							<p></p>
-							<div>
-								信箱: <input type="text" size=6 maxlength=6 id="email" value="">
-							</div>
-
-
-
-
-
-							<p>
-								<input id="content" type="hidden" />
-							</p>
-							<input id="touch" type="button" value="一鍵填入" />
-
-						</div>
-						<div class="col-sm-4 py-2"></div>
-						<div class="col-sm-3 text-lg-end"></div>
-
-					</div>
-					<p>
-						<span id="change" value="123"></span>
-					</p>
-			
-					<button style="float: right">確認購買</button>
-					
 				</div>
 
 			</div>
 
-		</div>
+			<div class="card mb-3">
+
+				<div class="card-body">
+					<div class="">
+
+
+						<div class="row flex-fill">
+							<div class="col-sm-5">
+
+
+
+								<div>
+									姓名: <input type="text" size=6 maxlength=6 id="name" value="">
+								</div>
+								<p></p>
+								<div>
+									地址: <input type="text" size=6 maxlength=6 id="address" value="">
+								</div>
+								<p></p>
+								<div>
+									電話: <input type="text" size=6 maxlength=6 id="phone" value="">
+								</div>
+								<p></p>
+								<div>
+									信箱: <input type="text" size=6 maxlength=6 id="email" value="">
+								</div>
+
+
+
+
+
+								<p>
+									<input id="content" type="hidden" />
+								</p>
+								<input id="touch" type="button" value="一鍵填入" />
+
+							</div>
+							<div class="col-sm-4 py-2"></div>
+							<div class="col-sm-3 text-lg-end"></div>
+
+						</div>
+						<p>
+							<span id="change" value="123"></span>
+						</p>
+
+						<button style="float: right">確認購買</button>
+
+					</div>
+
+				</div>
+
+			</div>
 		</form>
 	</div>
 

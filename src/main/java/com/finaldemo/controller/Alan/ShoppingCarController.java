@@ -69,15 +69,24 @@ public class ShoppingCarController {
 	 public String insertShoppingCarProduct(Model model, @RequestParam("checkbox") List<String> productIdList,
 	            @RequestParam("quantity") List<Integer> quantityList) {  
 		 System.out.println("----------" + productIdList);
+		 System.out.println("++++++++++" + quantityList);
 		 
 		Integer usersId = ((Users) session.getAttribute("user")).getUserId(); 
-		for (int i = 0; i < productIdList.size(); i++) {                      
-			Users usBean = alanService.usersfindById(usersId); 
-			ShoppingCar shBean = new ShoppingCar(); 
-			Products pdBean = alanService.productsfindById(Integer.parseInt(productIdList.get(i)));
+		System.out.println("================" + usersId);
+		
+		for (int i = 0; i < productIdList.size(); i++) {      
+			Users usBean = alanService.usersfindById(usersId);   //session UsersId 去抓Bean
+			ShoppingCar shBean = new ShoppingCar();              //new 一個容器 有ShoppingCar Bean的欄位
+			Products pdBean = alanService.productsfindById(Integer.parseInt(productIdList.get(i)));  //前端回傳productIdList
+			System.out.println("4444444444:"+shBean);
+			System.out.println("55555555555:"+usBean);
+			System.out.println("6666666666:"+pdBean);
 			shBean.setProducts(pdBean);
 			shBean.setShopUser(usBean);
 			shBean.setQuantity(quantityList.get(i));
+			System.out.println("77777777777:"+shBean);
+			System.out.println("888888888888:"+usBean);
+			System.out.println("999999999999:"+pdBean);
 			alanService.insertShoppingCar(shBean, usBean, pdBean);
 		}
 		System.out.println("productId::::" + productIdList);
