@@ -1,6 +1,8 @@
 package com.finaldemo.controller.Alan;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.finaldemo.model.Foundation;
+import com.finaldemo.model.OrderDetail;
 import com.finaldemo.model.Orders;
 import com.finaldemo.model.Products;
 import com.finaldemo.model.ShoppingCar;
@@ -35,24 +38,43 @@ public class OrderController {
 	 */
 	@PostMapping(path = "/Alan/Orders")
 	public String insertOrders(Model model, @RequestParam("Q") List<Integer> strQ ,@RequestParam("Id") List<Integer> Id,@RequestParam("orderSubtotal") List<Integer> orderSubtotal) {
+		System.out.println("OrderQ="+ strQ);
+		System.out.println("fk_product_id="+ Id);
+		System.out.println("orderSubtotal="+ orderSubtotal);
+		
 		Integer usersId = ((Users) session.getAttribute("user")).getUserId();
-		System.out.print("OrderQ="+ strQ);
-		System.out.print("fk_product_id="+ Id);
-		System.out.print("orderSubtotal="+ orderSubtotal);
-		
+		Users u1 = (Users) session.getAttribute("user");
+		Users u2 = alanService.findUserById(u1.getUserId()); 
+		System.out.println(u2.getNickName());
+		// 從user拿到 orders 集合 Set<Orders>
+		Set<Orders> orders = u2.getOrders();
+		// 新增一筆訂單 new Orders()
+		Orders newOrder = new Orders();
+		// 要設定訂單詳細資料，從訂單拿到訂單詳細集合 List<OrderDetail>
+		List<OrderDetail> od1 = newOrder.getOrderDetails();
+		// 新增一筆詳細資料new OrderDetail() 並添加到訂單詳細集合 List<OrderDetail>
+		Integer price = 0;
 		for (int i = 0; i < strQ.size(); i++) { 
-			
-			System.out.println("strQstrQstrQ= " + strQ);
-			
-//			alanService.insertOrders(strQ);
+			OrderDetail d1 = new OrderDetail();
+			d1.setOrderQuantity(u2.getUserId());
+			d1.setOrders(newOrder); // *
+			d1.setOrderQuantity(strQ.get(i));
+			d1.setOrderSubtotal(orderSubtotal.get(i));
+			od1.add(d1); // *
+			price += (strQ.get(i) * orderSubtotal.get(i));
 		}
-		
-//	 	 List<ShoppingCar> shoppingCarList  = alanService.findShoppingCarProductsToOrders(strQ);
-	 	 
-//		System.out.print("購物車新增進結帳畫面="+ shoppingCarList);
-//		
-//		model.addAttribute("shoppingCarList", shoppingCarList);
-//		
+		orders.add(newOrder); // *
+		newOrder.setOrderUser(u2); // *
+		newOrder.setOrderDate(new Date());
+		String num = "";
+		for (int i=0;i<5;i++) {
+			Integer r1 = (int)Math.floor(Math.random() * 9) ;
+			num = num + r1.toString();
+		}
+		newOrder.setOrderNo(num);
+		newOrder.setOrderPrice(usersId);
+		newOrder.setOrderPrice(price);
+		alanService.insertUsers(u2); // *
 		
         return "Alan/foundOrder";
     }

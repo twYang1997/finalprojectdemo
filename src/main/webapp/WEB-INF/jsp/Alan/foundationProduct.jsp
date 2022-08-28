@@ -44,7 +44,7 @@
 									<div class="card-header" id="headingOne">
 										<h5 class="mb-0">
 											<!--  勾選需要商品進購物車 -->
-											<input type="checkbox" name="checkbox"
+											<input  type="checkbox" name="checkbox"
 												value="${product.productId}"
 												onclick="oncheck(${product.productId})" />
 											<!-- 利用script 功能 oncheck 使用函式 把 商品與數量的值一起傳入後端 -->
@@ -52,6 +52,7 @@
 											<button class="btn btn-link collapsed"
 												data-bs-toggle="collapse" data-bs-target="#collapseOne"
 												aria-expanded="false" aria-controls="collapseOne">${product.productName}</button>
+
 											請選擇數量<select name="quantity"
 												id="quantity${product.productId}">
 												<!-- quantity回傳後端/Alan/insertShoppingCar的名字 -->
@@ -68,6 +69,8 @@
 												<option >9</option>
 												<option >10</option>
 											</select>
+
+			
 											<div>單價${product.productPrice}</div>
 											
 										</h5>
@@ -80,6 +83,9 @@
 						</c:forEach>
 					</c:forEach>
 					<button type="submit" class="btn btn-secondary mt-5">加入購物車</button>
+					
+
+
 				</form>
 
 			</div>

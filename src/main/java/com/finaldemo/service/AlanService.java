@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.finaldemo.model.Foundation;
 import com.finaldemo.model.FoundationRepository;
+import com.finaldemo.model.OrderDetail;
 import com.finaldemo.model.Orders;
 import com.finaldemo.model.OrdersRepository;
 import com.finaldemo.model.Products;
@@ -37,7 +38,11 @@ public class AlanService {
 	
 	@Autowired
 	private OrdersRepository ordersDao;
-
+	
+	public Users findUserById(Integer id) {
+		return userDao.findById(id).get();
+	}
+	
 	/** 取得所有基金會資料 */
 	public List<Users> findAllCharities() {
 		return userDao.findAllCharities();
@@ -69,13 +74,10 @@ public class AlanService {
 		System.out.println("shopshopshopshopshop"+ shop);
 		return shoppingCarDao.save(shop);
 	}
-	/******** 新增訂單與明細 *******/
-	public Orders insertOrders(Orders strQ) {
-		
-		System.out.println("Service:Service:Service:"+strQ);
-		return ordersDao.save(strQ);
+	
+	public Users insertUsers(Users u1) {
+		return userDao.save(u1);
 	}
-
 	/******** JPA *******/
 	public Products productsfindById(Integer id) {
 		Optional<Products> op1 = productsDao.findById(id);
@@ -87,21 +89,12 @@ public class AlanService {
 		return null;
 	}
 
+	
 	public Users usersfindById(Integer id) {
 		Optional<Users> op1 = userDao.findById(id);
 
 		if (op1.isPresent()) {
 			Users pd = op1.get();
-			return pd;
-		}
-		return null;
-	}
-	
-	public Orders ordersfindById(Integer id) {
-		Optional<Orders> op1 = ordersDao.findById(id);
-
-		if (op1.isPresent()) {
-			Orders pd = op1.get();
 			return pd;
 		}
 		return null;
