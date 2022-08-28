@@ -41,6 +41,10 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	public List<Users> findFoundation(@Param("foundationId") String foundationId);
 	
 	public List<Users> findByEmail(String email);
+	
+//	圖表用
+	@Query(value = "SELECT COUNT(1) FROM Users WHERE gender = :gender", nativeQuery = true) 
+	public Integer gender(@Param("gender") Integer gender);
 //
 //
 //=======

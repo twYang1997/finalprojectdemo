@@ -49,6 +49,10 @@ public class BrainService {
 		return uDao.searchPeopleByEmail(search);
 	}
 	
+	public Integer gender(Integer gender) {
+		return uDao.gender(gender);
+	}
+	
 	
 	// PostService
 	@Autowired
@@ -78,6 +82,13 @@ public class BrainService {
 	
 	public List<Pets> findAllPets() {
 		  return ptDao.findAll();
+	}
+	
+//	public Integer petTypeCat(Integer petType) {
+//		 return ptDao.petTypeCat(petType).size();
+//	}
+	public Integer petType(Integer petType) {
+		return ptDao.petType(petType);
 	}
 	
 }

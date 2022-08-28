@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.finaldemo.model.Pets;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.BrainService;
@@ -119,7 +117,7 @@ public class UsersListController {
 		return "redirect:/memberManagement";
 	}
 
-	// 顯示登入者主頁貼文
+	// 主頁貼文
 	@GetMapping("/userPosts")
 	public String userPosts(Model model, @RequestParam("id") String id) {
 		// 取得登入者發的posts
@@ -128,6 +126,8 @@ public class UsersListController {
 		model.addAttribute("posts", posts);
 		return "redirect:/memberManagement";
 	}
+	
+	
 
 //		@GetMapping("/userLink")
 //		public String userLink(Model model, @RequestParam("id") String id) {
@@ -152,8 +152,8 @@ public class UsersListController {
 	}
 
 	@GetMapping("/memberReport")
-	public String memberReport(Model model) {
-
+	public String memberReport(Model model ) {
+		
 		model.addAttribute("usersreport", Service.findAllUsers());
 		model.addAttribute("posts", Service.findAllPosts());
 		return "Brian/report";
@@ -189,16 +189,35 @@ public class UsersListController {
 		session.invalidate();
 		return "redirect:/memberReport";
 	}
-
-	@GetMapping("/chartManagement")
-	public String chartManagement(Model model, @RequestParam("id") String id) {
-		
-		
-		model.addAttribute("pets", Service.findAllPets());
-		
-		
-		return "redirect:/report";
+	
+//	圖表
+	@GetMapping("/memberChart")
+	public String memberChart(Model model ) {
+//	 	貓狗
+		Integer petTypeCat = Service.petType(0);
+		Integer petTypeDog = Service.petType(1);
+		System.out.println("****petTypeCat*****"+petTypeCat);
+		System.out.println("****petTypeDog*****"+petTypeDog);
+		model.addAttribute("petTypeCat", petTypeCat);
+		model.addAttribute("petTypeDog", petTypeDog);
+//		男女
+		Integer genderFemale = Service.gender(0);
+		Integer genderMale = Service.gender(1);
+		System.out.println("****genderFemale*****"+genderFemale);
+		System.out.println("****genderMale*****"+genderMale);
+		model.addAttribute("genderFemale", genderFemale);
+		model.addAttribute("genderMale", genderMale);
+		return "Brian/chart";
 	}
+//	@GetMapping("/petTypeCatSum")
+//	public String petTypeCatSum(Model model, @RequestParam Integer catsum) {
+//		
+//		Integer petTypeCat = Service.petTypeCat(0);
+//		Integer petTypeCat = Service.petTypeCat(0);
+//		System.out.println("*********"+petTypeCat);
+//		model.addAttribute("petTypeCat", petTypeCat);
+//		return "redirect:/memberReport";
+//	}
 
 }
 //	@PostMapping("/Brian/uploadImgAjax")
