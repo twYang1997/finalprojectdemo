@@ -246,10 +246,10 @@ function loadXMLDoc()
 
 				<div class="panel">
 					<div class="panel-heading">
-						<span id="tab-1"><h3 class="panel-title">Activity Feed</h3></span>
-						<span id="tab-2"><h3 class="panel-title">Add Product</h3></span> <span
-							id="tab-3"><h3 class="panel-title">Order History</h3></span> <span
-							id="tab-4"><h3 class="panel-title">Test Area</h3></span>
+						<span id="tab-1">Activity Feed</span>
+						<span id="tab-2">Add Product</span> 
+						<span id="tab-3">Order History</span> 
+						<span id="tab-4">Test Area</span>
 
 						<div id="tab">
 							<ul>
@@ -261,7 +261,7 @@ function loadXMLDoc()
 
 							<!-- 頁籤的內容區塊 -->
 							<div class="tab-content-1">
-								<p>
+							
 								<div class="panel-content panel-activity">
 
 									<!-- 新增post -->
@@ -437,103 +437,77 @@ function loadXMLDoc()
 									</c:forEach>
 									<!-- 					重複的結構 -->
 								</div>
-								</p>
+								
 							</div>
 							<div class="tab-content-2">
-								<p>
-									<!-- 頁籤的內容區塊 -->
-								<div class="tab-content-1">
-									<p>
-									<div class="panel-content panel-activity">
-
-
-										<!-- 新增product -->
-										<!-- 										<div style="height: 200px;"> -->
-										<!-- 											<div id="result2" name="result2"> -->
-										<!-- 												<img -->
-										<%-- 													src="${contextRoot}/img/joeyimg/default_product_image.png" --%>
-										<!-- 													id="defaultProductImg"> -->
-										<!-- 											</div> -->
-										<!-- 										</div> -->
-
-										<c:if test="${!empty user}">
-											<form action="${contextRoot}/addProductJoey"
-												class="panel-activity__status" method="post"
-												enctype="multipart/form-data">
-
-												<label><img id="recipt"
-													src="${contextRoot}/img/joeyimg/default_product_image.png" />
-													<input type="file" id="rfile" name="productImg"
-													onchange="photochange1(event,recipt)"
-													accept=".png, .jpg, .jpeg" style="display: none;" /></label>
-
+								<div class="panel-content panel-activity">
+									
+									<c:if test="${!empty user}">
+												<form action="${contextRoot}/addProductJoey" class="panel-activity__status" method="post" enctype="multipart/form-data">
+								<div class="addProd"><!--父元素-->
+   									<div class="addProdLeft ">
+								
+										<div class="panel-content panel-activity">
+											
+													<label>
+														<img style="width: 228px;" id="recipt" src="${contextRoot}/img/joeyimg/default_product_image.png" />
+														<input type="file" id="rfile" name="productImg" onchange="photochange1(event,recipt)" accept=".png, .jpg, .jpeg" style="display: none;" />
+													</label>
 												<script type="text/javascript"> 
-											function photochange1(event,imgid){
-											 var img=document.getElementById(imgid.id);
-											 var reader = new FileReader();
-											 img.src = URL.createObjectURL(event.target.files[0]);
-											 img.onload = function() {
-											      URL.revokeObjectURL(img.src) // free memory
-											    }
-												}
+													function photochange1(event,imgid){
+													var img=document.getElementById(imgid.id);
+											 		var reader = new FileReader();
+											 			img.src = URL.createObjectURL(event.target.files[0]);
+											 			img.onload = function() {
+											      		URL.revokeObjectURL(img.src) // free memory
+											    		}
+													}
  												</script>
-												<div class="input-group mb-3">
-													<span class="input-group-text">商品名稱</span> <input
-														type="text" class="form-control"
-														placeholder="Product Name" name="productName"
-														aria-label="Username"> <span
-														class="input-group-text">金額</span> <input type="text"
-														class="form-control" placeholder="Price"
-														name="productPrice" aria-label="Server">
-												</div>
-												<div class="input-group">
-													<span class="input-group-text">商品說明</span>
-													<textarea placeholder="Product Discription"
-														name="productContext" class="form-control"
-														aria-label="With textarea"></textarea>
-													<button type="submit"
-														class="btn btn-sm btn-rounded btn-info">新增商品</button>
-												</div>
-
-
-
-												<!-- 												<div class="actions"> -->
-												<!-- 													<div class="btn-group"> -->
-												<!-- 														<a href="#"> <input -->
-												<!-- 															style="position: absolute; opacity: 0;" type="file" -->
-												<!-- 															name="productImg" id="file2" multiple -->
-												<!-- 															onchange="readAsDataURL2()" -->
-												<!-- 															accept="image/gif,image/jpeg,image/x-png" /> <i -->
-												<!-- 															class="fa fa-image"></i> -->
-												<!-- 														</a> &emsp; <a href="#"> <input -->
-												<!-- 															style="position: absolute; opacity: 0;" type="file" -->
-												<!-- 															name="postVideo" id="" accept="video/*" /><i -->
-												<!-- 															class="fa fa-video-camera"></i> -->
-												<!-- 														</a> -->
-												<!-- <button type="button" class="btn-link" title="Post an Video" -->
-												<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
-												<!-- <i class="fa fa-video-camera"></i> -->
-												<!-- </button> -->
-												<!-- 													</div> -->
-												<!-- 													<button type="submit" -->
-												<!-- 														class="btn btn-sm btn-rounded btn-info">新增商品</button> -->
-												<!-- 												</div> -->
-											</form>
+										</div>
+									</div>
+    								<div class="addProdRight">
+										<div class="input-group mb-3">
+											<span class="input-group-text">商品名稱</span> 
+											<input type="text" class="form-control" placeholder="Product Name" name="productName" aria-label="Username"> <span
+												class="input-group-text">金額</span> <input type="text" class="form-control" placeholder="Price"
+												name="productPrice" aria-label="Server">
+										</div>
+										<div class="input-group">
+											<span class="input-group-text">商品說明</span>
+												<textarea style="height: 180px;" placeholder="Product Discription"
+													name="productContext" class="form-control"
+													aria-label="With textarea">
+												</textarea>
+												<button type="submit" class="btn btn-sm btn-rounded btn-info">新增商品</button>
+										</div>
+											
+										
+									</div>
+								</div><!--wrap-->
+								</form>
 										</c:if>
+									
+										EDIT-PRODUCT START
 										<!-- 重複的結構（商品）-->
 										<%int count = 0;%>
 										<c:forEach items="${produtsToShow}" var="prod" varStatus="vs">
+										
 											<%count++;%>
 											<form
 												action="${contextRoot}/editProdutjoey?productId=${prod.getProductId()}"
 												class="panel-activity__status" method="post"
 												enctype="multipart/form-data">
-
+												
+											<div class="editProd">
+											<div class="editProdLeft">
 												<label><img id="<%=count%>"
-													src="${contextRoot}${prod.getProductImg()}" /> <input
+													src="${contextRoot}${prod.getProductImg()}" style="max-width:228px; max-height: 200px;" /> 
+													<input
 													type="file" id="rfile" name="productImg"
 													onchange="photochange(event,<%=count%> )"
-													accept=".png, .jpg, .jpeg" style="display: none;" /></label>
+													accept=".png, .jpg, .jpeg" style="display: none;" />
+												</label>
+											</div>
 																				<script type="text/javascript"> 
 																						function photochange(event,imgid){ 
 
@@ -547,19 +521,12 @@ function loadXMLDoc()
 																							} 
 																								} 
 																						</script> 
-
-
-												<%-- 												<img src="${contextRoot}${prod.getProductImg()}"> <a --%>
-												<!-- 													href="#"> <input -->
-												<!-- 													style="position: absolute; opacity: 0;" type="file" -->
-												<!-- 													name="productImg" id="file3" multiple -->
-												<!-- 													onchange="readAsDataURL2()" -->
-												<!-- 													accept="image/gif,image/jpeg,image/x-png" /> <i -->
-												<!-- 													class="fa fa-image"></i> -->
-												<!-- 												</a> -->
-
-
-
+												
+												
+																							
+										
+	
+											<div class="editProdRight">
 												<div class="input-group mb-3">
 
 													<span class="input-group-text">商品名稱</span> <input
@@ -575,19 +542,21 @@ function loadXMLDoc()
 
 												<div class="input-group">
 													<span class="input-group-text">商品說明</span>
-													<textarea name="productContext" class="form-control"
+													<textarea style="height: 180px" name="productContext" class="form-control"
 														aria-label="With textarea">${prod.getProductContext()}</textarea>
 													<button type="submit"
 														class="btn btn-sm btn-rounded btn-info">修改商品</button>
 												</div>
-
-											</form>
-
+											</div>
+										</div>
+									</form>
+									
 
 
 										</c:forEach>
+										
 										<!-- 					重複的結構 -->
-										<script type="text/javascript"> -->
+										<script type="text/javascript">
 										
 											function photochange(event,imgid){
 												
@@ -601,9 +570,10 @@ function loadXMLDoc()
 											}
 												</script>
 									</div>
-								</div>
-
+								
+							
 							</div>
+							
 							<div class="tab-content-3">
 								
 								
@@ -789,16 +759,18 @@ function loadXMLDoc()
 							<div class="tab-content-4">
 
 								Test Area
+								
+						
 
-
+							</div>
+									
 						</div>
-
 					</div>
 
 				</div>
 			</div>
 
-
+</div>
 
 
 
@@ -806,6 +778,36 @@ function loadXMLDoc()
 
 
 			<style type="text/css">
+			
+.addProd{ /*父元素*/
+    width: 100%;
+    display: flex;
+
+}
+.addProdLeft{
+    background: red;
+    width: 30%;
+}
+.addProdRight{
+    background: blue;
+    width: 70%;
+}		
+
+.editProd{ /*父元素*/
+    width: 100%;
+    height: 200px;
+    display: flex;
+}
+.editProdLeft{
+    background: red;
+    width: 30%;
+}
+.editProdRight{
+    background: blue;
+    width: 70%; 
+}	
+			
+
 /* Profile_page */
 body {
 	background: #dcdcdc;
@@ -1094,7 +1096,7 @@ body {
 
 .panel-content, .panel-social {
 	position: relative;
-	border-radius: 0 0 4px 4px;
+	border-radius: 0 0 2px 2px;
 }
 
 .panel-content {
@@ -1109,7 +1111,7 @@ body {
 
 .panel-about table tr+tr td, .panel-about table tr+tr th {
 	padding-top: 8px;
-}
+}	
 
 .panel-about table th {
 	min-width: 120px;

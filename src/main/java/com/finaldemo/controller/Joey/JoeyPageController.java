@@ -8,7 +8,7 @@ public class JoeyPageController {
 
 	@GetMapping("/websocket")
 	public String websocketTest() {
-		return "joey/index";
+		return "index";
 	}
 
 	@GetMapping("/about")

@@ -1,3 +1,66 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Spring Boot WebSocket Chat Application</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" />
+
+</head>
+<body>
+    <noscript>
+        <h2>Sorry! Your browser doesn't support Javascript</h2>
+    </noscript>
+
+    <!-- 進入頁面 -->
+    <div id="username-page">
+        <div class="username-page-container">
+            <h1 class="title">輸入名稱</h1>
+            
+            <form id="usernameForm" name="usernameForm">
+                <div class="form-group popup">
+                    <input type="text" id="name" placeholder="輸入名稱..."
+                        autocomplete="off" class="form-control popup" />
+                    <span class="popuptext" id="hint">請輸入名稱</span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="accent username-submit">開始聊天</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 聊天室頁面 -->
+    <div id="chat-page" class="hidden">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2>Spring Boot WebSocket Chat Demo</h2>
+            </div>
+            <div class="connecting">Connecting...</div>
+            <ul id="messageArea">
+
+            </ul>
+            <form id="messageForm" name="messageForm">
+                <div class="form-group">
+                    <div class="input-group clearfix">
+                        <input type="text" id="message" placeholder="輸入訊息..."
+                            autocomplete="off" class="form-control" />
+                        <button type="submit" class="primary">送出</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</body>
+
+<script type="text/javascript">
 'use strict';
 
 var usernamePage = document.querySelector('#username-page');
@@ -12,6 +75,7 @@ var popup = document.querySelector('#hint');
 
 var stompClient = null;
 var username = null;
+
 
 /**
  * 頭像的顏色
@@ -31,7 +95,7 @@ function connect(event) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
 
-        var socket = new SockJS('/chatroom');
+        var socket = new SockJS(contextRoot+"/chatroom");/**路徑待研究**/
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, onConnected, onError);
@@ -178,3 +242,7 @@ function removePopup (event) {
 nameInput.addEventListener('focus', removePopup, true)
 usernameForm.addEventListener('submit', connect, true)
 messageForm.addEventListener('submit', sendMessage, true)
+
+</script>
+
+</html>
