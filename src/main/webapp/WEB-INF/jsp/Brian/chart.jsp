@@ -49,7 +49,10 @@
 					<div class="panel-heading">
 						<canvas id="petTypeChart" width="400" height="400"></canvas>
 						<canvas id="genderTypeChart" width="400" height="400"></canvas>
-						<canvas id="sumMoneyChart" width="400" height="400"></canvas>
+						<canvas id="sumMoneyChart"></canvas>
+						<input onchange="filterData()" type="date" id="startdate"
+							value="2022-08-20"> <input onchange="filterData()"
+							type="date" id="enddate" value="2022-08-23">
 					</div>
 				</div>
 			</div>
@@ -105,57 +108,120 @@
 		console.log('SumMoneyArray:' + SumMoneyArray);
 		console.log('monthArray:' + monthArray);
 
-		// 		<c:forEach items="${OrdersByMonth}" var="month" varStatus="vs">
-		// 			monthArray.push('${month}');
-		// 		</c:forEach>
+// 		const SumMoneydates = SumMoneyArray.push();
+// 		console.log('SumMoneydates:' + SumMoneydates);
+		
+// 		const monthdata = monthArray.push();
+// 		console.log('monthdata:' + monthdata);
+		
+// 		const data = {
+// 			      labels: monthArray,
+// 			      datasets: [{
+// 			        label: 'Weekly Sales',
+// 			        data: SumMoneyArray,
+// 			         backgroundColor: [
+// 			           'rgba(255, 26, 104, 0.2)',
+// 			           'rgba(54, 162, 235, 0.2)',
+// 			           'rgba(255, 206, 86, 0.2)',
+// 			           'rgba(75, 192, 192, 0.2)',
+// 			           'rgba(153, 102, 255, 0.2)',
+// 			           'rgba(255, 159, 64, 0.2)',
+// 			           'rgba(0, 0, 0, 0.2)'
+// 			         ],
+// 			         borderColor: [
+// 			           'rgba(255, 26, 104, 1)',
+// 			           'rgba(54, 162, 235, 1)',
+// 			           'rgba(255, 206, 86, 1)',
+// 			           'rgba(75, 192, 192, 1)',
+// 			           'rgba(153, 102, 255, 1)',
+// 			           'rgba(255, 159, 64, 1)',
+// 			           'rgba(0, 0, 0, 1)'
+// 			         ],
+// 			        borderWidth: 1
+// 			      }]
+// 			    };
 
-		// 		<c:forEach items="${OrdersBySumMoney}" var="money" varStatus="vs">
-		// 			SumMoneyArray.push('${money}');
-		// 		</c:forEach>
+// 			    // config 
+// 			    const config = {
+// 			      type: 'bar',
+// 			      data,
+// 			      options: {
+// 			        scales: {
+// 			          y: {
+// 			            beginAtZero: true
+// 			          }
+// 			        }
+// 			      }
+// 			    };
 
-		const SumMoneydates = SumMoneyArray.push();
-		console.log('SumMoneydates:' + SumMoneydates);
+// 			    // render init block
+// 			    const myChart = new Chart(
+// 			      document.getElementById('sumMoneyChart'),
+// 			      config
+// 			    );
 
-		// console.log('dates:'+dates);
-		// const dates = ['2021-08-25', '2021-08-26', '2021-08-27', '2021-08-28', '2021-08-29', '2021-08-30', '2021-09-01'];
-		const monthdata = monthArray.push();
-		console.log('monthdata:' + monthdata);
-		// const datapoints = [1, 2, 3, 4, 5, 6, 8];
-		// console.log('datapoints:'+datapoints);
-		var ctx = document.getElementById("sumMoneyChart").getContext('2d');
-		var myChart = new Chart(ctx,
-				{
-					type : 'bar',
-					data : {
-						labels :monthdata,
-						datasets : [ {
-							label : '# of Votes',
-							data :SumMoneydates,
-							backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(255, 159, 64, 0.2)' ],
-							borderColor : [ 'rgba(255,99,132,1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(255, 159, 64, 1)' ],
-							borderWidth : 1
-						} ]
-					},
-					options : {
-						scales : {
-							yAxes : [ {
-								ticks : {
-									beginAtZero : true
-								}
-							} ]
-						}
-					}
-				});
+// 				function filterData(){
+// 					const dates2=[...dates];
+// 					console.log('dates2:'+dates2);
+// 					const startdate = document.getElementById('startdate');
+// 					const enddate = document.getElementById('enddate');
+// 					console.log('startdate:'+startdate);
+// 					console.log('enddate:'+enddate);
+// 					// get index number in array
+// 					let indexstartdate = dates2.indexOf(startdate.value);
+					
+// 					console.log('indexstartdate:'+indexstartdate);
+					
+// 					if(	!dates2.includes(startdate.value)){
+						
+// 						let newIndex=0;
+// 						for(item of dates2){
+							
+									
+// 							if(	new Date(startdate.value)	> new Date(item)){
+											
+// 							//console.log(	new Date(startdate.value),new Date(item),new Date(startdate.value)	> new Date(item))
+// 								newIndex++;
+// 							}
+// 						}
+// 						indexstartdate=newIndex
+						
+// 					} 
+					
+// 					let indexenddate = dates2.indexOf(enddate.value);
+// 					console.log('indexenddate:'+indexenddate);
+
+// 					if (!dates2.includes(enddate.value)) {
+						
+					
+// 						let newIndex=0;
+// 						for(item of dates2){
+							
+										
+// 							if(	new Date(enddate.value)	> new Date(item)){
+								
+// 							//console.log(	new Date(enddate.value),new Date(item),new Date(enddate.value)	< new Date(item))
+// 								newIndex++;
+// 							}
+// 						}
+// 						indexenddate=newIndex
+// 					}
+					
+					
+// 					//slice the array only showing the selected section / slice
+// 					const filterDate = dates2.slice(indexstartdate, indexenddate + 1);
+
+// 					// replace the labels in the chart
+// 					myChart.config.data.labels = filterDate;
+
+// 					// datapoints
+// 					const datapoints2 = [...datapoints];
+// 					const filterDatapoints = datapoints2.slice(indexstartdate, indexenddate + 1)
+
+// 					myChart.config.data.datasets[0].data = filterDatapoints;
+
+// 					myChart.update();
+// 				}
 	</script>
 </body>
 </html>
