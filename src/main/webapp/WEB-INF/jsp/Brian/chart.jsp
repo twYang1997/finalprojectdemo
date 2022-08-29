@@ -49,10 +49,10 @@
 					<div class="panel-heading">
 						<canvas id="petTypeChart" width="400" height="400"></canvas>
 						<canvas id="genderTypeChart" width="400" height="400"></canvas>
-						<canvas id="sumMoneyChart"></canvas>
-						<input onchange="filterData()" type="date" id="startdate"
-							value="2022-08-20"> <input onchange="filterData()"
-							type="date" id="enddate" value="2022-08-23">
+						<canvas id="sumMoneyChart" width="400" height="400"></canvas>
+<!-- 						<input onchange="filterData()" type="date" id="startdate" -->
+<!-- 							value="2022-08-20"> <input onchange="filterData()" -->
+<!-- 							type="date" id="enddate" value="2022-08-23"> -->
 					</div>
 				</div>
 			</div>
@@ -103,62 +103,63 @@
 			},
 		});
 		//------------------------------------------------------------------------------------------------------------------------------------------		
-		var SumMoneyArray = "${OrdersBySumMoney}";
-		var monthArray = "${OrdersByMonth}";
-		console.log('SumMoneyArray:' + SumMoneyArray);
-		console.log('monthArray:' + monthArray);
-
+		var SumMoney = "${OrdersBySumMoney}";
+		var month = "${OrdersByMonth}";
+// 		var SumMoneyArray = new Array();
+		
+// 			SumMoneyArray.push(SumMoney)
+		
+		
+// 		console.log('SumMoneyArray:' + SumMoneyArray);
+		
+// 		console.log('month:' + month);
+// 		var SumMoneyArray = SumMoney.replace(, "");
+// 		var monthArray = month.replace(/[]/g,"");
+// 		console.log('SumMoneyArray:' + SumMoneyArray);
+// 		console.log('monthArray:' + monthArray);
 // 		const SumMoneydates = SumMoneyArray.push();
 // 		console.log('SumMoneydates:' + SumMoneydates);
 		
 // 		const monthdata = monthArray.push();
 // 		console.log('monthdata:' + monthdata);
 		
-// 		const data = {
-// 			      labels: monthArray,
-// 			      datasets: [{
-// 			        label: 'Weekly Sales',
-// 			        data: SumMoneyArray,
-// 			         backgroundColor: [
-// 			           'rgba(255, 26, 104, 0.2)',
-// 			           'rgba(54, 162, 235, 0.2)',
-// 			           'rgba(255, 206, 86, 0.2)',
-// 			           'rgba(75, 192, 192, 0.2)',
-// 			           'rgba(153, 102, 255, 0.2)',
-// 			           'rgba(255, 159, 64, 0.2)',
-// 			           'rgba(0, 0, 0, 0.2)'
-// 			         ],
-// 			         borderColor: [
-// 			           'rgba(255, 26, 104, 1)',
-// 			           'rgba(54, 162, 235, 1)',
-// 			           'rgba(255, 206, 86, 1)',
-// 			           'rgba(75, 192, 192, 1)',
-// 			           'rgba(153, 102, 255, 1)',
-// 			           'rgba(255, 159, 64, 1)',
-// 			           'rgba(0, 0, 0, 1)'
-// 			         ],
-// 			        borderWidth: 1
-// 			      }]
-// 			    };
-
-// 			    // config 
-// 			    const config = {
-// 			      type: 'bar',
-// 			      data,
-// 			      options: {
-// 			        scales: {
-// 			          y: {
-// 			            beginAtZero: true
-// 			          }
-// 			        }
-// 			      }
-// 			    };
-
-// 			    // render init block
-// 			    const myChart = new Chart(
-// 			      document.getElementById('sumMoneyChart'),
-// 			      config
-// 			    );
+		var ctx = document.getElementById("sumMoneyChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [6,7,8],
+        datasets: [{
+            label: '# of Votes',
+            data: [100,200,30],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
 
 // 				function filterData(){
 // 					const dates2=[...dates];

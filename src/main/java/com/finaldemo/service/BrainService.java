@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.finaldemo.model.Orders;
 import com.finaldemo.model.OrdersRepository;
 import com.finaldemo.model.Pets;
 import com.finaldemo.model.PetsRepository;

@@ -617,6 +617,7 @@ function loadXMLDoc()
 										<script type="text/javascript">
 							
 							var dateArray = new Array();
+							
 							var incomeArray = new Array();
 							
 							<c:forEach items="${ordersToShow}" var="o" varStatus="vs">

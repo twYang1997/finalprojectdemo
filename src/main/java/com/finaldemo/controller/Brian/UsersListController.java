@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.finaldemo.model.Orders;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.BrainService;
@@ -211,8 +210,8 @@ public class UsersListController {
 //		月份與月份總額
 		List<Integer> OrdersByMonth = Service.findOrdersByMonth();
 		List<Integer> OrdersBySumMoney = Service.findOrdersBySumMoney();
-		System.out.println("****OrdersByMonth*****"+OrdersByMonth);
-		System.out.println("****OrdersBySumMoney*****"+OrdersBySumMoney);
+		System.out.println("****OrdersByMonth*****"+OrdersByMonth+OrdersByMonth.getClass().getSimpleName());
+		System.out.println("****OrdersBySumMoney*****"+OrdersBySumMoney+OrdersBySumMoney.getClass().getSimpleName());
 		model.addAttribute("OrdersByMonth", OrdersByMonth);
 		model.addAttribute("OrdersBySumMoney", OrdersBySumMoney);
 		return "Brian/chart";
