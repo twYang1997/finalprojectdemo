@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finaldemo.model.Orders;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.BrainService;
@@ -192,21 +193,28 @@ public class UsersListController {
 	
 //	圖表
 	@GetMapping("/memberChart")
-	public String memberChart(Model model ) {
+	public String memberChart(Model model) {
 //	 	貓狗
 		Integer petTypeCat = Service.petType(0);
 		Integer petTypeDog = Service.petType(1);
-		System.out.println("****petTypeCat*****"+petTypeCat);
-		System.out.println("****petTypeDog*****"+petTypeDog);
+//		System.out.println("****petTypeCat*****"+petTypeCat);
+//		System.out.println("****petTypeDog*****"+petTypeDog);
 		model.addAttribute("petTypeCat", petTypeCat);
 		model.addAttribute("petTypeDog", petTypeDog);
 //		男女
 		Integer genderFemale = Service.gender(0);
 		Integer genderMale = Service.gender(1);
-		System.out.println("****genderFemale*****"+genderFemale);
-		System.out.println("****genderMale*****"+genderMale);
+//		System.out.println("****genderFemale*****"+genderFemale);
+//		System.out.println("****genderMale*****"+genderMale);
 		model.addAttribute("genderFemale", genderFemale);
 		model.addAttribute("genderMale", genderMale);
+//		月份與月份總額
+		List<Integer> OrdersByMonth = Service.findOrdersByMonth();
+		List<Integer> OrdersBySumMoney = Service.findOrdersBySumMoney();
+		System.out.println("****OrdersByMonth*****"+OrdersByMonth);
+		System.out.println("****OrdersBySumMoney*****"+OrdersBySumMoney);
+		model.addAttribute("OrdersByMonth", OrdersByMonth);
+		model.addAttribute("OrdersBySumMoney", OrdersBySumMoney);
 		return "Brian/chart";
 	}
 //	@GetMapping("/petTypeCatSum")
