@@ -58,6 +58,8 @@ public class OrderController {
 			OrderDetail d1 = new OrderDetail();
 			d1.setOrderQuantity(u2.getUserId());
 			d1.setOrders(newOrder); // *
+			//我需要再做出關聯product
+			
 			d1.setOrderQuantity(strQ.get(i));
 			d1.setOrderSubtotal(orderSubtotal.get(i));
 			od1.add(d1); // *
@@ -71,6 +73,7 @@ public class OrderController {
 			Integer r1 = (int)Math.floor(Math.random() * 9) ;
 			num = num + r1.toString();
 		}
+		
 		newOrder.setOrderNo(num);
 		newOrder.setOrderPrice(usersId);
 		newOrder.setOrderPrice(price);
