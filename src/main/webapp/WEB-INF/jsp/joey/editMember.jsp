@@ -109,7 +109,6 @@ function loadXMLDoc()
 								<form:form class="form" method="post" modelAttribute="oneMember"
 									action="${contextRoot}/editMember">
 									<form:input type="hidden" path="userId" />
-
 									<form:input type="hidden" path="photoPath" />
 							
 							暱稱：
