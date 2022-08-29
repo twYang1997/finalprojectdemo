@@ -6,10 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class JoeyPageController {
 
-	@GetMapping("/websocket")
-	public String websocketTest() {
-		return "index";
-	}
 
 	@GetMapping("/about")
 	public String aboutPage() {

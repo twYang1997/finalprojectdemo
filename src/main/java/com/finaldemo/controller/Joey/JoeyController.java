@@ -343,6 +343,15 @@ public class JoeyController {
 		return "redirect:/findById2";
 
 	}
+	
+	@GetMapping("/websocket")
+	public String websocketTest(HttpSession session, Model model) {
+		Users userBefore = (Users) session.getAttribute("user");
+		Users userAfter = service.findById(userBefore.getUserId());
+		session.setAttribute("user", userAfter);
+		model.addAttribute("oneMember", userAfter);
+		return "index";
+	}
 
 	@PostMapping("/deleteMember")
 	public String deleteUser(@RequestParam Integer id) {
