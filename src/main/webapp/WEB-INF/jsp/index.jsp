@@ -29,8 +29,8 @@
             <img style="height: 200px;" src="${contextRoot}${oneMember.photoPath}">
             <form id="usernameForm" name="usernameForm">
                 <div class="form-group popup">
-                    <input type="text" id="name" value="${oneMember.nickName}"
-                        autocomplete="off" class="form-control popup" />
+                    <input type="hidden" id="name" value="${oneMember.nickName}"
+                        autocomplete="off" class="form-control popup"  />
                     <span class="popuptext" id="hint">請輸入名稱</span>
                 </div>
                 <div class="form-group">
