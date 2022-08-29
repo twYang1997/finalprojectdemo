@@ -448,11 +448,12 @@ function loadXMLDoc()
    									<div class="addProdLeft ">
 								
 										<div class="panel-content panel-activity">
-											
+												
 													<label>
-														<img style="width: 228px;" id="recipt" src="${contextRoot}/img/joeyimg/default_product_image.png" />
+														<img style="max-height :228px; " id="recipt" src="${contextRoot}/img/joeyimg/default_product_image.png" />
 														<input type="file" id="rfile" name="productImg" onchange="photochange1(event,recipt)" accept=".png, .jpg, .jpeg" style="display: none;" />
 													</label>
+												
 												<script type="text/javascript"> 
 													function photochange1(event,imgid){
 													var img=document.getElementById(imgid.id);
@@ -487,7 +488,7 @@ function loadXMLDoc()
 								</form>
 										</c:if>
 									
-										EDIT-PRODUCT START
+									
 										<!-- 重複的結構（商品）-->
 										<%int count = 0;%>
 										<c:forEach items="${produtsToShow}" var="prod" varStatus="vs">
@@ -500,6 +501,7 @@ function loadXMLDoc()
 												
 											<div class="editProd">
 											<div class="editProdLeft">
+												<div class="panel-content panel-activity">
 												<label><img id="<%=count%>"
 													src="${contextRoot}${prod.getProductImg()}" style="max-width:228px; max-height: 200px;" /> 
 													<input
@@ -507,6 +509,7 @@ function loadXMLDoc()
 													onchange="photochange(event,<%=count%> )"
 													accept=".png, .jpg, .jpeg" style="display: none;" />
 												</label>
+											</div>
 											</div>
 																				<script type="text/javascript"> 
 																						function photochange(event,imgid){ 
