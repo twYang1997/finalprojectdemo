@@ -82,7 +82,7 @@ public class OrderDetail {
 	public void setProducts(Products products) {
 		this.products = products;
 	}
-
+	
 	
 	
 }
