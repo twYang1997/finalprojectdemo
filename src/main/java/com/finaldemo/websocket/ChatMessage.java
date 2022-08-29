@@ -8,6 +8,8 @@ public class ChatMessage {
     private ChatType type;
     /** 訊息發送者的名稱 */
     private String sender;
+    /** 訊息發送者的圖片 */
+    private String photo;
     /** 訊息內容 */
     private String content;
 
@@ -42,6 +44,14 @@ public class ChatMessage {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
     
     // 省略getter setter 

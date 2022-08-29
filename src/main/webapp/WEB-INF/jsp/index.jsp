@@ -26,7 +26,7 @@
     <div id="username-page">
         <div class="username-page-container">
             <h1 class="title">${oneMember.nickName}，歡迎使用即時客服</h1>
-            <img src="${contextRoot}${oneMember.photoPath}">
+            <img style="height: 200px;" src="${contextRoot}${oneMember.photoPath}">
             <form id="usernameForm" name="usernameForm">
                 <div class="form-group popup">
                     <input type="text" id="name" value="${oneMember.nickName}"
@@ -151,10 +151,12 @@ function sendMessage(event) {
     if (messageContent && stompClient) {
         var chatMessage = {
             sender : username,
+            photo : '${oneMember.photoPath}',
             content : messageInput.value,
             type : 'CHAT'
         };
         // 發送訊息至/app/chat，也就是送到ChatController.sendMessage()
+        console.log('chatMessage:'+chatMessage);
         stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
@@ -180,7 +182,7 @@ function onMessageReceived(payload) {
     } else {
         messageElement.classList.add('chat-message');
 
-        var avatarElement = getAvatarElement(message.sender);
+        var avatarElement = getAvatarElement(message.photo);
         messageElement.appendChild(avatarElement);
 
         var usernameElement = getUsernameElement(message.sender);
@@ -214,10 +216,11 @@ function onMessageReceived(payload) {
 /**
  * 頭像改成使用者圖片
  */
-function getAvatarElement(sender) {
+function getAvatarElement(photo) {
+	console.log(message);
 	var avatarElement = document.createElement('i');
     var avatarImg = document.createElement('img');
-    avatarImg.src = '${contextRoot}${oneMember.photoPath}';
+    avatarImg.src = '${contextRoot}'+photo;
     avatarImg.style = 'height:50px';
     avatarElement.appendChild(avatarImg);
     return avatarElement;
