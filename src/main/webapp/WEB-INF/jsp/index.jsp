@@ -21,12 +21,12 @@
     <noscript>
         <h2>Sorry! Your browser doesn't support Javascript</h2>
     </noscript>
-
+	
     <!-- 進入頁面 -->
     <div id="username-page">
         <div class="username-page-container">
             <h1 class="title">${oneMember.nickName}，歡迎使用即時客服</h1>
-            
+            <img src="${contextRoot}${oneMember.photoPath}">
             <form id="usernameForm" name="usernameForm">
                 <div class="form-group popup">
                     <input type="text" id="name" value="${oneMember.nickName}"
@@ -197,18 +197,32 @@ function onMessageReceived(payload) {
     messageArea.scrollTop = messageArea.scrollHeight;
 }
 
+// /**
+//  * 取得頭像元素
+//  * @param sender 訊息發送者名稱
+//  * @returns
+//  */
+// function getAvatarElement(sender) {
+//     var avatarElement = document.createElement('i');
+//     var avatarText = document.createTextNode(sender[0]);
+//     avatarElement.appendChild(avatarText);
+//     avatarElement.style['background-color'] = getAvatarColor(sender);
+//     return avatarElement;
+// }
+
+
 /**
- * 取得頭像元素
- * @param sender 訊息發送者名稱
- * @returns
+ * 頭像改成使用者圖片
  */
 function getAvatarElement(sender) {
-    var avatarElement = document.createElement('i');
-    var avatarText = document.createTextNode(sender[0]);
-    avatarElement.appendChild(avatarText);
-    avatarElement.style['background-color'] = getAvatarColor(sender);
+	var avatarElement = document.createElement('i');
+    var avatarImg = document.createElement('img');
+    avatarImg.src = '${contextRoot}${oneMember.photoPath}';
+    avatarImg.style = 'height:50px';
+    avatarElement.appendChild(avatarImg);
     return avatarElement;
 }
+
 
 /**
  * 取得頭像顏色
