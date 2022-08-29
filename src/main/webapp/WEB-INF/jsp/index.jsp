@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+    
+<jsp:include page="timmy/layout/navbar.jsp" />
+
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />   
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
@@ -16,16 +25,16 @@
     <!-- 進入頁面 -->
     <div id="username-page">
         <div class="username-page-container">
-            <h1 class="title">輸入名稱</h1>
+            <h1 class="title">${oneMember.nickName}，歡迎使用即時客服</h1>
             
             <form id="usernameForm" name="usernameForm">
                 <div class="form-group popup">
-                    <input type="text" id="name" placeholder="輸入名稱..."
+                    <input type="text" id="name" value="${oneMember.nickName}"
                         autocomplete="off" class="form-control popup" />
                     <span class="popuptext" id="hint">請輸入名稱</span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="accent username-submit">開始聊天</button>
+                    <button type="submit" class="accent username-submit">進入客服中心</button>
                 </div>
             </form>
         </div>
@@ -35,7 +44,7 @@
     <div id="chat-page" class="hidden">
         <div class="chat-container">
             <div class="chat-header">
-                <h2>Spring Boot WebSocket Chat Demo</h2>
+                <h2>PEEiT -147.com即時客服中心</h2>
             </div>
             <div class="connecting">Connecting...</div>
             <ul id="messageArea">
@@ -164,10 +173,10 @@ function onMessageReceived(payload) {
 
     if (message.type === 'JOIN') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' 加入聊天室';
+        message.content = message.sender + ' 加入客服中心';
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' 離開聊天室';
+        message.content = message.sender + ' 離開客服中心';
     } else {
         messageElement.classList.add('chat-message');
 
