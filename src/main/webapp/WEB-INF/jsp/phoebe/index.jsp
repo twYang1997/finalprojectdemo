@@ -489,21 +489,20 @@
 						<div class="modal-dialog modal-dialog-centered" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">Move to
-										your trash?</h5>
+									<h5 class="modal-title" id="exampleModalLongTitle">Delete post?</h5>
 									<button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
-								<div class="modal-body">Items in your trash will be
-									automatically deleted after 30 days.</div>
+								<div class="modal-body">Are you sure you want to delete
+											this post?</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-light"
-										data-dismiss="modal">Cancel</button>
+										data-dismiss="modal">No</button>
 									<form method="Post"
 										action="${contextRoot}/movePostToTrash.controller?postId=${p.getPostId()}">
-										<button type="submit" class="btn btn-info">Move</button>
+										<button type="submit" class="btn btn-info">Delete</button>
 									</form>
 								</div>
 							</div>
