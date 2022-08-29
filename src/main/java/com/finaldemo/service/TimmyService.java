@@ -100,10 +100,11 @@ public class TimmyService {
 	public boolean checkEmail(String email) {
 		List<Users> userList = uDao.findAll();
 		for (Users user:userList) {
-			if (user.getEmail().equals(email)) {
+			if (email.equals(user.getEmail()) && user.getEmail() != null) {
 				return false;
 			}
 		}
+		System.out.println("here1");
 		return true;
 	}
 	

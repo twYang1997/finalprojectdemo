@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.finaldemo.dto.ImageDto;
 import com.finaldemo.model.PostImg;
 import com.finaldemo.model.Posts;
+import com.finaldemo.service.PhoebeService;
 import com.finaldemo.service.TimmyService;
 
 @Controller
@@ -28,6 +29,9 @@ public class PostSettingController {
 	
 	@Autowired
 	private TimmyService service;
+	
+	@Autowired
+	private PhoebeService pService;
 	
 	@PostMapping("/timmy/uploadPostImgAjax")
 	@ResponseBody
@@ -105,5 +109,11 @@ public class PostSettingController {
 		p1.setPostText(text);
 		service.insertNewPost(p1);
 		return "success";
+	}
+	
+	@PostMapping("/movePostToTrash.controllerT")
+	public String movePostToTrash(@RequestParam Integer postId) {
+		pService.movePostToTrash(0, postId);
+		return "redirect:/timmy/accountsetting.controller";
 	}
 }	

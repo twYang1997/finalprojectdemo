@@ -397,7 +397,7 @@
 									<button type="button" class="btn btn-light"
 										data-dismiss="modal">Cancel</button>
 									<form method="Post"
-										action="${contextRoot}/movePostToTrash.controller?postId=${p.getPostId()}">
+										action="${contextRoot}/movePostToTrash.controllerT?postId=${p.getPostId()}">
 										<button type="submit" class="btn btn-info">Move</button>
 									</form>
 								</div>
