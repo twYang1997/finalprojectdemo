@@ -681,11 +681,19 @@ function loadXMLDoc()
 								<script>
     // setup 
 	const dates = newDateArray;
+<<<<<<< HEAD
 	console.log('dates:'+dates);
 	// const dates = ['2021-08-25', '2021-08-26', '2021-08-27', '2021-08-28', '2021-08-29', '2021-08-30', '2021-09-01'];
 	const datapoints = incomeArray;
 	// const datapoints = [1, 2, 3, 4, 5, 6, 8];
 	console.log('datapoints:'+datapoints);
+=======
+	//console.log('dates:'+dates);
+	// const dates = ['2021-08-25', '2021-08-26', '2021-08-27', '2021-08-28', '2021-08-29', '2021-08-30', '2021-09-01'];
+	const datapoints = incomeArray;
+	const datapoints = [1, 2, 3, 4, 5, 6, 8];
+	// console.log('datapoints:'+datapoints);
+>>>>>>> bb2a635b89ed4b019c6fb4370e20bdc23a5b48fe
     const data = {
       labels: dates,
       datasets: [{
