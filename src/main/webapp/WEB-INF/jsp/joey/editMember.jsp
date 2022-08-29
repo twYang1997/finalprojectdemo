@@ -109,6 +109,7 @@ function loadXMLDoc()
 								<form:form class="form" method="post" modelAttribute="oneMember"
 									action="${contextRoot}/editMember">
 									<form:input type="hidden" path="userId" />
+
 									<form:input type="hidden" path="photoPath" />
 							
 							暱稱：
@@ -447,20 +448,12 @@ function loadXMLDoc()
    									<div class="addProdLeft ">
 								
 										<div class="panel-content panel-activity">
-<<<<<<< HEAD
-												
-=======
 												<figure>
->>>>>>> Joey0829
 													<label>
-														<img style="max-height :228px; " id="recipt" src="${contextRoot}/img/joeyimg/default_product_image.png" />
+														<img style="width: 228px;" id="recipt" src="${contextRoot}/img/joeyimg/default_product_image.png" />
 														<input type="file" id="rfile" name="productImg" onchange="photochange1(event,recipt)" accept=".png, .jpg, .jpeg" style="display: none;" />
 													</label>
-<<<<<<< HEAD
-												
-=======
 												</figure>
->>>>>>> Joey0829
 												<script type="text/javascript"> 
 													function photochange1(event,imgid){
 													var img=document.getElementById(imgid.id);
@@ -496,10 +489,6 @@ function loadXMLDoc()
 								</form>
 									</c:if>
 									
-<<<<<<< HEAD
-									
-=======
->>>>>>> Joey0829
 										<!-- 重複的結構（商品）-->
 										
 										<%int count = 0;%>
@@ -512,36 +501,6 @@ function loadXMLDoc()
 												enctype="multipart/form-data">
 												
 											<div class="editProd">
-<<<<<<< HEAD
-											<div class="editProdLeft">
-												<div class="panel-content panel-activity">
-												<label><img id="<%=count%>"
-													src="${contextRoot}${prod.getProductImg()}" style="max-width:228px; max-height: 200px;" /> 
-													<input
-													type="file" id="rfile" name="productImg"
-													onchange="photochange(event,<%=count%> )"
-													accept=".png, .jpg, .jpeg" style="display: none;" />
-												</label>
-											</div>
-											</div>
-																				<script type="text/javascript"> 
-																						function photochange(event,imgid){ 
-
-																						 console.log(imgid); 
-												 											 console.log(imgid.id); 
-																							 var img=document.getElementById(imgid); 
-												 											 var reader = new FileReader(); 
-												 											 img.src = URL.createObjectURL(event.target.files[0]); 
-												 											 img.onload = function() {
-												 											      URL.revokeObjectURL(img.src) // free memory
-																							} 
-																								} 
-																						</script> 
-												
-												
-																							
-										
-=======
 											   
 											   <div class="editProdLeft">
 											   	<div class="panel-content panel-activity">
@@ -562,7 +521,6 @@ function loadXMLDoc()
 											   </div>
 												<script type="text/javascript"> 
 														function photochange(event,imgid){ 
->>>>>>> Joey0829
 	
 														 console.log(imgid); 
 				 											 console.log(imgid.id); 
@@ -680,19 +638,11 @@ function loadXMLDoc()
 								<script>
     // setup 
 	const dates = newDateArray;
-<<<<<<< HEAD
 	console.log('dates:'+dates);
 	// const dates = ['2021-08-25', '2021-08-26', '2021-08-27', '2021-08-28', '2021-08-29', '2021-08-30', '2021-09-01'];
 	const datapoints = incomeArray;
 	// const datapoints = [1, 2, 3, 4, 5, 6, 8];
-	console.log('datapoints:'+datapoints);
-=======
-	//console.log('dates:'+dates);
-	// const dates = ['2021-08-25', '2021-08-26', '2021-08-27', '2021-08-28', '2021-08-29', '2021-08-30', '2021-09-01'];
-	const datapoints = incomeArray;
-	const datapoints = [1, 2, 3, 4, 5, 6, 8];
 	// console.log('datapoints:'+datapoints);
->>>>>>> bb2a635b89ed4b019c6fb4370e20bdc23a5b48fe
     const data = {
       labels: dates,
       datasets: [{
