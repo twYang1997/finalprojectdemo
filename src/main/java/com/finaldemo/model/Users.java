@@ -1,13 +1,10 @@
 package com.finaldemo.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,7 +20,6 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Users")
@@ -84,7 +80,13 @@ public class Users {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<LikePost> LikePost = new LinkedHashSet<LikePost>();
-
+//	---------------------------------------
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "eventHost", cascade = CascadeType.ALL)
+	private Set<Event> myHostEvents = new LinkedHashSet<Event>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "joinUser", cascade = CascadeType.ALL)
+	private Set<EventApply> joinEventApply = new LinkedHashSet<EventApply>();
+//	---------------------------------------
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_foundation_id")
 	private Foundation foundation;
@@ -319,4 +321,29 @@ public class Users {
 		return builder.toString();
 	}
 
+	public Set<LikePost> getLikePost() {
+		return LikePost;
+	}
+
+	public void setLikePost(Set<LikePost> likePost) {
+		LikePost = likePost;
+	}
+
+	public Set<Event> getMyHostEvents() {
+		return myHostEvents;
+	}
+
+	public void setMyHostEvents(Set<Event> myHostEvents) {
+		this.myHostEvents = myHostEvents;
+	}
+
+	public Set<EventApply> getJoinEventApply() {
+		return joinEventApply;
+	}
+
+	public void setJoinEventApply(Set<EventApply> joinEventApply) {
+		this.joinEventApply = joinEventApply;
+	}
+
+	
 }
