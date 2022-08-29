@@ -37,7 +37,7 @@
 						<i class="activity__list__icon fa fa-question-circle-o"></i>
 								<div>
 									<a
-										href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}">
+										href="${contextRoot}/timmy/readUserById/${p.getPostUser().getUserId()}" style="color:black;text-decoration:none;">
 										<img src="${contextRoot}/${p.getPostUser().getPhotoPath()}"
 										alt="" style="width: 40px; height: 40px; border-radius: 50%;"/>
 										&nbsp;&nbsp;${p.postUser.getNickName()}
@@ -415,7 +415,7 @@
 									<div class="box-comment">
 										<div class="comment-text">
 										
-										<a href="${contextRoot}/timmy/readUserById/${c.getUser().getUserId()}" style="color:black">
+										<a href="${contextRoot}/timmy/readUserById/${c.getUser().getUserId()}" style="color:black;text-decoration:none;">
 											<img class="img-circle img-sm"
 												src="${contextRoot}/${c.getUser().getPhotoPath()}"
 												alt="User Image"
