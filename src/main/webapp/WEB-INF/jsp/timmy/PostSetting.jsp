@@ -117,7 +117,7 @@
 								<a id="like${vs.index}"> <i onclick="likeIconFunction(this)"
 									class="fa fa-thumbs-up"></i>${p.getPostLike()}</a> <a
 									id="commentCount${vs.index}"> <i class="fa fa-comments"></i>${p.getComments().size()}</a>
-
+							<c:if test="${!empty guest}">
 								<c:if test="${p.postUser.getUserId() == userOrigin.getUserId()}">
 									<a href="#" role="button" data-toggle="modal"
 										data-target="#myModal${vs.index}"
@@ -128,7 +128,22 @@
 										id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>Delete
 									</a>
 								</c:if>
-								<div style="margin-left:56%">${p.getPostTime()}</div>
+							</c:if>
+							<c:if test="${empty guest}">
+								<c:if test="${p.postUser.getUserId() == user.getUserId()}">
+									<a href="#" role="button" data-toggle="modal"
+										data-target="#myModal${vs.index}"
+										id="viewDetailButton${vs.index}"> <i class="fa fa-pencil"></i>Edit
+									</a>
+									<a href="#" role="button" data-toggle="modal"
+										data-target="#myModal${vs.index}deleteCheck"
+										id="viewDetailButton${vs.index}"> <i class="fa fa-trash"></i>Delete
+									</a>
+								</c:if>
+								</c:if>
+								<div style="margin-left: auto;">
+									<fmt:formatDate pattern='YYYY-MM-dd HH:mm:ss' value='${p.getPostTime()}' />
+								</div>
 							</div>
 <!-- 							</li> -->
 <!-- 					</ul> -->
@@ -233,7 +248,7 @@
 													class="fa fa-image"></i>
 												</label> &emsp; <label> <input
 													style="position: absolute; opacity: 0;" type="file"
-													name="postVideo" id="file" accept="video/*" /> <i
+													name="postVideo" id="video${p.postId}" accept="video/*" /> <i
 													class="fa fa-video-camera"></i>
 												</label>
 											</div>
@@ -393,111 +408,134 @@
 					<!-- 評論 -->
 					<div style="background-color: #F0F0F0; padding: 15px; border-radius: 1%">
 					<!-- 重複的結構 -->
-						<c:forEach items="${p.getComments()}" var="c" varStatus="Cvs">
-							<div id="comment" class="box-footer box-comments">
-								<div class="box-comment">
-									<div class="comment-text">
-									
-									<a href="${contextRoot}/timmy/readUserById/${c.getUser().getUserId()}" style="color:black">
-										<img class="img-circle img-sm"
-											src="${contextRoot}/${c.getUser().getPhotoPath()}"
-											alt="User Image"
-											style="width: 40px; height: 40px; border-radius: 50%">
-											&nbsp;${c.getUser().getNickName()}
-									</a>
-									<br>
-									<!-- 	取得評論id -->
-									<input id="commentId${Cvs.index}" value="${c.getCommentId()}"
-									style="visibility: hidden">
-
-										<!-- 	是作者才會顯示的修改刪除按鈕		 -->
-<!-- 										Todo: 修正會員管理趣無法修改貼文的問題 -->
-										<c:if test=""> 
-											<c:if test="${c.user.getUserId() == userOrigin.getUserId()}">
-												<p style="float: right; margin-left: 10px">
-												<a href="#" role="button" data-toggle="modal"
-													data-target="#myModal${c.getCommentId()}deleteCommentCheck"
-													id="viewDetailButton${Cvs.index}"> <i class="fa fa-trash"></i>
-												</a>
-												</p>
-												<p style="float: right">
-												<a href="#" role="button" data-toggle="modal"
-													data-target="#myModal${Cvs.index}"
-													id="viewDetailButton${Cvs.index}"> <i
-													class="fa fa-pencil" ></i>
-												</a>
-												</p>
+					<div id="ItemsCard${p.getPostId()}">
+						<div>
+							<c:forEach items="${p.getComments()}" var="c" varStatus="Cvs">
+								<div class="comment${p.getPostId()}" class="box-footer box-comments">
+									<div class="box-comment">
+										<div class="comment-text">
+										
+										<a href="${contextRoot}/timmy/readUserById/${c.getUser().getUserId()}" style="color:black">
+											<img class="img-circle img-sm"
+												src="${contextRoot}/${c.getUser().getPhotoPath()}"
+												alt="User Image"
+												style="width: 40px; height: 40px; border-radius: 50%">
+												&nbsp;${c.getUser().getNickName()}
+										</a>
+										<br>
+										<!-- 	取得評論id -->
+										<input id="commentId${Cvs.index}" value="${c.getCommentId()}"
+										style="display:none">
+										<p class="text-muted pull-right courseTime${p.getPostId()}"><fmt:formatDate pattern='YYYY-MM-dd HH:mm:ss' value='${c.getCommentTime()}' /></p>
+											<!-- 	是作者才會顯示的修改刪除按鈕		 -->
+	<!-- 										Todo: 修正會員管理趣無法修改貼文的問題 -->
+											<c:if test="${!empty guest }"> 
+												<c:if test="${c.user.getUserId() == userOrigin.getUserId()}">
+													<p style="float: right; margin-right: 30px">
+													<a href="#" role="button" data-toggle="modal"
+														data-target="#myModal${c.getCommentId()}deleteCommentCheck"
+														id="viewDetailButton${Cvs.index}"><img src="${contextRoot}/img/userimg/delete.png" class="udateicon" width="25">
+													</a>
+													</p>
+												</c:if>
 											</c:if>
-										</c:if>
+											<c:if test="${empty guest }"> 
+												<c:if test="${c.user.getUserId() == user.getUserId()}">
+													<p style="float: right; margin-right: 30px">
+														<a href="#" role="button" data-toggle="modal"
+															data-target="#myModal${c.getCommentId()}deleteCommentCheck"
+															id="viewDetailButton${Cvs.index}"><img src="${contextRoot}/img/userimg/delete.png" class="udateicon" width="25">
+														</a>
+													</p>
+												</c:if>
+											</c:if>
+										</div>
+										
+										&emsp; &emsp; ${c.getCommentText()}
+<%-- 										<p class="courseTime" style="display:none">${c.getCommentId()}</p> --%>
+										<hr>
 									</div>
-									<p class="text-muted pull-right">${c.getCommentTime()}</p>
-									&emsp; &emsp; ${c.getCommentText()}
-									<hr>
-								</div>
-							</div>
-							
-					<!-- 彈出評論刪除確認 -->
-					<div class="modal fade" id="myModal${c.getCommentId()}deleteCommentCheck"
-						tabindex="-1" role="dialog"
-						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">Delete Comment?</h5>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<p aria-hidden="true">&times;</p>
-									</button>
-								</div>
-								<div class="modal-body">Are you sure you want to delete this comment?</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-light"
-										data-dismiss="modal">No</button>
+								
+								
+						<!-- 彈出評論刪除確認 -->
+						<div class="modal fade" id="myModal${c.getCommentId()}deleteCommentCheck"
+							tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLongTitle">Delete Comment?</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<p aria-hidden="true">&times;</p>
+										</button>
+									</div>
+									<div class="modal-body">Are you sure you want to delete this comment?</div>
+									<div class="modal-footer">
 										<button id="deleteComment${c.getCommentId()}" type="submit" class="btn btn-info">Delete</button>
-									
-								</div>
-							</div>  
+										<button type="button" class="btn btn-light"
+											data-dismiss="modal">No</button>
+									</div>
+								</div>  
+							</div>
 						</div>
-					</div>
-							
-							<script type="text/javascript">
-							//刪除評論ajax
-							$(document).ready(function() {
-								var contextRoot = "/demo";
-								$("#deleteComment${c.getCommentId()}").off().click(function() {
-									var id = ${c.getCommentId()};
-									var datas = {
-										"id" : id
-									};
-									var jsonData = JSON.stringify(datas);
-									console.log(jsonData);
-									
-									$.ajax({
-										url : contextRoot + "/deleteComment.controller",
-										method : 'post',
-										contentType : 'application/json',
-										data : jsonData,
-										success : function(result) {
-											console.log(result);
-											
-	 										//局部刷新
-	 										window.location.reload();
-//	 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
-//	 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
-											//關掉modal
-											$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
-											$("body").removeClass("modal-open");
-											$( ".modal-backdrop").remove();
-										},
-										error : function(error) {
-											console.log(error);
-										}
+								
+								<script type="text/javascript">
+								//刪除評論ajax
+								$(document).ready(function() {
+									var contextRoot = "/demo";
+									$("#deleteComment${c.getCommentId()}").off().click(function() {
+										var id = ${c.getCommentId()};
+										var datas = {
+											"id" : id
+										};
+										var jsonData = JSON.stringify(datas);
+										console.log(jsonData);
+										
+										$.ajax({
+											url : contextRoot + "/deleteComment.controller",
+											method : 'post',
+											contentType : 'application/json',
+											data : jsonData,
+											success : function(result) {
+												console.log(result);
+												
+		 										//局部刷新
+		 										window.location.reload();
+	//	 										$( "#commentDiv" ).load(window.location.href + " #commentDiv" );
+	//	 										$( "#commentCount${vs.index}" ).load(window.location.href + " #commentCount${vs.index}" );
+												//關掉modal
+												$( "#myModal${vs.index}deleteCommentCheck").modal('hide');
+												$("body").removeClass("modal-open");
+												$( ".modal-backdrop").remove();
+											},
+											error : function(error) {
+												console.log(error);
+											}
+										})
 									})
-								})
-							});
-							</script>
-							
-						</c:forEach>
+								});
+								</script>
+								</div>
+								</c:forEach>
+							</div>
+						</div>
+						<script>
+						$(function(){
+							  var DESC = function(a, b) {
+								   let x = $(a).find('.courseTime${p.getPostId()}').text();
+								   let y = $(b).find('.courseTime${p.getPostId()}').text();
+								   console.log("x: " + x);
+								   console.log("y: " + y);
+								   return new Date(x) > new Date(y) ? 1 : -1;
+							  }
+							  function sortByInput(sortBy) {
+								   var sortEle = $('#ItemsCard${p.getPostId()}>div>.comment${p.getPostId()}').sort(sortBy);
+								   $('#ItemsCard${p.getPostId()}>div').empty().append(sortEle);
+							  }
+							  sortByInput(DESC);
+						})
+						</script>
 					<!-- 重複的結構 -->
 						<div class="box-footer">
 						<c:if test="${!empty guest}">
@@ -516,16 +554,13 @@
 									placeholder="Press enter to post comment" name="commentText">
 <!-- 								<button type="button" class="btn btn-info" data-dismiss="modal" -->
 <%-- 									id="sub${vs.index}">Submit</button> --%>
-
 								<!-- 取得評論關聯的postID -->
 								<input id="postId${vs.index}" value="${p.getPostId()}"
 									style="visibility: hidden;">
 							</div>
-
 							<script type="text/javascript">
 							$(document) .ready(function() {
 								var contextRoot="/demo";
-
 								$("#like${vs.index}") .off() .click(function() {
 										var id=$("#likedPostId${vs.index}")[0].value;
 										var datas= {
@@ -548,8 +583,8 @@
 												console .log(error);
 											}
 										})
-								})
-						});
+									})
+							});
  							</script>
 						</div>
 					</div>
@@ -629,12 +664,12 @@
 </body>
 <script type="text/javascript">
 //上傳一張圖片
-imgInp.onchange = evt => {
-	  const [file] = imgInp.files
-	  if (file) {
-	    blah.src = URL.createObjectURL(file)
-	  }
-	}
+// imgInp.onchange = evt => {
+// 	  const [file] = imgInp.files
+// 	  if (file) {
+// 	    blah.src = URL.createObjectURL(file)
+// 	  }
+// 	}
 
 //上傳多張圖片
 var result=document.getElementById("result");  
