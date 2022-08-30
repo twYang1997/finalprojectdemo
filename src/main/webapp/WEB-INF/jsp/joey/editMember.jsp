@@ -98,59 +98,71 @@ function loadXMLDoc()
 					</div>
 				</div>
 
-				<br>
+	
 
 
 				<div class="row justify-content-left">
 					<div class="col-12">
 						<div class="card">
+						<div class="input-group mb-3 ">
 							<div class="card-body">
+							
 								<div class="card-header">編輯公開資訊</div>
+								
+  								
 								<form:form class="form" method="post" modelAttribute="oneMember"
 									action="${contextRoot}/editMember">
 									<form:input type="hidden" path="userId" />
 
 									<form:input type="hidden" path="photoPath" />
-							
-							暱稱：
-							<form:input type="text" path="nickName" />
-									<br />
-							簡介：
-							<form:input type="text" path="selfIntroduction" />
+										<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">暱稱</span>
+										
+										<form:input type="text" path="nickName" 
+										class="form-control" aria-label="nickName" aria-describedby="basic-addon1"/>
+										</div>	
+										<div class="input-group-prepend ">
+										<span class="input-group-text" id="basic-addon1">簡介</span>
+										
+										<form:input type="text" path="selfIntroduction" 
+										class="form-control" aria-label="selfIntroduction" aria-describedby="basic-addon1"/>
+										</div>
 									<!-- 							<br /> -->
 									<!-- 							電話： -->
-									<form:input type="hidden" path="phone" />
-									<!-- 							<br /> -->
-									<!-- 							地址： -->
-									<form:input type="hidden" path="address" />
-									<!-- 							<br /> -->
-									<!-- 							生日： -->
-									<form:input type="hidden" path="birthday" />
-									<!-- 							<br /> -->
-									<!-- 							分類： -->
-									<form:input type="hidden" path="category" />
-									<!-- 							<br /> -->
-									<!-- 							信箱： -->
-									<form:input type="hidden" path="email" />
-									<!-- 							<br /> -->
-									<!-- 							性別： -->
-									<form:input type="hidden" path="gender" />
-									<!-- 							<br /> -->
-									<!-- 							密碼： -->
-									<form:input type="hidden" path="password" />
-									<br />
-									<button type="submit" class="btn btn-secondary">Submit</button>
+											<form:input type="hidden" path="phone" />
+											<!-- 							<br /> -->
+											<!-- 							地址： -->
+											<form:input type="hidden" path="address" />
+											<!-- 							<br /> -->
+											<!-- 							生日： -->
+											<form:input type="hidden" path="birthday" />
+											<!-- 							<br /> -->
+											<!-- 							分類： -->
+											<form:input type="hidden" path="category" />
+											<!-- 							<br /> -->
+											<!-- 							信箱： -->
+											<form:input type="hidden" path="email" />
+											<!-- 							<br /> -->
+											<!-- 							性別： -->
+											<form:input type="hidden" path="gender" />
+											<!-- 							<br /> -->
+											<!-- 							密碼： -->
+											<form:input type="hidden" path="password" />
+											
+											<button type="submit" class="btn btn-secondary">Submit</button>
 								</form:form>
+								
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<br>
 
 				<div class="row justify-content-left">
 					<div class="col-12">
 						<div class="card">
+						<div class="input-group mb-3 ">
 							<div class="card-body">
 								<div class="card-header">編輯私人資訊</div>
 								<form:form class="form" method="post" modelAttribute="oneMember"
@@ -164,29 +176,38 @@ function loadXMLDoc()
 									<!-- 							簡介： -->
 									<form:input type="hidden" path="selfIntroduction" />
 									<!-- 							<br /> -->
-							電話：
-							<form:input type="text" path="phone" />
-									<br />
-							地址：
-							<form:input type="text" path="address" />
-									<br />
-							生日：
-							<form:input type="date" path="birthday" />
-									<br />
-							分類：
-							<form:input type="text" path="category" />
-									<br />
-							信箱：
-							<form:input type="text" path="email" />
-									<br />
-							性別：
-							<form:input type="text" path="gender" />
-									<br />
-							密碼：
-							<form:input type="text" path="password" />
-									<br />
+									<form:input type="hidden" path="category" />
+									<form:input type="hidden" path="gender" />
+							<div class="input-group-prepend ">
+								<span class="input-group-text" id="basic-addon1">電話</span>
+									<form:input type="text" path="phone"
+									class="form-control" aria-label="phone" aria-describedby="basic-addon1" />
+							</div>
+							<div class="input-group-prepend ">
+								<span class="input-group-text" id="basic-addon1">地址</span>
+									<form:input type="text" path="address"
+									class="form-control" aria-label="address" aria-describedby="basic-addon1" />	
+							</div>	
+							
+							<div class="input-group-prepend ">
+								<span class="input-group-text" id="basic-addon1">生日</span>
+									<form:input type="date" path="birthday"
+									class="form-control" aria-label="birthday" aria-describedby="basic-addon1" />
+							</div>
+							<div class="input-group-prepend ">
+								<span class="input-group-text" id="basic-addon1">信箱</span>
+									<form:input type="text" path="email" 
+									class="form-control" aria-label="email" aria-describedby="basic-addon1"/>
+							</div>
+								
+							<div class="input-group-prepend ">
+								<span class="input-group-text" id="basic-addon1">密碼</span>
+								<form:input type="text" path="password" 
+								class="form-control" aria-label="password" aria-describedby="basic-addon1"/>
+							</div>							
 									<button type="submit" class="btn btn-secondary">Submit</button>
 								</form:form>
+							</div>
 							</div>
 						</div>
 					</div>
@@ -194,45 +215,45 @@ function loadXMLDoc()
 
 				<br>
 
-				<div class="row justify-content-left">
-					<div class="col-12">
-						<div class="card">
-							<div class="card-body">
-								<div class="card-header">捐款資訊：</div>
+<!-- 				<div class="row justify-content-left"> -->
+<!-- 					<div class="col-12"> -->
+<!-- 						<div class="card"> -->
+<!-- 							<div class="card-body"> -->
+<!-- 								<div class="card-header">捐款資訊：</div> -->
 
-								<c:forEach var="donation" items="${oneMember.donate}">
-									<br />
-		編號：　${donation.donateId}
-		<br />
-		日期：　${donation.donateDate}
-		<br />
-		信箱：　${donation.donorEmail}
-		<br />
-		金主：　${donation.donorName}
-		<br />
-		金流：　${donation.payment}
-		<br />
-		電話：　${donation.donorPhone}
-		<br />
-								</c:forEach>
+<%-- 								<c:forEach var="donation" items="${oneMember.donate}"> --%>
+<!-- 									<br /> -->
+<%-- 		編號：　${donation.donateId} --%>
+<!-- 		<br /> -->
+<%-- 		日期：　${donation.donateDate} --%>
+<!-- 		<br /> -->
+<%-- 		信箱：　${donation.donorEmail} --%>
+<!-- 		<br /> -->
+<%-- 		金主：　${donation.donorName} --%>
+<!-- 		<br /> -->
+<%-- 		金流：　${donation.payment} --%>
+<!-- 		<br /> -->
+<%-- 		電話：　${donation.donorPhone} --%>
+<!-- 		<br /> -->
+<%-- 								</c:forEach> --%>
 
 
-							</div>
-						</div>
-					</div>
-				</div>
-				<br />
-				<div class="row justify-content-left">
-					<div class="col-12">
-						<div class="card">
-							<div class="card-body">
-								<div class="card-header">AJAX測試</div>
-								<div id="myDiv">預設內容</div>
-								<button type="button" onclick="loadXMLDoc()">顯示內容</button>
-							</div>
-						</div>
-					</div>
-				</div>
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+			
+<!-- 				<div class="row justify-content-left"> -->
+<!-- 					<div class="col-12"> -->
+<!-- 						<div class="card"> -->
+<!-- 							<div class="card-body"> -->
+<!-- 								<div class="card-header">AJAX測試</div> -->
+<!-- 								<div id="myDiv">預設內容</div> -->
+<!-- 								<button type="button" onclick="loadXMLDoc()">顯示內容</button> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 			</div>
 		</div>
 
