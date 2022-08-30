@@ -162,99 +162,51 @@ function loadXMLDoc()
 				<div class="row justify-content-left">
 					<div class="col-12">
 						<div class="card">
-						<div class="input-group mb-3 ">
-							<div class="card-body">
-								<div class="card-header">編輯私人資訊</div>
-								<form:form class="form" method="post" modelAttribute="oneMember"
-									action="${contextRoot}/editMember">
+							<div class="input-group mb-3 ">
+								<div class="card-body">
+									<div class="card-header">編輯私人資訊</div>
+										<form:form class="form" method="post" modelAttribute="oneMember" action="${contextRoot}/editMember">
+										<form:input type="hidden" path="userId" />
+										<form:input type="hidden" path="photoPath" />
+										<form:input type="hidden" path="selfIntroduction" />
 
-									<form:input type="hidden" path="userId" />
-									<!-- 							<br /> -->
-									<!-- 							圖片： -->
-									<form:input type="hidden" path="photoPath" />
-									<!-- 							<br /> -->
-									<!-- 							簡介： -->
-									<form:input type="hidden" path="selfIntroduction" />
-									<!-- 							<br /> -->
-									<form:input type="hidden" path="category" />
-									<form:input type="hidden" path="gender" />
-							<div class="input-group-prepend ">
-								<span class="input-group-text" id="basic-addon1">電話</span>
-									<form:input type="text" path="phone"
-									class="form-control" aria-label="phone" aria-describedby="basic-addon1" />
-							</div>
-							<div class="input-group-prepend ">
-								<span class="input-group-text" id="basic-addon1">地址</span>
-									<form:input type="text" path="address"
-									class="form-control" aria-label="address" aria-describedby="basic-addon1" />	
-							</div>	
-							
-							<div class="input-group-prepend ">
-								<span class="input-group-text" id="basic-addon1">生日</span>
-									<form:input type="date" path="birthday"
-									class="form-control" aria-label="birthday" aria-describedby="basic-addon1" />
-							</div>
-							<div class="input-group-prepend ">
-								<span class="input-group-text" id="basic-addon1">信箱</span>
-									<form:input type="text" path="email" 
-									class="form-control" aria-label="email" aria-describedby="basic-addon1"/>
-							</div>
-								
-							<div class="input-group-prepend ">
-								<span class="input-group-text" id="basic-addon1">密碼</span>
-								<form:input type="text" path="password" 
-								class="form-control" aria-label="password" aria-describedby="basic-addon1"/>
-							</div>							
-									<button type="submit" class="btn btn-secondary">Submit</button>
-								</form:form>
-							</div>
+										<form:input type="hidden" path="category" />
+										<form:input type="hidden" path="gender" />
+											<div class="input-group-prepend ">
+												<span class="input-group-text" id="basic-addon1">電話</span>
+												<form:input type="text" path="phone"
+												class="form-control" aria-label="phone" aria-describedby="basic-addon1" />
+											</div>
+											<div class="input-group-prepend ">
+												<span class="input-group-text" id="basic-addon1">地址</span>
+												<form:input type="text" path="address"
+												class="form-control" aria-label="address" aria-describedby="basic-addon1" />	
+											</div>	
+											<div class="input-group-prepend ">
+												<span class="input-group-text" id="basic-addon1">生日</span>
+												<form:input type="date" path="birthday"
+												class="form-control" aria-label="birthday" aria-describedby="basic-addon1" />
+											</div>
+											<div class="input-group-prepend ">
+												<span class="input-group-text" id="basic-addon1">信箱</span>
+												<form:input type="text" path="email" 
+												class="form-control" aria-label="email" aria-describedby="basic-addon1"/>
+											</div>
+											<div class="input-group-prepend ">
+												<span class="input-group-text" id="basic-addon1">密碼</span>
+												<form:input type="text" path="password" 
+												class="form-control" aria-label="password" aria-describedby="basic-addon1"/>
+											</div>							
+											<button type="submit" class="btn btn-secondary">Submit</button>
+										</form:form>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
-
-<!-- 				<div class="row justify-content-left"> -->
-<!-- 					<div class="col-12"> -->
-<!-- 						<div class="card"> -->
-<!-- 							<div class="card-body"> -->
-<!-- 								<div class="card-header">捐款資訊：</div> -->
-
-<%-- 								<c:forEach var="donation" items="${oneMember.donate}"> --%>
-<!-- 									<br /> -->
-<%-- 		編號：　${donation.donateId} --%>
-<!-- 		<br /> -->
-<%-- 		日期：　${donation.donateDate} --%>
-<!-- 		<br /> -->
-<%-- 		信箱：　${donation.donorEmail} --%>
-<!-- 		<br /> -->
-<%-- 		金主：　${donation.donorName} --%>
-<!-- 		<br /> -->
-<%-- 		金流：　${donation.payment} --%>
-<!-- 		<br /> -->
-<%-- 		電話：　${donation.donorPhone} --%>
-<!-- 		<br /> -->
-<%-- 								</c:forEach> --%>
-
-
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-			
-<!-- 				<div class="row justify-content-left"> -->
-<!-- 					<div class="col-12"> -->
-<!-- 						<div class="card"> -->
-<!-- 							<div class="card-body"> -->
-<!-- 								<div class="card-header">AJAX測試</div> -->
-<!-- 								<div id="myDiv">預設內容</div> -->
-<!-- 								<button type="button" onclick="loadXMLDoc()">顯示內容</button> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
 			</div>
-		</div>
+			
 
 
 
@@ -263,7 +215,6 @@ function loadXMLDoc()
 
 		<div class="right">
 			<div class="col-lg-12">
-
 				<div class="panel">
 					<div class="panel-heading">
 						<span id="tab-1">Activity Feed</span>
@@ -275,12 +226,9 @@ function loadXMLDoc()
 								<li><a href="#tab-2">Add Product</a></li>
 								<li><a href="#tab-3">Order History</a></li>
 							</ul>
-
 							<!-- 頁籤的內容區塊 -->
 							<div class="tab-content-1">
-							
 								<div class="panel-content panel-activity">
-
 									<!-- 新增post -->
 									<c:if test="${!empty user}">
 										<form action="${contextRoot}/addPostJoey"
@@ -312,10 +260,6 @@ function loadXMLDoc()
 														name="postVideo" id="file" accept="video/*" /><i
 														class="fa fa-video-camera"></i>
 													</a>
-													<!-- <button type="button" class="btn-link" title="Post an Video" -->
-													<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
-													<!-- <i class="fa fa-video-camera"></i> -->
-													<!-- </button> -->
 												</div>
 												<button type="submit"
 													class="btn btn-sm btn-rounded btn-info">Post</button>
@@ -461,49 +405,92 @@ function loadXMLDoc()
 									
 								<c:if test="${!empty user}">
 									<form action="${contextRoot}/addProductJoey" class="panel-activity__status" method="post" enctype="multipart/form-data">
-								<div class="addProd"><!--父元素-->
-   									<div class="addProdLeft ">
-								
-										<div class="panel-content panel-activity">
-												<figure>
-													<label>
-														<img style="width: 228px;" id="recipt" src="${contextRoot}/img/joeyimg/default_product_image.png" />
-														<input type="file" id="rfile" name="productImg" onchange="photochange1(event,recipt)" accept=".png, .jpg, .jpeg" style="display: none;" />
-													</label>
-												</figure>
-												<script type="text/javascript"> 
-													function photochange1(event,imgid){
-													var img=document.getElementById(imgid.id);
-											 		var reader = new FileReader();
-											 			img.src = URL.createObjectURL(event.target.files[0]);
-											 			img.onload = function() {
-											      		URL.revokeObjectURL(img.src) // free memory
-											    		}
-													}
- 												</script>
-										</div>
-									</div>
-    								<div class="addProdRight">
-    								<div class="panel-content panel-activity">
-										<div class="input-group mb-3">
-											<span class="input-group-text">商品名稱</span> 
-											<input type="text" class="form-control" placeholder="Product Name" name="productName" aria-label="Username"> <span
-												class="input-group-text">金額</span> <input type="text" class="form-control" placeholder="Price"
-												name="productPrice" aria-label="Server">
-										</div>
-										<div class="input-group">
-											<span class="input-group-text">商品說明</span>
-												<textarea style="height: 160px;" placeholder="Product Discription"
-													name="productContext" class="form-control"
-													aria-label="With textarea">
-												</textarea>
-												<button type="submit" class="btn btn-secondary">新增商品</button>
-										</div>
+										<div class="addProd"><!--父元素-->
+		   									<div class="addProdLeft ">
+												<div class="panel-content panel-activity">
+														<figure>
+															<label>
+																<img style="width: 228px;" id="recipt" src="${contextRoot}/img/joeyimg/default_product_image.png" />
+																<input type="file" id="rfile" name="productImg" onchange="photochange1(event,recipt)" accept=".png, .jpg, .jpeg" style="display: none;" />
+															</label>
+														</figure>
+														<script type="text/javascript"> 
+															function photochange1(event,imgid){
+															var img=document.getElementById(imgid.id);
+													 		var reader = new FileReader();
+													 			img.src = URL.createObjectURL(event.target.files[0]);
+													 			img.onload = function() {
+													      		URL.revokeObjectURL(img.src) // free memory
+													    		}
+															}
+		 												</script>
+												</div>
 											</div>
-										
-									</div>
-								</div><!--wrap-->
+		    								<div class="addProdRight">
+		    								<div class="panel-content panel-activity">
+												<div class="input-group mb-3">
+													<span class="input-group-text">商品名稱</span> 
+													<input type="text" class="form-control" placeholder="Product Name" name="productName" aria-label="Username"> <span
+														class="input-group-text">金額</span> <input type="text" class="form-control" placeholder="Price"
+														name="productPrice" aria-label="Server">
+												</div>
+												<div class="input-group">
+													<span class="input-group-text">商品說明</span>
+														<textarea style="height: 160px;" placeholder="Product Discription"
+															name="productContext" class="form-control"
+															aria-label="With textarea" id="productContext"></textarea>
+														<button id="addProductBtn"type="button" class="btn btn-secondary">新增商品</button>
+												</div>
+													</div>
+												
+											</div>
+										</div><!--wrap-->
 								</form>
+								<script>
+									$(function(){
+										$("#addProductBtn").on("click", function(){
+											let imgName = $("#rfile")[0].files[0].name;
+											let imgType = $("#rfile")[0].files[0].type;
+											var reader = new FileReader();
+											reader.onload = function(e){
+												let img64 = e.target.result;
+												let productName = $("input[name=productName]").val();
+												let productPrice = $("input[name=productPrice]").val();
+												let productContext = $("#productContext").val();
+												let dataOrigin = {
+														"productName":productName,
+														"productPrice":productPrice,
+														"productContext":productContext,
+														"imgName":imgName,
+														"imgType":imgType,
+														"img64": img64
+												};
+												let datas = JSON.stringify(dataOrigin);
+												console.log(datas);
+												$.ajax({
+													url: '/demo/joey/addNewProductAjax',
+													contentType: 'application/json',
+													dataType: 'text',
+													method: 'post',
+													data: datas,
+													success: function(result) {
+														console.log(result);
+														Swal.fire({
+															  icon: 'success',
+															  title: 'This product has been created.',
+															  showConfirmButton: false,
+															  timer: 1500
+															})
+													},
+													error: function(error) {
+														console.log(error);
+													}
+												});
+											}
+											reader.readAsDataURL($("#rfile")[0].files[0]);
+										})
+									})
+								</script>
 									</c:if>
 									
 										<!-- 重複的結構（商品）-->
@@ -543,12 +530,54 @@ function loadXMLDoc()
 				 											 console.log(imgid.id); 
 															 var img=document.getElementById(imgid); 
 				 											 var reader = new FileReader(); 
-				 											 img.src = URL.createObjectURL(event.target.files[0]); 
+				 											 img.src = URL.createObjectURL(event.target.files[0]);
+				 											 
 				 											 img.onload = function() {
 				 											      URL.revokeObjectURL(img.src) // free memory
 															} 
 																} 
-														</script> 
+// 														此為修改商品圖片的ajax
+														$(function(){	//jQuery文件備妥處理器
+															$("#rfile${prod.getProductId()}").on("change", function(){
+																readURL(this); //這個function
+															});
+															var file = document.getElementById("#rfile${prod.getProductId()}");
+															function readURL(input) {
+																if (input.files && input.files[0]) {
+																	var reader = new FileReader();
+																	reader.onload = function(e) {
+																		var datao = {
+																			"id": ${prod.getProductId()},
+																			"type": "",
+																			"img64": e.target.result
+																		};
+																		var datas = JSON.stringify(datao);
+																		$.ajax({
+																				url: '/demo/joey/uploadProductImgAjax',
+																				contentType: 'application/json',
+																				dataType: 'text',
+																				method: 'post',
+																				data: datas,
+																				success: function(result) {
+																					console.log(result);
+																					Swal.fire({
+																						  icon: 'success',
+																						  title: 'This change has been saved',
+																						  showConfirmButton: false,
+																						  timer: 1500
+																						})
+																				},
+																				error: function(error) {
+																					console.log(error);
+																				}
+																			});
+																	}
+																}
+																reader.readAsDataURL(input.files[0]);
+															}
+														})
+														
+												</script> 
 											<div class="editProdRight">
 												<div class="panel-content panel-activity">
 												<div class="input-group mb-3">
@@ -815,6 +844,7 @@ function loadXMLDoc()
 					</div>
 
 				</div>
+			</div>
 			</div>
 
 </div>
@@ -1879,6 +1909,7 @@ imgInp.onchange = evt => {
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script
 	src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>
 
 </html>
 
