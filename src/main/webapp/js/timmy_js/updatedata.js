@@ -30,6 +30,12 @@ $(document).ready(function() {
 									pSNN[j].innerHTML = result;
 								}
 						}
+						var nBN = document.querySelectorAll("#navBarName");
+						if (nBN != null){
+								for (let j=0; j<nBN.length;j++){
+									nBN[j].innerHTML = '&emsp;' + result;
+								}
+						}
 					}
 					if (hea == "email") {
 						var err = document.getElementById("emailerror");

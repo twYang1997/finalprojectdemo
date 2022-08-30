@@ -43,8 +43,6 @@ $(document).ready(function() {
 			})
 		}
 	})
-	console.log($("#newpwd"));
-	console.log($("#checkpwd"));
 	$("#newpwd").on("change", function(e) {
 		console.log("aaa");
 		console.log(e.target.value);

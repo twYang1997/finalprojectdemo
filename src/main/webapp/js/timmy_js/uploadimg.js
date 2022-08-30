@@ -15,10 +15,8 @@ $(document)
 				if (input.files && input.files[0]) {
 					var reader = new FileReader();
 					reader.onload = function(e) {
-						document.getElementById(
-							"preview_progressbarTW_img")
-							.setAttribute("src",
-								e.target.result);
+						document.getElementById("preview_progressbarTW_img").setAttribute("src",e.target.result);
+						document.getElementById("navUserPhoto").setAttribute("src",e.target.result);
 						console.log(typeof e.target.result);
 						var datao = {
 							"img64": e.target.result,

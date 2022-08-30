@@ -190,7 +190,7 @@ span {
 	border-bottom: 1px solid #dee2e6;
 }
 </style>
-<body>
+<body style="margin-top:0">
 	
 	<jsp:include page="layout/navbar.jsp" />
 	<!-- 	-------------------------------------------- -->

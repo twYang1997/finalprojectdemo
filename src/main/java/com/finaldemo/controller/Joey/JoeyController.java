@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finaldemo.dto.ProductDto;
 import com.finaldemo.model.Donate;
 import com.finaldemo.model.Foundation;
 import com.finaldemo.model.Orders;
@@ -343,6 +345,15 @@ public class JoeyController {
 		return "redirect:/findById2";
 
 	}
+	
+	@GetMapping("/websocket")
+	public String websocketTest(HttpSession session, Model model) {
+		Users userBefore = (Users) session.getAttribute("user");
+		Users userAfter = service.findById(userBefore.getUserId());
+		session.setAttribute("user", userAfter);
+		model.addAttribute("oneMember", userAfter);
+		return "index";
+	}
 
 	@PostMapping("/deleteMember")
 	public String deleteUser(@RequestParam Integer id) {
@@ -366,5 +377,15 @@ public class JoeyController {
 		 List<Users> uList = uDao.findAll();
 		 return uList;
 	}
-
+	
+	@PostMapping("/joey/UpdateProductAjax")
+	@ResponseBody
+	public String UpdateProductAjax(@RequestBody ProductDto dto) {
+		Products p1 = service.findProductById(Integer.parseInt(dto.getProductId()));
+		p1.setProductName(dto.getProductName());
+		p1.setProductPrice(Integer.parseInt(dto.getProductPrice()));
+		p1.setProductContext(dto.getDescription());
+		service.editProduct(p1);
+		return "success";
+	}
 }

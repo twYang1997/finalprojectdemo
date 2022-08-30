@@ -77,7 +77,7 @@ function loadXMLDoc()
 <body>
 	<div class="wrap">
 		<div class="left">
-			<div class="container">
+			<div class="container panel-heading shadow-lg p-3 mb-5 bg-body rounded">
 				<div class="row justify-content-left">
 					<div class="col-12">
 						<div class="card">
@@ -139,7 +139,7 @@ function loadXMLDoc()
 									<!-- 							密碼： -->
 									<form:input type="hidden" path="password" />
 									<br />
-									<button type="submit" class="btn btn-primary">Submit</button>
+									<button type="submit" class="btn btn-secondary">Submit</button>
 								</form:form>
 							</div>
 						</div>
@@ -185,7 +185,7 @@ function loadXMLDoc()
 							密碼：
 							<form:input type="text" path="password" />
 									<br />
-									<button type="submit" class="btn btn-primary">Submit</button>
+									<button type="submit" class="btn btn-secondary">Submit</button>
 								</form:form>
 							</div>
 						</div>
@@ -440,19 +440,20 @@ function loadXMLDoc()
 								
 							</div>
 							<div class="tab-content-2">
-								<div class="panel-content panel-activity">
+							<div class="panel-content panel-activity">
 									
-									<c:if test="${!empty user}">
-												<form action="${contextRoot}/addProductJoey" class="panel-activity__status" method="post" enctype="multipart/form-data">
+								<c:if test="${!empty user}">
+									<form action="${contextRoot}/addProductJoey" class="panel-activity__status" method="post" enctype="multipart/form-data">
 								<div class="addProd"><!--父元素-->
    									<div class="addProdLeft ">
 								
 										<div class="panel-content panel-activity">
-											
+												<figure>
 													<label>
 														<img style="width: 228px;" id="recipt" src="${contextRoot}/img/joeyimg/default_product_image.png" />
 														<input type="file" id="rfile" name="productImg" onchange="photochange1(event,recipt)" accept=".png, .jpg, .jpeg" style="display: none;" />
 													</label>
+												</figure>
 												<script type="text/javascript"> 
 													function photochange1(event,imgid){
 													var img=document.getElementById(imgid.id);
@@ -466,6 +467,7 @@ function loadXMLDoc()
 										</div>
 									</div>
     								<div class="addProdRight">
+    								<div class="panel-content panel-activity">
 										<div class="input-group mb-3">
 											<span class="input-group-text">商品名稱</span> 
 											<input type="text" class="form-control" placeholder="Product Name" name="productName" aria-label="Username"> <span
@@ -474,21 +476,21 @@ function loadXMLDoc()
 										</div>
 										<div class="input-group">
 											<span class="input-group-text">商品說明</span>
-												<textarea style="height: 180px;" placeholder="Product Discription"
+												<textarea style="height: 160px;" placeholder="Product Discription"
 													name="productContext" class="form-control"
 													aria-label="With textarea">
 												</textarea>
-												<button type="submit" class="btn btn-sm btn-rounded btn-info">新增商品</button>
+												<button type="submit" class="btn btn-secondary">新增商品</button>
 										</div>
-											
+											</div>
 										
 									</div>
 								</div><!--wrap-->
 								</form>
-										</c:if>
+									</c:if>
 									
-										EDIT-PRODUCT START
 										<!-- 重複的結構（商品）-->
+										
 										<%int count = 0;%>
 										<c:forEach items="${produtsToShow}" var="prod" varStatus="vs">
 										
@@ -499,60 +501,94 @@ function loadXMLDoc()
 												enctype="multipart/form-data">
 												
 											<div class="editProd">
-											<div class="editProdLeft">
-												<label><img id="<%=count%>"
-													src="${contextRoot}${prod.getProductImg()}" style="max-width:228px; max-height: 200px;" /> 
-													<input
-													type="file" id="rfile" name="productImg"
-													onchange="photochange(event,<%=count%> )"
-													accept=".png, .jpg, .jpeg" style="display: none;" />
-												</label>
-											</div>
-																				<script type="text/javascript"> 
-																						function photochange(event,imgid){ 
-
-																						 console.log(imgid); 
-												 											 console.log(imgid.id); 
-																							 var img=document.getElementById(imgid); 
-												 											 var reader = new FileReader(); 
-												 											 img.src = URL.createObjectURL(event.target.files[0]); 
-												 											 img.onload = function() {
-												 											      URL.revokeObjectURL(img.src) // free memory
-																							} 
-																								} 
-																						</script> 
-												
-												
-																							
-										
+											   
+											   <div class="editProdLeft">
+											   	<div class="panel-content panel-activity">
+											   		<figure class="figure">
+<%-- 													<label><img id="<%=count%>" --%>
+													<label id="productImg${prod.getProductId()}"><img id="<%=count%>"
+														src="${contextRoot}${prod.getProductImg()}" 
+														style="max-width:228px; max-height: 200px; margin-left:18px; margin-top:18px;" 
+														class="figure-img img-fluid rounded "/> 
+<!-- 														type="file" id="rfile" name="productImg" -->
+														<input
+														type="file" id="rfile${prod.getProductId()}" name="productImg"
+														onchange="photochange(event,<%=count%> )"
+														accept=".png, .jpg, .jpeg" style="display: none;" />
+													</label>
+													</figure>
+													</div>
+											   </div>
+												<script type="text/javascript"> 
+														function photochange(event,imgid){ 
 	
+														 console.log(imgid); 
+				 											 console.log(imgid.id); 
+															 var img=document.getElementById(imgid); 
+				 											 var reader = new FileReader(); 
+				 											 img.src = URL.createObjectURL(event.target.files[0]); 
+				 											 img.onload = function() {
+				 											      URL.revokeObjectURL(img.src) // free memory
+															} 
+																} 
+														</script> 
 											<div class="editProdRight">
+												<div class="panel-content panel-activity">
 												<div class="input-group mb-3">
 
 													<span class="input-group-text">商品名稱</span> <input
-														type="text" class="form-control"
+														type="text" class="form-control" id="productName${prod.getProductId()}"
 														value="${prod.getProductName()}" name="productName"
 														aria-label="Username"> <span
-														class="input-group-text">金額</span> <input type="text"
+														class="input-group-text">金額</span> <input type="text" id="productPrice${prod.getProductId()}"
 														class="form-control" value="${prod.getProductPrice()}"
 														name="productPrice" aria-label="Server">
 
 												</div>
-
-
 												<div class="input-group">
 													<span class="input-group-text">商品說明</span>
-													<textarea style="height: 180px" name="productContext" class="form-control"
+													<textarea style="height: 180px" name="productContext" class="form-control" id="description${prod.getProductId()}"
 														aria-label="With textarea">${prod.getProductContext()}</textarea>
-													<button type="submit"
-														class="btn btn-sm btn-rounded btn-info">修改商品</button>
+<!-- 													<button type="submit" -->
+<!-- 														class="btn btn-secondary">修改商品</button> -->
+													<button id="updateProductBtn${prod.getProductId()}" type="button"
+														class="btn btn-secondary">修改商品</button>
+														
 												</div>
+											</div>
 											</div>
 										</div>
 									</form>
-									
-
-
+									<script>
+										$(function(){
+											
+											$("#updateProductBtn${prod.getProductId()}").click(function(e){
+// 												console.log(e.target.getAttribute("id"));
+// 												console.log($("#productImg${prod.getProductId()}").children()[1])
+												let imgSRC = $("#productImg${prod.getProductId()}").children()[1].files;
+												console.log(imgSRC);
+												console.log("imgSRC: " + imgSRC[0]);
+												let productName = $("#productName${prod.getProductId()}").val();
+												let productPrice = $("#productPrice${prod.getProductId()}").val();
+												let description = $("#description${prod.getProductId()}").val();
+												let dataOrigin = {
+														"productId":${prod.getProductId()},
+														"productName":productName,
+														"productPrice":productPrice,
+														"description":description
+												};
+												let datas = JSON.stringify(dataOrigin);
+												console.log(datas);
+												$.ajax({
+													url: "/demo" + "/joey/UpdateProductAjax",
+													method: 'post',
+													contentType: 'application/json',
+													data: datas,
+													success: console.log(result)
+												})
+											})
+										});
+									</script>
 										</c:forEach>
 										
 										<!-- 					重複的結構 -->
@@ -569,9 +605,9 @@ function loadXMLDoc()
 											      URL.revokeObjectURL(img.src) // free memory
 											}
 												</script>
-									</div>
 								
-							
+								
+							</div>
 							</div>
 							
 							<div class="tab-content-3">
@@ -581,6 +617,7 @@ function loadXMLDoc()
 										<script type="text/javascript">
 							
 							var dateArray = new Array();
+							
 							var incomeArray = new Array();
 							
 							<c:forEach items="${ordersToShow}" var="o" varStatus="vs">
@@ -602,7 +639,7 @@ function loadXMLDoc()
 								<script>
     // setup 
 	const dates = newDateArray;
-	// console.log('dates:'+dates);
+	console.log('dates:'+dates);
 	// const dates = ['2021-08-25', '2021-08-26', '2021-08-27', '2021-08-28', '2021-08-29', '2021-08-30', '2021-09-01'];
 	const datapoints = incomeArray;
 	// const datapoints = [1, 2, 3, 4, 5, 6, 8];
@@ -777,7 +814,7 @@ function loadXMLDoc()
 
 
 
-			<style type="text/css">
+<style type="text/css">
 			
 .addProd{ /*父元素*/
     width: 100%;
@@ -785,25 +822,20 @@ function loadXMLDoc()
 
 }
 .addProdLeft{
-    background: red;
     width: 30%;
 }
 .addProdRight{
-    background: blue;
     width: 70%;
 }		
 
 .editProd{ /*父元素*/
     width: 100%;
-    height: 200px;
     display: flex;
 }
 .editProdLeft{
-    background: red;
     width: 30%;
 }
 .editProdRight{
-    background: blue;
     width: 70%; 
 }	
 			

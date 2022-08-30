@@ -42,14 +42,20 @@
 						href="${contextRoot}/findById2"><img src="${contextRoot}/img/userimg/user.png" style="width:30px"><span class="sr-only">(current)</span>
 					</a></li>
 				</c:if>
-<!-- 				嘉鴻 -->
+				<!-- 				嘉鴻 -->
 				<li class="nav-item" style="margin-left:10%"><a class="nav-link"
 					href="${contextRoot}/Alan/foundation"><img src="${contextRoot}/img/userimg/heart.png" style="width:30px"> <span class="sr-only">(current)</span>
 				</a></li>
+<!-- 				小郭 -->
+				<c:if test="${user.category == 1 || user.category == 2 || user.category == 3}">
+				<li class="nav-item" style="margin-left:10%"><a class="nav-link"
+					href="${contextRoot}/websocket"><img src="${contextRoot}/img/userimg/chat.png" style="width:30px"> <span class="sr-only">(current)</span>
+				</a></li>
+				</c:if>
 <!-- 				亭孝 -->
 				<c:if test="${user.category == 3}">
-					<li class="nav-item" style="margin-left:10%"><a class="nav-link"
-					href="${contextRoot}/memberManagement">Manager <span class="sr-only">(current)</span>
+					<li class="nav-item" style="margin-left:10%">
+						<a class="nav-link" href="${contextRoot}/memberManagement">Manager <span class="sr-only">(current)</span>
 				</a></li>
 				</c:if>
 				<li class="nav-item" style="margin-left:10%"><a class="nav-link"
@@ -77,9 +83,9 @@
 				</form>
 			</c:if>
 			<c:if test="${!empty user}" >
-				&emsp;${user.getNickName()}
+				<div id="navBarName">&emsp;${user.getNickName()}</div>
 				<a class="nav-link" href="${contextRoot}/timmy/accountsetting.controller">
-					<img src="${contextRoot}${user.photoPath}" style="max-height:50px; border-radius:50%">
+					<img id="navUserPhoto" src="${contextRoot}${user.photoPath}" style="max-height:50px; border-radius:50%">
 			  	</a>
 			</c:if>
 			<c:if test="${!empty user}">
