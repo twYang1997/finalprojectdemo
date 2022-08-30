@@ -11,8 +11,4 @@ public class PageControllerTimmy {
 		return "timmy/index";
 	}
 	
-	@GetMapping("/eventPage")
-	public String returnEventPate() {
-		return "timmy/eventPage";
-	}
 }

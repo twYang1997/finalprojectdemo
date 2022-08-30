@@ -25,7 +25,7 @@
 </style>
 <body>
 	<jsp:include page="layout/navbar.jsp" />
-	<div class="container" style="margin-top:3%" >
+	<div class="container" style="margin-top: 3%">
 		<div class="row">
 			<div class="left">
 				<div class="col-lg-12">
@@ -37,65 +37,87 @@
 			</div>
 			<div class="right">
 				<div class="col-lg-6">
-					<a class="btn btn-outline-secondary btn-icon-text btn-edit-profile" role="button"
-						data-toggle="modal" data-target="#myModaladd"
-						id="viewDetailButtonAdd"><img src="${contextRoot}/img/petimg/add.png" width="100px" >
-						</a>
+					<a class="btn btn-outline-secondary btn-icon-text btn-edit-profile"
+						role="button" data-toggle="modal" data-target="#myModaladd"
+						id="viewDetailButtonAdd"><img
+						src="${contextRoot}/img/petimg/add.png" width="100px"> </a>
 					<div class="modal fade petModal" id="myModaladd">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<!-- 彈出標題 -->
 								<div class="modal-header">
-									<h4 class="modal-title">New Party:</h4>
+									<h4 class="modal-title">Hold an event:</h4>
 									<button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
-	
-								<form class="form" method="post"
-									action="${contextRoot}/pet/insertNewPet.controller"
-									enctype="multipart/form-data">
-									<div class="modal-body">
-										<label>Party Name:</label>
-										<!-- ------------------ -->
-										<div>
-											<input class="form-control" name="petName" type="text">
+								<c:if test="${!empty newEvent }">
+									<form:form class="form" method="post" action="${contextRoot}/event/insertNewEvent.controller" modelAttribute="newEvent">
+										<div class="modal-body">
+											<form:input class="form-control" path="eventId" type="text"
+												style="display:none" />
+											<!-- 										------------------ -->
+											<label>Event Name:</label>
+											<div>
+												<form:input class="form-control" path="eventName"
+													type="text" />
+											</div>
+											<!-- 										------------------ -->
+											<label>Introduction:</label>
+											<div>
+												<form:textarea class="form-control" path="eventDiscription"></form:textarea>
+											</div>
+											<!-- 										------------------ -->
+											<label>Location:</label>
+											<div>
+												<form:input class="form-control" path="eventLocation"></form:input>
+											</div>
+<!-- 											------------------ -->  
+											<label>Max People</label>
+											<div>
+												<form:input class="form-control" path="maxNumPeople"
+													type="text" />
+											</div>
+<!-- 											------------------  -->
+											<label>Min People</label>
+											<div>
+												<form:input class="form-control" path="minNumPeople"
+													type="text" />
+											</div>
+											<label>Who can join ?</label>
+											<div>
+												<form:input class="form-control" path="whoCanJoin"
+													type="text" />
+											</div>
+<!-- 										------------------ -->
+											<label>Date</label>
+											<div class="form-group" style="text-align: left;">
+												<form:input path="eventDate" type="date"
+													class="form-control" />
+											</div>
+<!-- 										------------------ -->
+											<label>The date begin to invite</label>
+											<div class="form-group" style="text-align: left;">
+												<form:input path="invitationBeginDate" type="date"
+													class="form-control" />
+											</div>
+<!-- 										------------------ -->
+											<label>The date end to invite</label>
+											<div class="form-group" style="text-align: left;">
+												<form:input path="invitationEndDate" type="date"
+													class="form-control" />
+											</div>
+<!-- 										------------------ -->
 										</div>
-										<!-- ------------------ -->
-										<br>
-										<div class="form-group" style="text-align: left;">
-											<label>Breed:&nbsp;&nbsp;&nbsp;&nbsp;</label> <input
-												type="radio" name="petType" value="1">Dog
-											&nbsp;&nbsp; <input type="radio" name="petType" value="0">Cat
-											&nbsp;&nbsp;
+										<div class="modal-footer">
+											<form:button type="submit" class="btn btn-primary"
+												id="submitPetDetails">Add</form:button>
+											<button type="button" class="btn btn-danger"
+												data-dismiss="modal">Close</button>
 										</div>
-										<!-- ------------------ -->
-										<div class="form-group" style="text-align: left;">
-											<label>Gender:&nbsp;&nbsp;&nbsp;</label> <input type="radio"
-												name="petGender" value="1">Male &nbsp;&nbsp; <input
-												type="radio" name="petGender" value="0">Female
-										</div>
-										<!-- ------------------ -->
-										<div class="form-group" style="text-align: left;">
-											<label>Birthday</label> <input name="petBirthday" type="date"
-												class="form-control">
-										</div>
-										<!-- ------------------ -->
-										<label>Introduction:</label>
-										<div>
-											<textarea class="form-control" name="petDescription"></textarea>
-										</div>
-										<input name="petPhotoPath" style="display: none" value="">
-										<!-- ------------------ -->
-									</div>
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-primary"
-											id="submitPetDetails">Add</button>
-										<button type="button" class="btn btn-danger"
-											data-dismiss="modal">Close</button>
-									</div>
-								</form>
+									</form:form>
+								</c:if>
 							</div>
 						</div>
 					</div>
