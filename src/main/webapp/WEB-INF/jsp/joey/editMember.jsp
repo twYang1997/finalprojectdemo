@@ -124,8 +124,8 @@ function loadXMLDoc()
 										<div class="input-group-prepend ">
 										<span class="input-group-text" id="basic-addon1">簡介</span>
 										
-										<form:input type="text" path="selfIntroduction" 
-										class="form-control" aria-label="selfIntroduction" aria-describedby="basic-addon1"/>
+										<form:textarea type="text" path="selfIntroduction" style="height: 100px;"
+											class="form-control" aria-label="selfIntroduction" aria-describedby="basic-addon1"/>
 										</div>
 									<!-- 							<br /> -->
 									<!-- 							電話： -->
@@ -430,19 +430,31 @@ function loadXMLDoc()
 		    								<div class="panel-content panel-activity">
 												<div class="input-group mb-3">
 													<span class="input-group-text">商品名稱</span> 
-													<input type="text" class="form-control" placeholder="Product Name" name="productName" aria-label="Username"> <span
+													<input type="text" class="form-control" placeholder="Product Name" name="productName" id="quickAddProductName" aria-label="Username"> <span
 														class="input-group-text">金額</span> <input type="text" class="form-control" placeholder="Price"
-														name="productPrice" aria-label="Server">
+														id="quickAddProductPrice" name="productPrice" aria-label="Server">
 												</div>
 												<div class="input-group">
 													<span class="input-group-text">商品說明</span>
 														<textarea style="height: 160px;" placeholder="Product Discription"
 															name="productContext" class="form-control"
 															aria-label="With textarea" id="productContext"></textarea>
-														<button id="addProductBtn"type="button" class="btn btn-secondary">新增商品</button>
+														<div class="row g-2">
+															  <button class="btn btn-primary btn-sm btn-block quickAddProduct" type="button">一鍵輸入</button>
+															  <button class="btn btn-secondary btn-sm btn-block" type="button">新增商品</button>
+															</div>
+														<script type="text/javascript">
+														$(".quickAddProduct").click(function() {
+															  $("#quickAddProductName").val("卡娜赫拉火車");
+															  $("#quickAddProductPrice").val("500");
+															  $("#productContext").val("只到9/1");
+															 });
+														</script>
 												</div>
-													</div>
-												
+													
+											</div>
+											
+																
 											</div>
 										</div><!--wrap-->
 								</form>
