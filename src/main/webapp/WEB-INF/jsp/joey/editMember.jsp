@@ -213,7 +213,6 @@ function loadXMLDoc()
 					</div>
 				</div>
 
-				<br>
 
 <!-- 				<div class="row justify-content-left"> -->
 <!-- 					<div class="col-12"> -->
@@ -270,14 +269,11 @@ function loadXMLDoc()
 						<span id="tab-1">Activity Feed</span>
 						<span id="tab-2">Add Product</span> 
 						<span id="tab-3">Order History</span> 
-						<span id="tab-4">Test Area</span>
-
 						<div id="tab">
 							<ul>
 								<li><a href="#tab-1">Activity Feed</a></li>
 								<li><a href="#tab-2">Add Product</a></li>
 								<li><a href="#tab-3">Order History</a></li>
-								<li><a href="#tab-4">Test Area</a></li>
 							</ul>
 
 							<!-- 頁籤的內容區塊 -->
@@ -813,13 +809,6 @@ function loadXMLDoc()
     								$('#order_table').DataTable(); 
 									} );
 								</script>
-							</div>
-							<div class="tab-content-4">
-
-								Test Area
-								
-						
-
 							</div>
 									
 						</div>
