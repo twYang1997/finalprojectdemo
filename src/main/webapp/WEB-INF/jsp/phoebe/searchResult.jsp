@@ -48,7 +48,15 @@
 								<i class="fa fa-paw"></i>
 								<c:forEach items="${u.getPets()}" var="pet" varStatus="loop">
 									<span style="border: solid; border-radius: 5%; border-color: #E0E0E0; border-width: 1px; padding: 15px 10px 18px 10px; margin: 5px">
+									
+									<c:if test='${fn:contains(p.petPhotoPath, ".")}'>
 									<img alt="" src="${contextRoot}/${pet.getPetPhotoPath()}" style="height: 50px; width: 50px; border-radius: 30%">
+									</c:if>
+									
+									<c:if test='${!fn:contains(p.petPhotoPath, ".")}'>
+									<img alt="" src="/demo/img/petimg/pawprint.png" style="height: 50px; width: 50px; border-radius: 30%">
+									</c:if>
+									
 									<c:if test="${pet.getPetType() == 0}"><span class="badge badge-info">Cat</span></c:if>
 									<c:if test="${pet.getPetType() == 1}"><span class="badge badge-info">Dog</span></c:if>
 									<c:if test="${pet.getPetType() == 2}"><span class="badge badge-info">Others</span></c:if>
