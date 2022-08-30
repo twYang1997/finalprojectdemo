@@ -23,7 +23,7 @@
 					<li class="nav-item"><a class="nav-link"
 							href="${contextRoot}/Alan/foundation">基金會<span class="sr-only">(current)</span></a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${contextRoot}/Alan/order">結帳頁面<span class="sr-only">(current)</span></a></li>
+							href="${contextRoot}/Alan/checkOrder">結帳頁面<span class="sr-only">(current)</span></a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${contextRoot}/Alan/shoppingCar">購物車<span class="sr-only">(current)</span></a></li>
 					</ul>

@@ -38,9 +38,9 @@
 									</thead>
 
 									<tbody>
-										<c:forEach items="#" var="o" varStatus="vs">
+										<c:forEach items='${usersList}' var="users" varStatus="vs">
 											<tr>
-												<td id="aaa" scope="row">#</td>
+												<td id="aaa" scope="">${users.userId}</td>
 												<td>#</td>
 												<td>#</td>
 												<td>
@@ -57,43 +57,14 @@
 								</table>
 						
 					</div>
+					
+					
 					<div class="col-sm-4 py-2"></div>
 					<div class="col-sm-3 text-lg-end"></div>
 				</div>
 
 			</div>
 
-			<div class="card mb-3">
-
-				<div class="card-body">
-					<div class="">
-
-
-						<div class="row flex-fill">
-							<div class="col-sm-5">
-
-
-								<p>
-									<input id="content" type="hidden" />
-								</p>
-								<input id="touch" type="button" value="一鍵填入" />
-
-							</div>
-							<div class="col-sm-4 py-2"></div>
-							<div class="col-sm-3 text-lg-end"></div>
-
-						</div>
-						<p>
-							<span id="change" value="123"></span>
-						</p>
-
-						<button style="float: right">確認購買</button>
-
-					</div>
-
-				</div>
-
-			</div>
 	</div>
 
 
