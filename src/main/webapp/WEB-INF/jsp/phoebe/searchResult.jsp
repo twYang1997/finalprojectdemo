@@ -36,7 +36,7 @@
 				<div class="panel" style="padding-top: 2%">
 				<h3>People</h3>
 					<c:forEach items="${userList}" var="u" varStatus="vs">
-							<div class="activity__list__header">
+							<div>
 								<a href="${contextRoot}/timmy/readUserById/${u.getUserId()}">
 								<img src="${contextRoot}/${u.getPhotoPath()}"
 									alt="" style="width: 45px; height: 45px; border-radius: 50%;"/> ${u.getNickName()}
