@@ -343,7 +343,6 @@
 										<input type="file" id="addPetImg" name="file"
 											style="display: none;">
 										<!-- ------------------ -->
-										<!-- ------------------ -->
 										<div>
 											<input class="form-control" name="petName" type="text">
 										</div>
@@ -357,14 +356,14 @@
 										<br>
 										<div class="form-group" style="text-align: left;">
 											<label>Breed:&nbsp;&nbsp;&nbsp;&nbsp;</label> <input
-												type="radio" name="petType" value="1">Dog
+												id="testingChecked" type="radio" name="petType" value="1">Dog
 											&nbsp;&nbsp; <input type="radio" name="petType" value="0">Cat
 											&nbsp;&nbsp;
 										</div>
 										<!-- ------------------ -->
 										<div class="form-group" style="text-align: left;">
 											<label>Gender:&nbsp;&nbsp;&nbsp;</label> <input type="radio"
-												name="petGender" value="1">Male &nbsp;&nbsp; <input
+												name="petGender" id="testingChecked2" value="1">Male &nbsp;&nbsp; <input
 												type="radio" name="petGender" value="0">Female
 										</div>
 										<!-- ------------------ -->
@@ -381,11 +380,24 @@
 										<!-- ------------------ -->
 									</div>
 									<div class="modal-footer">
+										<button type="button" class="btn btn-primary"
+											id="oneBtnToInsertNewPet" style="margin-right:auto">一鍵填入</button>
 										<button type="submit" class="btn btn-primary"
 											id="submitPetDetails">Add</button>
 										<button type="button" class="btn btn-danger"
 											data-dismiss="modal">Close</button>
 									</div>
+									<script>
+									$(function(){
+										$("#oneBtnToInsertNewPet").on("click", function(){
+											$("input[name=petName]").attr("value", "testPetName");
+											$("#testingChecked").attr("checked", "true");
+											$("#testingChecked2").attr("checked", "true");
+											$("input[name=petBirthday]").attr("value", "2022-01-01");
+											$("textarea[name=petDescription]").text("testing...")
+										});
+									})
+									</script>
 								</form>
 							</div>
 						</div>
