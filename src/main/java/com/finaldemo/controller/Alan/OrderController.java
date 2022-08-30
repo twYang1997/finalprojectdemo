@@ -1,5 +1,9 @@
 package com.finaldemo.controller.Alan;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finaldemo.model.Foundation;
 import com.finaldemo.model.OrderDetail;
@@ -23,6 +28,9 @@ import com.finaldemo.model.Products;
 import com.finaldemo.model.ShoppingCar;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.AlanService;
+
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutDevide;
 
 @Controller
 public class OrderController {
@@ -35,9 +43,11 @@ public class OrderController {
 
 	/***
 	 * 將確認訂單畫面新增進結帳頁面
+	 * @throws ParseException 
 	 */
 	@PostMapping(path = "/Alan/Orders")
-	public String insertOrders(Model model, @RequestParam("Q") List<Integer> strQ ,@RequestParam("Id") List<Integer> Id,@RequestParam("orderSubtotal") List<Integer> orderSubtotal) {
+	@ResponseBody
+	public String insertOrders(Model model, @RequestParam("Q") List<Integer> strQ ,@RequestParam("Id") List<Integer> Id,@RequestParam("orderSubtotal") List<Integer> orderSubtotal) throws ParseException {
 		System.out.println("OrderQ="+ strQ);
 		System.out.println("fk_product_id="+ Id);
 		System.out.println("orderSubtotal="+ orderSubtotal);
@@ -59,7 +69,7 @@ public class OrderController {
 			d1.setOrderQuantity(u2.getUserId());
 			d1.setOrders(newOrder); // *
 			//我需要再做出關聯product
-			
+			d1.setProducts(alanService.productsfindById(Id.get(i)));
 			d1.setOrderQuantity(strQ.get(i));
 			d1.setOrderSubtotal(orderSubtotal.get(i));
 			od1.add(d1); // *
@@ -68,6 +78,7 @@ public class OrderController {
 		orders.add(newOrder); // *
 		newOrder.setOrderUser(u2); // *
 		newOrder.setOrderDate(new Date());
+		
 		String num = "";
 		for (int i=0;i<5;i++) {
 			Integer r1 = (int)Math.floor(Math.random() * 9) ;
@@ -78,8 +89,63 @@ public class OrderController {
 		newOrder.setOrderPrice(usersId);
 		newOrder.setOrderPrice(price);
 		alanService.insertUsers(u2); // *
+//		------------------------下方綠界---------------------------
+		AllInOne all = new AllInOne("");
+		AioCheckOutDevide obj = new AioCheckOutDevide();
+		Integer  random = (int)((Math.random() * 100000000));
+		System.out.println("訂單編號: " + random);
+		obj.setMerchantTradeNo(random.toString());            //訂單編號
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		String d1 = dateFormat.format(new Date());
+		obj.setMerchantTradeDate(d1);       //交易時間
+		obj.setTotalAmount(price.toString());                          //總金額
+		obj.setTradeDesc("test Description");                 //備註
+		obj.setItemName("TestItem");                        //項目名稱
+		obj.setReturnURL("http://211.23.128.214:5000d/returnURL");    //返回網址
+		obj.setOrderResultURL("http://localhost:8080/demo/timmy/");     //訂單結果
+		obj.setNeedExtraPaidInfo("N");                                    //是否額外付費
+		obj.setCreditInstallment("12");                                  //分期付款 12
+		String form = all.aioCheckOut(obj, null);
 		
-        return "Alan/foundOrder";
+		return form;
     }
+//	@GetMapping("/Alan/ecPay")
+//	@ResponseBody
+//	public String genAioCheckOutDevide() {
+//		AllInOne all = new AllInOne("");
+//		AioCheckOutDevide obj = new AioCheckOutDevide();
+//		Integer  random = (int)((Math.random() * 100000000));
+//		System.out.println("訂單編號: " + random);
+//		obj.setMerchantTradeNo(random.toString());            //訂單編號
+//		obj.setMerchantTradeDate("2017/01/01 08:05:23");       //交易時間
+//		obj.setTotalAmount("20000");                          //總金額
+//		obj.setTradeDesc("test Description");                 //備註
+//		obj.setItemName("TestItem");                        //項目名稱
+//		obj.setReturnURL("http://211.23.128.214:5000d/returnURL");    //返回網址
+//		obj.setOrderResultURL("http://localhost:8080/demo/timmy/");     //訂單結果
+//		obj.setNeedExtraPaidInfo("N");                                    //是否額外付費
+//		obj.setCreditInstallment("12");                                  //分期付款 12
+//		String form = all.aioCheckOut(obj, null);
+//		
+//		return form;
+//	}
+//
+//	@PostMapping("/returnURL")
+//	public String returnURL(@RequestParam("RtnCode") int RtnCode) {
+//		if (RtnCode == 1) {
+//			
+//			System.out.println("success");
+//			return "redirect:/timmy/";
+//
+//		} else {
+//			System.out.println("error");
+//			return null;
+//		}
+//	}
+	
+	@PostMapping("/timmy/")
+	public String returnTest() {
+		return "timmy/login";
+	}
 
 }

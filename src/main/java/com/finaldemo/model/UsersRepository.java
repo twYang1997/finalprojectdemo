@@ -37,6 +37,9 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	@Query(value = "select * from Users where category = 2", nativeQuery = true)
 	public List<Users> findAllCharities();
 	
+	@Query(value = "  select  *　from　[dbo].[Users]Ｕ inner join [dbo].[Orders]Ｏ on O.fk_user_id = U.userId　where U.userId = ?1", nativeQuery = true)
+	public List<Users> findAllUsersOrders();
+	
 	@Query(value = "SELECT * FROM Users WHERE fk_foundation_id =?1", nativeQuery = true) 
 	public List<Users> findFoundation(@Param("foundationId") String foundationId);
 	

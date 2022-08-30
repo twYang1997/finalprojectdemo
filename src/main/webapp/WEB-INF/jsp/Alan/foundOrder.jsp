@@ -22,7 +22,6 @@
 	</div>
 	<div class="card mb-3"></div>
 	<!--  放進購物車內容 -->
-	<
 	<div class="card-body">
 		<form action="${contextRoot}/Alan/Orders" method="post">
 			<div>
@@ -112,15 +111,15 @@
 							<span id="change" value="123"></span>
 						</p>
 
-						<button style="float: right">確認購買</button>
-
+						<button  id="ecPay" style="float: right">確認購買</button>
+						
 					</div>
 
 				</div>
 
 			</div>
-		</form>
 	</div>
+	</form>
 
 
 	<script>
@@ -140,6 +139,8 @@
 					$("#email").replaceWith(
 							"<label id='change'>" + content3 + "</label>");
 				});
+		
+		
 	</script>
 </body>
 </html>

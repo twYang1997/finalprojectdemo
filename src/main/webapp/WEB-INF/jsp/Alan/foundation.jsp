@@ -40,7 +40,7 @@
 									<h5>${user.nickName}</h5>
 									<div class="detail-pricing">
 										<h4>${user.selfIntroduction}</h4>
-										<h4>${user.money}</h4>
+									<!-- <h4>${user.money}</h4> -->	
 										<h4>${user.foundation.foundationId}</h4>
 
 									</div>

@@ -15,6 +15,8 @@ public class FoundationPageController {
 
 	@Autowired
 	private AlanService alanService;
+	
+	
 
 	/*** 
 	 * 取得所有基金會資料
@@ -26,5 +28,7 @@ public class FoundationPageController {
 		model.addAttribute("usersList", usersList);
 		return "Alan/foundation";
 	}
+	
+	
 
 }
