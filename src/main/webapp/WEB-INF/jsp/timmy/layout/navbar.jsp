@@ -82,7 +82,7 @@
 <!-- 				亭孝 -->
 				<c:if test="${user.category == 3}">
 					<li class="nav-item" style="margin-left:10%">
-						<a class="nav-link" href="${contextRoot}/memberManagement">Manager <span class="sr-only">(current)</span>
+						<a class="nav-link" href="${contextRoot}/memberChart">Manager <span class="sr-only">(current)</span>
 				</a></li>
 				</c:if>
 				
