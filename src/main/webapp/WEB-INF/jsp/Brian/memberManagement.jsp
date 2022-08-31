@@ -43,6 +43,11 @@
  	display: block; 
  	display: block; 
 } 
+.table label input{
+  
+   width:500px
+
+}
 </style>
 </head>
 
@@ -425,7 +430,7 @@
 				$("#testTable").DataTable({
 					
 					paging: false,
-				    scrollY: 350,
+				  
 				    "dom":"<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
 				    "<'row'<'col-sm-12'tr>>" +
 				    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
@@ -803,7 +808,6 @@
 			$(function(){
 				$("#test2Table").DataTable({
 					paging: false,
-				    scrollY: 350,
 				    "dom":"<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6 'f>>" +
 				    "<'row'<'col-sm-12'tr>>" +
 				    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"

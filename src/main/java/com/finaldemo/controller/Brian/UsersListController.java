@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finaldemo.model.Posts;
+import com.finaldemo.model.Products;
 import com.finaldemo.model.Users;
 import com.finaldemo.service.BrainService;
 
@@ -208,7 +209,7 @@ public class UsersListController {
 		model.addAttribute("genderFemale", genderFemale);
 		model.addAttribute("genderMale", genderMale);
 //		月份與月份總額
-		List<Integer> OrdersByMonth = Service.findOrdersByMonth();
+		List<String> OrdersByMonth = Service.findOrdersByMonth();
 		List<Integer> OrdersBySumMoney = Service.findOrdersBySumMoney();
 		System.out.println("****OrdersByMonth*****"+OrdersByMonth+OrdersByMonth.getClass().getSimpleName());
 		System.out.println("****OrdersBySumMoney*****"+OrdersBySumMoney+OrdersBySumMoney.getClass().getSimpleName());
@@ -216,6 +217,39 @@ public class UsersListController {
 		model.addAttribute("OrdersBySumMoney", OrdersBySumMoney);
 		return "Brian/chart";
 	}
+	
+//	下架商品
+//	@GetMapping("/stopProducts")
+//	public String stopProducts(HttpSession session, Model model, @RequestParam("id") String id) {
+//		Products pt1 = Service.BrainGetProductsById(Integer.parseInt(id));
+//		pt1.setProductStatus(0);
+//		Service.insertPosts(pt1);
+//		session.invalidate();
+//		return "redirect:/stopSelling";
+//	}
+	
+//	回復移除文章
+//	@GetMapping("/stopProductsRestoration")
+//	public String stopProductsRestoration(HttpSession session, Model model, @RequestParam("id") String id) {
+//		Products pt1 = Service.BrainGetProductsById(Integer.parseInt(id));
+//		pt1.setProductStatus(1);
+//		Service.insertPosts(pt1);
+//		session.invalidate();
+//		return "redirect:/stopSelling";
+//	}
+	
+	// 商品
+	@GetMapping("/userProducts")
+	public String userProducts(Model model ,@RequestParam("id") String id) {
+		// 取得登入者發的posts
+		Products Products = Service.findAllProducts(1002);
+		System.out.println("**********"+Products);
+		// posts.getPostText();
+		model.addAttribute("Products", Products);
+		return "Brian/stopSelling";
+	}
+	
+
 //	@GetMapping("/petTypeCatSum")
 //	public String petTypeCatSum(Model model, @RequestParam Integer catsum) {
 //		
