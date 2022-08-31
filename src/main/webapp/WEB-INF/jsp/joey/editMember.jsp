@@ -332,6 +332,8 @@ function loadXMLDoc()
 															  title: 'This product has been created.',
 															  showConfirmButton: false,
 															  timer: 1500
+															}).then(() => {
+																window.location.reload();
 															})
 													},
 													error: function(error) {
@@ -525,7 +527,10 @@ function loadXMLDoc()
                         title: 'This product has been removed.',
                         showConfirmButton: false,
                         timer: 1500
-						})}})})	})
+						}).then(() => {
+							window.location.reload();
+						})
+						}})})	})
              
 									</script>
 								

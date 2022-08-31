@@ -436,10 +436,12 @@ public class JoeyController {
 		byte[] content = Base64.decodeBase64(extension);
 		
 		String imgType = jsonData.get("imgType").toString();
-//		imgType = imgType.substring(imgType.indexOf("/") + 1, imgType.length() - 1);
+		System.out.println("type:" + imgType);
+		System.out.println("name:" + jsonData.get("imgName").toString());
+//		imgType = imgType.substring(imgType.indexOf("/") + 1, imgType.indexOf("image"));
 		try {
 			FileUtils.writeByteArrayToFile(
-					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\joeyproductimg\\" + jsonData.get("imgName").toString() + imgType) ,content);
+					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\joeyproductimg\\" + jsonData.get("imgName").toString()) ,content);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
