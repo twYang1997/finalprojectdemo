@@ -17,5 +17,10 @@ public interface ProductsRepository extends JpaRepository<Products, Integer> {
 
     @Query(value = "Select * from Products where fk_foundation_id = :id and productStatus != 0", nativeQuery = true)
     public List<Products> findProudtsByUserId(@Param("id") Integer userId);
+    
+   // public List<Products> findAllById();
+   // public List<Products> findAllByProductId();
+    
+    
 }
 	

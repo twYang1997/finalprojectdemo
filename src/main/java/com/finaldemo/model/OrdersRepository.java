@@ -21,8 +21,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer>{
     public List<Integer> findOrdersBySumMoney();
     
     //取得月份
-    @Query(value = "select DISTINCT(DATEPART(MONTH ,CONVERT(varchar(100), orderDate, 111))) from Orders", nativeQuery = true)
-    public List<Integer> findOrdersByMonth();
+    @Query(value = "SELECT DISTINCT CONVERT(varchar(7), orderDate, 126) FROM Orders", nativeQuery = true)
+    public List<String> findOrdersByMonth();
     
     
 }
