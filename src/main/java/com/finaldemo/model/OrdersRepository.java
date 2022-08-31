@@ -24,6 +24,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer>{
     @Query(value = "SELECT DISTINCT CONVERT(varchar(7), orderDate, 126) FROM Orders", nativeQuery = true)
     public List<String> findOrdersByMonth();
     
+    @Query(value = "SELECT * FROM [dbo].[Users]U inner join [dbo].[Orders]O on O.fk_user_id = U.userId  WHERE U.userId = ?1" ,nativeQuery = true)
+	public List<Orders> findUsersOrders(@Param("userId") String fk_user_id);
     
 }
 

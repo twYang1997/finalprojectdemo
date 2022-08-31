@@ -37,10 +37,9 @@ public class CheckOrder {
 	public String checkOrder(Model model) {
 		
 		Integer usersId = ((Users) session.getAttribute("user")).getUserId(); 
-		Users usBean = alanService.usersfindById(4);
-		Orders orders1 = new Orders();
-		orders1.setOrderUser(usBean);
-		List<Users> usersList = alanService.findAllUsersOrders();
+		
+		List<Orders> usersList = alanService.findUsersOrders(Integer.toString(usersId));
+		
 		System.out.println("usersList"+usersList);
 		model.addAttribute("usersList", usersList);
 		return "Alan/checkOrder";
