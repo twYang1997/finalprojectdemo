@@ -38,7 +38,7 @@
 				</c:if>
 <!-- 				小郭 -->
 				<c:if test="${user.category == 2}">
-					<li class="nav-item" style="margin-left:20%"><a class="nav-link"
+					<li class="nav-item" style="margin-left:10%"><a class="nav-link"
 						href="${contextRoot}/findById2"><img src="${contextRoot}/img/userimg/user.png" style="width:30px"><span class="sr-only">(current)</span>
 					</a></li>
 				</c:if>

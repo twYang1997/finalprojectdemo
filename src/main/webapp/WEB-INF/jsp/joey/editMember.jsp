@@ -227,178 +227,12 @@ function loadXMLDoc()
 								<li><a href="#tab-3">Order History</a></li>
 							</ul>
 							<!-- 頁籤的內容區塊 -->
-							<div class="tab-content-1">
-								<div class="panel-content panel-activity">
-									<!-- 新增post -->
-									<c:if test="${!empty user}">
-										<form action="${contextRoot}/addPostJoey"
-											class="panel-activity__status" method="post"
-											enctype="multipart/form-data">
-											<img src="${contextRoot}${oneMember.photoPath}"
-												style="width: 40px; height: 40px; border-radius: 50%;">
-											${user.getNickName()} <select name="whoCanSeeIt">
-												<option value="1">Public</option>
-												<option value="2">Follower</option>
-												<option value="3">Only me</option>
-											</select>
-											<textarea name="postText"
-												placeholder="Share what you've been up to..."
-												class="form-control"></textarea>
-
-											<div id="result" name="result"></div>
-
-											<div class="actions">
-												<div class="btn-group">
-													<a href="#"> <input
-														style="position: absolute; opacity: 0;" type="file"
-														name="postImg" id="file" multiple
-														onchange="readAsDataURL()"
-														accept="image/gif,image/jpeg,image/x-png" /> <i
-														class="fa fa-image"></i>
-													</a> &emsp; <a href="#"> <input
-														style="position: absolute; opacity: 0;" type="file"
-														name="postVideo" id="file" accept="video/*" /><i
-														class="fa fa-video-camera"></i>
-													</a>
-												</div>
-												<button type="submit"
-													class="btn btn-sm btn-rounded btn-info">Post</button>
-											</div>
-										</form>
-									</c:if>
-
-
-
-
-									<!-- 		重複的結構-->
-									<c:forEach items="${postsToShow}" var="p" varStatus="vs">
-										<ul class="panel-activity__list">
-											<li><i
-												class="activity__list__icon fa fa-question-circle-o"></i>
-												<div class="activity__list__header">
-													<img src="${contextRoot}${oneMember.photoPath}" alt="" />
-													<a href="#">${p.postUser.getNickName()}</a>
-												</div>
-												<div class="activity__list__body entry-content">
-
-													<!-- post內文 -->
-													<p>${p.getPostText()}</p>
-
-													<!-- post圖片 -->
-													<c:forEach items="${p.getPostImg()}" var="pImg"
-														varStatus="loop">
-														<ul class="gallery">
-															<li><img
-																src="${contextRoot}${pImg.getPostImgPath()}"></li>
-														</ul>
-													</c:forEach>
-												</div>
-												<div class="activity__list__footer">
-													<a href="#"> <i class="fa fa-thumbs-up"></i>123
-													</a> <a href="#"> <i class="fa fa-comments"></i>23
-													</a>
-													<c:if test="${p.postUser.getUserId() == user.getUserId()}">
-														<a href="#" role="button" data-toggle="modal"
-															data-target="#myModal${vs.index}"
-															id="viewDetailButton${vs.index}"> <i
-															class="fa fa-pencil"></i>Edit
-														</a>
-														<a href="#" role="button" data-toggle="modal"
-															data-target="#myModal${vs.index}deleteCheck"
-															id="viewDetailButton${vs.index}"> <i
-															class="fa fa-trash"></i>Delete
-														</a>
-													</c:if>
-													<span> <i class="fa fa-clock"></i>${p.getPostTime()}
-													</span>
-												</div></li>
-										</ul>
-
-										<!-- 彈出修改框 -->
-										<div class="modal fade" id="myModal${vs.index}" role="dialog">
-											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content">
-													<!-- head -->
-													<div class="modal-header">
-														<h4 class="modal-title">Edit post</h4>
-														<button type="button" class="close" data-dismiss="modal">&times;</button>
-													</div>
-													<!-- body -->
-													<div class="modal-body">
-														<form
-															action="${contextRoot}/postuploadjoey?postId=${p.getPostId()}"
-															class="panel-activity__status" method="post"
-															enctype="multipart/form-data">
-															<img src="${contextRoot}/img/joeyimg/joeypostimg/3.png"
-																style="width: 40px; height: 40px; border-radius: 50%;">
-															${user.getNickName()} <select name="whoCanSeeIt">
-																<option value="1">Public</option>
-																<option value="2">Follower</option>
-																<option value="3">Only me</option>
-															</select>
-															<textarea name="postText" class="form-control"
-																style="border-style: none; overflow: hidden">${p.getPostText()}</textarea>
-
-															<div id="result" name="result"></div>
-
-
-															<!-- footer -->
-															<div>
-																<div>
-																	<label> <input
-																		style="position: absolute; opacity: 0;" type="file"
-																		name="postImg" id="file" multiple
-																		onchange="readAsDataURL()"
-																		accept="image/gif,image/jpeg,image/x-png" /> <i
-																		class="fa fa-image"></i>
-																	</label> &emsp; <label> <input
-																		style="position: absolute; opacity: 0;" type="file"
-																		name="postVideo" id="file" accept="video/*" /> <i
-																		class="fa fa-video-camera"></i>
-																	</label>
-																</div>
-																<button type="submit"
-																	class="btn btn-sm btn-rounded btn-info">Save</button>
-															</div>
-														</form>
-													</div>
-												</div>
-											</div>
-										</div>
-
-
-										<!-- 						彈出刪除確認 -->
-										<div class="modal fade" id="myModal${vs.index}deleteCheck"
-											tabindex="-1" role="dialog"
-											aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered"
-												role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLongTitle">Move
-															to your trash?</h5>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">Items in your trash will be
-														automatically deleted after 30 days.</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-light"
-															data-dismiss="modal">Cancel</button>
-														<form method="Post"
-															action="${contextRoot}/movePostToTrash.controller?postId=${p.getPostId()}">
-															<button type="submit" class="btn btn-info">Move</button>
-														</form>
-													</div>
-												</div>
-											</div>
-										</div>
-									</c:forEach>
-									<!-- 					重複的結構 -->
+							<div class="tab-content-1 tab-content-border">
+								<div class="panel-content panel-activity" style="padding-top:20px">
+									<div id="postManagerDiv" style="display:">
+										<jsp:include page="../timmy/PostSetting.jsp" />
+									</div>
 								</div>
-								
 							</div>
 							<div class="tab-content-2">
 							<div class="panel-content panel-activity">
@@ -410,7 +244,7 @@ function loadXMLDoc()
 												<div class="panel-content panel-activity">
 														<figure>
 															<label>
-																<img style="width: 228px;" id="recipt" src="${contextRoot}/img/joeyimg/default_product_image.png" />
+																<img style="max-width:228px; max-height: 200px; margin-left:18px; margin-top:18px;" id="recipt" src="${contextRoot}/img/joeyimg/default_product_image.png" />
 																<input type="file" id="rfile" name="productImg" onchange="photochange1(event,recipt)" accept=".png, .jpg, .jpeg" style="display: none;" />
 															</label>
 														</figure>
@@ -427,22 +261,28 @@ function loadXMLDoc()
 												</div>
 											</div>
 		    								<div class="addProdRight">
-		    								<div class="panel-content panel-activity">
-												<div class="input-group mb-3">
+		    								<div class="panel-content panel-activity ">
+												<div class="input-group mb-3 row g-2">
 													<span class="input-group-text">商品名稱</span> 
 													<input type="text" class="form-control" placeholder="Product Name" name="productName" id="quickAddProductName" aria-label="Username"> <span
 														class="input-group-text">金額</span> <input type="text" class="form-control" placeholder="Price"
 														id="quickAddProductPrice" name="productPrice" aria-label="Server">
+														
 												</div>
-												<div class="input-group">
+												<div class="input-group row g-2">
 													<span class="input-group-text">商品說明</span>
 														<textarea style="height: 160px;" placeholder="Product Discription"
 															name="productContext" class="form-control"
-															aria-label="With textarea" id="productContext"></textarea>
-														<div class="row g-2">
-															  <button class="btn btn-primary btn-sm btn-block quickAddProduct" type="button">一鍵輸入</button>
-															  <button class="btn btn-secondary btn-sm btn-block" type="button">新增商品</button>
-															</div>
+															aria-label="With textarea" id="productContext">
+														</textarea>
+														<div class="d-grid d-md-block ">
+														  <button class="btn btn-primary btn-block quickAddProduct " type="button" style="height:75px;">一鍵輸入</button>
+														  <button class="btn btn-secondary btn-block" type="button" id="addProductBtn" style="height: 75px;">新增商品</button>
+														</div>
+<!-- 														<div class="row g-2"> -->
+<!-- 														  <button class="btn btn-primary btn-sm btn-block quickAddProduct" type="button">一鍵輸入</button> -->
+<!-- 														  <button class="btn btn-secondary btn-sm btn-block" type="button" id="addProductBtn" >新增商品</button> -->
+<!-- 														</div> -->
 														<script type="text/javascript">
 														$(".quickAddProduct").click(function() {
 															  $("#quickAddProductName").val("卡娜赫拉火車");
@@ -509,7 +349,7 @@ function loadXMLDoc()
 										
 										<%int count = 0;%>
 										<c:forEach items="${produtsToShow}" var="prod" varStatus="vs">
-										
+										<c:if test="${prod.productStatus == 1}">
 											<%count++;%>
 											<form
 												action="${contextRoot}/editProdutjoey?productId=${prod.getProductId()}"
@@ -533,7 +373,7 @@ function loadXMLDoc()
 														accept=".png, .jpg, .jpeg" style="display: none;" />
 													</label>
 													</figure>
-													</div>
+												</div>
 											   </div>
 												<script type="text/javascript"> 
 														function photochange(event,imgid){ 
@@ -609,8 +449,11 @@ function loadXMLDoc()
 														aria-label="With textarea">${prod.getProductContext()}</textarea>
 <!-- 													<button type="submit" -->
 <!-- 														class="btn btn-secondary">修改商品</button> -->
-													<button id="updateProductBtn${prod.getProductId()}" type="button"
-														class="btn btn-secondary">修改商品</button>
+													<div class="d-grid d-md-block ">
+														  <button id="updateProductBtn${prod.getProductId()}" type="button" class="btn btn-secondary" style="height: 88.5px;">修改商品</button>
+														  <button id="removeProductBtn${prod.getProductId()}" type="button" class="btn btn-danger btn-block"style="height: 88.5px;">刪除商品</button>
+														</div>
+													
 														
 												</div>
 											</div>
@@ -627,6 +470,7 @@ function loadXMLDoc()
 												console.log(imgSRC);
 												console.log("imgSRC: " + imgSRC[0]);
 												let productName = $("#productName${prod.getProductId()}").val();
+												//console.log("productName:" + productName);
 												let productPrice = $("#productPrice${prod.getProductId()}").val();
 												let description = $("#description${prod.getProductId()}").val();
 												let dataOrigin = {
@@ -642,11 +486,50 @@ function loadXMLDoc()
 													method: 'post',
 													contentType: 'application/json',
 													data: datas,
-													success: console.log(result)
+													success: function(){
+                                                        Swal.fire({
+                                                            icon: 'success',
+                                                            title: 'This change has been saved.',
+                                                            showConfirmButton: false,
+                                                            timer: 1500
+                                                          })
+													}
 												})
 											})
 										});
+										
+										
+
+											
+	$(function(){
+
+		
+		$("#removeProductBtn${prod.getProductId()}").click(function(e){
+
+			let dataOrigin2 = {
+					"productId":${prod.getProductId()}
+			};		
+			
+			
+			
+			let datas2 = JSON.stringify(dataOrigin2);
+			console.log(datas2);
+			$.ajax({
+				url: "/demo" + "/joey/removeProductAjax",
+				method: 'post',
+				contentType: 'application/json',
+				data: datas2,
+				success: function(){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'This product has been removed.',
+                        showConfirmButton: false,
+                        timer: 1500
+						})}})})	})
+             
 									</script>
+								
+									</c:if>
 										</c:forEach>
 										
 										<!-- 					重複的結構 -->
