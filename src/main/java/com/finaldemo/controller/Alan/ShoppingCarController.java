@@ -41,6 +41,8 @@ public class ShoppingCarController {
 
 	@Autowired
 	private HttpSession session; // 宣告session 出現兩次以上不用重複宣告
+	
+	
 
 	/***
 	 * 取得目前購物車商品資料
@@ -54,6 +56,9 @@ public class ShoppingCarController {
 		model.addAttribute("ShoppingCarProducts", ShoppingCarList); // 建立ShoppingCarProducts Model 來裝ShoppingCarList
 																	// 裡面的資料方便前端JSP取得
 		System.out.println("ShoppingCarProducts:" + ShoppingCarList); // 列印出ShoppingCarList 裡面的值 來確認是否為購物車所需
+		
+		
+		
 		return "Alan/shoppingCar";
 	}
 

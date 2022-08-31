@@ -18,7 +18,8 @@
 <body>
 	<div class="container">
 		<div class="text-center mb-5">
-			<h3>購物車</h3>
+  
+  
 			<p class="lead">您購買的的東西</p>
 		</div>
 
@@ -49,7 +50,8 @@
 										<!-- +1按鈕--> +
 									</a> 
 									<div>單價:${Products.products.productPrice}</div>
-									<div>總計:<output name="result" for="${Products.products.productPrice}*${Products.quantity}">60</output></div>
+<%-- 									<div>總計:<output name="result" for="${Products.products.productPrice}*${Products.quantity}">60</output></div> --%>
+									<div>總計:${Products.products.productPrice * Products.quantity}</div>
 
 								</div>
 								<a
@@ -92,7 +94,9 @@
 		
 	 };  
 	 
-        
+	 $('.ticket').on( 'keyup','.quantity',function(){
+		 $(this).closest('.ticket').find('#total').text(price*quantity);
+	  });
          
 	 
   
