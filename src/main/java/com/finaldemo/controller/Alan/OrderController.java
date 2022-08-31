@@ -102,7 +102,7 @@ public class OrderController {
 		obj.setTotalAmount(price.toString());                          //總金額
 		obj.setTradeDesc("test Description");                 //備註
 		obj.setItemName("TestItem");                        //項目名稱
-		obj.setReturnURL("http://211.23.128.214:5000d/returnURL");    //返回網址
+		obj.setReturnURL("http://211.23.128.214:5000d/demo/Alan/foundation");    //返回網址
 		session.setAttribute("users", u1);
 		obj.setOrderResultURL("http://localhost:8080/demo/Alan/foundation");     //訂單結果
 		obj.setNeedExtraPaidInfo("N");                                    //是否額外付費
@@ -145,10 +145,6 @@ public class OrderController {
 //		}
 //	}
 	
-	@PostMapping("/timmy/")
-	public String returnTest() {
-		return "timmy/login";
-	}
 	
 	@PostMapping("/Alan/foundation")
 	public String getFoundation(Model model) {
