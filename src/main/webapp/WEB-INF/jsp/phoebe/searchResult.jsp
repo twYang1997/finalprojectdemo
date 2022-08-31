@@ -49,11 +49,11 @@
 								<c:forEach items="${u.getPets()}" var="pet" varStatus="loop">
 									<span style="border: solid; border-radius: 5%; border-color: #E0E0E0; border-width: 1px; padding: 15px 10px 18px 10px; margin: 5px">
 									
-									<c:if test='${fn:contains(p.petPhotoPath, ".")}'>
+									<c:if test='${fn:contains(pet.petPhotoPath, ".")}'>
 									<img alt="" src="${contextRoot}/${pet.getPetPhotoPath()}" style="height: 50px; width: 50px; border-radius: 30%">
 									</c:if>
 									
-									<c:if test='${!fn:contains(p.petPhotoPath, ".")}'>
+									<c:if test='${!fn:contains(pet.petPhotoPath, ".")}'>
 									<img alt="" src="/demo/img/petimg/pawprint.png" style="height: 50px; width: 50px; border-radius: 30%">
 									</c:if>
 									
