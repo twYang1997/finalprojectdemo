@@ -37,6 +37,8 @@
 										href="${contextRoot}/memberManagement">會員管理</a></li>
 									<li style="list-style: none;"><a
 										href="${contextRoot}/memberReport">檢舉文章</a></li>
+									<li style="list-style: none;"><a
+										href="${contextRoot}/memberProducts">商品管理</a></li>
 								</ul>
 							</div>
 						</div>

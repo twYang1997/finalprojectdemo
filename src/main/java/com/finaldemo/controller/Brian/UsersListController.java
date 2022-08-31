@@ -219,30 +219,30 @@ public class UsersListController {
 	}
 	
 //	下架商品
-//	@GetMapping("/stopProducts")
-//	public String stopProducts(HttpSession session, Model model, @RequestParam("id") String id) {
-//		Products pt1 = Service.BrainGetProductsById(Integer.parseInt(id));
-//		pt1.setProductStatus(0);
-//		Service.insertPosts(pt1);
+	@GetMapping("/stopProducts")
+	public String stopProducts(HttpSession session, Model model, @RequestParam("id") String id) {
+		Products pt1 = Service.findAllProducts(Integer.parseInt(id));
+		pt1.setProductStatus(0);
+		Service.insertPosts(pt1);
 //		session.invalidate();
-//		return "redirect:/stopSelling";
-//	}
+		return "redirect:/memberProducts";
+	}
 	
 //	回復移除文章
-//	@GetMapping("/stopProductsRestoration")
-//	public String stopProductsRestoration(HttpSession session, Model model, @RequestParam("id") String id) {
-//		Products pt1 = Service.BrainGetProductsById(Integer.parseInt(id));
-//		pt1.setProductStatus(1);
-//		Service.insertPosts(pt1);
-//		session.invalidate();
-//		return "redirect:/stopSelling";
-//	}
+	@GetMapping("/stopProductsRestoration")
+	public String stopProductsRestoration(HttpSession session, Model model, @RequestParam("id") String id) {
+		Products pt1 = Service.findAllProducts(Integer.parseInt(id));
+		pt1.setProductStatus(1);
+		Service.insertPosts(pt1);
+		session.invalidate();
+		return "redirect:/memberProducts";
+	}
 	
 	// 商品
-	@GetMapping("/userProducts")
-	public String userProducts(Model model ,@RequestParam("id") String id) {
+	@GetMapping("/memberProducts")
+	public String userProducts(Model model) {
 		// 取得登入者發的posts
-		Products Products = Service.findAllProducts(1002);
+		 List<Users> Products = Service.findAllUsers();
 		System.out.println("**********"+Products);
 		// posts.getPostText();
 		model.addAttribute("Products", Products);
