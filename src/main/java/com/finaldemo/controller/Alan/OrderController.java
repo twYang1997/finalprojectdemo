@@ -53,6 +53,7 @@ public class OrderController {
 		System.out.println("orderSubtotal="+ orderSubtotal);
 		
 		Integer usersId = ((Users) session.getAttribute("user")).getUserId();
+		
 		Users u1 = (Users) session.getAttribute("user");
 		Users u2 = alanService.findUserById(u1.getUserId()); 
 		System.out.println(u2.getNickName());
@@ -101,8 +102,9 @@ public class OrderController {
 		obj.setTotalAmount(price.toString());                          //總金額
 		obj.setTradeDesc("test Description");                 //備註
 		obj.setItemName("TestItem");                        //項目名稱
-		obj.setReturnURL("http://211.23.128.214:5000d/returnURL");    //返回網址
-		obj.setOrderResultURL("http://localhost:8080/demo/timmy/");     //訂單結果
+		obj.setReturnURL("http://211.23.128.214:5000d/demo/Alan/foundation");    //返回網址
+		session.setAttribute("users", u1);
+		obj.setOrderResultURL("http://localhost:8080/demo/Alan/foundation");     //訂單結果
 		obj.setNeedExtraPaidInfo("N");                                    //是否額外付費
 		obj.setCreditInstallment("12");                                  //分期付款 12
 		String form = all.aioCheckOut(obj, null);
@@ -143,9 +145,13 @@ public class OrderController {
 //		}
 //	}
 	
-	@PostMapping("/timmy/")
-	public String returnTest() {
-		return "timmy/login";
+	
+	@PostMapping("/Alan/foundation")
+	public String getFoundation(Model model) {
+		List<Users> usersList = alanService.findAllCharities();
+		System.out.println("usersList"+usersList);
+		model.addAttribute("usersList", usersList);
+		return "Alan/foundation";
 	}
 
 }

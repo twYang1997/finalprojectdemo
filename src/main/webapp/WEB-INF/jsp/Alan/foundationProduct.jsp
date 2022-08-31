@@ -43,6 +43,7 @@
 					<div class="mb-4"></div>
 					<c:forEach items='${foundationList}' var='foundation' end="0">
 						<c:forEach items='${foundation.products}' var='product'>
+							<c:if test="${product.productStatus == 1 }">
 									<div class="www" id="headingOne"> <!-- 框框顏色 -->
 										<div class="mb-0">
 										<table width="100%">
@@ -85,7 +86,7 @@
 									</div>
 
 								</div>
-
+							</c:if>
 						</c:forEach>
 					</c:forEach>
 					<div align="right">

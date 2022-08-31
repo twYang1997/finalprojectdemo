@@ -262,22 +262,22 @@ function loadXMLDoc()
 											</div>
 		    								<div class="addProdRight">
 		    								<div class="panel-content panel-activity ">
-												<div class="input-group mb-3 row g-2">
+												<div class="input-group mb-3">
 													<span class="input-group-text">商品名稱</span> 
 													<input type="text" class="form-control" placeholder="Product Name" name="productName" id="quickAddProductName" aria-label="Username"> <span
 														class="input-group-text">金額</span> <input type="text" class="form-control" placeholder="Price"
 														id="quickAddProductPrice" name="productPrice" aria-label="Server">
 														
 												</div>
-												<div class="input-group row g-2">
+												<div class="input-group">
 													<span class="input-group-text">商品說明</span>
-														<textarea style="height: 160px;" placeholder="Product Discription"
+														<textarea style="height: 180px;" placeholder="Product Discription"
 															name="productContext" class="form-control"
 															aria-label="With textarea" id="productContext">
 														</textarea>
-														<div class="d-grid d-md-block ">
-														  <button class="btn btn-primary btn-block quickAddProduct " type="button" style="height:75px;">一鍵輸入</button>
-														  <button class="btn btn-secondary btn-block" type="button" id="addProductBtn" style="height: 75px;">新增商品</button>
+														<div class="d-grid d-md-block">
+														  <button class="btn btn-primary quickAddProduct " type="button" style="height:88.5px;">一鍵輸入</button>
+														  <button class="btn btn-secondary btn-block" type="button" id="addProductBtn" style="height: 88.5px;">新增商品</button>
 														</div>
 <!-- 														<div class="row g-2"> -->
 <!-- 														  <button class="btn btn-primary btn-sm btn-block quickAddProduct" type="button">一鍵輸入</button> -->
@@ -332,6 +332,8 @@ function loadXMLDoc()
 															  title: 'This product has been created.',
 															  showConfirmButton: false,
 															  timer: 1500
+															}).then(() => {
+																window.location.reload();
 															})
 													},
 													error: function(error) {
@@ -361,16 +363,16 @@ function loadXMLDoc()
 											   <div class="editProdLeft">
 											   	<div class="panel-content panel-activity">
 											   		<figure class="figure">
-<%-- 													<label><img id="<%=count%>" --%>
-													<label id="productImg${prod.getProductId()}"><img id="<%=count%>"
-														src="${contextRoot}${prod.getProductImg()}" 
-														style="max-width:228px; max-height: 200px; margin-left:18px; margin-top:18px;" 
-														class="figure-img img-fluid rounded "/> 
+<%-- 													<img id="<%=count%>" --%>
+															<label id="productImg${prod.getProductId()}"><img id="<%=count%>"
+																src="${contextRoot}${prod.getProductImg()}" 
+																style="max-width:228px; max-height: 200px; margin-left:18px; margin-top:18px;" 
+																class="figure-img img-fluid rounded "/> 
 <!-- 														type="file" id="rfile" name="productImg" -->
-														<input
-														type="file" id="rfile${prod.getProductId()}" name="productImg"
-														onchange="photochange(event,<%=count%> )"
-														accept=".png, .jpg, .jpeg" style="display: none;" />
+															<input
+															type="file" id="rfile${prod.getProductId()}" name="productImg"
+															onchange="photochange(event,<%=count%> )"
+															accept=".png, .jpg, .jpeg" style="display: none;" />
 													</label>
 													</figure>
 												</div>
@@ -525,7 +527,10 @@ function loadXMLDoc()
                         title: 'This product has been removed.',
                         showConfirmButton: false,
                         timer: 1500
-						})}})})	})
+						}).then(() => {
+							window.location.reload();
+						})
+						}})})	})
              
 									</script>
 								

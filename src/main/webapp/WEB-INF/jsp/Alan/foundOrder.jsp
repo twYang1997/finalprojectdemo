@@ -31,7 +31,7 @@
 
 						<div class="card-body">
 							<div class="d-flex flex-column flex-lg-row">
-								<span class="avatar avatar-text rounded-3 me-4 mb-2">商品</span>
+								
 								<div class="row flex-fill">
 									<c:forEach items='${shoppingCarList}' var='orders'>
 										<input type="hidden" name="Q" value="${orders.quantity}"></input>
@@ -46,7 +46,7 @@
 										<div class="col-sm-4 py-2">
 											<span>購買數量:${orders.quantity}</span> <span>單價:${orders.products.productPrice}</span>
 											<div>
-												<span>總計:</span>
+												<span>總計:${orders.quantity*orders.products.productPrice}</span>
 											</div>
 										</div>
 									</c:forEach>
@@ -110,9 +110,12 @@
 						<p>
 							<span id="change" value="123"></span>
 						</p>
-
-						<button  id="ecPay" style="float: right">確認購買</button>
+						<table style="float: right">
+						<tr>
+					
+					<td>	<button  id="ecPay" style="float: right">確認購買</button></td>
 						
+						</table>
 					</div>
 
 				</div>
