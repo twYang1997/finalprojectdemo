@@ -67,9 +67,13 @@ public class AlanService {
 		return userDao.findFoundation(foundationId);
 	}
 
-	/** 取得單個會員訂單資料 */
+	/** 取得單個會員購物車資料 */
 	public List<ShoppingCar> findAllShoppingCarProducts(String userId) {
 		return shoppingCarDao.findAllShoppingCarProducts(userId);
+	}
+		/** 取得單個會員訂單資料 */
+		public List<Orders> findUsersOrders(String userId) {
+			return ordersDao.findUsersOrders(userId);
 
 	}
 
