@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -19,7 +20,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -214,5 +214,26 @@ public class UserSettingController {
 		u1.setPassword(dto.getCommentText());
 		service.insertNewUser(u1);
 		return "update pwd success";
+	}
+	
+	@PostMapping("/timmy/oneBtnToUpdateUserAjax")
+	@ResponseBody
+	public String oneBtnToUpdateUserAjax(@RequestBody Map<String, Object> jsonData, HttpSession session) {
+		Users user = (Users) session.getAttribute("user");
+		Users u1 = service.getUserById(user.getUserId());
+		u1.setNickName(jsonData.get("name").toString());
+		try {
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar calendar = Calendar.getInstance();
+			Date date = dateFormat.parse(jsonData.get("birthday").toString());
+			calendar.setTime(date);
+			u1.setBirthday(calendar.getTime());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		u1.setPhone(jsonData.get("phone").toString());
+		u1.setSelfIntroduction(jsonData.get("introduction").toString());
+		service.insertNewUser(u1);
+		return "success";
 	}
 }

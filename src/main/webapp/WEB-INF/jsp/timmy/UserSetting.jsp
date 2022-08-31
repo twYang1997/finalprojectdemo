@@ -199,7 +199,47 @@
 		<label class="form-label">Introduction:</label>
 		<textarea class="form-control userSetting" name="selfIntroduction">${user.selfIntroduction }</textarea>
 	</div>
-
+	<div>
+		<h4>&nbsp;&nbsp;</h4>
+		<button id="fastEnter" type="button" class="btn btn-primary" style="margin-left:80%">一鍵修改</button>
+		<script>
+			$(function(){
+				$("#fastEnter").on("click", function(){
+					let testName = "changetest";
+					let testBirthday = "2022-01-01";
+					let testPhone = "0912345678";
+					let testIntroduction = "testing..........."
+					$("input[name=nickName]").attr("value", testName);
+					$("input[name=birthday]").attr("value", testBirthday);
+					$("input[name=phone]").attr("value", testPhone);
+					$("textarea[name=selfIntroduction]").text(testIntroduction);
+					$("#hello").text(testName);
+					$("#navBarName")[0].innerHTML = "&emsp;" + testName;
+					$("#preShowBirthday").text(testBirthday);
+					$("#preShowPhone").text(testPhone);
+					$("#preShowIntroduction").text(testIntroduction);
+					let dataOrigin = {
+							"name":testName,
+							"birthday":testBirthday,
+							"phone":testPhone,
+							"introduction": testIntroduction
+					};
+					$.ajax({
+						url: "/demo/timmy/oneBtnToUpdateUserAjax",
+						contentType: "application/json",
+						method: "post",
+						data: JSON.stringify(dataOrigin),
+						success: function(result){
+							console.log(result);
+						},
+						error: function(result){
+							console.log(result);
+						}
+					})
+				})
+			});
+		</script>
+	</div>
 		
 </body>
 <script src="${contextRoot}/js/timmy_js/updatedata.js"></script>
