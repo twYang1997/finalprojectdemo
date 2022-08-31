@@ -11,6 +11,9 @@
 <!-- <title>PET.COM</title> -->
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>
+
 </head>
 
 <body>
@@ -29,6 +32,26 @@
 						<img src="${contextRoot}/img/userimg/home.png" style="width:30px"><span class="sr-only">(current)</span>
 					</a>
 				</li>
+<!-- 				--------------------------------------------- -->
+				<c:if test="${empty user }">
+					<li class="nav-item" style="margin-left:10%">
+						<a class="nav-link loginFirstBtn" role="button">
+							<img src="${contextRoot}/img/userimg/user.png" style="width:30px"><span class="sr-only">(current)</span>
+						</a>
+					</li>
+					<li class="nav-item" style="margin-left:10%">
+						<a class="nav-link loginFirstBtn" role="button">
+							<img src="${contextRoot}/img/userimg/heart.png" style="width:30px"> <span class="sr-only">(current)</span>
+						</a>
+					</li>
+					<li class="nav-item" style="margin-left:10%">
+						<a class="nav-link loginFirstBtn" role="button">
+							<img src="${contextRoot}/img/userimg/chat.png" style="width:30px"> <span class="sr-only">(current)</span>
+						</a>
+					</li>
+				</c:if>
+<!-- 				--------------------------------------------- -->
+				
 				<c:if test="${user.category == 1}">
 					<li class="nav-item" style="margin-left:10%">
 						<a class="nav-link" href="${contextRoot}/timmy/accountsetting.controller">
@@ -43,9 +66,13 @@
 					</a></li>
 				</c:if>
 				<!-- 				嘉鴻 -->
-				<li class="nav-item" style="margin-left:10%"><a class="nav-link"
-					href="${contextRoot}/Alan/foundation"><img src="${contextRoot}/img/userimg/heart.png" style="width:30px"> <span class="sr-only">(current)</span>
-				</a></li>
+				<c:if test="${user.category == 1 || user.category == 2 }" >
+					<li class="nav-item" style="margin-left:10%">
+						<a class="nav-link" href="${contextRoot}/Alan/foundation">
+							<img src="${contextRoot}/img/userimg/heart.png" style="width:30px"> <span class="sr-only">(current)</span>
+						</a>
+					</li>
+				</c:if>
 <!-- 				小郭 -->
 				<c:if test="${user.category == 1 || user.category == 2 || user.category == 3}">
 				<li class="nav-item" style="margin-left:10%"><a class="nav-link"
@@ -104,8 +131,19 @@
 			</c:if>
 		</div>
 	</nav>
-	<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 	<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-
+	<script>
+		$(document).ready(function() {
+			$(".loginFirstBtn").on("click", function(){
+				Swal.fire({
+						title: '請先登入',
+						confirmButtonText: 'Ok!'
+				}).then(() => {
+					document.location.href= "/demo/timmy/";
+			});
+			})
+		})
+	</script>
 </body>
+
 </html>
