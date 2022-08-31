@@ -230,7 +230,6 @@ function onMessageReceived(payload) {
  * 頭像改成使用者圖片
  */
 function getAvatarElement(photo) {
-	console.log(message);
 	var avatarElement = document.createElement('i');
     var avatarImg = document.createElement('img');
     avatarImg.src = '${contextRoot}'+photo;

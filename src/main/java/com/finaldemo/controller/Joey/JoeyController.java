@@ -232,7 +232,7 @@ public class JoeyController {
 			u1.setPhotoPath(user.getPhotoPath());
 		service.editUser(u1);
 
-		return "joey/joeytest";
+		return "redirect:/findById2";
 	}
 
 	@PostMapping("/fileuploadjoey")
@@ -259,10 +259,10 @@ public class JoeyController {
 					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\",
 							userId + photoType),bytes);
 
-			return "redirect:/getMainPagePosts.controller";
+			return "redirect:/findById2";
 		} catch (IOException e) {
 			e.printStackTrace();
-			return "redirect:/getMainPagePosts.controller";
+			return "redirect:/findById2";
 		}
 	}
 
@@ -309,7 +309,7 @@ public class JoeyController {
 			String videoPath = System.getProperty("user.dir") + "/src/main/webapp/video/" + fileName;
 			postVideo.transferTo(new File(videoPath));
 		}
-		return "redirect:/getMainPagePosts.controller";
+		return "redirect:/findById2";
 	}
 
 	@PostMapping("/postuploadjoey")
@@ -347,6 +347,16 @@ public class JoeyController {
 
 		return "redirect:/findById2";
 
+	}
+	
+	@PostMapping("/joey/removeProductAjax")
+	@ResponseBody
+	public String RemoveProductAjax(@RequestBody ProductDto dto) {
+		Products p1 = service.findProductById(Integer.parseInt(dto.getProductId()));
+		p1.setProductStatus(0);
+		//(dto.getProductName());
+		service.editProduct(p1);
+		return "success";
 	}
 	
 	@GetMapping("/websocket")
