@@ -20,15 +20,19 @@
 			<div class="row align-items-center">
 				<div class="col-lg-6 mb-4 mb-lg-0">
 					<div class="mx-auto text-center">
-						<p class="w-90">${user.nickName}</p>
+						
 						<div class="wrap">
 							<div class="left">
+							<p></p>
 								<img src="${contextRoot}${user.photoPath}" class="rounded"
-									alt="..." width="200" height="200">
+									alt="..." width="220" height="220">
 							</div>
-
 						</div>
-						<p class="mb-4">${user.selfIntroduction}</p>
+						<p></p>
+						<div><h2 align="left" class="w-90">${user.nickName}</h2></div>
+						<p></p>
+						<p align="left" class="mb-4">${user.selfIntroduction}</p>
+						
 					</div>
 				</div>
 		</c:forEach>
@@ -39,26 +43,22 @@
 					<div class="mb-4"></div>
 					<c:forEach items='${foundationList}' var='foundation' end="0">
 						<c:forEach items='${foundation.products}' var='product'>
-							<div id="accordion" class="accordion-style">
-								<div class="card">
-									<div class="card-header" id="headingOne">
-										<h5 class="mb-0">
-											<!--  勾選需要商品進購物車 -->
-											<input  type="checkbox" name="checkbox"
+									<div class="www" id="headingOne"> <!-- 框框顏色 -->
+										<div class="mb-0">
+										<table width="100%">
+										<tr>
+										<td><input  type="checkbox" name="checkbox"
 												value="${product.productId}"
 												onclick="oncheck(${product.productId})" />
 											<!-- 利用script 功能 oncheck 使用函式 把 商品與數量的值一起傳入後端 -->
 
-											<button class="btn btn-link collapsed"
-												data-bs-toggle="collapse" data-bs-target="#collapseOne"
-												aria-expanded="false" aria-controls="collapseOne">${product.productName}</button>
-
-											請選擇數量<select name="quantity"
+											${product.productName}</td>
+										<td align="right">
+										 請選擇數量<select name="quantity"
 												id="quantity${product.productId}">
-												<!-- quantity回傳後端/Alan/insertShoppingCar的名字 -->
+												
 												<option >0</option>
 												<option >1</option>
-												<!-- 數字或英文的話可以不用給value 做回傳  會自動回傳值 -->
 												<option >2</option>
 												<option >3</option>
 												<option >4</option>
@@ -69,21 +69,28 @@
 												<option >9</option>
 												<option >10</option>
 											</select>
+										
+										</td>
+										</tr>
+										</table>
+											<!--  勾選需要商品進購物車 -->
+											
 
+										       
 			
 											<div>單價${product.productPrice}</div>
 											
-										</h5>
+									
 
 									</div>
 
 								</div>
 
-							</div>
 						</c:forEach>
 					</c:forEach>
-					<button type="submit" class="btn btn-secondary mt-5">加入購物車</button>
-					
+					<div align="right">
+					<button  type="submit" class="btn btn-secondary mt-5">加入購物車</button>
+					</div>
 
 
 				</form>
@@ -97,22 +104,33 @@
 
 	<style type="text/css">
 .wrap { /*父元素*/
-	width: 100%;
-	height: 200px;
+	width: 200%;
+	height: 250px;
 	display: flex;
 	justify-content: space-between;
 }
 
 .left {
+position: absolute;
 	background: #FFF2F2;
-	width: 50%;
-	height: 200px;
+	width: 30%;
+	height: 0px;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	
 }
 
 .right {
 	background: #FFF2F2;
 	width: 50%;
 	height: 200px;
+}
+
+.www{
+ background-color:#fff7f7;
+ margin: 2px 0px;
+ padding: 15px;
 }
 </style>
 	<script>    <!-- 上方oncheck用的函式 -->

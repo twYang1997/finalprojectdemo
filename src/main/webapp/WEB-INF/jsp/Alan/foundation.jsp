@@ -19,14 +19,13 @@
 <body>
 
 
-	<section id="price-section">
-		<div class="container">
+		
 			<div class="row justify-content-center gapsectionsecond">
 				<div class="col-lg-7 text-center">
 					<div class="title-big pb-3 mb-3">
-						<h3>論壇logo</h3>
+						<h3>選擇想要的基金會捐出糧食</h3>
 					</div>
-					<p class="description-p text-muted pe-0 pe-lg-0">整體 基金會簡介</p>
+					<p class="description-p text-muted pe-0 pe-lg-0">我們與一些基金會合作，提供捐出糧食幫助流浪動物。</p>
 				</div>
 			</div>
 
@@ -37,13 +36,15 @@
 							<div class="price-innerdetail text-center">
 
 								<ul>
-									<h5>${user.nickName}</h5>
-									<div class="detail-pricing">
-										<h4>${user.selfIntroduction}</h4>
-									<!-- <h4>${user.money}</h4> -->	
-										<h4>${user.foundation.foundationId}</h4>
+									<h4>${user.nickName}</h4>
+									<!--	<h5>${user.selfIntroduction}</h5>
+									 <h4>${user.money}</h4> -->	
+										
+										<div><img src="${contextRoot}${user.photoPath}" class="rounded"
+									alt="..." width="200" height="200">	</div>
+										
+									
 
-									</div>
 									<form action="${contextRoot}/Alan/foundationProduct"
 										method="post">
 										<input type="hidden" value="${user.foundation.foundationId}"
@@ -57,7 +58,6 @@
 					</div>
 				</c:forEach>
 			</div>
-	</section>
 	<style type="text/css">
 	
 .wrap { /*父元素*/
