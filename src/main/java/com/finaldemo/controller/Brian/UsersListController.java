@@ -154,9 +154,10 @@ public class UsersListController {
 
 	@GetMapping("/memberReport")
 	public String memberReport(Model model ) {
-		
-		model.addAttribute("usersreport", Service.findAllUsers());
-		model.addAttribute("posts", Service.findAllPosts());
+		List<Users> findAllUsers = Service.findAllUsers();
+		List<Posts> findAllPosts = Service.findAllPosts();
+		model.addAttribute("usersreport", findAllUsers);
+		model.addAttribute("posts", findAllPosts);
 		return "Brian/report";
 	}
 
