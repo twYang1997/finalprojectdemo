@@ -32,9 +32,38 @@
 	href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
 <link rel="stylesheet" href="${contextRoot}/css/report_index.css">
-<link rel="stylesheet" href="${contextRoot}/css/report_navs.css">
+
 </head>
 <body>
+<div class="wrap">
+		<div class="left">
+			<div class="container">
+				<div class="row justify-content-left">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<nav class="navbar navbar-light">
+									<a class="navbar-brand" href="${contextRoot}/memberChart">數據統計</a>
+								</nav>
+								<nav class="navbar navbar-light ">
+									<a class="navbar-brand" href="${contextRoot}/memberManagement">會員管理</a>
+								</nav>
+								<nav class="navbar navbar-light ">
+									<a class="navbar-brand" href="${contextRoot}/memberReport">檢舉文章</a>
+								</nav>
+								<nav class="navbar navbar-light ">
+									<a class="navbar-brand" href="${contextRoot}/memberProducts">商品管理</a>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="right">
+			<div class="col-lg-12">
+				<div class="panel">
+					<div class="panel-heading">
 	<!-- 頁簽開始 -->
 	<span id="tab-1">主頁</span>
 	<span id="tab-2">頁面1</span>
@@ -45,10 +74,9 @@
 			<li><a href="#tab-2">商品移除</a></li>
 		</ul>
 		<!-- 		被檢舉文章 -->
-		<div class="tab-content-1">
-			<br>
-			<div
-				style="margin-top: 5px; margin-bottom: 20px; margin-left: 10px; margin-right: 10px; background: #f6f2f2; border-radius: 10px;">
+		<div class="tab-content-1 tab-content-border">
+				<div class="panel-content panel-activity">
+					<div id="postManagerDiv" style="display:">
 				<table id="testTable" class="table">
 					<thead>
 						<tr>
@@ -107,13 +135,13 @@
 												});
 							});
 		</script>
+		</div>
 <!------------------------------------------------------------------------------------------------------------------------------->
 <!-- 		<!-- 		移除文章 --> 
-		<div class="tab-content-2">
-			<br>
-			<div
-				style="margin-top: 5px; margin-bottom: 20px; margin-left: 10px; margin-right: 10px; background: #f6f2f2; border-radius: 10px;">
-				<table id="testTable2" class="table">
+		<div class="tab-content-2 tab-content-border">
+				<div class="panel-content panel-activity">
+					<div id="postManagerDiv" style="display:">
+				<table id="test2Table" class="table">
 					<thead>
 						<tr>
 							<th class="col-md-3" style="font-weight: bold;">Email</th>
@@ -171,6 +199,11 @@
 				});
  			</script> 
 		</div> 
+	</div> 
+	</div> 
+	</div> 
+	</div> 
+	</div> 
 	</div> 
 
 </body>

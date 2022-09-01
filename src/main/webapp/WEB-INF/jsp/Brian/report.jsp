@@ -13,8 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <title>檢舉頁面</title>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -32,12 +31,40 @@
 	href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
 <link rel="stylesheet" href="${contextRoot}/css/report_index.css">
-<link rel="stylesheet" href="${contextRoot}/css/report_navs.css">
 </head>
 <body>
+<div class="wrap">
+		<div class="left">
+			<div class="container">
+				<div class="row justify-content-left">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<nav class="navbar navbar-light">
+									<a class="navbar-brand" href="${contextRoot}/memberChart">數據統計</a>
+								</nav>
+								<nav class="navbar navbar-light ">
+									<a class="navbar-brand" href="${contextRoot}/memberManagement">會員管理</a>
+								</nav>
+								<nav class="navbar navbar-light ">
+									<a class="navbar-brand" href="${contextRoot}/memberReport">檢舉文章</a>
+								</nav>
+								<nav class="navbar navbar-light ">
+									<a class="navbar-brand" href="${contextRoot}/memberProducts">商品管理</a>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="right">
+			<div class="col-lg-12">
+				<div class="panel">
+					<div class="panel-heading">
 	<!-- 頁簽開始 -->
-	<span id="tab-1">主頁</span>
-	<span id="tab-2">頁面1</span>
+	<span id="tab-1">被檢舉文章</span>
+	<span id="tab-2">移除文章</span>
 	<!--分頁 -->
 	<div id="tab">
 		<ul>
@@ -45,10 +72,9 @@
 			<li><a href="#tab-2">移除文章</a></li>
 		</ul>
 		<!-- 		被檢舉文章 -->
-		<div class="tab-content-1">
-			<br>
-			<div
-				style="margin-top: 5px; margin-bottom: 20px; margin-left: 10px; margin-right: 10px; background: #f6f2f2; border-radius: 10px;">
+		<div class="tab-content-1 tab-content-border">
+			<div class="panel-content panel-activity">
+				<div id="postManagerDiv">
 				<table id="testTable" class="table">
 					<thead>
 						<tr>
@@ -146,12 +172,13 @@
 												});
 							});
 		</script>
+		</div>
+		
 <!------------------------------------------------------------------------------------------------------------------------------->
 		<!-- 		移除文章 -->
-		<div class="tab-content-2">
-			<br>
-			<div
-				style="margin-top: 5px; margin-bottom: 20px; margin-left: 10px; margin-right: 10px; background: #f6f2f2; border-radius: 10px;">
+		<div class="tab-content-2 tab-content-border">
+			<div class="panel-content panel-activity">
+				<div id="postManagerDiv">
 				<table id="test2Table" class="table">
 					<thead>
 						<tr>
@@ -243,7 +270,12 @@
 			</script>
 		</div>
 	</div>
-
+	</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 <script
 	src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>

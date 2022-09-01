@@ -30,11 +30,11 @@
 <link rel="stylesheet" type="text/css"
 	href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
-<link rel="stylesheet" href="${contextRoot}/css/index.css">
-<link rel="stylesheet" href="${contextRoot}/css/navs.css">
-<%-- <link rel="stylesheet" href="${contextRoot}/css/users_list_cards.css"> --%>
+<%-- <link rel="stylesheet" href="${contextRoot}/css/index.css"> --%>
+<%-- <link rel="stylesheet" href="${contextRoot}/css/navs.css"> --%>
+<link rel="stylesheet" href="${contextRoot}/css/member_management.css">
 <style>
- .photoPath { 
+.photoPath { 
  	width: 200px; 
  	height: 150px; 
  	display: block; 
@@ -43,41 +43,69 @@
  	display: block; 
  	display: block; 
 } 
-.table label input{
-  
-   width:500px
+#testTable label input{
 
+   width: 55%;
 }
 </style>
 </head>
 
 <body>
-	<div class="container">
+	<div class="wrap">
+		<div class="left">
+			<div class="container">
+				<div class="row justify-content-left">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<nav class="navbar navbar-light">
+									<a class="navbar-brand" href="${contextRoot}/memberChart">數據統計</a>
+								</nav>
+								<nav class="navbar navbar-light ">
+									<a class="navbar-brand" href="${contextRoot}/memberManagement">會員管理</a>
+								</nav>
+								<nav class="navbar navbar-light ">
+									<a class="navbar-brand" href="${contextRoot}/memberReport">檢舉文章</a>
+								</nav>
+								<nav class="navbar navbar-light ">
+									<a class="navbar-brand" href="${contextRoot}/memberProducts">商品管理</a>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="right">
+			<div class="col-lg-12">
+				<div class="panel">
+					<div class="panel-heading">
+<!-- 	<div class="container"> -->
 		<!--頁籤 -->
-		<span id="tab-1">主頁</span> <span id="tab-2">頁面1</span>
+		<span id="tab-1">一般會員</span> 
+		<span id="tab-2">基金會會員</span>
 		<div id="tab">
 			<ul>
 				<li><a href="#tab-1">一般會員</a></li>
 				<li><a href="#tab-2">基金會會員</a></li>
 			</ul>
 			<!--一般會員頁籤 -->
-			<div class="tab-content-1">
-				<br>
-				<div
-					style="margin-top: 5px; margin-bottom: 20px; margin-left: 10px; margin-right: 10px; background: #f6f2f2; border-radius: 10px;">
+			<div class="tab-content-1 tab-content-border">
+				<div class="panel-content panel-activity">
+					<div id="postManagerDiv" style="display:">
 					<table id="testTable" class="table">
 						<thead>
 							<tr>
-								<th class="col-md-6" style="font-weight: bold;">Email</th>
-								<th class="col-md-6">Edit</th>
+								<th scope="col">Email</th>
+								<th scope="col">&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="users" items="${userList}" varStatus="vs">
 								<c:if test="${users.money==null}">
 									<tr>
-										<td class="col-md-8">${users.email}</td>
-										<td class="col-md-4"><a
+										<td>${users.email}</td>
+										<td><a
 											class="rounded-pill btn btn-outline-primary font-weight-bold"
 											role="button" data-toggle="modal"
 											data-target="#myModal${vs.index}"
@@ -264,7 +292,7 @@
 																}
 															</script>
 																<!--權限-->
-																<div class="dropdown" style="text-align: left;">
+																<div class="dropdown2" style="text-align: left;">
 																	<!--下拉式選單-->
 																	<label for="inputAddress">category</label><br>
 																	<form:select id="myOption${vs.index}" path="category">
@@ -417,7 +445,8 @@
 														</div>
 													</div>
 												</div>
-											</div></td>
+											</div>
+										</td>
 									</tr>
 								</c:if>
 							</c:forEach>
@@ -440,25 +469,25 @@
 			});
 			</script>
 			</div>
+			</div>
 
 			<!--基金會會員頁籤 -->
-			<div class="tab-content-2">
-				<br>
-				<div
-					style="margin-top: 5px; margin-bottom: 20px; margin-left: 10px; margin-right: 10px; background: #f6f2f2; border-radius: 10px;">
+			<div class="tab-content-2 tab-content-border">
+								<div class="panel-content panel-activity" style="padding-top:20px">
+									<div id="postManagerDiv" style="display:">
 					<table id="test2Table" class="table">
 						<thead>
 							<tr>
-								<th class="col-md-6">Email</th>
-								<th class="col-md-6">Edit</th>
+								<th scope="col">Email</th>
+								<th scope="col">Edit</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="users" items="${userList}" varStatus="vs">
 								<c:if test="${users.money!=null}">
 									<tr>
-										<td class="col-md-8">${users.email}</td>
-										<td class="col-md-4"><a
+										<td>${users.email}</td>
+										<td><a
 											class="rounded-pill btn btn-outline-primary font-weight-bold"
 											role="button" data-toggle="modal"
 											data-target="#myModal${vs.index}"
@@ -645,7 +674,7 @@
 																}
 															</script>
 																<!--權限-->
-																<div class="dropdown" style="text-align: left;">
+																<div class="dropdown2" style="text-align: left;">
 																	<!--下拉式選單-->
 																	<label for="inputAddress">category</label><br>
 																	<form:select id="myOption${vs.index}" path="category">
@@ -826,6 +855,11 @@
 		here is : ${searchCategory}
 		<a href="javascript:window.location.href .tab-content-2">here</a>
 	</c:if>
+</div>	
+</div>	
+</div>	
+</div>	
+</div>	
 </body>
 <script
 	src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
