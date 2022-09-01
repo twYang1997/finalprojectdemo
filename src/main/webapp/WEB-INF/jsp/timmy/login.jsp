@@ -44,11 +44,10 @@
 													required="required" />
 											</div>
 										</div>
-										<div><span>Remember Me </span><input type="checkbox" name="rememberMe" value="on"></div>
-										<div>&emsp;</div>
+										<div><span>Remember Me </span><input type="checkbox" name="rememberMe" value="on" style="display:inline"><span style="color:red">&emsp;${errors.failed }</span></div>
+										<div>&emsp;&emsp;</div>
 										<div class="d-flex justify-content-center mx-6 mb-3 mb-lg-4">
-											<button type="submit" class="btn btn-primary btn-lg">Login</button>
-												<div style="color:red">&emsp;${errors.failed }</div>
+											<button type="submit" class="btn btn-primary btn-lg">Login</button>&emsp;&emsp;
 											<button type="button" class="btn btn-outline-success btn-lg" id="forgetPwdBtn">Forgot password</button>
 										</div>
 									</form>
@@ -162,14 +161,53 @@
 										class="img-fluid" alt="Sample image">
 
 								</div>
+								
 							</div>
+							<button class="btn btn-outline-info" id="newm1" style="margin-right: 5px">New Account</button>
+							<button class="btn btn-outline-info" id="nm1" style="margin-right: 5px">Mary</button>
+							<button class="btn btn-outline-info" id="nm2" style="margin-right: 5px">Sam</button>
+							<button class="btn btn-outline-info" id="fm" style="margin-right: 5px">流浪動物之家</button>
+							<button class="btn btn-outline-info" id="mm" style="margin-right: 5px">管理員</button>
+							<script>
+								$(function(){
+									$("#newm1").on("click", function(){
+										$("#form3Example3c").attr("value", "jack@gmail.com")
+										$("#form3Example4c").attr("value", "12345678")
+									});
+									$("#nm1").on("click", function(){
+										$("#form3Example3c").attr("value", "mary@gmail.com")
+										$("#form3Example4c").attr("value", "12345678")
+									});
+									$("#nm2").on("click", function(){
+										$("#form3Example3c").attr("value", "sam@gmail.com")
+										$("#form3Example4c").attr("value", "12345678")
+									});
+									$("#fm").on("click", function(){
+										$("#form3Example3c").attr("value", "mainfoundation@gmail.com")
+										$("#form3Example4c").attr("value", "12345678")
+									});
+									$("#mm").on("click", function(){
+										$("#form3Example3c").attr("value", "manager@gmail.com")
+										$("#form3Example4c").attr("value", "12345678")
+									});
+									console.log("${newAccountToBuild}")
+									if ("${newAccountToBuild}".length > 0){
+										
+										Swal.fire({
+											icon: 'success',
+											title: "Success! Welcome~"
+										})
+										
+									}
+								})
+							</script>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-
+	
 	<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 	<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>
