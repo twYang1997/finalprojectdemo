@@ -46,8 +46,8 @@ public class LoginController {
 			user.setFoundation(new Foundation());
 		}
 		service.insertNewUser(user);
-		
-		return "redirect:/timmy/";
+		m.addAttribute("newAccountToBuild", "success");
+		return "timmy/login";
 	}
 	
 	@PostMapping("/timmy/checkLogin.controller")
