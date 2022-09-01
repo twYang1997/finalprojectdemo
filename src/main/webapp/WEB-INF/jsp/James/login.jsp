@@ -13,6 +13,8 @@
 <link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
+
+
 	<section class="vh-100" style="background-color: #eee;">
 		<div class="container h-100">
 			<div
@@ -54,36 +56,72 @@
 											<button type="button" class="btn btn-outline-success btn-lg"
 												id="forgetPwdBtn">Forgot password</button>
 										</div>
+    <div>
+        Facebook登入：<input type="button"  value="Facebook登入" onclick="FBLogin();" />
+    </div>
+        <script type="text/javascript">
+        //應用程式編號，進入 https://developers.facebook.com/apps/ 即可看到
+        let FB_appID = "3164529347170909";
 
-										<!-- Your save button code -->
-										<div class="fb-save"
-											data-uri="http://www.your-domain.com/your-page.html"></div>
+        //FB Login 官方文件：https://developers.facebook.com/docs/facebook-login/web
+
+        // Load the Facebook Javascript SDK asynchronously
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: 3164529347170909,//FB appID
+                cookie: true,  // enable cookies to allow the server to access the session
+                
+                xfbml: true,  // parse social plugins on this page
+                version: 'v14.0' // use graph api version
+            });
+
+        };
+
+        //使用自己客製化的按鈕來登入
+        function FBLogin() {
+            
+            FB.login(function (response) {
+                //debug用
+                console.log(response);
+                if (response.status === 'connected') {
+                    //user已登入FB
+                    //抓userID
+                    let FB_ID = response["authResponse"]["userID"];
+                    console.log("userID:" + FB_ID);
+
+                   
+                } else {
+                    // user FB取消授權
+                    alert("Facebook帳號無法登入");
+                }
+            }, { scope: 'public_profile,email' });
+
+        }
+        
+        
+        
+    </script>
+    
+  
+ 
+
 									</form>
-									<c:if test="${!empty verifyingEmail}">
-										<button id="buildNewPwdBtn" style="display: none">buildNewPwdBtn</button>
-
-										<div class="modal" tabindex="-1">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title">verificationCode</h5>
-														<button type="button" class="btn-close"
-															data-bs-dismiss="modal" aria-label="Close"></button>
-													</div>
-													<div class="modal-body">
-														<p>enter verificationCode</p>
-													</div>
-
-													<div class="container unauthenticated">
-														<div class="modal-footer">
-
-															<button type="button" class="btn btn-primary">Enter</button>
-														</div>
-													</div>
-												</div>
-											</div>
-
-											<script>
+	<select id="choose">
+    <option value="user">使用者</option>
+    <option value="admin">管理員</option>
+    </select>
+	<button id="fast" onclick="fast()">快速登入</button>
+									<%-- 									<c:if test="${!empty verifyingEmail}"> --%>
+									<button id="buildNewPwdBtn" style="display: none">buildNewPwdBtn</button>
+									<script>
 											$(function(){
 												$("#buildNewPwdBtn").click(function(){
 													var contextRoot = "/demo";
@@ -97,16 +135,16 @@
 													  showLoaderOnConfirm: true,
 													  backdrop: true,
 													  preConfirm: () => {
-// 													    	 console.log(document.getElementById('swal-input1').value)
-// 													         console.log(document.getElementById('swal-input2').value)
-// 													         console.log("${verifyingEmail}");
+													    	 console.log(document.getElementById('swal-input1').value)
+													         console.log(document.getElementById('swal-input2').value)
+													         console.log("${verifyingEmail}");
 													         let newPwd = document.getElementById('swal-input1').value;
 													    	 let checkPwd = document.getElementById('swal-input2').value;
 													    	 if (newPwd != checkPwd){
 													    		 Swal.showValidationMessage("Please enter the correct password!");
 													    	 } else {
 													    		 let datas = {
-													    				 "postId":"${verifyingEmail}",
+													    				 "postId": aaa,
 													    				 "commentText":checkPwd
 													    		 };
 													    		 let datao = JSON.stringify(datas);
@@ -134,11 +172,11 @@
 													  }
 													})
 												});
-												$("#buildNewPwdBtn").click();
+// 												$("#buildNewPwdBtn").click();
 												
 											});
 										</script>
-									</c:if>
+									<%-- 									</c:if> --%>
 									<script type="text/javascript">
 										$(document).ready(function() {
 											var contextRoot = "/demo";
@@ -162,19 +200,35 @@
 													  preConfirm: (login) => {
 													    return $.ajax({
 													    	url: contextRoot + "/timmy/checkEmailAjax?email=" + login,
+													    	
 													    	success: function(result){
 													    		if (result == 'emailNotFound'){
 													    			Swal.showValidationMessage("Email was not found!");
 													    		}
 													    		console.log("ajax success:" + result);
+													    		aaa = login;
 													    	}
 													    })
 													  },
 													  allowOutsideClick: () => !Swal.isLoading()
 													}).then((result) => {
 													  if (result.isConfirmed) {
+														console.log(result.value);
 													    Swal.fire({
-													      title: 'Check your email to verify your account',
+													    	title: 'Please enter the number which sent to your email',
+													    	  html:
+													    	    '<input id="swal-input3" class="swal2-input">',
+													    	  focusConfirm: false,
+													    	  preConfirm: () => {
+													    	   let verifyNumber = document.getElementById('swal-input3').value;
+													    	   console.log(verifyNumber);
+													    	   if (verifyNumber == result.value){
+													    		   console.log("success");
+													    		   $("#buildNewPwdBtn").click();
+													    	   } else {
+													    		   Swal.showValidationMessage("error");
+													    	   }
+													    	  }
 													    })
 													  }
 													})
@@ -197,12 +251,64 @@
 				</div>
 			</div>
 		</div>
-	</section>
+		
+		
 
-	<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
-	<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>
-
+		<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
+		<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>
+			
+			
+<!-- 				<div class="text-center m-5"> -->
+<!-- 		快速登入: -->
+<!-- 		<button class="btn btn-outline-info fastLogin">Amy</button> -->
+<!-- 		<button class="btn btn-outline-info fastLogin">Jack</button> -->
+<!-- 		<button class="btn btn-outline-info fastLogin">Emma</button> -->
+<!-- 		<button class="btn btn-outline-info fastLogin">Jim</button> -->
+<!-- 	</div> -->
 </body>
+
+<script type="text/javascript">
+
+function fast(){
+	let choose=document.getElementById('choose').value;
+	
+	
+	if(choose=='user'){
+	let e=document.getElementById('form3Example3c');
+	let p=document.getElementById('form3Example4c');
+	e.value='user@gmail.com';
+	p.value='123456789';}
+	
+	
+	if(choose=='admin'){
+		let e=document.getElementById('form3Example3c');
+		let p=document.getElementById('form3Example4c');
+		e.value='admin@gmail.com';
+		p.value='123456789';}
+	
+}
+// 	//快速登入
+// 	$(".fastLogin").click(function() {
+// 		$("#floatingInput").val(this.innerHTML);
+// 		$("#floatingPassword").val(this.innerHTML + "001");
+// 	});
+
+// 	//密碼可視切換
+// 	$("#checkEye").click(function() {
+// 		if ($(this).hasClass('fa-eye')) {
+// 			$("#floatingPassword").attr('type', 'password');
+// 		} else {
+// 			$("#floatingPassword").attr('type', 'text');
+// 		}
+// 		$(this).toggleClass('fa-eye').toggleClass('fa-eye-slash');
+// 	});
+
+// 	//取消按鈕返回上頁
+// 	$("#cancel").click(function(event) {
+// 		event.preventDefault(); //取消預設行為
+// 		window.history.back(); //返回上一頁
+// 	})
+</script>
 </html>
