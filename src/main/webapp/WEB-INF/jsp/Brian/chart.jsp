@@ -7,7 +7,6 @@
 
 <jsp:include page="../timmy/layout/navbar.jsp" />
 
-
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -17,10 +16,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 
-<link rel="stylesheet" href="${contextRoot}/css/report_index.css">
-<link rel="stylesheet" href="${contextRoot}/css/report_navs.css">
-<%-- <link rel="stylesheet" href="${contextRoot}/css/member_chart.css"> --%>
-
+<link rel="stylesheet" href="${contextRoot}/css/member_chart.css">
 </head>
 <body>
 	<div class="wrap">
@@ -28,51 +24,64 @@
 			<div class="container">
 				<div class="row justify-content-left">
 					<div class="col-12">
-						<div class="card" style="border-radius: 5px">
+						<div class="card">
 							<div class="card-body">
-								<ul>
-									<li style="list-style: none;"><a
-										href="${contextRoot}/memberChart">數據統計</a></li>
-									<li style="list-style: none;"><a
-										href="${contextRoot}/memberManagement">會員管理</a></li>
-									<li style="list-style: none;"><a
-										href="${contextRoot}/memberReport">檢舉文章</a></li>
-									<li style="list-style: none;"><a
-										href="${contextRoot}/memberProducts">商品管理</a></li>
-								</ul>
+								<nav class="navbar navbar-light">
+									<a class="navbar-brand" href="${contextRoot}/memberChart">數據統計</a>
+								</nav>
+								<nav class="navbar navbar-light ">
+									<a class="navbar-brand" href="${contextRoot}/memberManagement">會員管理</a>
+								</nav>
+								<nav class="navbar navbar-light ">
+									<a class="navbar-brand" href="${contextRoot}/memberReport">檢舉文章</a>
+								</nav>
+								<nav class="navbar navbar-light ">
+									<a class="navbar-brand" href="${contextRoot}/memberProducts">商品管理</a>
+								</nav>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="right row">
-			<div class="col-6">
-				<div class="panel">
-					<canvas id="petTypeChart"></canvas>
-				</div>
-			</div>
-			<div class="col-6">
-				<div class="panel">
-					<canvas id="genderTypeChart"></canvas>
-				</div>
-			</div>
+		<div class="right1">
 			<div class="col-12">
 				<div class="panel">
-					<div
-						style="display: flex; justify-content: center; padding-top: 10px">
-						<input onchange="filterData()" type="month" id="startdate">
-						<input onchange="filterData()" type="month" id="enddate">
+					<div class="panel-heading">
+						<div class="panel-content">
+							<canvas id="petTypeChart"></canvas>
+						</div>
 					</div>
-					<canvas id="sumMoneyChart"></canvas>
+				</div>
+			</div>
+		</div>
+		<div class="right2">
+			<div class="col-12">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-content2">
+							<canvas id="genderTypeChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="right3">
+		<div class="col-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<div class="panel-content3">
+						<input onchange="filterData()" type="month" id="startdate"
+							style="margin-top: 10px; margin-left: 41%;"> <input
+							onchange="filterData()" type="month" id="enddate">
+						<canvas id="sumMoneyChart"></canvas>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!--******************************************************************************************************* 1 -->
-
-
 	<script>
 		// 	男女
 		var Femalesum = "${genderFemale}";
@@ -82,13 +91,13 @@
 		var myChart = new Chart(ctx, {
 			type : 'doughnut',
 			data : {
-				labels : [ "Female", "Male" ],
+				labels : [ "Male", "Female" ],
 				datasets : [ {
-					data : [ Femalesum, Malesum ],
-					backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
-							'rgba(255, 159, 64, 0.2)' ],
-					borderColor : [ 'rgba(255,99,132,1)',
-							'rgba(255, 159, 64, 1)' ],
+					data : [ Malesum,Femalesum],
+					backgroundColor : [ '#E4DDD4',
+							'#C54F1F' ],
+					borderColor : [ '#E4DDD4',
+							'#C54F1F' ],
 					borderWidth : 1
 				} ]
 			},
@@ -106,10 +115,10 @@
 				labels : [ "cat", "dog" ],
 				datasets : [ {
 					data : [ catsum, dogsum ],
-					backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
-							'rgba(255, 159, 64, 0.2)' ],
-					borderColor : [ 'rgba(255,99,132,1)',
-							'rgba(255, 159, 64, 1)' ],
+					backgroundColor : [ '#E4DDD4',
+							'#C54F1F' ],
+					borderColor : [ '#E4DDD4',
+							'#C54F1F' ],
 					borderWidth : 1
 				} ]
 			},
@@ -129,22 +138,16 @@
 			        label: '總額',
 			        data: JSON.parse(SumMoney),
 			         backgroundColor: [
-			           'rgba(255, 26, 104, 0.2)',
-			           'rgba(54, 162, 235, 0.2)',
-			           'rgba(255, 206, 86, 0.2)',
-			           'rgba(75, 192, 192, 0.2)',
-			           'rgba(153, 102, 255, 0.2)',
-			           'rgba(255, 159, 64, 0.2)',
-			           'rgba(0, 0, 0, 0.2)'
+			           '#BEB1A1',
+			           '#824533',
+			           '#CE704A',
+			           '#E89845'
 			         ],
 			         borderColor: [
-			           'rgba(255, 26, 104, 1)',
-			           'rgba(54, 162, 235, 1)',
-			           'rgba(255, 206, 86, 1)',
-			           'rgba(75, 192, 192, 1)',
-			           'rgba(153, 102, 255, 1)',
-			           'rgba(255, 159, 64, 1)',
-			           'rgba(0, 0, 0, 1)'
+			           '#BEB1A1',
+			           '#824533',
+			           '#CE704A',
+			           '#E89845'
 			         ],
 			        borderWidth: 1
 			      }]
