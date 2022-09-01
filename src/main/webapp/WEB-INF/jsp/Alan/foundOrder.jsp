@@ -31,25 +31,9 @@
 
 						<div class="card-body">
 							<div class="d-flex flex-column flex-lg-row">
-								
-								<div class="row flex-fill">
-									<c:forEach items='${shoppingCarList}' var='orders'>
-										<input type="hidden" name="Q" value="${orders.quantity}"></input>
-										<input type="hidden" name="Id"
-											value="${orders.products.productId}"></input>
-										<input type="hidden" name="orderSubtotal"
-											value="${orders.products.productPrice}"></input>
-										<div class="col-sm-5">
-											<h4>${orders.products.productName}</h4>
-										</div>
 
-										<div class="col-sm-4 py-2">
-											<span>購買數量:${orders.quantity}</span> <span>單價:${orders.products.productPrice}</span>
-											<div>
-												<span>總計:${orders.quantity*orders.products.productPrice}</span>
-											</div>
-										</div>
-									</c:forEach>
+								<div class="row flex-fill">
+									
 								</div>
 							</div>
 						</div>
@@ -77,7 +61,7 @@
 
 
 
-								<div>
+							<!--  	<div>
 									姓名: <input type="text" size=6 maxlength=6 id="name" value="">
 								</div>
 								<p></p>
@@ -91,8 +75,26 @@
 								<p></p>
 								<div>
 									信箱: <input type="text" size=6 maxlength=6 id="email" value="">
-								</div>
+								</div> -->
+								<div class="row flex-fill">
+									<c:forEach items='${shoppingCarList}' var='orders'>
+										<input type="hidden" name="Q" value="${orders.quantity}"></input>
+										<input type="hidden" name="Id"
+											value="${orders.products.productId}"></input>
+										<input type="hidden" name="orderSubtotal"
+											value="${orders.products.productPrice}"></input>
+										<div class="col-sm-5">
+											<h4>${orders.products.productName}</h4>
+										</div>
 
+										<div class="col-sm-4 py-2">
+											<span>購買數量:${orders.quantity}</span> <span>單價:${orders.products.productPrice}</span>
+											<div>
+												<span>總計:${orders.quantity*orders.products.productPrice}</span>
+											</div>
+										</div>
+									</c:forEach>
+								</div>
 
 
 
@@ -100,7 +102,7 @@
 								<p>
 									<input id="content" type="hidden" />
 								</p>
-								<input id="touch" type="button" value="一鍵填入" />
+							<!--  	<input id="touch" type="button" value="一鍵填入" />  -->
 
 							</div>
 							<div class="col-sm-4 py-2"></div>
@@ -111,10 +113,11 @@
 							<span id="change" value="123"></span>
 						</p>
 						<table style="float: right">
-						<tr>
-					
-					<td>	<button  id="ecPay" style="float: right">確認購買</button></td>
-						
+							<tr>
+
+								<td>
+									<button id="ecPay" style="float: right">確認購買</button>
+								</td>
 						</table>
 					</div>
 
@@ -142,8 +145,6 @@
 					$("#email").replaceWith(
 							"<label id='change'>" + content3 + "</label>");
 				});
-		
-		
 	</script>
 </body>
 </html>
