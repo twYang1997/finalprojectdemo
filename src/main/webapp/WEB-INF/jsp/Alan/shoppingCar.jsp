@@ -38,7 +38,7 @@
 
 									<input type="checkbox" id="check${Products.shoppingCarId}"
 										 value="${Products.shoppingCarId}"
-										onclick="oncheck(${Products.shoppingCarId})" /> 
+										onclick="oncheck(${Products.shoppingCarId})" required> 
 
 									<!-- -1按鈕 -->
 									<a

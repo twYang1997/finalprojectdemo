@@ -32,9 +32,7 @@
 						<div class="card-body">
 							<div class="d-flex flex-column flex-lg-row">
 
-								<div class="row flex-fill">
-									
-								</div>
+								<div class="row flex-fill"></div>
 							</div>
 						</div>
 
@@ -57,43 +55,46 @@
 
 
 						<div class="row flex-fill">
-							<div class="col-sm-5">
+							<div class="col-sm-12">
 
 
 
-							<!--  	<div>
-									姓名: <input type="text" size=6 maxlength=6 id="name" value="">
-								</div>
-								<p></p>
-								<div>
-									地址: <input type="text" size=6 maxlength=6 id="address" value="">
-								</div>
-								<p></p>
-								<div>
-									電話: <input type="text" size=6 maxlength=6 id="phone" value="">
-								</div>
-								<p></p>
-								<div>
-									信箱: <input type="text" size=6 maxlength=6 id="email" value="">
-								</div> -->
+
 								<div class="row flex-fill">
-									<c:forEach items='${shoppingCarList}' var='orders'>
-										<input type="hidden" name="Q" value="${orders.quantity}"></input>
-										<input type="hidden" name="Id"
-											value="${orders.products.productId}"></input>
-										<input type="hidden" name="orderSubtotal"
-											value="${orders.products.productPrice}"></input>
-										<div class="col-sm-5">
-											<h4>${orders.products.productName}</h4>
-										</div>
 
-										<div class="col-sm-4 py-2">
-											<span>購買數量:${orders.quantity}</span> <span>單價:${orders.products.productPrice}</span>
-											<div>
-												<span>總計:${orders.quantity*orders.products.productPrice}</span>
-											</div>
-										</div>
-									</c:forEach>
+									<table width="100%" class="table" style="">
+										<tr>
+											<td><h4>圖片</h4></td>
+											<td><h4>商品名稱</h4></td>
+											<td><h4>購買數量</h4></td>
+											<td><h4>單價</h4></td>
+											<td><h4>總計</h4></td>
+
+										</tr>
+										<c:set var="totalPrice" value="${0}"></c:set>
+										<c:forEach items='${shoppingCarList}' var='orders'>
+											<tr>
+												<td><img
+													src="${contextRoot}${orders.products.productImg}"
+													class="rounded" alt="..." width="95" height="95"></td>
+												<td>${orders.products.productName}</td>
+												<td>${orders.quantity}</td>
+												<td>${orders.products.productPrice}</td>
+												<td>${orders.quantity*orders.products.productPrice}</td>
+												<c:set var="totalPrice"
+													value="${totalPrice + orders.quantity * orders.products.productPrice}"></c:set>
+												<input type="hidden" name="Q" value="${orders.quantity}"></input>
+												<input type="hidden" name="Id"
+													value="${orders.products.productId}"></input>
+												<input type="hidden" name="orderSubtotal"
+													value="${orders.products.productPrice}"></input>
+											</tr>
+
+										</c:forEach>
+
+
+									</table>
+
 								</div>
 
 
@@ -102,7 +103,7 @@
 								<p>
 									<input id="content" type="hidden" />
 								</p>
-							<!--  	<input id="touch" type="button" value="一鍵填入" />  -->
+								<!--  	<input id="touch" type="button" value="一鍵填入" />  -->
 
 							</div>
 							<div class="col-sm-4 py-2"></div>
@@ -114,7 +115,8 @@
 						</p>
 						<table style="float: right">
 							<tr>
-
+								<td>總計: ${totalPrice}</td>
+								<div></div>
 								<td>
 									<button id="ecPay" style="float: right">確認購買</button>
 								</td>
