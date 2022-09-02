@@ -27,40 +27,26 @@
 			<div>
 				<div class="row flex-fill">
 					<div class="col-sm-5">
-
-
 						<div class="card-body">
 							<div class="d-flex flex-column flex-lg-row">
-
 								<div class="row flex-fill">
-									
 								</div>
 							</div>
 						</div>
-
 					</div>
 					<div class="col-sm-4 py-2"></div>
 					<div class="col-sm-3 text-lg-end"></div>
-
 					<!-- 	</div>
 					<a href="#" type="button" style="float: right"
 						class="btn btn-primary stretched-link">確認購買</a>
 				</div> -->
 				</div>
-
 			</div>
-
 			<div class="card mb-3">
-
 				<div class="card-body">
 					<div class="">
-
-
 						<div class="row flex-fill">
 							<div class="col-sm-5">
-
-
-
 							<!--  	<div>
 									姓名: <input type="text" size=6 maxlength=6 id="name" value="">
 								</div>
@@ -95,34 +81,25 @@
 										</div>
 									</c:forEach>
 								</div>
-
-
-
-
 								<p>
 									<input id="content" type="hidden" />
 								</p>
 							<!--  	<input id="touch" type="button" value="一鍵填入" />  -->
-
 							</div>
 							<div class="col-sm-4 py-2"></div>
 							<div class="col-sm-3 text-lg-end"></div>
-
 						</div>
 						<p>
 							<span id="change" value="123"></span>
 						</p>
 						<table style="float: right">
 							<tr>
-
 								<td>
 									<button id="ecPay" style="float: right">確認購買</button>
 								</td>
 						</table>
 					</div>
-
 				</div>
-
 			</div>
 	</div>
 	</form>
