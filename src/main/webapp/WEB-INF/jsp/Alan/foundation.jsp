@@ -45,8 +45,7 @@
 										
 									
 
-									<form action="${contextRoot}/Alan/foundationProduct"
-										method="post">
+									<form action="${contextRoot}/Alan/foundationProduct" method="post">
 										<input type="hidden" value="${user.foundation.foundationId}"
 											name=foundationId />
 										<button type="submit" class="btn btn-secondary mt-5">立即幫助 請點我</button>
