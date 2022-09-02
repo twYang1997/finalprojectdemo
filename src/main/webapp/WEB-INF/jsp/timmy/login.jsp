@@ -51,7 +51,6 @@
 											<button type="button" class="btn btn-outline-success btn-lg" id="forgetPwdBtn">Forgot password</button>
 										</div>
 									</form>
-									<c:if test="${!empty verifyingEmail}">
 										<button id="buildNewPwdBtn" style="display:none">buildNewPwdBtn</button>
 										<script>
 											$(function(){
@@ -67,18 +66,16 @@
 													  showLoaderOnConfirm: true,
 													  backdrop: true,
 													  preConfirm: () => {
-// 													    	 console.log(document.getElementById('swal-input1').value)
-// 													         console.log(document.getElementById('swal-input2').value)
-// 													         console.log("${verifyingEmail}");
 													         let newPwd = document.getElementById('swal-input1').value;
 													    	 let checkPwd = document.getElementById('swal-input2').value;
 													    	 if (newPwd != checkPwd){
 													    		 Swal.showValidationMessage("Please enter the correct password!");
 													    	 } else {
 													    		 let datas = {
-													    				 "postId":"${verifyingEmail}",
+													    				 "postId":verifyingEmail,
 													    				 "commentText":checkPwd
 													    		 };
+													    		 console.log( "postId: " + verifyingEmail)
 													    		 let datao = JSON.stringify(datas);
 													    		 $.ajax({
 													    			 url: contextRoot + "/timmy/updateForgottenPwdAjax",
@@ -104,11 +101,10 @@
 													  }
 													})
 												});
-												$("#buildNewPwdBtn").click();
+// 												$("#buildNewPwdBtn").click();
 												
 											});
 										</script>
-									</c:if>
 									<script type="text/javascript">
 										$(document).ready(function() {
 											var contextRoot = "/demo";
@@ -137,15 +133,33 @@
 													    			Swal.showValidationMessage("Email was not found!");
 													    		}
 													    		console.log("ajax success:" + result);
+													    		verifyingEmail = login;
 													    	}
 													    })
 													  },
 													  allowOutsideClick: () => !Swal.isLoading()
 													}).then((result) => {
 													  if (result.isConfirmed) {
-													    Swal.fire({
-													      title: 'Check your email to verify your account',
-													    })
+// 													    Swal.fire({
+// 													      title: 'Check your email to verify your account',
+// 													    })
+														console.log(result.value);
+                                                        Swal.fire({
+                                                            title: 'Please enter the number which sent to your email',
+                                                              html: '<input id="swal-input3" class="swal2-input">',
+                                                              focusConfirm: false,
+                                                              preConfirm: () => {
+                                                               let verifyNumber = document.getElementById('swal-input3').value;
+                                                               console.log(verifyNumber);
+                                                               if (verifyNumber == result.value){
+                                                                   console.log("success");
+                                                                   $("#buildNewPwdBtn").click();
+                                                                   
+                                                               } else {
+                                                                   Swal.showValidationMessage("error");
+                                                               }
+                                                              }
+                                                        })
 													  }
 													})
 												

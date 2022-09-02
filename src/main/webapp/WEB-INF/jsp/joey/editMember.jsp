@@ -273,8 +273,7 @@ function loadXMLDoc()
 													<span class="input-group-text">商品說明</span>
 														<textarea style="height: 180px;" placeholder="Product Discription"
 															name="productContext" class="form-control"
-															aria-label="With textarea" id="productContext">
-														</textarea>
+															aria-label="With textarea" id="productContext" ></textarea>
 														<div class="d-grid d-md-block">
 														  <button class="btn btn-primary quickAddProduct " type="button" style="height:88.5px;">一鍵輸入</button>
 														  <button class="btn btn-secondary btn-block" type="button" id="addProductBtn" style="height: 88.5px;">新增商品</button>
