@@ -33,6 +33,14 @@
 
 <link rel="stylesheet" href="${contextRoot}/css/report_index.css">
 
+<style type="text/css">
+.photoPath { 
+ 	width: 150px; 
+ 	
+ 	
+ 	 	
+} 
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -80,25 +88,28 @@
 				<table id="testTable" class="table">
 					<thead>
 						<tr>
-							<th class="col-md-3" style="font-weight: bold;">Email</th>
-							<th class="col-md-6">Products</th>
+							<th>基金會</th>
+							<th>Products</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="Users" items="${Products}" varStatus="vs">
 							<c:if test="${Users.category == 2 }">
-								<tr><td>${Users.email}</td>
-									<td class="col-md-6">
+								<tr><td>${Users.nickName}</td>
+									<td class="">
 									<table class="table table-borderless">
 										<c:forEach items="${Users.foundation.products}" var="Usersp" varStatus="vs">
 											<c:if test="${Usersp.productStatus == 1 }">
 												<tr>
-													<td class="col-md-3">
-														<a href="#">${Usersp.productName}</a>
+													<td class="">
+														<h4>${Usersp.productName}</h4>
 														<span><i class="fa fa-clock">${Usersp.productDate}</i> </span>
 														<div id="box">${Usersp.productContext}</div>
+														<ul  style="list-style: none;">
+															<li><img class="photoPath" src="${contextRoot}${Usersp.productImg}"></li>
+														</ul>
 													</td>
-													<td class="col-md-3"><a
+													<td class=""><a
 														class="rounded-pill btn btn-outline-success font-weight-bold"
 														href="${contextRoot}/stopProducts?id=${Usersp.productId}"
 														role="button">移除</a>
@@ -144,14 +155,14 @@
 				<table id="test2Table" class="table">
 					<thead>
 						<tr>
-							<th class="col-md-3" style="font-weight: bold;">Email</th>
+							<th class="col-md-3" style="font-weight: bold;">基金會</th>
 							<th class="col-md-6">Products</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="Users" items="${Products}" varStatus="vs">
 							<c:if test="${Users.category == 2 }">
-								<tr><td>${Users.email}</td>
+								<tr><td>${Users.nickName}</td>
 									<td class="col-md-6">
 									<table class="table table-borderless">
 										<c:forEach items="${Users.foundation.products}" var="Usersp" varStatus="vs">
@@ -161,6 +172,9 @@
 														<a href="#">${Usersp.productName}</a>
 														<span><i class="fa fa-clock">${Usersp.productDate}</i> </span>
 														<div id="box">${Usersp.productContext}</div>
+														<ul  style="list-style: none;">
+															<li><img class="photoPath" src="${contextRoot}${Usersp.productImg}"></li>
+														</ul>
 													</td>
 													<td class="col-md-3"><a
 														class="rounded-pill btn btn-outline-success font-weight-bold"

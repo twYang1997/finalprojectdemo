@@ -31,6 +31,15 @@
 	href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
 <link rel="stylesheet" href="${contextRoot}/css/report_index.css">
+
+<style type="text/css">
+.photoPath { 
+ 	width: 150px; 
+ 	
+ 	
+ 	 	
+} 
+</style>
 </head>
 <body>
 	<div class="wrap">
@@ -96,7 +105,7 @@
 																	<c:forEach items="${p.getPostImg()}" var="pImg"
 																		varStatus="loop">
 																		<ul class="gallery" style="list-style: none;">
-																			<li><img
+																			<li><img class="photoPath" 
 																				src="${contextRoot}/${pImg.getPostImgPath()}"></li>
 																		</ul>
 																	</c:forEach>
