@@ -367,17 +367,19 @@
 										<!-- footer -->
 										<div>
 											<div>
-												<label> <input
+												<a href=#><label> <input
 													style="position: absolute; opacity: 0;" type="file"
 													name="postImg" id="fileEdit" multiple
 													onchange="readAsDataURLEdit()"
 													accept="image/gif,image/jpeg,image/x-png" /> <i
 													class="fa fa-image"></i>
-												</label> &emsp; <label> <input
-													style="position: absolute; opacity: 0;" type="file"
-													name="postVideo" id="file" accept="video/*" /> <i
-													class="fa fa-video-camera"></i>
-												</label>
+												</label> </a>
+<!-- 												&emsp;  -->
+<!-- 												<label> <input -->
+<!-- 													style="position: absolute; opacity: 0;" type="file" -->
+<!-- 													name="postVideo" id="file" accept="video/*" /> <i -->
+<!-- 													class="fa fa-video-camera"></i> -->
+<!-- 												</label> -->
 											</div>
 											<div class="modal-footer">
 											<button type="submit" class="btn btn-sm btn-rounded btn-info">Save</button>
