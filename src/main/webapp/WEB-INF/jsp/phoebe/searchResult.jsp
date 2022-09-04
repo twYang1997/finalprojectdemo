@@ -30,7 +30,6 @@
 </head>
 <body>
 	<div class="container">
-		<div class="col-lg-8">
 		<br>
 			<!-- Rrepetitive Sstructure(user) -->
 				<div class="panel" style="padding-top: 2%">
@@ -104,7 +103,7 @@
 								<div class="dropdown" style="float: right; margin-right: 5%;">
 									<button id="demo1" class="dropbtn" style="visibility: hidden;">Dropdown</button>
 									<i class="fa fa-ellipsis-h" style="font-size: 22px"></i>
-									<div class="dropdown-content">
+									<div class="dropdown-content" style="min-width: 100px;">
 										
 										<c:if test="${p.postUser.getUserId() != user.getUserId()}">
 <%-- 										<form method="post" action="${contextRoot}/reportPost.controller?postId=${p.getPostId()}"> --%>
@@ -560,7 +559,6 @@
 			</c:forEach>
 			<!--Rrepetitive Sstructure(post) -->
 			
-		</div>
 	</div>
 <!-- 		</div> -->
 

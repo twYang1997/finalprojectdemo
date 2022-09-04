@@ -36,7 +36,6 @@
 <body>
 
 	<div id="" class="container">
-		<div class="col-lg-8">
 			<br>
 			<!-- 通知 -->
 			<div class="dropdown" style="float: right; margin-right: 5%;">
@@ -170,7 +169,7 @@
 					<div class="dropdown" style="float: right; margin-right: 5%;">
 						<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
 						<i class="fa fa-ellipsis-h" style="font-size: 22px"></i>
-						<div class="dropdown-content">
+						<div class="dropdown-content" style="min-width: 100px;">
 
 							<c:if test="${p.postUser.getUserId() != user.getUserId()}">
 								<a><button id="report${vs.index}" type="submit"
@@ -702,7 +701,6 @@
 
 			</c:forEach>
 			<!--重複的結構 -->
-		</div>
 	</div>
 	<!-- 		</div> -->
 
