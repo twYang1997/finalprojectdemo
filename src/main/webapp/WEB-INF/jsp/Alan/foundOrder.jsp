@@ -61,7 +61,6 @@
 						</div>
 					</div>
 					<div style="float:right;margin-right:7%">總計: ${totalPrice}</div><br>
-					
 					<button style="float:right;margin:1% 7% 0 0  " class="btn btn-outline-primary" type="button" onclick="document.getElementById('submitBtn').click()" >確認購買</button>
 				</div>
 			</div>

@@ -33,7 +33,7 @@
 											<i class="fas fa-lock fa-lg me-3 fa-fw"></i>
 											<div class="form-outline flex-fill mb-0">
 												<input name="nickName" type="text" id="form3Example4c"
-													class="form-control" placeholder="Your Name"
+													class="form-control NAME" placeholder="Your Name"
 													required="required" autocomplete="off"/>
 											</div>
 										</div>
@@ -42,7 +42,7 @@
 											<i class="fas fa-user fa-lg me-3 fa-fw"></i>
 											<div class="form-outline flex-fill mb-0">
 												<form:input path="email" type="email" id="form3Example1c"
-													class="form-control" placeholder="Email"
+													class="form-control EMAIL" placeholder="Email"
 													required="required" autocomplete="off"/> <div style="color:red">${error}</div>
 											</div>
 										</div>
@@ -51,7 +51,7 @@
 											<i class="fas fa-lock fa-lg me-3 fa-fw"></i>
 											<div class="form-outline flex-fill mb-0">
 												<form:input path="password" type="Password"
-													id="form3Example1c" class="form-control"
+													id="form3Example1c" class="form-control PWD"
 													placeholder="Password" required="required" autocomplete="off"/>
 											</div>
 										</div>
@@ -59,7 +59,7 @@
 										<p>Please select a membership category：</p>
 										<div>
 											<form:radiobutton path="Category" value="1" onclick="changeToMember()"
-												required="required" />
+												required="required" class="MEMBER" />
 											member <br>
 											<form:radiobutton path="Category" value="2" onclick="changeToCharity()"/>
 											charity
@@ -70,6 +70,9 @@
 										<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
 											<button type="submit" class="btn btn-primary btn-lg">Register</button>
 										</div>
+										<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+											<button type="button" id="signUpBtnn" class="btn btn-outline-primary btn-lg">快速填入</button>
+										</div>
 										<script>
 											function changeToMember(){
 												document.getElementById('moneydiv').innerHTML = '';
@@ -77,6 +80,14 @@
 											function changeToCharity(){
 												document.getElementById('moneydiv').innerHTML = '<form:input path="money" id="money" value="0"></form:input>';
 											}
+											$(function(){
+												$("#signUpBtnn").click(function(){
+													$(".NAME").attr("value", "Jack");
+													$(".EMAIL").attr("value", "dack00925@gmail.com");
+													$(".PWD").attr("value", "12345678");
+													$(".MEMBER").attr("checked", "true");
+												})
+											})
 										</script>
 									</form:form>
 

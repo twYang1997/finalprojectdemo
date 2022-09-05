@@ -86,8 +86,9 @@
 										<table id="testTable" class="table">
 											<thead>
 												<tr>
-													<th class="col-md-6">Posts</th>
-													<th class="col-md-3">&nbsp;</th>
+													<th class="col-md-6">貼文</th>
+													<th class="col-md-3">移除 / 取消</th>
+													<th class="col-md-3">帳號</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -145,12 +146,19 @@
 															</td>
 															<!--移除 -->
 															<td class="col-md-3"><a
-																class="rounded-pill btn btn-outline-success font-weight-bold"
+																class="rounded-pill btn btn-outline-danger font-weight-bold"
 																href="${contextRoot}/removePosts?id=${p.postId}"
-																role="button">移除</a> <!--取消移除 --> <a
+																role="button">
+																<img src="${contextRoot}/img/userimg/delete.png" class="udateicon" width="30">
+																</a> 
+															<!--取消移除 -->
+															 <a
 																class="rounded-pill btn btn-outline-success font-weight-bold"
 																href="${contextRoot}/cancelRemovePosts?id=${p.postId}"
-																role="button">取消檢舉</a></td>
+																role="button">
+																<img src="${contextRoot}/img/userimg/reply.png" class="udateicon" width="30">
+																</a></td>
+															<td class="col-md-3">${p.postUser.email}</td>
 														</tr>
 													</c:if>
 												</c:forEach>
@@ -240,7 +248,10 @@
 															<td class="col-md-3"><a
 																class="rounded-pill btn btn-outline-success font-weight-bold"
 																href="${contextRoot}/removePostsRestoration?id=${p.postId}"
-																role="button">回復</a></td>
+																role="button">
+																<img src="${contextRoot}/img/userimg/reply.png" class="udateicon" width="30">
+																</a></td>
+															<td class="col-md-3">${p.postUser.email}</td>
 														</tr>
 													</c:if>
 												</c:forEach>
