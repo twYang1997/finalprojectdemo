@@ -82,7 +82,7 @@
 <!-- 				亭孝 -->
 				<c:if test="${user.category == 3}">
 					<li class="nav-item" style="margin-left:10%">
-						<a class="nav-link" href="${contextRoot}/memberChart">Manager <span class="sr-only">(current)</span>
+						<a class="nav-link" href="${contextRoot}/memberChart"><img src="${contextRoot}/img/userimg/profile.png" style="width:30px"><span class="sr-only">(current)</span>
 				</a></li>
 				</c:if>
 				<li class="nav-item" style="margin-left:10%"><a class="nav-link"
@@ -110,10 +110,23 @@
 				</form>
 			</c:if>
 			<c:if test="${!empty user}" >
+				<c:if test="${user.category == 1}" >
 				<div id="navBarName">&emsp;${user.getNickName()}</div>
-				<a class="nav-link" href="${contextRoot}/timmy/accountsetting.controller">
-					<img id="navUserPhoto" src="${contextRoot}${user.photoPath}" style="max-height:50px; border-radius:50%">
-			  	</a>
+					<a class="nav-link" href="${contextRoot}/timmy/accountsetting.controller">
+						<img id="navUserPhoto" src="${contextRoot}${user.photoPath}" style="max-height:50px; border-radius:50%">
+				  	</a>
+				 </c:if>
+				<c:if test="${user.category == 2}" >
+				<div id="navBarName">&emsp;${user.getNickName()}</div>
+					<a class="nav-link" href="${contextRoot}/findById2">
+						<img id="navUserPhoto" src="${contextRoot}${user.photoPath}" style="max-height:50px; border-radius:50%">
+				  	</a>
+				 </c:if>
+				<c:if test="${user.category == 3}" >
+					<a class="nav-link" href="${contextRoot}/memberChart">
+						<img id="navUserPhoto" src="${contextRoot}/img/userimg/profile.png" style="width:30px">
+				  	</a>
+				 </c:if>
 			</c:if>
 			<c:if test="${!empty user}">
 				<form method="GET" action="${contextRoot}/timmy/logout">
