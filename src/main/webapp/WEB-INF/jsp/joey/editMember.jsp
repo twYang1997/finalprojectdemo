@@ -98,143 +98,115 @@ function loadXMLDoc()
 					</div>
 				</div>
 
-				<br>
+	
 
 
 				<div class="row justify-content-left">
 					<div class="col-12">
 						<div class="card">
+						<div class="input-group mb-3 ">
 							<div class="card-body">
+							
 								<div class="card-header">編輯公開資訊</div>
+								
+  								
 								<form:form class="form" method="post" modelAttribute="oneMember"
 									action="${contextRoot}/editMember">
 									<form:input type="hidden" path="userId" />
 
 									<form:input type="hidden" path="photoPath" />
-							
-							暱稱：
-							<form:input type="text" path="nickName" />
-									<br />
-							簡介：
-							<form:input type="text" path="selfIntroduction" />
+										<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">暱稱</span>
+										
+										<form:input type="text" path="nickName" 
+										class="form-control" aria-label="nickName" aria-describedby="basic-addon1"/>
+										</div>	
+										<div class="input-group-prepend ">
+										<span class="input-group-text" id="basic-addon1">簡介</span>
+										
+										<form:textarea type="text" path="selfIntroduction" style="height: 100px;"
+											class="form-control" aria-label="selfIntroduction" aria-describedby="basic-addon1"/>
+										</div>
 									<!-- 							<br /> -->
 									<!-- 							電話： -->
-									<form:input type="hidden" path="phone" />
-									<!-- 							<br /> -->
-									<!-- 							地址： -->
-									<form:input type="hidden" path="address" />
-									<!-- 							<br /> -->
-									<!-- 							生日： -->
-									<form:input type="hidden" path="birthday" />
-									<!-- 							<br /> -->
-									<!-- 							分類： -->
-									<form:input type="hidden" path="category" />
-									<!-- 							<br /> -->
-									<!-- 							信箱： -->
-									<form:input type="hidden" path="email" />
-									<!-- 							<br /> -->
-									<!-- 							性別： -->
-									<form:input type="hidden" path="gender" />
-									<!-- 							<br /> -->
-									<!-- 							密碼： -->
-									<form:input type="hidden" path="password" />
-									<br />
-									<button type="submit" class="btn btn-secondary">Submit</button>
+											<form:input type="hidden" path="phone" />
+											<!-- 							<br /> -->
+											<!-- 							地址： -->
+											<form:input type="hidden" path="address" />
+											<!-- 							<br /> -->
+											<!-- 							生日： -->
+											<form:input type="hidden" path="birthday" />
+											<!-- 							<br /> -->
+											<!-- 							分類： -->
+											<form:input type="hidden" path="category" />
+											<!-- 							<br /> -->
+											<!-- 							信箱： -->
+											<form:input type="hidden" path="email" />
+											<!-- 							<br /> -->
+											<!-- 							性別： -->
+											<form:input type="hidden" path="gender" />
+											<!-- 							<br /> -->
+											<!-- 							密碼： -->
+											<form:input type="hidden" path="password" />
+											
+											<button type="submit" class="btn btn-secondary">Submit</button>
 								</form:form>
+								
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<br>
 
 				<div class="row justify-content-left">
 					<div class="col-12">
 						<div class="card">
-							<div class="card-body">
-								<div class="card-header">編輯私人資訊</div>
-								<form:form class="form" method="post" modelAttribute="oneMember"
-									action="${contextRoot}/editMember">
+							<div class="input-group mb-3 ">
+								<div class="card-body">
+									<div class="card-header">編輯私人資訊</div>
+										<form:form class="form" method="post" modelAttribute="oneMember" action="${contextRoot}/editMember">
+										<form:input type="hidden" path="userId" />
+										<form:input type="hidden" path="photoPath" />
+										<form:input type="hidden" path="selfIntroduction" />
 
-									<form:input type="hidden" path="userId" />
-									<!-- 							<br /> -->
-									<!-- 							圖片： -->
-									<form:input type="hidden" path="photoPath" />
-									<!-- 							<br /> -->
-									<!-- 							簡介： -->
-									<form:input type="hidden" path="selfIntroduction" />
-									<!-- 							<br /> -->
-							電話：
-							<form:input type="text" path="phone" />
-									<br />
-							地址：
-							<form:input type="text" path="address" />
-									<br />
-							生日：
-							<form:input type="date" path="birthday" />
-									<br />
-							分類：
-							<form:input type="text" path="category" />
-									<br />
-							信箱：
-							<form:input type="text" path="email" />
-									<br />
-							性別：
-							<form:input type="text" path="gender" />
-									<br />
-							密碼：
-							<form:input type="text" path="password" />
-									<br />
-									<button type="submit" class="btn btn-secondary">Submit</button>
-								</form:form>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<br>
-
-				<div class="row justify-content-left">
-					<div class="col-12">
-						<div class="card">
-							<div class="card-body">
-								<div class="card-header">捐款資訊：</div>
-
-								<c:forEach var="donation" items="${oneMember.donate}">
-									<br />
-		編號：　${donation.donateId}
-		<br />
-		日期：　${donation.donateDate}
-		<br />
-		信箱：　${donation.donorEmail}
-		<br />
-		金主：　${donation.donorName}
-		<br />
-		金流：　${donation.payment}
-		<br />
-		電話：　${donation.donorPhone}
-		<br />
-								</c:forEach>
-
-
-							</div>
-						</div>
-					</div>
-				</div>
-				<br />
-				<div class="row justify-content-left">
-					<div class="col-12">
-						<div class="card">
-							<div class="card-body">
-								<div class="card-header">AJAX測試</div>
-								<div id="myDiv">預設內容</div>
-								<button type="button" onclick="loadXMLDoc()">顯示內容</button>
+										<form:input type="hidden" path="category" />
+										<form:input type="hidden" path="gender" />
+											<div class="input-group-prepend ">
+												<span class="input-group-text" id="basic-addon1">電話</span>
+												<form:input type="text" path="phone"
+												class="form-control" aria-label="phone" aria-describedby="basic-addon1" />
+											</div>
+											<div class="input-group-prepend ">
+												<span class="input-group-text" id="basic-addon1">地址</span>
+												<form:input type="text" path="address"
+												class="form-control" aria-label="address" aria-describedby="basic-addon1" />	
+											</div>	
+											<div class="input-group-prepend ">
+												<span class="input-group-text" id="basic-addon1">生日</span>
+												<form:input type="date" path="birthday"
+												class="form-control" aria-label="birthday" aria-describedby="basic-addon1" />
+											</div>
+											<div class="input-group-prepend ">
+												<span class="input-group-text" id="basic-addon1">信箱</span>
+												<form:input type="text" path="email" 
+												class="form-control" aria-label="email" aria-describedby="basic-addon1"/>
+											</div>
+											<div class="input-group-prepend ">
+												<span class="input-group-text" id="basic-addon1">密碼</span>
+												<form:input type="text" path="password" 
+												class="form-control" aria-label="password" aria-describedby="basic-addon1"/>
+											</div>							
+											<button type="submit" class="btn btn-secondary">Submit</button>
+										</form:form>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+			
 
 
 
@@ -243,257 +215,142 @@ function loadXMLDoc()
 
 		<div class="right">
 			<div class="col-lg-12">
-
 				<div class="panel">
 					<div class="panel-heading">
 						<span id="tab-1">Activity Feed</span>
 						<span id="tab-2">Add Product</span> 
 						<span id="tab-3">Order History</span> 
-						<span id="tab-4">Test Area</span>
-
 						<div id="tab">
 							<ul>
 								<li><a href="#tab-1">Activity Feed</a></li>
 								<li><a href="#tab-2">Add Product</a></li>
 								<li><a href="#tab-3">Order History</a></li>
-								<li><a href="#tab-4">Test Area</a></li>
 							</ul>
-
 							<!-- 頁籤的內容區塊 -->
-							<div class="tab-content-1">
-							
-								<div class="panel-content panel-activity">
-
-									<!-- 新增post -->
-									<c:if test="${!empty user}">
-										<form action="${contextRoot}/addPostJoey"
-											class="panel-activity__status" method="post"
-											enctype="multipart/form-data">
-											<img src="${contextRoot}${oneMember.photoPath}"
-												style="width: 40px; height: 40px; border-radius: 50%;">
-											${user.getNickName()} <select name="whoCanSeeIt">
-												<option value="1">Public</option>
-												<option value="2">Follower</option>
-												<option value="3">Only me</option>
-											</select>
-											<textarea name="postText"
-												placeholder="Share what you've been up to..."
-												class="form-control"></textarea>
-
-											<div id="result" name="result"></div>
-
-											<div class="actions">
-												<div class="btn-group">
-													<a href="#"> <input
-														style="position: absolute; opacity: 0;" type="file"
-														name="postImg" id="file" multiple
-														onchange="readAsDataURL()"
-														accept="image/gif,image/jpeg,image/x-png" /> <i
-														class="fa fa-image"></i>
-													</a> &emsp; <a href="#"> <input
-														style="position: absolute; opacity: 0;" type="file"
-														name="postVideo" id="file" accept="video/*" /><i
-														class="fa fa-video-camera"></i>
-													</a>
-													<!-- <button type="button" class="btn-link" title="Post an Video" -->
-													<!-- data-toggle="tooltip" data-original-title="Post an Video"> -->
-													<!-- <i class="fa fa-video-camera"></i> -->
-													<!-- </button> -->
-												</div>
-												<button type="submit"
-													class="btn btn-sm btn-rounded btn-info">Post</button>
-											</div>
-										</form>
-									</c:if>
-
-
-
-
-									<!-- 		重複的結構-->
-									<c:forEach items="${postsToShow}" var="p" varStatus="vs">
-										<ul class="panel-activity__list">
-											<li><i
-												class="activity__list__icon fa fa-question-circle-o"></i>
-												<div class="activity__list__header">
-													<img src="${contextRoot}${oneMember.photoPath}" alt="" />
-													<a href="#">${p.postUser.getNickName()}</a>
-												</div>
-												<div class="activity__list__body entry-content">
-
-													<!-- post內文 -->
-													<p>${p.getPostText()}</p>
-
-													<!-- post圖片 -->
-													<c:forEach items="${p.getPostImg()}" var="pImg"
-														varStatus="loop">
-														<ul class="gallery">
-															<li><img
-																src="${contextRoot}${pImg.getPostImgPath()}"></li>
-														</ul>
-													</c:forEach>
-												</div>
-												<div class="activity__list__footer">
-													<a href="#"> <i class="fa fa-thumbs-up"></i>123
-													</a> <a href="#"> <i class="fa fa-comments"></i>23
-													</a>
-													<c:if test="${p.postUser.getUserId() == user.getUserId()}">
-														<a href="#" role="button" data-toggle="modal"
-															data-target="#myModal${vs.index}"
-															id="viewDetailButton${vs.index}"> <i
-															class="fa fa-pencil"></i>Edit
-														</a>
-														<a href="#" role="button" data-toggle="modal"
-															data-target="#myModal${vs.index}deleteCheck"
-															id="viewDetailButton${vs.index}"> <i
-															class="fa fa-trash"></i>Delete
-														</a>
-													</c:if>
-													<span> <i class="fa fa-clock"></i>${p.getPostTime()}
-													</span>
-												</div></li>
-										</ul>
-
-										<!-- 彈出修改框 -->
-										<div class="modal fade" id="myModal${vs.index}" role="dialog">
-											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content">
-													<!-- head -->
-													<div class="modal-header">
-														<h4 class="modal-title">Edit post</h4>
-														<button type="button" class="close" data-dismiss="modal">&times;</button>
-													</div>
-													<!-- body -->
-													<div class="modal-body">
-														<form
-															action="${contextRoot}/postuploadjoey?postId=${p.getPostId()}"
-															class="panel-activity__status" method="post"
-															enctype="multipart/form-data">
-															<img src="${contextRoot}/img/joeyimg/joeypostimg/3.png"
-																style="width: 40px; height: 40px; border-radius: 50%;">
-															${user.getNickName()} <select name="whoCanSeeIt">
-																<option value="1">Public</option>
-																<option value="2">Follower</option>
-																<option value="3">Only me</option>
-															</select>
-															<textarea name="postText" class="form-control"
-																style="border-style: none; overflow: hidden">${p.getPostText()}</textarea>
-
-															<div id="result" name="result"></div>
-
-
-															<!-- footer -->
-															<div>
-																<div>
-																	<label> <input
-																		style="position: absolute; opacity: 0;" type="file"
-																		name="postImg" id="file" multiple
-																		onchange="readAsDataURL()"
-																		accept="image/gif,image/jpeg,image/x-png" /> <i
-																		class="fa fa-image"></i>
-																	</label> &emsp; <label> <input
-																		style="position: absolute; opacity: 0;" type="file"
-																		name="postVideo" id="file" accept="video/*" /> <i
-																		class="fa fa-video-camera"></i>
-																	</label>
-																</div>
-																<button type="submit"
-																	class="btn btn-sm btn-rounded btn-info">Save</button>
-															</div>
-														</form>
-													</div>
-												</div>
-											</div>
-										</div>
-
-
-										<!-- 						彈出刪除確認 -->
-										<div class="modal fade" id="myModal${vs.index}deleteCheck"
-											tabindex="-1" role="dialog"
-											aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered"
-												role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLongTitle">Move
-															to your trash?</h5>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">Items in your trash will be
-														automatically deleted after 30 days.</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-light"
-															data-dismiss="modal">Cancel</button>
-														<form method="Post"
-															action="${contextRoot}/movePostToTrash.controller?postId=${p.getPostId()}">
-															<button type="submit" class="btn btn-info">Move</button>
-														</form>
-													</div>
-												</div>
-											</div>
-										</div>
-									</c:forEach>
-									<!-- 					重複的結構 -->
+							<div class="tab-content-1 tab-content-border">
+								<div class="panel-content panel-activity" style="padding-top:20px">
+									<div id="postManagerDiv" style="display:">
+										<jsp:include page="../timmy/PostSetting.jsp" />
+									</div>
 								</div>
-								
 							</div>
 							<div class="tab-content-2">
 							<div class="panel-content panel-activity">
 									
 								<c:if test="${!empty user}">
 									<form action="${contextRoot}/addProductJoey" class="panel-activity__status" method="post" enctype="multipart/form-data">
-								<div class="addProd"><!--父元素-->
-   									<div class="addProdLeft ">
-								
-										<div class="panel-content panel-activity">
-												<figure>
-													<label>
-														<img style="width: 228px;" id="recipt" src="${contextRoot}/img/joeyimg/default_product_image.png" />
-														<input type="file" id="rfile" name="productImg" onchange="photochange1(event,recipt)" accept=".png, .jpg, .jpeg" style="display: none;" />
-													</label>
-												</figure>
-												<script type="text/javascript"> 
-													function photochange1(event,imgid){
-													var img=document.getElementById(imgid.id);
-											 		var reader = new FileReader();
-											 			img.src = URL.createObjectURL(event.target.files[0]);
-											 			img.onload = function() {
-											      		URL.revokeObjectURL(img.src) // free memory
-											    		}
-													}
- 												</script>
-										</div>
-									</div>
-    								<div class="addProdRight">
-    								<div class="panel-content panel-activity">
-										<div class="input-group mb-3">
-											<span class="input-group-text">商品名稱</span> 
-											<input type="text" class="form-control" placeholder="Product Name" name="productName" aria-label="Username"> <span
-												class="input-group-text">金額</span> <input type="text" class="form-control" placeholder="Price"
-												name="productPrice" aria-label="Server">
-										</div>
-										<div class="input-group">
-											<span class="input-group-text">商品說明</span>
-												<textarea style="height: 160px;" placeholder="Product Discription"
-													name="productContext" class="form-control"
-													aria-label="With textarea">
-												</textarea>
-												<button type="submit" class="btn btn-secondary">新增商品</button>
-										</div>
+										<div class="addProd"><!--父元素-->
+		   									<div class="addProdLeft ">
+												<div class="panel-content panel-activity">
+														<figure>
+															<label>
+																<img style="max-width:228px; max-height: 200px; margin-left:18px; margin-top:18px;" id="recipt" src="${contextRoot}/img/joeyimg/default_product_image.png" />
+																<input type="file" id="rfile" name="productImg" onchange="photochange1(event,recipt)" accept=".png, .jpg, .jpeg" style="display: none;" />
+															</label>
+														</figure>
+														<script type="text/javascript"> 
+															function photochange1(event,imgid){
+															var img=document.getElementById(imgid.id);
+													 		var reader = new FileReader();
+													 			img.src = URL.createObjectURL(event.target.files[0]);
+													 			img.onload = function() {
+													      		URL.revokeObjectURL(img.src) // free memory
+													    		}
+															}
+		 												</script>
+												</div>
 											</div>
-										
-									</div>
-								</div><!--wrap-->
+		    								<div class="addProdRight">
+		    								<div class="panel-content panel-activity ">
+												<div class="input-group mb-3">
+													<span class="input-group-text">商品名稱</span> 
+													<input type="text" class="form-control" placeholder="Product Name" name="productName" id="quickAddProductName" aria-label="Username"> <span
+														class="input-group-text">金額</span> <input type="text" class="form-control" placeholder="Price"
+														id="quickAddProductPrice" name="productPrice" aria-label="Server">
+														
+												</div>
+												<div class="input-group">
+													<span class="input-group-text">商品說明</span>
+														<textarea style="height: 180px;" placeholder="Product Discription"
+															name="productContext" class="form-control"
+															aria-label="With textarea" id="productContext" ></textarea>
+														<div class="d-grid d-md-block">
+														  <button class="btn btn-primary quickAddProduct " type="button" style="height:88.5px;">一鍵輸入</button>
+														  <button class="btn btn-secondary btn-block" type="button" id="addProductBtn" style="height: 88.5px;">新增商品</button>
+														</div>
+<!-- 														<div class="row g-2"> -->
+<!-- 														  <button class="btn btn-primary btn-sm btn-block quickAddProduct" type="button">一鍵輸入</button> -->
+<!-- 														  <button class="btn btn-secondary btn-sm btn-block" type="button" id="addProductBtn" >新增商品</button> -->
+<!-- 														</div> -->
+														<script type="text/javascript">
+														$(".quickAddProduct").click(function() {
+															  $("#quickAddProductName").val("卡娜赫拉火車");
+															  $("#quickAddProductPrice").val("500");
+															  $("#productContext").val("只到9/1");
+															 });
+														</script>
+												</div>
+													
+											</div>
+											
+																
+											</div>
+										</div><!--wrap-->
 								</form>
+								<script>
+									$(function(){
+										$("#addProductBtn").on("click", function(){
+											let imgName = $("#rfile")[0].files[0].name;
+											let imgType = $("#rfile")[0].files[0].type;
+											var reader = new FileReader();
+											reader.onload = function(e){
+												let img64 = e.target.result;
+												let productName = $("input[name=productName]").val();
+												let productPrice = $("input[name=productPrice]").val();
+												let productContext = $("#productContext").val();
+												let dataOrigin = {
+														"productName":productName,
+														"productPrice":productPrice,
+														"productContext":productContext,
+														"imgName":imgName,
+														"imgType":imgType,
+														"img64": img64
+												};
+												let datas = JSON.stringify(dataOrigin);
+												console.log(datas);
+												$.ajax({
+													url: '/demo/joey/addNewProductAjax',
+													contentType: 'application/json',
+													dataType: 'text',
+													method: 'post',
+													data: datas,
+													success: function(result) {
+														console.log(result);
+														Swal.fire({
+															  icon: 'success',
+															  title: 'This product has been created.',
+															  showConfirmButton: false,
+															  timer: 1500
+															}).then(() => {
+																window.location.reload();
+															})
+													},
+													error: function(error) {
+														console.log(error);
+													}
+												});
+											}
+											reader.readAsDataURL($("#rfile")[0].files[0]);
+										})
+									})
+								</script>
 									</c:if>
 									
 										<!-- 重複的結構（商品）-->
 										
 										<%int count = 0;%>
 										<c:forEach items="${produtsToShow}" var="prod" varStatus="vs">
-										
+										<c:if test="${prod.productStatus == 1}">
 											<%count++;%>
 											<form
 												action="${contextRoot}/editProdutjoey?productId=${prod.getProductId()}"
@@ -505,19 +362,19 @@ function loadXMLDoc()
 											   <div class="editProdLeft">
 											   	<div class="panel-content panel-activity">
 											   		<figure class="figure">
-<%-- 													<label><img id="<%=count%>" --%>
-													<label id="productImg${prod.getProductId()}"><img id="<%=count%>"
-														src="${contextRoot}${prod.getProductImg()}" 
-														style="max-width:228px; max-height: 200px; margin-left:18px; margin-top:18px;" 
-														class="figure-img img-fluid rounded "/> 
+<%-- 													<img id="<%=count%>" --%>
+															<label id="productImg${prod.getProductId()}"><img id="<%=count%>"
+																src="${contextRoot}${prod.getProductImg()}" 
+																style="max-width:228px; max-height: 200px; margin-left:18px; margin-top:18px;" 
+																class="figure-img img-fluid rounded "/> 
 <!-- 														type="file" id="rfile" name="productImg" -->
-														<input
-														type="file" id="rfile${prod.getProductId()}" name="productImg"
-														onchange="photochange(event,<%=count%> )"
-														accept=".png, .jpg, .jpeg" style="display: none;" />
+															<input
+															type="file" id="rfile${prod.getProductId()}" name="productImg"
+															onchange="photochange(event,<%=count%> )"
+															accept=".png, .jpg, .jpeg" style="display: none;" />
 													</label>
 													</figure>
-													</div>
+												</div>
 											   </div>
 												<script type="text/javascript"> 
 														function photochange(event,imgid){ 
@@ -526,12 +383,54 @@ function loadXMLDoc()
 				 											 console.log(imgid.id); 
 															 var img=document.getElementById(imgid); 
 				 											 var reader = new FileReader(); 
-				 											 img.src = URL.createObjectURL(event.target.files[0]); 
+				 											 img.src = URL.createObjectURL(event.target.files[0]);
+				 											 
 				 											 img.onload = function() {
 				 											      URL.revokeObjectURL(img.src) // free memory
 															} 
 																} 
-														</script> 
+// 														此為修改商品圖片的ajax
+														$(function(){	//jQuery文件備妥處理器
+															$("#rfile${prod.getProductId()}").on("change", function(){
+																readURL(this); //這個function
+															});
+															var file = document.getElementById("#rfile${prod.getProductId()}");
+															function readURL(input) {
+																if (input.files && input.files[0]) {
+																	var reader = new FileReader();
+																	reader.onload = function(e) {
+																		var datao = {
+																			"id": ${prod.getProductId()},
+																			"type": "",
+																			"img64": e.target.result
+																		};
+																		var datas = JSON.stringify(datao);
+																		$.ajax({
+																				url: '/demo/joey/uploadProductImgAjax',
+																				contentType: 'application/json',
+																				dataType: 'text',
+																				method: 'post',
+																				data: datas,
+																				success: function(result) {
+																					console.log(result);
+																					Swal.fire({
+																						  icon: 'success',
+																						  title: 'This change has been saved',
+																						  showConfirmButton: false,
+																						  timer: 1500
+																						})
+																				},
+																				error: function(error) {
+																					console.log(error);
+																				}
+																			});
+																	}
+																}
+																reader.readAsDataURL(input.files[0]);
+															}
+														})
+														
+												</script> 
 											<div class="editProdRight">
 												<div class="panel-content panel-activity">
 												<div class="input-group mb-3">
@@ -551,8 +450,11 @@ function loadXMLDoc()
 														aria-label="With textarea">${prod.getProductContext()}</textarea>
 <!-- 													<button type="submit" -->
 <!-- 														class="btn btn-secondary">修改商品</button> -->
-													<button id="updateProductBtn${prod.getProductId()}" type="button"
-														class="btn btn-secondary">修改商品</button>
+													<div class="d-grid d-md-block ">
+														  <button id="updateProductBtn${prod.getProductId()}" type="button" class="btn btn-secondary" style="height: 88.5px;">修改商品</button>
+														  <button id="removeProductBtn${prod.getProductId()}" type="button" class="btn btn-danger btn-block"style="height: 88.5px;">刪除商品</button>
+														</div>
+													
 														
 												</div>
 											</div>
@@ -569,6 +471,7 @@ function loadXMLDoc()
 												console.log(imgSRC);
 												console.log("imgSRC: " + imgSRC[0]);
 												let productName = $("#productName${prod.getProductId()}").val();
+												//console.log("productName:" + productName);
 												let productPrice = $("#productPrice${prod.getProductId()}").val();
 												let description = $("#description${prod.getProductId()}").val();
 												let dataOrigin = {
@@ -584,11 +487,53 @@ function loadXMLDoc()
 													method: 'post',
 													contentType: 'application/json',
 													data: datas,
-													success: console.log(result)
+													success: function(){
+                                                        Swal.fire({
+                                                            icon: 'success',
+                                                            title: 'This change has been saved.',
+                                                            showConfirmButton: false,
+                                                            timer: 1500
+                                                          })
+													}
 												})
 											})
 										});
+										
+										
+
+											
+	$(function(){
+
+		
+		$("#removeProductBtn${prod.getProductId()}").click(function(e){
+
+			let dataOrigin2 = {
+					"productId":${prod.getProductId()}
+			};		
+			
+			
+			
+			let datas2 = JSON.stringify(dataOrigin2);
+			console.log(datas2);
+			$.ajax({
+				url: "/demo" + "/joey/removeProductAjax",
+				method: 'post',
+				contentType: 'application/json',
+				data: datas2,
+				success: function(){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'This product has been removed.',
+                        showConfirmButton: false,
+                        timer: 1500
+						}).then(() => {
+							window.location.reload();
+						})
+						}})})	})
+             
 									</script>
+								
+									</c:if>
 										</c:forEach>
 										
 										<!-- 					重複的結構 -->
@@ -793,18 +738,12 @@ function loadXMLDoc()
 									} );
 								</script>
 							</div>
-							<div class="tab-content-4">
-
-								Test Area
-								
-						
-
-							</div>
 									
 						</div>
 					</div>
 
 				</div>
+			</div>
 			</div>
 
 </div>
@@ -1869,6 +1808,7 @@ imgInp.onchange = evt => {
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script
 	src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>
 
 </html>
 

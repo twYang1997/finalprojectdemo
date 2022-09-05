@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.finaldemo.model.Foundation;
 import com.finaldemo.model.FoundationRepository;
 import com.finaldemo.model.OrderDetail;
+import com.finaldemo.model.OrderDetailRepository;
 import com.finaldemo.model.Orders;
 import com.finaldemo.model.OrdersRepository;
 import com.finaldemo.model.Products;
@@ -39,6 +40,9 @@ public class AlanService {
 	@Autowired
 	private OrdersRepository ordersDao;
 	
+	@Autowired
+	private OrderDetailRepository ordersDetailDao;
+	
 	public Users findUserById(Integer id) {
 		return userDao.findById(id).get();
 	}
@@ -47,6 +51,11 @@ public class AlanService {
 	public List<Users> findAllCharities() {
 		return userDao.findAllCharities();
 	}
+	/** 取得所有基金會資料 */
+	public List<Users> findAllUsersOrders() {
+		return userDao.findAllUsersOrders();
+	}
+	
 
 	/** 取得基金會商品資料 */
 	public List<Foundation> findAllFoundationProducts(String foundationId) {
@@ -58,9 +67,13 @@ public class AlanService {
 		return userDao.findFoundation(foundationId);
 	}
 
-	/** 取得單個會員訂單資料 */
+	/** 取得單個會員購物車資料 */
 	public List<ShoppingCar> findAllShoppingCarProducts(String userId) {
 		return shoppingCarDao.findAllShoppingCarProducts(userId);
+	}
+		/** 取得單個會員訂單資料 */
+		public List<Orders> findUsersOrders(String userId) {
+			return ordersDao.findUsersOrders(userId);
 
 	}
 

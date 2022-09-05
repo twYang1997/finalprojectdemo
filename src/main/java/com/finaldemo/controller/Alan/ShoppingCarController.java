@@ -41,6 +41,8 @@ public class ShoppingCarController {
 
 	@Autowired
 	private HttpSession session; // 宣告session 出現兩次以上不用重複宣告
+	
+	
 
 	/***
 	 * 取得目前購物車商品資料
@@ -51,12 +53,12 @@ public class ShoppingCarController {
 																				// Bean裡面的資料
 		System.out.println(usersId); // 列印usersId確認是否取得資料
 		List<ShoppingCar> ShoppingCarList = alanService.findAllShoppingCarProducts(Integer.toString(usersId)); // 啟動Service
-																											// 使用前面取得session
-																											// usersId
-																											// 來抓取該會員底下的購物車
 		model.addAttribute("ShoppingCarProducts", ShoppingCarList); // 建立ShoppingCarProducts Model 來裝ShoppingCarList
 																	// 裡面的資料方便前端JSP取得
 		System.out.println("ShoppingCarProducts:" + ShoppingCarList); // 列印出ShoppingCarList 裡面的值 來確認是否為購物車所需
+		
+		
+		
 		return "Alan/shoppingCar";
 	}
 

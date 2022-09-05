@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageControllerTimmy {
 	
-	@GetMapping("/timmy")
+//	@GetMapping("/timmy")
 	public String returnIndex() {
 		return "timmy/index";
 	}

@@ -6,11 +6,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finaldemo.dto.ImageDto;
 import com.finaldemo.dto.ProductDto;
 import com.finaldemo.model.Donate;
 import com.finaldemo.model.Foundation;
@@ -120,7 +123,7 @@ public class JoeyController {
 	@PostMapping("/addProductJoey")
 	public String addProduct(@RequestParam String productName, @RequestParam Integer productPrice,
 			@RequestParam String productContext, @RequestParam MultipartFile[] productImg,
-			HttpSession session)
+			HttpSession session, Model m)
 			throws IllegalStateException, IOException {
 		
 
@@ -229,7 +232,7 @@ public class JoeyController {
 			u1.setPhotoPath(user.getPhotoPath());
 		service.editUser(u1);
 
-		return "joey/joeytest";
+		return "redirect:/findById2";
 	}
 
 	@PostMapping("/fileuploadjoey")
@@ -256,10 +259,10 @@ public class JoeyController {
 					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\",
 							userId + photoType),bytes);
 
-			return "redirect:/getMainPagePosts.controller";
+			return "redirect:/findById2";
 		} catch (IOException e) {
 			e.printStackTrace();
-			return "redirect:/getMainPagePosts.controller";
+			return "redirect:/findById2";
 		}
 	}
 
@@ -306,7 +309,7 @@ public class JoeyController {
 			String videoPath = System.getProperty("user.dir") + "/src/main/webapp/video/" + fileName;
 			postVideo.transferTo(new File(videoPath));
 		}
-		return "redirect:/getMainPagePosts.controller";
+		return "redirect:/findById2";
 	}
 
 	@PostMapping("/postuploadjoey")
@@ -344,6 +347,16 @@ public class JoeyController {
 
 		return "redirect:/findById2";
 
+	}
+	
+	@PostMapping("/joey/removeProductAjax")
+	@ResponseBody
+	public String RemoveProductAjax(@RequestBody ProductDto dto) {
+		Products p1 = service.findProductById(Integer.parseInt(dto.getProductId()));
+		p1.setProductStatus(0);
+		//(dto.getProductName());
+		service.editProduct(p1);
+		return "success";
 	}
 	
 	@GetMapping("/websocket")
@@ -386,6 +399,61 @@ public class JoeyController {
 		p1.setProductPrice(Integer.parseInt(dto.getProductPrice()));
 		p1.setProductContext(dto.getDescription());
 		service.editProduct(p1);
+		return "success";
+	}
+	
+	@PostMapping("/joey/uploadProductImgAjax")
+	@ResponseBody
+	public String uploadProductImgAjax(@RequestBody ImageDto dto ) {
+		String extension = dto.getImg64().replaceAll(dto.getImg64().substring(0, dto.getImg64().indexOf("base64,") + 7), "");
+		byte[] content = Base64.decodeBase64(extension);
+		Products p1 = service.findProductById(dto.getId());
+		try {
+			FileUtils.writeByteArrayToFile(
+					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\" + p1.getProductImg()) ,content);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return "success";
+	}
+	
+	@PostMapping("/joey/addNewProductAjax")
+	@ResponseBody
+	public String addNewProductAjax(@RequestBody Map<String, Object> jsonData, HttpSession session) {
+		Products products = new Products();
+		Users user = (Users) session.getAttribute("user");
+		Foundation fundation = PhoebeService.getUserById(user.getUserId()).getFoundation();
+		products.setProductContext(jsonData.get("productContext").toString());
+		products.setProductPrice(Integer.parseInt(jsonData.get("productPrice").toString()));
+		products.setProductName(jsonData.get("productName").toString());
+		products.setProductStatus(1);
+		products.setProductDate(new Date());
+		products.setBuyCount(0);
+		products.setFoundation(fundation);
+		String newImg64 = jsonData.get("img64").toString();
+		String extension = newImg64.replaceAll(newImg64.substring(0, newImg64.indexOf("base64,") + 7), "");
+		byte[] content = Base64.decodeBase64(extension);
+		
+		String imgType = jsonData.get("imgType").toString();
+		System.out.println("type:" + imgType);
+		System.out.println("name:" + jsonData.get("imgName").toString());
+//		imgType = imgType.substring(imgType.indexOf("/") + 1, imgType.indexOf("image"));
+		try {
+			FileUtils.writeByteArrayToFile(
+					new File(System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\joeyimg\\joeyproductimg\\" + jsonData.get("imgName").toString()) ,content);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		products.setProductImg("/img/joeyimg/joeyproductimg/" + jsonData.get("imgName").toString());
+		service.editProduct(products);
+		System.out.println("imgType:"+imgType);
+		System.out.println("products:"+products);
+//		System.out.println(jsonData.get("productName").toString());
+//		System.out.println(jsonData.get("productPrice").toString());
+//		System.out.println(jsonData.get("productContext").toString());
+//		System.out.println(jsonData.get("imgName").toString());
+//		System.out.println(jsonData.get("imgType").toString());
 		return "success";
 	}
 }

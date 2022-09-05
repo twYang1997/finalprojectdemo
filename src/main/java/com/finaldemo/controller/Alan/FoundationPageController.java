@@ -2,6 +2,8 @@ package com.finaldemo.controller.Alan;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,8 @@ public class FoundationPageController {
 
 	@Autowired
 	private AlanService alanService;
+	
+	
 
 	/*** 
 	 * 取得所有基金會資料
@@ -26,5 +30,7 @@ public class FoundationPageController {
 		model.addAttribute("usersList", usersList);
 		return "Alan/foundation";
 	}
+	
+	
 
 }

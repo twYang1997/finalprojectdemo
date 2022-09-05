@@ -13,133 +13,60 @@
 <head>
 <link href="${contextRoot}/css/shoppingcar.css" rel="stylesheet" />
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PET.COM</title>
 </head>
 <body>
 	<div class="container"></div>
 	<div class="text-center mb-5">
 		<h3>確認訂單</h3>
 	</div>
-	<div class="card mb-3"></div>
 	<!--  放進購物車內容 -->
-	<
+	<form action="${contextRoot}/Alan/Orders" method="post">
 	<div class="card-body">
-		<form action="${contextRoot}/Alan/Orders" method="post">
-			<div>
-				<div class="row flex-fill">
-					<div class="col-sm-5">
-
-
-						<div class="card-body">
-							<div class="d-flex flex-column flex-lg-row">
-								<span class="avatar avatar-text rounded-3 me-4 mb-2">商品</span>
-								<div class="row flex-fill">
+		<div class="card mb-3">
+			<div class="card-body">
+				<div class="">
+					<div class="row flex-fill">
+						<div class="col-sm-12">
+							<div class="row flex-fill">
+								<table class="table table-striped" style="margin: 3% 3% 1% 3%">
+									<tr>
+										<td><h4>圖片</h4></td>
+										<td><h4>商品名稱</h4></td>
+										<td><h4>購買數量</h4></td>
+										<td><h4>單價</h4></td>
+										<td><h4>總計</h4></td>
+										<td style="display:none"></td>
+									</tr>
+									<c:set var="totalPrice" value="${0}"></c:set>
 									<c:forEach items='${shoppingCarList}' var='orders'>
-										<input type="hidden" name="Q" value="${orders.quantity}"></input>
-										<input type="hidden" name="Id"
-											value="${orders.products.productId}"></input>
-										<input type="hidden" name="orderSubtotal"
-											value="${orders.products.productPrice}"></input>
-										<div class="col-sm-5">
-											<h4>${orders.products.productName}</h4>
-										</div>
-
-										<div class="col-sm-4 py-2">
-											<span>購買數量:${orders.quantity}</span> <span>單價:${orders.products.productPrice}</span>
-											<div>
-												<span>總計:</span>
-											</div>
-										</div>
+										<tr>
+											<td><img
+												src="${contextRoot}${orders.products.productImg}"
+												class="rounded" alt="..." width="95" height="95"></td>
+											<td>${orders.products.productName}</td>
+											<td>${orders.quantity}</td>
+											<td>${orders.products.productPrice}</td>
+											<td>${orders.quantity*orders.products.productPrice}</td>
+											<c:set var="totalPrice" value="${totalPrice + orders.quantity * orders.products.productPrice}"></c:set>
+											<td style="display:none">
+												<input type="hidden" name="Q" value="${orders.quantity}" style="display:none">
+												<input type="hidden" name="Id" value="${orders.products.productId}" style="display:none">
+												<input type="hidden" name="orderSubtotal" value="${orders.products.productPrice}" style="display:none">
+											</td>
+										</tr>
 									</c:forEach>
-								</div>
+								</table>
 							</div>
 						</div>
-
 					</div>
-					<div class="col-sm-4 py-2"></div>
-					<div class="col-sm-3 text-lg-end"></div>
-
-					<!-- 	</div>
-					<a href="#" type="button" style="float: right"
-						class="btn btn-primary stretched-link">確認購買</a>
-				</div> -->
+					<div style="float:right;margin-right:7%">總計: ${totalPrice}</div><br>
+					<button style="float:right;margin:1% 7% 0 0  " class="btn btn-outline-primary" type="button" onclick="document.getElementById('submitBtn').click()" >確認購買</button>
 				</div>
-
 			</div>
-
-			<div class="card mb-3">
-
-				<div class="card-body">
-					<div class="">
-
-
-						<div class="row flex-fill">
-							<div class="col-sm-5">
-
-
-
-								<div>
-									姓名: <input type="text" size=6 maxlength=6 id="name" value="">
-								</div>
-								<p></p>
-								<div>
-									地址: <input type="text" size=6 maxlength=6 id="address" value="">
-								</div>
-								<p></p>
-								<div>
-									電話: <input type="text" size=6 maxlength=6 id="phone" value="">
-								</div>
-								<p></p>
-								<div>
-									信箱: <input type="text" size=6 maxlength=6 id="email" value="">
-								</div>
-
-
-
-
-
-								<p>
-									<input id="content" type="hidden" />
-								</p>
-								<input id="touch" type="button" value="一鍵填入" />
-
-							</div>
-							<div class="col-sm-4 py-2"></div>
-							<div class="col-sm-3 text-lg-end"></div>
-
-						</div>
-						<p>
-							<span id="change" value="123"></span>
-						</p>
-
-						<button style="float: right">確認購買</button>
-
-					</div>
-
-				</div>
-
-			</div>
-		</form>
+		</div>
 	</div>
-
-
-	<script>
-		$("#touch").click(
-				function() {
-					var content = $("#content").val();
-					content = "馬嘉鴻";
-					content1 = "新北市大安區2-900號";
-					content2 = "09123456789";
-					content3 = "superpan54321@gmail.com";
-					$("#name").replaceWith(
-							"<label id='change'>" + content + "</label>");
-					$("#address").replaceWith(
-							"<label id='change'>" + content1 + "</label>");
-					$("#phone").replaceWith(
-							"<label id='change'>" + content2 + "</label>");
-					$("#email").replaceWith(
-							"<label id='change'>" + content3 + "</label>");
-				});
-	</script>
+	<button id="submitBtn" style="display:none"></button>
+	</form>
 </body>
 </html>

@@ -36,7 +36,6 @@
 <body>
 
 	<div id="" class="container">
-		<div class="col-lg-8">
 			<br>
 			<!-- 通知 -->
 			<div class="dropdown" style="float: right; margin-right: 5%;">
@@ -170,7 +169,7 @@
 					<div class="dropdown" style="float: right; margin-right: 5%;">
 						<button class="dropbtn" style="visibility: hidden;">Dropdown</button>
 						<i class="fa fa-ellipsis-h" style="font-size: 22px"></i>
-						<div class="dropdown-content">
+						<div class="dropdown-content" style="min-width: 100px;">
 
 							<c:if test="${p.postUser.getUserId() != user.getUserId()}">
 								<a><button id="report${vs.index}" type="submit"
@@ -368,17 +367,19 @@
 										<!-- footer -->
 										<div>
 											<div>
-												<label> <input
+												<a href=#><label> <input
 													style="position: absolute; opacity: 0;" type="file"
 													name="postImg" id="fileEdit" multiple
 													onchange="readAsDataURLEdit()"
 													accept="image/gif,image/jpeg,image/x-png" /> <i
 													class="fa fa-image"></i>
-												</label> &emsp; <label> <input
-													style="position: absolute; opacity: 0;" type="file"
-													name="postVideo" id="file" accept="video/*" /> <i
-													class="fa fa-video-camera"></i>
-												</label>
+												</label> </a>
+<!-- 												&emsp;  -->
+<!-- 												<label> <input -->
+<!-- 													style="position: absolute; opacity: 0;" type="file" -->
+<!-- 													name="postVideo" id="file" accept="video/*" /> <i -->
+<!-- 													class="fa fa-video-camera"></i> -->
+<!-- 												</label> -->
 											</div>
 											<div class="modal-footer">
 											<button type="submit" class="btn btn-sm btn-rounded btn-info">Save</button>
@@ -702,7 +703,6 @@
 
 			</c:forEach>
 			<!--重複的結構 -->
-		</div>
 	</div>
 	<!-- 		</div> -->
 

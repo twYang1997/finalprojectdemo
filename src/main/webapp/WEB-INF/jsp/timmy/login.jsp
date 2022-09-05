@@ -44,15 +44,13 @@
 													required="required" />
 											</div>
 										</div>
-										<div><span>Remember Me </span><input type="checkbox" name="rememberMe" value="on"></div>
-										<div>&emsp;</div>
+										<div><span>Remember Me </span><input type="checkbox" name="rememberMe" value="on" style="display:inline"><span style="color:red">&emsp;${errors.failed }</span></div>
+										<div>&emsp;&emsp;</div>
 										<div class="d-flex justify-content-center mx-6 mb-3 mb-lg-4">
-											<button type="submit" class="btn btn-primary btn-lg">Login</button>
-												<div style="color:red">&emsp;${errors.failed }</div>
+											<button type="submit" class="btn btn-primary btn-lg">Login</button>&emsp;&emsp;
 											<button type="button" class="btn btn-outline-success btn-lg" id="forgetPwdBtn">Forgot password</button>
 										</div>
 									</form>
-									<c:if test="${!empty verifyingEmail}">
 										<button id="buildNewPwdBtn" style="display:none">buildNewPwdBtn</button>
 										<script>
 											$(function(){
@@ -68,18 +66,16 @@
 													  showLoaderOnConfirm: true,
 													  backdrop: true,
 													  preConfirm: () => {
-// 													    	 console.log(document.getElementById('swal-input1').value)
-// 													         console.log(document.getElementById('swal-input2').value)
-// 													         console.log("${verifyingEmail}");
 													         let newPwd = document.getElementById('swal-input1').value;
 													    	 let checkPwd = document.getElementById('swal-input2').value;
 													    	 if (newPwd != checkPwd){
 													    		 Swal.showValidationMessage("Please enter the correct password!");
 													    	 } else {
 													    		 let datas = {
-													    				 "postId":"${verifyingEmail}",
+													    				 "postId":verifyingEmail,
 													    				 "commentText":checkPwd
 													    		 };
+													    		 console.log( "postId: " + verifyingEmail)
 													    		 let datao = JSON.stringify(datas);
 													    		 $.ajax({
 													    			 url: contextRoot + "/timmy/updateForgottenPwdAjax",
@@ -105,11 +101,10 @@
 													  }
 													})
 												});
-												$("#buildNewPwdBtn").click();
+// 												$("#buildNewPwdBtn").click();
 												
 											});
 										</script>
-									</c:if>
 									<script type="text/javascript">
 										$(document).ready(function() {
 											var contextRoot = "/demo";
@@ -138,15 +133,33 @@
 													    			Swal.showValidationMessage("Email was not found!");
 													    		}
 													    		console.log("ajax success:" + result);
+													    		verifyingEmail = login;
 													    	}
 													    })
 													  },
 													  allowOutsideClick: () => !Swal.isLoading()
 													}).then((result) => {
 													  if (result.isConfirmed) {
-													    Swal.fire({
-													      title: 'Check your email to verify your account',
-													    })
+// 													    Swal.fire({
+// 													      title: 'Check your email to verify your account',
+// 													    })
+														console.log(result.value);
+                                                        Swal.fire({
+                                                            title: 'Please enter the number which sent to your email',
+                                                              html: '<input id="swal-input3" class="swal2-input">',
+                                                              focusConfirm: false,
+                                                              preConfirm: () => {
+                                                               let verifyNumber = document.getElementById('swal-input3').value;
+                                                               console.log(verifyNumber);
+                                                               if (verifyNumber == result.value){
+                                                                   console.log("success");
+                                                                   $("#buildNewPwdBtn").click();
+                                                                   
+                                                               } else {
+                                                                   Swal.showValidationMessage("error");
+                                                               }
+                                                              }
+                                                        })
 													  }
 													})
 												
@@ -162,14 +175,53 @@
 										class="img-fluid" alt="Sample image">
 
 								</div>
+								
 							</div>
+							<button class="btn btn-outline-info" id="newm1" style="margin-right: 5px">New Account</button>
+							<button class="btn btn-outline-info" id="nm1" style="margin-right: 5px">Mary</button>
+							<button class="btn btn-outline-info" id="nm2" style="margin-right: 5px">Sam</button>
+							<button class="btn btn-outline-info" id="fm" style="margin-right: 5px">流浪動物之家</button>
+							<button class="btn btn-outline-info" id="mm" style="margin-right: 5px">管理員</button>
+							<script>
+								$(function(){
+									$("#newm1").on("click", function(){
+										$("#form3Example3c").attr("value", "dack00925@gmail.com")
+										$("#form3Example4c").attr("value", "12345678")
+									});
+									$("#nm1").on("click", function(){
+										$("#form3Example3c").attr("value", "mary@gmail.com")
+										$("#form3Example4c").attr("value", "12345678")
+									});
+									$("#nm2").on("click", function(){
+										$("#form3Example3c").attr("value", "sam@gmail.com")
+										$("#form3Example4c").attr("value", "12345678")
+									});
+									$("#fm").on("click", function(){
+										$("#form3Example3c").attr("value", "mainfoundation@gmail.com")
+										$("#form3Example4c").attr("value", "12345678")
+									});
+									$("#mm").on("click", function(){
+										$("#form3Example3c").attr("value", "manager@gmail.com")
+										$("#form3Example4c").attr("value", "12345678")
+									});
+									console.log("${newAccountToBuild}")
+									if ("${newAccountToBuild}".length > 0){
+										
+										Swal.fire({
+											icon: 'success',
+											title: "Success! Welcome~"
+										})
+										
+									}
+								})
+							</script>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-
+	
 	<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 	<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>

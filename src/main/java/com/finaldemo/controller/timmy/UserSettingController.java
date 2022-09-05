@@ -11,8 +11,9 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
@@ -21,7 +22,6 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -178,27 +178,57 @@ public class UserSettingController {
 		return "timmy/NormalMember";
 	}
 	
+//	@GetMapping("/timmy/checkEmailAjax")
+//	@ResponseBody
+//	public String checkEmailAjax(@RequestParam String email) {
+//		if (service.getUsersByEmail(email).size() == 0) {
+//			return "emailNotFound";
+//		}
+//		MimeMessage mimeMessage = mailSender.createMimeMessage();
+//        try {
+//			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+//			helper.setFrom("eeit14719@outlook.com");
+//	        helper.setTo(email);
+//	        helper.setSubject("主旨：認證email");
+//	        helper.setText("<html><body>"
+//	        		+ "<a href='http://localhost:8080/demo/timmy/buildEmailCertificationRP.controller?email="+ email +"'>click here to verify the email</a>"
+//	        		+ "</body></html>", true);
+//	        mailSender.send(mimeMessage);
+//		} catch (MessagingException e) {
+//			e.printStackTrace();
+//		}
+//		return email;
+//	}
+	
 	@GetMapping("/timmy/checkEmailAjax")
-	@ResponseBody
-	public String checkEmailAjax(@RequestParam String email) {
-		if (service.getUsersByEmail(email).size() == 0) {
-			return "emailNotFound";
-		}
-		MimeMessage mimeMessage = mailSender.createMimeMessage();
+    @ResponseBody
+    public String checkEmailAjax(@RequestParam ("email") String email,Model model) throws FileNotFoundException{
+        if (service.getUsersByEmail(email).size() == 0) {
+            return "emailNotFound";
+        }
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
         try {
-			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-			helper.setFrom("eeit14719@outlook.com");
-	        helper.setTo(email);
-	        helper.setSubject("主旨：認證email");
-	        helper.setText("<html><body>"
-	        		+ "<a href='http://localhost:8080/demo/timmy/buildEmailCertificationRP.controller?email="+ email +"'>click here to verify the email</a>"
-	        		+ "</body></html>", true);
-	        mailSender.send(mimeMessage);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-		return email;
-	}
+            StringBuilder verificationCode = new StringBuilder();
+            Random randomNuRandom = new Random();
+            for (int i = 0 ; i < 6 ; i++) {
+                verificationCode.append(randomNuRandom.nextInt(10));
+            }
+            System.out.println(verificationCode);
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("eeit14719@outlook.com");
+            message.setTo(email);
+            message.setSubject("PEEiT147.com - Welcome");
+            message.setText("Welcome, this number is your verification-code: " + verificationCode);
+            mailSender.send(message);
+            model.addAttribute("message", message);
+            model.addAttribute("verificationCode", verificationCode);
+            return verificationCode.toString();
+        }
+         catch (Exception e) {
+            e.printStackTrace();
+        }
+        return email;
+    }
 	
 	@GetMapping("/timmy/buildEmailCertificationRP.controller")
 	public String buildEmailCertificationRP(@RequestParam String email, Model m) {
@@ -209,10 +239,32 @@ public class UserSettingController {
 	@PostMapping("/timmy/updateForgottenPwdAjax")
 	@ResponseBody
 	public String updateForgottenPwdAjax(@RequestBody CommentDto dto) {
+		System.out.println("email: " + dto.getPostId());
 		List<Users> users = service.getUsersByEmail(dto.getPostId()); // postid 其實是email, commenttext 是密碼
 		Users u1 = users.get(0);
 		u1.setPassword(dto.getCommentText());
 		service.insertNewUser(u1);
 		return "update pwd success";
+	}
+	
+	@PostMapping("/timmy/oneBtnToUpdateUserAjax")
+	@ResponseBody
+	public String oneBtnToUpdateUserAjax(@RequestBody Map<String, Object> jsonData, HttpSession session) {
+		Users user = (Users) session.getAttribute("user");
+		Users u1 = service.getUserById(user.getUserId());
+		u1.setNickName(jsonData.get("name").toString());
+		try {
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar calendar = Calendar.getInstance();
+			Date date = dateFormat.parse(jsonData.get("birthday").toString());
+			calendar.setTime(date);
+			u1.setBirthday(calendar.getTime());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		u1.setPhone(jsonData.get("phone").toString());
+		u1.setSelfIntroduction(jsonData.get("introduction").toString());
+		service.insertNewUser(u1);
+		return "success";
 	}
 }

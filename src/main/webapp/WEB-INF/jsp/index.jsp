@@ -8,7 +8,10 @@
 <jsp:include page="timmy/layout/navbar.jsp" />
 
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />   
+
+
 <!DOCTYPE html>
+
 
 <html>
 <head>
@@ -16,6 +19,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Spring Boot WebSocket Chat Application</title>
 <link rel="stylesheet" href="/css/main.css" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js">
+	
+</script>
 </head>
 <body>
     <noscript>
@@ -30,11 +43,11 @@
             <form id="usernameForm" name="usernameForm">
                 <div class="form-group popup">
                     <input type="hidden" id="name" value="${oneMember.nickName}"
-                        autocomplete="off" class="form-control popup"  />
+                        autocomplete="off" class="form-control popup" />
                     <span class="popuptext" id="hint">請輸入名稱</span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="accent username-submit">進入客服中心</button>
+                    <button type="submit" class="btn btn-secondary">進入客服中心</button>
                 </div>
             </form>
         </div>
@@ -217,7 +230,6 @@ function onMessageReceived(payload) {
  * 頭像改成使用者圖片
  */
 function getAvatarElement(photo) {
-	console.log(message);
 	var avatarElement = document.createElement('i');
     var avatarImg = document.createElement('img');
     avatarImg.src = '${contextRoot}'+photo;
@@ -296,7 +308,7 @@ body:before {
     position: absolute;
     top: 0;
     left: 0;
-    background: #008080;
+    background: #6c757d;
     content: "";
     z-index: 0;
 }

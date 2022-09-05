@@ -30,13 +30,12 @@
 </head>
 <body>
 	<div class="container">
-		<div class="col-lg-8">
 		<br>
 			<!-- Rrepetitive Sstructure(user) -->
 				<div class="panel" style="padding-top: 2%">
 				<h3>People</h3>
 					<c:forEach items="${userList}" var="u" varStatus="vs">
-							<div class="activity__list__header">
+							<div>
 								<a href="${contextRoot}/timmy/readUserById/${u.getUserId()}">
 								<img src="${contextRoot}/${u.getPhotoPath()}"
 									alt="" style="width: 45px; height: 45px; border-radius: 50%;"/> ${u.getNickName()}
@@ -48,7 +47,15 @@
 								<i class="fa fa-paw"></i>
 								<c:forEach items="${u.getPets()}" var="pet" varStatus="loop">
 									<span style="border: solid; border-radius: 5%; border-color: #E0E0E0; border-width: 1px; padding: 15px 10px 18px 10px; margin: 5px">
+									
+									<c:if test='${fn:contains(pet.petPhotoPath, ".")}'>
 									<img alt="" src="${contextRoot}/${pet.getPetPhotoPath()}" style="height: 50px; width: 50px; border-radius: 30%">
+									</c:if>
+									
+									<c:if test='${!fn:contains(pet.petPhotoPath, ".")}'>
+									<img alt="" src="/demo/img/petimg/pawprint.png" style="height: 50px; width: 50px; border-radius: 30%">
+									</c:if>
+									
 									<c:if test="${pet.getPetType() == 0}"><span class="badge badge-info">Cat</span></c:if>
 									<c:if test="${pet.getPetType() == 1}"><span class="badge badge-info">Dog</span></c:if>
 									<c:if test="${pet.getPetType() == 2}"><span class="badge badge-info">Others</span></c:if>
@@ -96,7 +103,7 @@
 								<div class="dropdown" style="float: right; margin-right: 5%;">
 									<button id="demo1" class="dropbtn" style="visibility: hidden;">Dropdown</button>
 									<i class="fa fa-ellipsis-h" style="font-size: 22px"></i>
-									<div class="dropdown-content">
+									<div class="dropdown-content" style="min-width: 100px;">
 										
 										<c:if test="${p.postUser.getUserId() != user.getUserId()}">
 <%-- 										<form method="post" action="${contextRoot}/reportPost.controller?postId=${p.getPostId()}"> --%>
@@ -243,17 +250,18 @@
 										<!-- footer -->
 										<div>
 											<div>
-												<label> <input
+												<a href=#><label> <input
 													style="position: absolute; opacity: 0;" type="file"
 													name="postImg" id="file" multiple
 													onchange="readAsDataURL()"
 													accept="image/gif,image/jpeg,image/x-png" /> <i
 													class="fa fa-image"></i>
-												</label> &emsp; <label> <input
-													style="position: absolute; opacity: 0;" type="file"
-													name="postVideo" id="file" accept="video/*" /> <i
-													class="fa fa-video-camera"></i>
-												</label>
+												</label></a>
+<!-- 												&emsp; <label> <input -->
+<!-- 													style="position: absolute; opacity: 0;" type="file" -->
+<!-- 													name="postVideo" id="file" accept="video/*" /> <i -->
+<!-- 													class="fa fa-video-camera"></i> -->
+<!-- 												</label> -->
 											</div>
 											<button type="submit" class="btn btn-sm btn-rounded btn-info">Save</button>
 										</div>
@@ -552,7 +560,6 @@
 			</c:forEach>
 			<!--Rrepetitive Sstructure(post) -->
 			
-		</div>
 	</div>
 <!-- 		</div> -->
 

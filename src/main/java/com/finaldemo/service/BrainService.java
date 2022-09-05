@@ -17,6 +17,8 @@ import com.finaldemo.model.PostImg;
 import com.finaldemo.model.PostImgRepository;
 import com.finaldemo.model.Posts;
 import com.finaldemo.model.PostsRepository;
+import com.finaldemo.model.Products;
+import com.finaldemo.model.ProductsRepository;
 import com.finaldemo.model.Users;
 import com.finaldemo.model.UsersRepository;
 
@@ -95,11 +97,30 @@ public class BrainService {
 	@Autowired
 	private OrdersRepository oDao;
 	
-	public List<Integer> findOrdersByMonth() {
+	public List<String> findOrdersByMonth() {
 		return oDao.findOrdersByMonth();
 	}
 	public List<Integer> findOrdersBySumMoney() {
 		return oDao.findOrdersBySumMoney();
 	}
-
+	
+	// OrdersService
+	@Autowired
+	private ProductsRepository psDao;
+	
+	public void insertPosts(Products Products) {
+		psDao.save(Products);
+	}
+	
+	public List<Products> BrainGetProductsById(Integer userId) {
+		return psDao.findProudtsByUserId(userId);
+	}
+	
+	public Products findAllProducts(Integer id) {
+		return psDao.findById(id).get();
+	}
+	
+	
 }
+
+
