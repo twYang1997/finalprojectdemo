@@ -1,13 +1,19 @@
 package com.finaldemo.controller.timmy;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -30,13 +36,22 @@ public class EventController {
 		return "timmy/eventPage";
 	}
 	
+	@InitBinder
+	public void InitBinder(WebDataBinder binder) {
+		// 前端传入的时间格式必须是"yyyy-MM-dd"效果!
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		CustomDateEditor dateEditor = new CustomDateEditor(df, true);
+		binder.registerCustomEditor(Date.class, dateEditor);
+	}
+	
 	@PostMapping("/event/insertNewEvent.controller")
 	public String addEvent(@ModelAttribute("newEvent") Event event, HttpSession session) {
 		Users u1 = (Users) session.getAttribute("user");
-		Set<Event> eventList = u1.getMyHostEvents();
-		event.setEventHost(u1);
+		Users u2 = service.getUserById(u1.getUserId());
+		Set<Event> eventList = u2.getMyHostEvents();
+		event.setEventHost(u2);
 		eventList.add(event);
-		service.insertNewUser(u1);
+		service.insertNewUser(u2);
 		return "redirect:/eventPage";
 	}
 	

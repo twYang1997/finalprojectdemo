@@ -18,6 +18,8 @@
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -54,19 +56,18 @@
 								</div>
 								<c:if test="${!empty newEvent }">
 									<form:form class="form" method="post" action="${contextRoot}/event/insertNewEvent.controller" modelAttribute="newEvent">
-										<div class="modal-body">
+										<div class="modal-body"> 
 											<form:input class="form-control" path="eventId" type="text"
 												style="display:none" />
 											<!-- 										------------------ -->
-											<label>Event Name:</label>
+											<label>Event Name:</label><img id="randomNameBtn" src="/demo/img/eventimg/dice.png" width="20" style="float:right;margin-right:20px" >
 											<div>
-												<form:input class="form-control" path="eventName"
-													type="text" />
+												<form:input class="form-control" path="eventName" type="text" />
 											</div>
 											<!-- 										------------------ -->
 											<label>Introduction:</label>
 											<div>
-												<form:textarea class="form-control" path="eventDiscription"></form:textarea>
+												<form:textarea class="form-control" path="eventDiscription" placeholder="say something ..."></form:textarea>
 											</div>
 											<!-- 										------------------ -->
 											<label>Location:</label>
@@ -74,17 +75,19 @@
 												<form:input class="form-control" path="eventLocation"></form:input>
 											</div>
 <!-- 											------------------ -->  
-											<label>Max People</label>
-											<div>
-												<form:input class="form-control" path="maxNumPeople"
-													type="text" />
+											<label>How many people ?</label>
+											<div class="row">
+												<div class="col-sm-4" style="padding-right: 0">
+													<form:input class="form-control" path="maxNumPeople"
+														type="text" /> 
+												</div>
+												<div><h4>&nbsp;&nbsp;~</h4></div>
+												<div class="col-sm-4" style="padding-right: 0">
+													<form:input class="form-control" path="minNumPeople"
+														type="text" />
+												</div>
 											</div>
 <!-- 											------------------  -->
-											<label>Min People</label>
-											<div>
-												<form:input class="form-control" path="minNumPeople"
-													type="text" />
-											</div>
 											<label>Who can join ?</label>
 											<div>
 												<form:input class="form-control" path="whoCanJoin"
@@ -126,11 +129,16 @@
 		</div>
 	</div>
 </body>
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script>
+ $(function(){
+	 $("#randomNameBtn").click(function(){
+		 let a = Math.floor(Math.random() * 4);
+		 let randomName = ["來聚聚吧", "狗狗貓貓分享會", "交流一下呀", "嘿嘿嘿"]
+		 $("input[name=eventName]").attr("value", randomName[a])
+	 })
+ })
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script
-	src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>
 </html>

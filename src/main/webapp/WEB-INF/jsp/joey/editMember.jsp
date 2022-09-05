@@ -284,9 +284,9 @@ function loadXMLDoc()
 <!-- 														</div> -->
 														<script type="text/javascript">
 														$(".quickAddProduct").click(function() {
-															  $("#quickAddProductName").val("卡娜赫拉火車");
-															  $("#quickAddProductPrice").val("500");
-															  $("#productContext").val("只到9/1");
+															  $("#quickAddProductName").val("全方位貓咪天然糧 8磅");
+															  $("#quickAddProductPrice").val("2375");
+															  $("#productContext").val("高肉類蛋白質營養好吸收，低碳水無穀配方，滿足愛吃肉肉的毛孩需求。低致敏系列含單一蛋白質配方，針對易食物過敏的毛孩設計。皮毛保健蘊含豐富Omega油脂，能柔亮毛髮，益生菌注入加強腸胃健康。");
 															 });
 														</script>
 												</div>
@@ -574,8 +574,8 @@ function loadXMLDoc()
 								newDateArray.push(dateArray[i].substring(0,10))
 							}</script>
 										
-										<input onchange="filterData()" type="date" id="startdate" value="2022-08-20"> 
-										<input onchange="filterData()" type="date" id="enddate" value="2022-08-23">
+										<input onchange="filterData()" type="date" id="startdate" value="2022-01-01"> 
+										<input onchange="filterData()" type="date" id="enddate" value="2022-09-15">
 																		
 
 								
