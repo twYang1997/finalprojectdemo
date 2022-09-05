@@ -86,8 +86,9 @@
 										<table id="testTable" class="table">
 											<thead>
 												<tr>
-													<th class="col-md-6">Posts</th>
-													<th class="col-md-3">&nbsp;</th>
+													<th class="col-md-6">貼文</th>
+													<th class="col-md-3">移除 / 取消</th>
+													<th class="col-md-3">帳號</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -151,6 +152,7 @@
 																class="rounded-pill btn btn-outline-success font-weight-bold"
 																href="${contextRoot}/cancelRemovePosts?id=${p.postId}"
 																role="button">取消檢舉</a></td>
+															<td class="col-md-3">${p.postUser.email}</td>
 														</tr>
 													</c:if>
 												</c:forEach>

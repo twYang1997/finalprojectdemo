@@ -30,7 +30,6 @@
 </head>
 <body>
 	<div class="container">
-		<div class="col-lg-8">
 		<br>
 			<!-- Rrepetitive Sstructure(user) -->
 				<div class="panel" style="padding-top: 2%">
@@ -104,7 +103,7 @@
 								<div class="dropdown" style="float: right; margin-right: 5%;">
 									<button id="demo1" class="dropbtn" style="visibility: hidden;">Dropdown</button>
 									<i class="fa fa-ellipsis-h" style="font-size: 22px"></i>
-									<div class="dropdown-content">
+									<div class="dropdown-content" style="min-width: 100px;">
 										
 										<c:if test="${p.postUser.getUserId() != user.getUserId()}">
 <%-- 										<form method="post" action="${contextRoot}/reportPost.controller?postId=${p.getPostId()}"> --%>
@@ -251,17 +250,18 @@
 										<!-- footer -->
 										<div>
 											<div>
-												<label> <input
+												<a href=#><label> <input
 													style="position: absolute; opacity: 0;" type="file"
 													name="postImg" id="file" multiple
 													onchange="readAsDataURL()"
 													accept="image/gif,image/jpeg,image/x-png" /> <i
 													class="fa fa-image"></i>
-												</label> &emsp; <label> <input
-													style="position: absolute; opacity: 0;" type="file"
-													name="postVideo" id="file" accept="video/*" /> <i
-													class="fa fa-video-camera"></i>
-												</label>
+												</label></a>
+<!-- 												&emsp; <label> <input -->
+<!-- 													style="position: absolute; opacity: 0;" type="file" -->
+<!-- 													name="postVideo" id="file" accept="video/*" /> <i -->
+<!-- 													class="fa fa-video-camera"></i> -->
+<!-- 												</label> -->
 											</div>
 											<button type="submit" class="btn btn-sm btn-rounded btn-info">Save</button>
 										</div>
@@ -560,7 +560,6 @@
 			</c:forEach>
 			<!--Rrepetitive Sstructure(post) -->
 			
-		</div>
 	</div>
 <!-- 		</div> -->
 
