@@ -10,4 +10,5 @@ public class PageControllerTimmy {
 	public String returnIndex() {
 		return "timmy/index";
 	}
+	
 }

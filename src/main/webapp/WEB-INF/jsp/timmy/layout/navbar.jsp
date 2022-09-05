@@ -85,18 +85,9 @@
 						<a class="nav-link" href="${contextRoot}/memberChart"><img src="${contextRoot}/img/userimg/profile.png" style="width:30px"><span class="sr-only">(current)</span>
 				</a></li>
 				</c:if>
-				
-<!-- 				<li class="nav-item"><a class="nav-link" href="#">Link</a></li> -->
-<!-- 				<li class="nav-item dropdown"><a -->
-<!-- 					class="nav-link dropdown-toggle" href="#" role="button" -->
-<!-- 					data-toggle="dropdown" aria-expanded="false"> Link </a> -->
-<!-- 					<ul class="dropdown-menu"> -->
-<!-- 						<li><a class="dropdown-item" href="#">Action</a></li> -->
-<!-- 						<li><a class="dropdown-item" href="#">Another action</a></li> -->
-<!-- 						<li><hr class="dropdown-divider"></li> -->
-<!-- 						<li><a class="dropdown-item" href="#">Something else here</a></li> -->
-<!-- 					</ul></li> -->
-				
+				<li class="nav-item" style="margin-left:10%"><a class="nav-link"
+					href="${contextRoot}/eventPage"><img src="${contextRoot}/img/userimg/party.png" style="width:30px"><span class="sr-only">(current)</span>
+				</a></li>
 			</ul>
 			<form:form class="d-flex" method="GET" action="${contextRoot}/phoebe/search">
 				<input class="form-control mr-2" type="search" placeholder="Search"
