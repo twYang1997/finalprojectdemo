@@ -374,10 +374,12 @@
 													accept="image/gif,image/jpeg,image/x-png" /> <i
 													class="fa fa-image"></i>
 												</label> </a>
-<!-- 												&emsp;  -->
-<!-- 												<label> <input -->
-<!-- 													style="position: absolute; opacity: 0;" type="file" -->
-<!-- 													name="postVideo" id="file" accept="video/*" /> <i -->
+												&emsp; 
+<!-- 												<label>  -->
+												<input
+													style="position: absolute; opacity: 0;" type="file"
+													name="postVideo" id="file" accept="video/*" /> 
+<!-- 													<i -->
 <!-- 													class="fa fa-video-camera"></i> -->
 <!-- 												</label> -->
 											</div>
