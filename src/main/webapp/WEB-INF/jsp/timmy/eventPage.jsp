@@ -48,7 +48,7 @@
 							<div class="modal-content">
 								<!-- 彈出標題 -->
 								<div class="modal-header">
-									<h4 class="modal-title">Hold an event:</h4>
+									<h4 class="modal-title">Hold an event :</h4>
 									<button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
@@ -60,7 +60,7 @@
 											<form:input class="form-control" path="eventId" type="text"
 												style="display:none" />
 											<!-- 										------------------ -->
-											<label>Event Name:</label><img id="randomNameBtn" src="/demo/img/eventimg/dice.png" width="20" style="float:right;margin-right:20px" >
+											<label>Event Name:</label><img id="randomNameBtn" src="/demo/img/eventimg/dice.png" width="20" style="float:right;margin-right:20px"  >
 											<div>
 												<form:input class="form-control" path="eventName" type="text" />
 											</div>
@@ -78,38 +78,43 @@
 											<label>How many people ?</label>
 											<div class="row">
 												<div class="col-sm-4" style="padding-right: 0">
-													<form:input class="form-control" path="maxNumPeople"
-														type="text" /> 
-												</div>
-												<div><h4>&nbsp;&nbsp;~</h4></div>
-												<div class="col-sm-4" style="padding-right: 0">
 													<form:input class="form-control" path="minNumPeople"
-														type="text" />
+														type="number" value="0"/> 
+												</div>
+												<div><h4>&nbsp;&nbsp;-</h4></div>
+												<div class="col-sm-4" style="padding-right: 0">
+													<form:input class="form-control" path="maxNumPeople"
+														type="number" value="0"/>
 												</div>
 											</div>
 <!-- 											------------------  -->
 											<label>Who can join ?</label>
 											<div>
-												<form:input class="form-control" path="whoCanJoin"
-													type="text" />
+												<form:select class="form-control" path="whoCanJoin" type="text">
+													<option value="0">my friends</option>
+													<option value="1">followers</option>
+													<option value="2">fans</option>
+													<option value="3">all</option>
+												</form:select>
 											</div>
 <!-- 										------------------ -->
-											<label>Date</label>
+											<label>Date:</label>
 											<div class="form-group" style="text-align: left;">
 												<form:input path="eventDate" type="date"
 													class="form-control" />
 											</div>
 <!-- 										------------------ -->
-											<label>The date begin to invite</label>
-											<div class="form-group" style="text-align: left;">
-												<form:input path="invitationBeginDate" type="date"
-													class="form-control" />
-											</div>
-<!-- 										------------------ -->
-											<label>The date end to invite</label>
-											<div class="form-group" style="text-align: left;">
-												<form:input path="invitationEndDate" type="date"
-													class="form-control" />
+											<label>Recruitment period:</label>
+											<div class="row">
+												<div class="col-sm-4" style="padding-right: 0">
+													<form:input path="invitationBeginDate" type="date"
+														class="form-control" />
+												</div>
+												<div><h4>&nbsp;&nbsp;-</h4></div>
+												<div class="col-sm-4" style="padding-right: 0">
+													<form:input path="invitationEndDate" type="date"
+														class="form-control" />
+												</div>
 											</div>
 <!-- 										------------------ -->
 										</div>
