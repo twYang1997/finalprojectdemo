@@ -110,9 +110,11 @@
 														</ul>
 													</td>
 													<td class=""><a
-														class="rounded-pill btn btn-outline-success font-weight-bold"
+														class="rounded-pill btn btn-outline-danger font-weight-bold"
 														href="${contextRoot}/stopProducts?id=${Usersp.productId}"
-														role="button">移除</a>
+														role="button">
+														<img src="${contextRoot}/img/userimg/delete.png" class="udateicon" width="30">
+														</a>
 													</td>
 												</tr>
 											</c:if>
@@ -179,7 +181,9 @@
 													<td class="col-md-3"><a
 														class="rounded-pill btn btn-outline-success font-weight-bold"
 														href="${contextRoot}/stopProductsRestoration?id=${Usersp.productId}"
-														role="button">回復</a>
+														role="button">
+														<img src="${contextRoot}/img/userimg/reply.png" class="udateicon" width="30">
+														</a>
 													</td>
 												</tr>
 											</c:if>

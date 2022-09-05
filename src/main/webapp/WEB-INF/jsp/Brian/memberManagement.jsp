@@ -499,7 +499,9 @@
 											class="rounded-pill btn btn-outline-primary font-weight-bold"
 											role="button" data-toggle="modal"
 											data-target="#myModal${vs.index}"
-											id="viewDetailButton${vs.index}">修改</a>
+											id="viewDetailButton${vs.index}">
+											<img src="${contextRoot}/img/userimg/pencil.png" class="udateicon" width="30">
+											</a>
 											<div class="modal" id="myModal${vs.index}">
 												<div class="modal-dialog">
 													<div class="modal-content">
@@ -741,7 +743,9 @@
 												test="${users.category != 0 }">
 												<a id="aa${vs.index}"
 													class="rounded-pill btn btn-outline-danger font-weight-bold"
-													role="button">停用</a>
+													role="button">
+													<img src="${contextRoot}/img/userimg/delete.png" class="udateicon" width="30">
+													</a>
 												<script type="text/javascript">
 								<!--連接a標籤 要包住整個sweetalert2 -->
 								$("#aa${vs.index}").on('click', function (e) {
@@ -793,11 +797,15 @@
 												<a
 													class="rounded-pill btn btn-outline-success font-weight-bold"
 													href="${contextRoot}/rebirthUser?id=${users.userId}"
-													role="button">恢復</a>
+													role="button">
+													<img src="${contextRoot}/img/userimg/reply.png" class="udateicon" width="30">
+													</a>
 											</c:if> <!-- 										-------------------- --> <!--貼文記錄按鈕 --> <a
 											class="rounded-pill btn btn-outline-info font-weight-bold"
 											role="button" data-toggle="modal"
-											data-target="#myRecordModal${vs.index}">貼文記錄</a>
+											data-target="#myRecordModal${vs.index}">
+											<img src="${contextRoot}/img/userimg/application.png" class="udateicon" width="30">
+											</a>
 											<div class="modal" id="myRecordModal${vs.index}">
 												<div class="modal-dialog modal-dialog-scrollable">
 													<div class="modal-content">
